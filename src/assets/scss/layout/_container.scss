@@ -1,0 +1,14 @@
+.main-wrapper-default .main-container-fluid {
+	margin-left: $full-sidebar;
+}
+
+.main-wrapper-mini .main-container-fluid {
+	margin-left: $mini-sidebar;
+}
+.main-wrapper-checkout .main-container-fluid {
+	margin-left: $checkout-sidebar;
+}
+
+.main-container-fluid {
+	padding: 84px 20px 20px;
+}

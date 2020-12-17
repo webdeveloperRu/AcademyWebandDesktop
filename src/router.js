@@ -16,10 +16,8 @@ const router = new Router({
             // ======================
             // Theme routes / pages
             // ======================
-            children: [{
-                path: '/',
-                redirect: '/login'
-                }, {
+            children: [
+                {
                     path: '/login',
                     name: 'Login',
                     index: 1.1,
@@ -79,7 +77,11 @@ const router = new Router({
             // ======================
             // Theme routes / pages
             // ======================
-            children: [{
+            children: [
+            {
+                path: '/',
+                redirect: '/products'
+            },{
                 path: '/products',
                 name: 'Products',
                 index: 2.1,

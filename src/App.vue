@@ -12,11 +12,17 @@ export default {
   data: () => ({}),
   methods: {
     checkToken: function() {
-      this.$store
       this.$store.dispatch('settingManage/getAccountDetails')
       .then(() => {
-        if(this.status_got)
-          this.$router.push("/products").catch(()=>{});
+        if(this.status_got){
+          if (this.$router.currentRoute.fullPath=='/'){
+            this.$router.push('/products').catch(()=>{})
+
+          } else{
+          this.$router.push(this.$router.currentRoute).catch(()=>{});
+          }
+           
+        }
         if(!this.status_got) 
           this.$router.push("/login");
       })

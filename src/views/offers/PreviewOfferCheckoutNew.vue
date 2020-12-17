@@ -395,7 +395,7 @@ export default {
     initCheckoutPage() {
       this.$store.dispatch('offerManage/getPublicOfferByID', this.offer_id).then(()=>{
         this.csslogoImageUrl = "url(" + this.selected_public_offer.logo_image + ")";
-        
+        console.log(this.selected_public_offer)
         if (this.service_agreement.status == undefined)   {
           this.show_required = false
         }

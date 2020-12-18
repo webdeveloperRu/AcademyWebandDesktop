@@ -184,15 +184,15 @@
           <br/>
         <div v-for="(testimonial, index) in testimonials" v-bind:key="index">
           <div >
-            <h4 class="mt-3 mb-3">{{testimonials[index].title}}</h4>
+            <h4 class="mt-3 mb-3" v-if="index==0">{{testimonials[index].title}}</h4>
             <label class="edit-button" size="small">Edit</label>
           </div>
 
-          <div>
+          <div class="mb-3">
             <div class="testimonial-description  mx-1 my-1">
               {{testimonials[index].quote_text}}
             </div>
-            <div class="d-flex mt-3 mx-1 mb-1" style="align-items:center">
+            <div class="d-flex mt-2 mx-1 mb-1" style="align-items:center">
               <vs-avatar size="large" :src="testimonials[index].avatar_img"></vs-avatar>
               <h4>{{testimonials[index].author_name}}</h4>
             </div>

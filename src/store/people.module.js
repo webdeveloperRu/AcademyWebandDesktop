@@ -61,7 +61,7 @@ export const peopleManage = {
       return PeopleService.updatePeopleByID(people, people_id).then(
         res => {
           if(res.status ===200){
-            commit('updatePeopleByIDSuccess');
+            commit('updatePeopleByIDSuccess', res);
           }
           else{
             if(res.response == undefined)
@@ -190,12 +190,18 @@ export const peopleManage = {
     /**
      * ---------update proudct Success ----------------
      */
-    updatePeopleByIDSuccess(){
+    updatePeopleByIDSuccess(state, res){
       store.state.status = { got: true};
       store.state.notification_icon = 'info';
       store.state.notification_color = 'primary';
       store.state.notification_text = 'People successfully updated!';
-      // state.category_list = 
+      state.current_people = res.data.data
+      for (let i = 0; i < state.people_list.length; i++) {
+        if (state.people_list[i].id == state.current_people.id) {
+          state.people_list[i] = state.current_people;
+        }
+      }
+      
     },
 
     RESET_MODULE (state) {

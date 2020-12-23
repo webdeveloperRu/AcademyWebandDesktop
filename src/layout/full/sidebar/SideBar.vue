@@ -47,9 +47,12 @@
             <!-- save part -->
             <div class="d-flex m-4 " style="justify-content: space-between">
               <div class="primary-font" style="padding: 10px"> OFFER CHECKOUT</div>
-              <vs-button @click="saveEditCheckout"> save </vs-button>
-            </div>
-            <hr>
+                <div >
+                  <vs-button @click="backToOffers" class="mr-2" > back </vs-button>
+                  <vs-button @click="saveEditCheckout"> save </vs-button>
+                </div>
+              </div>
+              <hr>
 
             <!-- new check out design part -->
             <div class="m-4">
@@ -762,6 +765,9 @@ export default {
           icon: this.notification_icon
         })
       })
+    },
+    backToOffers(){
+      this.$router.push('/offers/edit-offer/' + this.offer_id)
     },
 
     /**

@@ -5,7 +5,13 @@
      -->
     <vs-col vs-lg="10" vs-xs="12">
       <div class="mb-4">
-        <span class="ml-2 mt-2 primary-font" @click="backToPeoples" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> {{selected_people.name}}</span>
+        <span
+          class="ml-2 mt-2 primary-font"
+          @click="backToPeoples"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i>
+          {{ selected_people.name }}</span
+        >
         <div class="d-flex mt-3">
           <h2>Contact Tags</h2>
         </div>
@@ -79,7 +85,6 @@
   </vs-row>
 </template>
 
-
 <script>
 export default {
   name: "ContactTags",
@@ -103,26 +108,26 @@ export default {
     confirm_delete: "",
   }),
   computed: {
-     people_id : {
-      get () {
-        var id = this.$route.params.people_id
+    people_id: {
+      get() {
+        var id = this.$route.params.people_id;
         return id.slice(0, id.length);
-      }
+      },
     },
     selected_people: {
       get() {
-        return this.$store.getters["peopleManage/current_people"]
-      }
+        return this.$store.getters["peopleManage/current_people"];
+      },
     },
   },
   methods: {
     backToPeoples() {
-      this.$router.push('/people/edit-people/' + this.people_id)
-    }
-  }
+      this.$router.push("/people/edit-people/" + this.people_id);
+    },
+  },
 };
 </script>
-<style >
+<style>
 .vs-table--pagination {
   width: 99%;
 }

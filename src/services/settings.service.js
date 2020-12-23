@@ -1,37 +1,42 @@
 import axios from 'axios';
 import apiurl from './base_api_url'
 import store from '../store'
-import {authHeaderV2} from './authHeaderV2'
-const API_URL = apiurl.API_URL_V2+'settings/';
-class SettingService { 
+import {
+  authHeaderV2
+} from './authHeaderV2'
+const API_URL = apiurl.API_URL_V2 + 'settings/';
+class SettingService {
   /**
    * ---------get notification ---------
    */
   getNotification() {
     return axios
-      .get(API_URL+'notifications',  {headers:  authHeaderV2()})
+      .get(API_URL + 'notifications', {
+        headers: authHeaderV2()
+      })
       .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-   /**
+  /**
    * ---------update notification-----------------------
    */
   setNotification(notificaton) {
     return axios
-      .post(API_URL+'notifications', 
-       notificaton,
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .post(API_URL + 'notifications',
+        notificaton, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -39,15 +44,16 @@ class SettingService {
    */
   setCustomDomain(custom_domain) {
     return axios
-      .put(API_URL+'custom_domain', 
-       custom_domain,
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .put(API_URL + 'custom_domain',
+        custom_domain, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -55,14 +61,15 @@ class SettingService {
    */
   getCustomDomain() {
     return axios
-      .get(API_URL+'custom_domain', 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .get(API_URL + 'custom_domain', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -70,29 +77,31 @@ class SettingService {
    */
   deleteCustomDomain() {
     return axios
-      .delete(API_URL+'custom_domain', 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .delete(API_URL + 'custom_domain', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
   /**
-  * ---------set billing adderess-----------------------
+   * ---------set billing adderess-----------------------
    */
   setBillingAddress(billing_address) {
     return axios
-      .put(API_URL+'billing-address', 
-       billing_address,
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .put(API_URL + 'billing-address',
+        billing_address, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -100,14 +109,15 @@ class SettingService {
    */
   getBillingAddress() {
     return axios
-      .get(API_URL+'billing-address', 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .get(API_URL + 'billing-address', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -115,21 +125,26 @@ class SettingService {
    */
   getAccountDetails() {
     return axios
-      .get(API_URL+'account-details', 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .get(API_URL + 'account-details', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
    * ---------set Account details-----------------------
    */
   setAccountDetails(account_details) {
-    let header = {'apikey': store.state.auth.user.token, "accept": "application/json",'Content-Type': 'multipart/form-data'};
+    let header = {
+      'apikey': store.state.auth.user.token,
+      "accept": "application/json",
+      'Content-Type': 'multipart/form-data'
+    };
     var FormData = require('form-data');
     var data = new FormData()
     data.append('email', account_details.email);
@@ -139,15 +154,16 @@ class SettingService {
     data.append('social_bio', account_details.social_bio);
     data.append('location', account_details.location);
     return axios
-      .post(API_URL+'account-details', 
-        data,
-        {headers: header})
-      .then(response => {       
+      .post(API_URL + 'account-details',
+        data, {
+          headers: header
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -155,14 +171,15 @@ class SettingService {
    */
   deleteAccountDetails() {
     return axios
-      .delete(API_URL+'account-details', 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .delete(API_URL + 'account-details', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -173,35 +190,37 @@ class SettingService {
     var data = new FormData()
     data.append('avatar', avatar);
     return axios
-      .put(API_URL+'account-details/avatar', 
-        data,
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .put(API_URL + 'account-details/avatar',
+        data, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-    /**
+  /**
    * ---------delete Account Avatar-----------------------
    */
   deleteAccountAvatar() {
     return axios
-      .delete(API_URL+'account-details/avatar', 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .delete(API_URL + 'account-details/avatar', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
 
 
- 
+
 
 
 

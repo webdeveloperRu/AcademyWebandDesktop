@@ -5,7 +5,12 @@
      -->
     <vs-col vs-lg="9" vs-sm="12" vs-xs="12">
       <div class="mb-4">
-        <span class="ml-2 mb-2 mt-2 primary-font"  @click="backToSettings" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span>
+        <span
+          class="ml-2 mb-2 mt-2 primary-font"
+          @click="backToSettings"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span
+        >
         <div class="d-flex mt-3">
           <h2>Account Details</h2>
         </div>
@@ -59,8 +64,12 @@
               label="Phone Number"
               v-model="phone_number"
               class="w-100 mt-3"
-            />            
-            <vs-select class="w-100 mt-3" label="Time zone" v-model="account_time_zone">
+            />
+            <vs-select
+              class="w-100 mt-3"
+              label="Time zone"
+              v-model="account_time_zone"
+            >
               <vs-select-item
                 :key="index"
                 :value="item.value"
@@ -85,7 +94,10 @@
                   Recommended dimentions of
                   <strong>100<i class="mdi mdi-close"></i>100</strong>
                 </div>
-                <div class="d-flex" style="justify-content: flex-start; align-items: center;">
+                <div
+                  class="d-flex"
+                  style="justify-content: flex-start; align-items: center;"
+                >
                   <label class="avatar-select-button">
                     <input
                       type="file"
@@ -94,13 +106,19 @@
                       class="custom-file-input"
                       accept="image/png, image/jpeg"
                     />
-                      Select Image
+                    Select Image
                   </label>
-                  <vs-button @click="onClickRemoveAvatar" color="danger" type="flat" class="ml-3">Remove Image</vs-button>
+                  <vs-button
+                    @click="onClickRemoveAvatar"
+                    color="danger"
+                    type="flat"
+                    class="ml-3"
+                    >Remove Image</vs-button
+                  >
                 </div>
               </div>
             </div>
-          </vs-card>         
+          </vs-card>
         </vs-col>
       </vs-row>
 
@@ -117,7 +135,9 @@
           code-toggler
         >
           <h3>Social Profile</h3>
-          <div class="mt-2">Edit information displayed publicly in communities.</div>
+          <div class="mt-2">
+            Edit information displayed publicly in communities.
+          </div>
         </vs-col>
         <vs-col
           type="flex"
@@ -129,11 +149,7 @@
         >
           <vs-card class="cardx">
             <label>Bio</label>
-            <vs-textarea
-              placeholder=""
-              v-model="account_bio"
-              class="w-100"
-            />
+            <vs-textarea placeholder="" v-model="account_bio" class="w-100" />
             <vs-input
               label="Location"
               v-model="account_location"
@@ -142,14 +158,14 @@
           </vs-card>
         </vs-col>
       </vs-row>
-       <div style="float: right">
-          <vs-button class="mt-3" @click="saveAccountDetails">Save</vs-button>
-        </div>
+      <div style="float: right">
+        <vs-button class="mt-3" @click="saveAccountDetails">Save</vs-button>
+      </div>
     </vs-col>
   </vs-row>
 </template>
 <script>
-import time_zone from '../../models/time_zone';
+import time_zone from "../../models/time_zone";
 export default {
   name: "AccountDetails",
 
@@ -163,55 +179,55 @@ export default {
     time_zones: time_zone.time_zones,
     account_bio: "",
     account_location: "",
-    avatar_url:"",
+    avatar_url: "",
     avatar_file: null,
     updated_avatar: false,
   }),
 
-   /**
+  /**
    * --------------computed part-------------
    */
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
     logged_user: {
       get() {
-        return this.$store.getters["auth/logged_user"]
-      }
+        return this.$store.getters["auth/logged_user"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     account_details: {
-      get () {
-        return this.$store.getters["settingManage/account_details"]
-      }
+      get() {
+        return this.$store.getters["settingManage/account_details"];
+      },
     },
   },
 
@@ -219,7 +235,7 @@ export default {
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
     this.initAccountDetails();
   },
 
@@ -228,76 +244,81 @@ export default {
    */
   methods: {
     initAccountDetails() {
-      this.$store.dispatch('settingManage/getAccountDetails').then(()=>{
-          this.account_name  = this.account_details.name;
-          this.account_ID  = this.account_details.id;
+      this.$store
+        .dispatch("settingManage/getAccountDetails")
+        .then(() => {
+          this.account_name = this.account_details.name;
+          this.account_ID = this.account_details.id;
           this.account_email = this.account_details.email;
           this.avatar_url = this.account_details.avatar;
           this.phone_number = this.account_details.phone;
           this.account_bio = this.account_details.social_bio;
           this.account_location = this.account_details.location;
-          this.account_time_zone  = this.account_details.time_zone;
-      })
-       .catch(() => {
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+          this.account_time_zone = this.account_details.time_zone;
         })
-      })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
-    onSelectAvatar (e) {
+    onSelectAvatar(e) {
       const file = e.target.files[0];
-        if(file !== undefined) {
-          this.avatar_file = file;        
-          this.avatar_url = URL.createObjectURL(file);
-          this.updated_avatar = true;
-        }
+      if (file !== undefined) {
+        this.avatar_file = file;
+        this.avatar_url = URL.createObjectURL(file);
+        this.updated_avatar = true;
+      }
     },
 
     onClickRemoveAvatar() {
-      this.avatar_url = ""
+      this.avatar_url = "";
       this.updated_avatar = true;
       this.avatar_file = null;
     },
     updateAvatar() {
-      if(this.updated_avatar){
-        if(this.avatar_file == null) {
-          this.$store.dispatch('settingManage/deleteAccountAvatar').then(()=>{
+      if (this.updated_avatar) {
+        if (this.avatar_file == null) {
+          this.$store
+            .dispatch("settingManage/deleteAccountAvatar")
+            .then(() => {
               this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             })
-          })
-          .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
-            })
-          })
+            .catch(() => {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
+            });
           this.updated_avatar = false;
-        } else{
-          this.$store.dispatch('settingManage/setAccountAvatar', this.avatar_file).then(()=>{
+        } else {
+          this.$store
+            .dispatch("settingManage/setAccountAvatar", this.avatar_file)
+            .then(() => {
               this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             })
-          })
-          .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
-            })
-          })
+            .catch(() => {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
+            });
           this.updated_avatar = false;
         }
       }
-
     },
 
     saveAccountDetails() {
@@ -308,31 +329,32 @@ export default {
         time_zone: this.account_time_zone,
         social_bio: this.account_bio,
         location: this.account_location,
-        avatar: this.avatar_file
-      }
+        avatar: this.avatar_file,
+      };
 
-      this.$store.dispatch('settingManage/setAccountDetails', account_details).then(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+      this.$store
+        .dispatch("settingManage/setAccountDetails", account_details)
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
         })
-      })
-       .catch(() => {
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-      })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
       this.updateAvatar();
     },
 
     backToSettings() {
-      this.$router.push('/settings')
-    }
+      this.$router.push("/settings");
+    },
   },
- 
 };
 </script>
 <style>

@@ -5,7 +5,12 @@
      -->
     <vs-col vs-lg="9" vs-xs="12">
       <div class="mb-4">
-         <span class="ml-2 mb-2 mt-2 primary-font"  @click="backToSettings" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span>
+        <span
+          class="ml-2 mb-2 mt-2 primary-font"
+          @click="backToSettings"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span
+        >
         <div class="d-flex mt-3">
           <h2>Billing Address</h2>
         </div>
@@ -123,45 +128,45 @@ export default {
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
     billing_address: {
       get() {
-        return this.$store.getters["settingManage/billing_address"]
-      }
-    }
+        return this.$store.getters["settingManage/billing_address"];
+      },
+    },
   },
 
   /**
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
     this.getBillingAdderss();
   },
 
@@ -169,64 +174,61 @@ export default {
    * --------------method part-------------
    */
   methods: {
-
     getBillingAdderss() {
-      this.$store.dispatch('settingManage/getBillingAddress').then(()=>{
-        this.billing_phone = this.billing_address.phone_number;
-        this.billing_address1 = this.billing_address.address1;
-        this.billing_address2 = this.billing_address.address2;
-        this.billing_city = this.billing_address.address_city;
-        this.billing_state = this.billing_address.address_state;
-        this.billing_country = this.billing_address.address_country;
-        this.billing_zipcode = this.billing_address.zip_code;
-        this.billing_vatnumber = this.billing_address.vat_number;
-      })
-      .catch(() => {
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+      this.$store
+        .dispatch("settingManage/getBillingAddress")
+        .then(() => {
+          this.billing_phone = this.billing_address.phone_number;
+          this.billing_address1 = this.billing_address.address1;
+          this.billing_address2 = this.billing_address.address2;
+          this.billing_city = this.billing_address.address_city;
+          this.billing_state = this.billing_address.address_state;
+          this.billing_country = this.billing_address.address_country;
+          this.billing_zipcode = this.billing_address.zip_code;
+          this.billing_vatnumber = this.billing_address.vat_number;
         })
-      })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
-
-    backToSettings(){
-      this.$router.push('/settings')
+    backToSettings() {
+      this.$router.push("/settings");
     },
 
     setBillingAddress() {
       let billing_address = {
-        phone_number: this.billing_phone, 
+        phone_number: this.billing_phone,
         address1: this.billing_address1,
         address2: this.billing_address2,
         address_city: this.billing_city,
         address_state: this.billing_state,
         address_country: this.billing_country,
         zip_code: this.billing_zipcode,
-        vat_number: this.billing_vatnumber
-      }
+        vat_number: this.billing_vatnumber,
+      };
 
-      this.$store.dispatch('settingManage/setBillingAddress', billing_address).then(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+      this.$store
+        .dispatch("settingManage/setBillingAddress", billing_address)
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
         })
-      })
-      .catch(() => {
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-      })
-
-
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
-
-
   },
-  
 };
 </script>

@@ -1,36 +1,41 @@
 import axios from 'axios';
 import apiurl from './base_api_url'
-import {authHeaderV2} from './authHeaderV2'
-const API_URL = apiurl.API_URL_V2+'templates/';
-class TemplatesService { 
+import {
+  authHeaderV2
+} from './authHeaderV2'
+const API_URL = apiurl.API_URL_V2 + 'templates/';
+class TemplatesService {
   /**
    * ---------add new email template---------
    */
   addTemplate(template) {
     template = JSON.stringify(template);
     return axios
-      .post(API_URL,  template, {headers:  authHeaderV2()})
+      .post(API_URL, template, {
+        headers: authHeaderV2()
+      })
       .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-   /**
+  /**
    * ---------get all email templates-----------------------
    */
   getTemplateList() {
     return axios
-      .get(API_URL, 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .get(API_URL, {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -38,14 +43,15 @@ class TemplatesService {
    */
   getTemplateByID(template_id) {
     return axios
-      .get(API_URL+template_id, 
-        {headers:  authHeaderV2()})
-      .then(response => {   
+      .get(API_URL + template_id, {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -53,15 +59,16 @@ class TemplatesService {
    */
   updateTemplate(template) {
     return axios
-      .post(API_URL, 
-        template, 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .post(API_URL,
+        template, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -69,15 +76,16 @@ class TemplatesService {
    */
   resetTemplate(template) {
     return axios
-      .delete(API_URL +'reset/' + template.slug, 
-        {headers:  authHeaderV2()})
-      .then(response => {       
+      .delete(API_URL + 'reset/' + template.slug, {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
-    
+      });
+
   }
 
   /**
@@ -85,17 +93,22 @@ class TemplatesService {
    */
   sendTestEmail(template, email) {
     return axios
-      .post(API_URL + 'send-test-email',  {email: email, slug: template.slug}, {headers:  authHeaderV2()})
+      .post(API_URL + 'send-test-email', {
+        email: email,
+        slug: template.slug
+      }, {
+        headers: authHeaderV2()
+      })
       .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
 
-  
+
 
 }
 export default new TemplatesService();

@@ -1,37 +1,42 @@
 import axios from 'axios';
 import apiurl from './base_api_url'
-import {authHeader} from './authHeader'
-const API_URL = apiurl.API_URL+'people/';
-class PeopleService { 
+import {
+  authHeader
+} from './authHeader'
+const API_URL = apiurl.API_URL + 'people/';
+class PeopleService {
   /**
    * ---------get people list---------
    */
   getPeopleList() {
     return axios
-      .get(API_URL,  {headers:  authHeader()})
+      .get(API_URL, {
+        headers: authHeader()
+      })
       .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-   /**
+  /**
    * ---------add new people -----------------------
    */
   addPeople(people) {
     people = JSON.stringify(people);
     return axios
-      .post(API_URL, 
-        people, 
-        {headers:  authHeader()})
-      .then(response => {       
+      .post(API_URL,
+        people, {
+          headers: authHeader()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -39,14 +44,15 @@ class PeopleService {
    */
   getPeopleByID(people_id) {
     return axios
-      .get(API_URL+people_id, 
-        {headers:  authHeader()})
-      .then(response => {   
+      .get(API_URL + people_id, {
+        headers: authHeader()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -55,15 +61,16 @@ class PeopleService {
   updatePeopleByID(people, people_id) {
     people = JSON.stringify(people);
     return axios
-      .put(API_URL+people_id, 
-        people, 
-        {headers:  authHeader()})
-      .then(response => {       
+      .put(API_URL + people_id,
+        people, {
+          headers: authHeader()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -71,15 +78,16 @@ class PeopleService {
    */
   deletePeopleByID(people_id) {
     return axios
-      .delete(API_URL+people_id, 
-        {headers:  authHeader()})
-      .then(response => {       
+      .delete(API_URL + people_id, {
+        headers: authHeader()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
-    
+      });
+
   }
 
 }

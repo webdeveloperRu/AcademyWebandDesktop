@@ -1,35 +1,41 @@
 import axios from 'axios';
 import apiurl from './base_api_url'
-import {authHeaderV2} from './authHeaderV2'
-const API_URL = apiurl.API_URL_V2+'site-details/';
-class SiteDetailsService { 
+import {
+  authHeaderV2
+} from './authHeaderV2'
+const API_URL = apiurl.API_URL_V2 + 'site-details/';
+class SiteDetailsService {
   /**
    * ---------get all site details ---------
    */
   getSiteDetails() {
     return axios
-      .get(API_URL + 'all',  {headers:  authHeaderV2()})
+      .get(API_URL + 'all', {
+        headers: authHeaderV2()
+      })
       .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-   /**
+  /**
    * ---------setup site details ---------
    */
   setupSiteDetails(site_details) {
     site_details = JSON.stringify(site_details);
     return axios
-      .post(API_URL + 'info', site_details, {headers:  authHeaderV2()})
+      .post(API_URL + 'info', site_details, {
+        headers: authHeaderV2()
+      })
       .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -37,14 +43,15 @@ class SiteDetailsService {
    */
   getSiteDetailsInfo() {
     return axios
-      .get(API_URL + 'info', 
-        {headers:  authHeaderV2()})
-      .then(response => {   
+      .get(API_URL + 'info', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -52,15 +59,16 @@ class SiteDetailsService {
    */
   setupSiteDetailsInfo(site_info) {
     return axios
-      .post(API_URL + 'info', 
-        site_info,
-        {headers:  authHeaderV2()})
-      .then(response => {   
+      .post(API_URL + 'info',
+        site_info, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -73,46 +81,49 @@ class SiteDetailsService {
     data.append('name', instructor.name);
     data.append('title', instructor.title);
     return axios
-      .post(API_URL + 'instructor', 
-      data,
-        {headers:  authHeaderV2()})
-      .then(response => {   
+      .post(API_URL + 'instructor',
+        data, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-   /**
+  /**
    * ---------get default instructor for user ---------------
    */
   getDefaultInstructor() {
     return axios
-      .get(API_URL + 'instructor', 
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .get(API_URL + 'instructor', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-   /**
+  /**
    * ---------setup page script---------------
    */
   setupPageScript(script) {
     return axios
       .post(API_URL + 'scripts',
-      script,
-      {headers:  authHeaderV2()})
-      .then(response => {   
+        script, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -120,14 +131,15 @@ class SiteDetailsService {
    */
   getPageScript() {
     return axios
-      .get(API_URL + 'scripts',
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .get(API_URL + 'scripts', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -135,14 +147,15 @@ class SiteDetailsService {
    */
   deletePageScript() {
     return axios
-      .delete(API_URL + 'scripts',
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .delete(API_URL + 'scripts', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -156,30 +169,32 @@ class SiteDetailsService {
     data.append('page_description', seo_and_sharing.page_description);
     return axios
       .post(API_URL + 'share',
-      data,
-      {headers:  authHeaderV2()})
-      .then(response => {   
+        data, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-  
+
   /**
    * ---------get seo and sharing---------------
    */
   getSeoAndSharing() {
     return axios
-      .get(API_URL + 'share',
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .get(API_URL + 'share', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -192,62 +207,66 @@ class SiteDetailsService {
     data.append('favicon', branding.favicon);
     return axios
       .post(API_URL + 'branding',
-      data,
-      {headers:  authHeaderV2()})
-      .then(response => {   
+        data, {
+          headers: authHeaderV2()
+        })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-  
+
   /**
    * ---------get branding---------------
    */
   getBranding() {
     return axios
-      .get(API_URL + 'branding',
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .get(API_URL + 'branding', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-    
+
   /**
    * ---------remvoe instructor image----
    */
   removeInstructorImage() {
     return axios
-      .delete(API_URL + 'img/instructor',
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .delete(API_URL + 'img/instructor', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
-    
+
   /**
    * ---------remvoe page image----
    */
   removePageImage() {
     return axios
-      .delete(API_URL + 'img/share',
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .delete(API_URL + 'img/share', {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
 
   /**
@@ -255,16 +274,17 @@ class SiteDetailsService {
    */
   removeBrandingImage(param) {
     return axios
-      .delete(API_URL + 'branding/remove/'+ param,
-      {headers:  authHeaderV2()})
-      .then(response => {   
+      .delete(API_URL + 'branding/remove/' + param, {
+        headers: authHeaderV2()
+      })
+      .then(response => {
         return response;
       })
       .catch(err => {
         return err;
-    });
+      });
   }
-  
+
 
 
 

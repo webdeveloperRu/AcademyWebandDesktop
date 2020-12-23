@@ -36,11 +36,7 @@
               v-model="author_name"
               class="w-100"
             />
-            <vs-textarea
-              label="Quote"
-              v-model="quote"
-              class="w-100 mt-3"
-            />
+            <vs-textarea label="Quote" v-model="quote" class="w-100 mt-3" />
             <label class="ml-2 mt-3"><b>Avatar</b></label>
             <div
               class="d-flex"
@@ -52,9 +48,12 @@
                   Recommended dimentions of
                   <strong>100<i class="mdi mdi-close"></i>100</strong>
                 </div>
-                <div class="d-flex" style="justify-content: flex-start; align-items: center;">
+                <div
+                  class="d-flex"
+                  style="justify-content: flex-start; align-items: center;"
+                >
                   <label class="avatar-select-button" style="user-select:none;">
-                   <input
+                    <input
                       type="file"
                       ref="avatarSelector"
                       @change="selectTestimonialAvatar"
@@ -63,12 +62,12 @@
                       class="custom-file-input"
                       accept="image/png, image/jpeg"
                     />
-                      Change Avatar
+                    Change Avatar
                   </label>
                 </div>
               </div>
             </div>
-          </vs-card>         
+          </vs-card>
         </vs-col>
       </vs-row>
       <vs-divider></vs-divider>
@@ -80,99 +79,96 @@
 </template>
 
 <script>
-
 export default {
-  name : 'StarterPage',
+  name: "StarterPage",
   data: () => ({
     author_name: "",
     quote: "",
-    avatar_url:"",
+    avatar_url: "",
     avatar_file: null,
     updated_avatar: false,
-    changedAvatar : false
+    changedAvatar: false,
   }),
 
   computed: {
     offer_id: function() {
-      var id = this.$route.params.offer_id
+      var id = this.$route.params.offer_id;
       return id.slice(0, id.length);
     },
     testimonial_title: {
       get() {
-        return this.$store.getters["offerManage/testimonial_title"]
-      }
+        return this.$store.getters["offerManage/testimonial_title"];
+      },
     },
-     user_logged: {
+    user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
-
   },
 
   methods: {
-    
     addTestimonial() {
       let testimonial = {
-        'title': this.testimonial_title,
-        'author_name': this.author_name,
-        'quote_text' : this.quote,
-        'avatar_img' : this.avatar_file
-      }
-      this.$store.dispatch('offerManage/addTestimonial', [testimonial, this.offer_id]).then(()=>{
-        this.$router.go(-1);
-      })
-      .catch(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+        title: this.testimonial_title,
+        author_name: this.author_name,
+        quote_text: this.quote,
+        avatar_img: this.avatar_file,
+      };
+      this.$store
+        .dispatch("offerManage/addTestimonial", [testimonial, this.offer_id])
+        .then(() => {
+          this.$router.go(-1);
         })
-      })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
     resetTestimonialAvatar() {
-      this.$refs.avatarSelector.value = '';
+      this.$refs.avatarSelector.value = "";
     },
     /**
      *  select avatar
      */
     selectTestimonialAvatar(e) {
       let avatar = e.target.files[0];
-      if(avatar !== undefined) {
+      if (avatar !== undefined) {
         this.avatar_url = URL.createObjectURL(avatar);
         this.avatar_file = avatar;
-        this.changedAvatar =true;
+        this.changedAvatar = true;
       }
     },
-  }
-
-
-}
+  },
+};
 </script>
 <style>
 .avatar-select-button {

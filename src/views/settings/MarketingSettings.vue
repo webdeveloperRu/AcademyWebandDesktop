@@ -5,7 +5,12 @@
      -->
     <vs-col vs-lg="9" vs-xs="12">
       <div class="mb-4">
-        <span class="ml-2 mb-2 mt-2 primary-font" @click="backToSettings" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span>
+        <span
+          class="ml-2 mb-2 mt-2 primary-font"
+          @click="backToSettings"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span
+        >
         <div class="d-flex mt-3">
           <h2>Marketing Settings</h2>
         </div>
@@ -1001,17 +1006,16 @@ export default {
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
   },
-  
+
   /**
    * --------------method part-------------
    */
   methods: {
-    backToSettings(){
-      this.$router.push('/settings')
-    }
+    backToSettings() {
+      this.$router.push("/settings");
+    },
   },
-  
 };
 </script>

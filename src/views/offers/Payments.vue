@@ -1,8 +1,13 @@
 <template>
   <div>
-     <vs-row vs-justify="center" class="progressbar">
+    <vs-row vs-justify="center" class="progressbar">
       <vs-col vs-sm="12" vs-lg="10">
-        <span @click="backToOffer" style="cursor: pointer;" class="ml-2 mb-5 mt-2 primary-font"><i class="ti-angle-left" style="font-size: 14px;"></i> Offers</span>
+        <span
+          @click="backToOffer"
+          style="cursor: pointer;"
+          class="ml-2 mb-5 mt-2 primary-font"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Offers</span
+        >
         <h2 class="mt-3" style="color: #333; font-weight: 600">Payments</h2>
         <br />
       </vs-col>
@@ -10,7 +15,13 @@
     <vs-row vs-justify="center">
       <vs-col vs-sm="12" vs-lg="10">
         <vs-card>
-          <vs-table search :data="all_payments" class="text-nowrap" max-items="10" pagination>
+          <vs-table
+            search
+            :data="all_payments"
+            class="text-nowrap"
+            max-items="10"
+            pagination
+          >
             <div slot="header">
               <!-- <vs-select class="w-100 mt-3" v-model="product">
                 <vs-select-item
@@ -20,7 +31,7 @@
                   v-for="(item, index) in products"
                 />
               </vs-select> -->
-                Displaying all 10 payment transactions
+              Displaying all 10 payment transactions
             </div>
             <template slot="thead">
               <vs-th>ID</vs-th>
@@ -33,8 +44,13 @@
               <vs-th>CREATED AT</vs-th>
             </template>
 
-            <template slot-scope="{data}">
-              <vs-tr class="border-top" :data="tr" :key="indextr" v-for="(tr, indextr) in data">             
+            <template slot-scope="{ data }">
+              <vs-tr
+                class="border-top"
+                :data="tr"
+                :key="indextr"
+                v-for="(tr, indextr) in data"
+              >
                 <vs-td>{{ data[indextr].id }}</vs-td>
                 <vs-td>${{ data[indextr].amount }} USD</vs-td>
                 <vs-td>{{ data[indextr].type }}</vs-td>
@@ -49,82 +65,81 @@
         </vs-card>
       </vs-col>
     </vs-row>
-  </div> 
+  </div>
 </template>
 
 <script>
-
 export default {
-  name : 'allPayments',
-  data: () => ({    
-  }),
+  name: "allPayments",
+  data: () => ({}),
 
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
-    offer_list : {
+    offer_list: {
       get() {
         return this.$store.getters["offerManage/offer_list"];
-      }
+      },
     },
 
-    payment_list : {
+    payment_list: {
       get() {
         return this.$store.getters["paymentManage/payment_list"];
-      }
+      },
     },
 
     all_payments: {
       get() {
-        let payments=[]
-        for (let i = 0 ; i < this.payment_list.length; i++) {
-          for (let j = 0; j< this.offer_list.length; j++) {
+        let payments = [];
+        for (let i = 0; i < this.payment_list.length; i++) {
+          for (let j = 0; j < this.offer_list.length; j++) {
             if (this.payment_list[i].offer_id == this.offer_list[j].id) {
-              payments[i]= {
-                id: this.payment_list[i].id, 
+              payments[i] = {
+                id: this.payment_list[i].id,
                 provider: this.payment_list[i].payment_type,
-                created_at : this.payment_list[i].created_on,
-                amount: this.offer_list[j].price + this.offer_list[j].currency.toUpperCase(),
-                member_name : this.payment_list[i].full_name,
+                created_at: this.payment_list[i].created_on,
+                amount:
+                  this.offer_list[j].price +
+                  this.offer_list[j].currency.toUpperCase(),
+                member_name: this.payment_list[i].full_name,
                 member_email: this.payment_list[i].email,
                 offer_title: this.offer_list[j].name,
-                type: this.payment_list[i].status
-              }
+                type: this.payment_list[i].status,
+              };
             }
           }
         }
-        return payments
-      }
-    }
-
+        return payments;
+      },
+    },
   },
 
   created() {
@@ -133,23 +148,22 @@ export default {
 
   methods: {
     getPaymentList() {
-      this.$store.dispatch('paymentManage/getPaymentList').then(()=>{
-      
-      })
-      .catch(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-      })
+      this.$store
+        .dispatch("paymentManage/getPaymentList")
+        .then(() => {})
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
     backToOffer() {
-      this.$router.push('/offers')
-    }
-  }
-
-}
+      this.$router.push("/offers");
+    },
+  },
+};
 </script>
 <style>
 .ps {

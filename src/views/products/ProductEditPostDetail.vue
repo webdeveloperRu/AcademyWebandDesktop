@@ -9,11 +9,16 @@
         vs-sm="12"
         class="mb-3"
       >
-      <span class="ml-2 mb-2 mt-2 primary-font" @click="backToCurrentProduct" style="cursor: pointer;">
-        <i class="ti-angle-left" style="font-size: 14px;"></i> {{product_name}}
-      </span>
-      <br>
-        <h2 class="ml-2 mb-2 mt-3">{{lesson_title}}</h2>
+        <span
+          class="ml-2 mb-2 mt-2 primary-font"
+          @click="backToCurrentProduct"
+          style="cursor: pointer;"
+        >
+          <i class="ti-angle-left" style="font-size: 14px;"></i>
+          {{ product_name }}
+        </span>
+        <br />
+        <h2 class="ml-2 mb-2 mt-3">{{ lesson_title }}</h2>
         <span class="ml-2 mb-2 mt-2"><i class="mdi mdi-eye"></i> Preview</span>
       </vs-col>
       <vs-col
@@ -25,69 +30,95 @@
         vs-xs="12"
         code-toggler
       >
-      <!-- 
+        <!-- 
         video and assessment select part 
       -->
         <vs-card class="text-center primary-font">
           <vs-row>
             <vs-col vs-sm="12" vs-lg="12" class="" vs-align="center">
               <div class="text-center">
-
                 <!-- <img  /> -->
-                <div v-if="video_url!==null">
-                  <video width="95%" height="" controls class="mt-3" >
+                <div v-if="video_url !== null">
+                  <video width="95%" height="" controls class="mt-3">
                     <source :src="video_url" type="video/ogg" />
                     <source :src="video_url" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
                   <div v-if="show_progress">
-                    <span class="mt-2 mb-2 primary-font">Uploading Video ({{loading_progress}}%)</span>
-                    <vs-progress :percent="loading_progress" color="primary" class="w-100 mb-3">primary</vs-progress>
+                    <span class="mt-2 mb-2 primary-font"
+                      >Uploading Video ({{ loading_progress }}%)</span
+                    >
+                    <vs-progress
+                      :percent="loading_progress"
+                      color="primary"
+                      class="w-100 mb-3"
+                      >primary</vs-progress
+                    >
                   </div>
                 </div>
-                <div v-else >
-                </div>
+                <div v-else></div>
                 <!-- <input type="file" id="file" ref="file" v-on:change="onSelectVideo" /> -->
-                  <div class="d-flex align-items-center dropdownbtn-alignment justify-content-center"  v-if="video_url===null">
-                    <vs-dropdown vs-trigger-click>
-                      <vs-button class="btn-drop" type="border" icon="expand_more" color="#5c6369">Select Video</vs-button>
-                      <vs-dropdown-menu>
-                        <vs-dropdown-item>
-                          <label class="video-select-button">
-                            <input
-                              type="file"
-                              @change="onSelectVideo"
-                              style="overflow: hidden"
-                              class="custom-file-input"
-                               accept="video/*"
-                            />
-                              <h6>Upload Video</h6>
-                          </label> 
-                        </vs-dropdown-item>
-                      </vs-dropdown-menu>
-                    </vs-dropdown>
-                  </div>
-                  <div v-else >
-                    <vs-dropdown vs-trigger-click>
-                      <vs-button class="btn-drop" type="border" icon="expand_more" color="#5c6369">Video Action</vs-button>
-                      <vs-dropdown-menu>                        
-                        <vs-dropdown-item class="remove-thumb-menu">
-                          <div>video action1</div>                         
-                        </vs-dropdown-item>
-                        <vs-dropdown-item class="remove-thumb-menu">
-                          <div>video action2</div>                         
-                        </vs-dropdown-item>
-                        <vs-dropdown-item class="remove-thumb-menu">
-                          <div>video action3</div>                         
-                        </vs-dropdown-item>
-                        <vs-dropdown-item class="remove-thumb-menu">
-                          <div @click="onClickRemoveVideo" color="danger" class="text-center"><h6 style="color: red">Remove Video</h6></div>
-                        </vs-dropdown-item>
-                      </vs-dropdown-menu>
-                    </vs-dropdown>
-                  </div>
+                <div
+                  class="d-flex align-items-center dropdownbtn-alignment justify-content-center"
+                  v-if="video_url === null"
+                >
+                  <vs-dropdown vs-trigger-click>
+                    <vs-button
+                      class="btn-drop"
+                      type="border"
+                      icon="expand_more"
+                      color="#5c6369"
+                      >Select Video</vs-button
+                    >
+                    <vs-dropdown-menu>
+                      <vs-dropdown-item>
+                        <label class="video-select-button">
+                          <input
+                            type="file"
+                            @change="onSelectVideo"
+                            style="overflow: hidden"
+                            class="custom-file-input"
+                            accept="video/*"
+                          />
+                          <h6>Upload Video</h6>
+                        </label>
+                      </vs-dropdown-item>
+                    </vs-dropdown-menu>
+                  </vs-dropdown>
+                </div>
+                <div v-else>
+                  <vs-dropdown vs-trigger-click>
+                    <vs-button
+                      class="btn-drop"
+                      type="border"
+                      icon="expand_more"
+                      color="#5c6369"
+                      >Video Action</vs-button
+                    >
+                    <vs-dropdown-menu>
+                      <vs-dropdown-item class="remove-thumb-menu">
+                        <div>video action1</div>
+                      </vs-dropdown-item>
+                      <vs-dropdown-item class="remove-thumb-menu">
+                        <div>video action2</div>
+                      </vs-dropdown-item>
+                      <vs-dropdown-item class="remove-thumb-menu">
+                        <div>video action3</div>
+                      </vs-dropdown-item>
+                      <vs-dropdown-item class="remove-thumb-menu">
+                        <div
+                          @click="onClickRemoveVideo"
+                          color="danger"
+                          class="text-center"
+                        >
+                          <h6 style="color: red">Remove Video</h6>
+                        </div>
+                      </vs-dropdown-item>
+                    </vs-dropdown-menu>
+                  </vs-dropdown>
+                </div>
               </div>
-            </vs-col>           
+            </vs-col>
           </vs-row>
         </vs-card>
 
@@ -154,7 +185,7 @@
         <!-- 
         @@ post ocmment
         -->
-       <!--  <vs-card class="primary-font" v-if="comments_option == 'visible'">
+        <!--  <vs-card class="primary-font" v-if="comments_option == 'visible'">
           <h4 class="text-left mb-3">comments</h4>
           <vs-row class="mt-4">           
             <vs-col vs-sm="12">
@@ -165,8 +196,7 @@
             </vs-col>
           </vs-row>          
         </vs-card>-->
-      </vs-col> 
-
+      </vs-col>
 
       <vs-col
         type="flex"
@@ -177,7 +207,7 @@
         vs-xs="12"
         code-toggler
       >
-      <!-- 
+        <!-- 
         lesson status
       -->
         <vs-card class="primary-font">
@@ -190,18 +220,30 @@
                 vs-value="published"
                 >Published</vs-radio
               >
-              <vs-radio v-model="lesson_status" vs-name="lesson_status" vs-value="draft"
+              <vs-radio
+                v-model="lesson_status"
+                vs-name="lesson_status"
+                vs-value="draft"
                 >Draft</vs-radio
               >
             </div>
           </div>
-          <h6 class="text-left mb-3 primary-font" v-if="lesson_status == 'draft'">
+          <h6
+            class="text-left mb-3 primary-font"
+            v-if="lesson_status == 'draft'"
+          >
             This post is not visible because it has draft components.
           </h6>
           <h6 class="text-left mb-3 primary-font">
-            The category "<a href="">{{selected_categoryID_title}}</a>" is set to:
-            <span v-if="lesson_status == 'draft'"><i class="mdi mdi-file-document ml-1"></i> Draft </span>
-            <span v-else><i class="mdi mdi-check-circle ml-1" style="color: green"></i> Pusblished </span>
+            The category "<a href="">{{ selected_categoryID_title }}</a
+            >" is set to:
+            <span v-if="lesson_status == 'draft'"
+              ><i class="mdi mdi-file-document ml-1"></i> Draft
+            </span>
+            <span v-else
+              ><i class="mdi mdi-check-circle ml-1" style="color: green"></i>
+              Pusblished
+            </span>
           </h6>
         </vs-card>
 
@@ -213,49 +255,59 @@
           <!-- 
             @ image part
            -->
-           <!-- <img :src="cssthumbImageUrl" /> -->
-           <div
-              class="image-aspect-ratio "
-              :style="{ 'background-image': cssthumbImageUrl }"
-            ></div>
-            <div
-              class="d-flex align-items-center mt-2 file-select"
-              style="justify-content: center"
-            >
-
+          <!-- <img :src="cssthumbImageUrl" /> -->
+          <div
+            class="image-aspect-ratio "
+            :style="{ 'background-image': cssthumbImageUrl }"
+          ></div>
+          <div
+            class="d-flex align-items-center mt-2 file-select"
+            style="justify-content: center"
+          >
             <!-- select thumb nail-->
-            <div class="d-flex align-items-center dropdownbtn-alignment justify-content-center">
+            <div
+              class="d-flex align-items-center dropdownbtn-alignment justify-content-center"
+            >
               <vs-dropdown vs-trigger-click>
-                <vs-button class="btn-drop" type="border" icon="expand_more" color="#5c6369">Select Image</vs-button>
-                  <vs-dropdown-menu>
-                    <vs-dropdown-item>
-                      <label class="lesson-thumbnail-select-button">
-                        <input
-                          type="file"
-                          @change="onSelectImage"
-                          style="overflow: hidden"
-                          class="custom-file-input"
-                          accept="image/png, image/jpeg"
-                        />
-                          <h6>Upload Image</h6>
-                      </label>
+                <vs-button
+                  class="btn-drop"
+                  type="border"
+                  icon="expand_more"
+                  color="#5c6369"
+                  >Select Image</vs-button
+                >
+                <vs-dropdown-menu>
+                  <vs-dropdown-item>
+                    <label class="lesson-thumbnail-select-button">
+                      <input
+                        type="file"
+                        @change="onSelectImage"
+                        style="overflow: hidden"
+                        class="custom-file-input"
+                        accept="image/png, image/jpeg"
+                      />
+                      <h6>Upload Image</h6>
+                    </label>
                   </vs-dropdown-item>
                   <vs-dropdown-item class="remove-thumb-menu">
-                    <div @click="onClickRemoveImage" color="danger" class="text-center"><h6 style="color: red">Remove Image</h6></div>
+                    <div
+                      @click="onClickRemoveImage"
+                      color="danger"
+                      class="text-center"
+                    >
+                      <h6 style="color: red">Remove Image</h6>
+                    </div>
                   </vs-dropdown-item>
                 </vs-dropdown-menu>
               </vs-dropdown>
             </div>
 
             <!-- select thumb nail-->
-
-                     
           </div>
-          <br>
+          <br />
 
-            Please use .jpg or .png with non-transparent background.
-            Recommended dimensions of <b>1280<i class="mdi mdi-close"></i>720</b
-            >.
+          Please use .jpg or .png with non-transparent background. Recommended
+          dimensions of <b>1280<i class="mdi mdi-close"></i>720</b>.
           <!-- <vs-button color="primary" type="border">Pick File</vs-button> -->
         </vs-card>
 
@@ -265,17 +317,19 @@
         <vs-card class="download-add primary-font">
           <h4 class="text-left mb-3">Downloads</h4>
           <div class="text-center">
-            <div class="mb-3" v-for="(file) in downloadfile_list" :key="file.id">
+            <div class="mb-3" v-for="file in downloadfile_list" :key="file.id">
               <vs-row class="m-0" style="cursor: pointer;">
                 <vs-col vs-w="10" class="p-0">
-                    <div class="d-flex">
-                      <vs-icon icon="drag_handle" class="mr-2"></vs-icon>
-                      {{file.name}}
-                        <!-- <div style="position: relative; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" :title="file.name" :key="file.id">{{file.name}}</div> -->
-                    </div>
+                  <div class="d-flex">
+                    <vs-icon icon="drag_handle" class="mr-2"></vs-icon>
+                    {{ file.name }}
+                    <!-- <div style="position: relative; text-overflow: ellipsis; overflow: hidden; white-space: nowrap;" :title="file.name" :key="file.id">{{file.name}}</div> -->
+                  </div>
                 </vs-col>
                 <vs-col vs-w="2">
-                  <div @click="removeDownload(file)"><vs-icon icon="close" style="cursor: pointer;"></vs-icon></div>
+                  <div @click="removeDownload(file)">
+                    <vs-icon icon="close" style="cursor: pointer;"></vs-icon>
+                  </div>
                 </vs-col>
               </vs-row>
             </div>
@@ -286,8 +340,8 @@
                 style="overflow: hidden;"
                 class="custom-file-input"
               />
-                Add Downloads
-            </label> 
+              Add Downloads
+            </label>
           </div>
           <!-- <vs-button color="primary" type="border">Add Downloads</vs-button> -->
         </vs-card>
@@ -303,12 +357,14 @@
                 v-model="comments_option"
                 vs-name="comments_option"
                 vs-value="visible"
-                >Visible</vs-radio>
+                >Visible</vs-radio
+              >
               <vs-radio
                 v-model="comments_option"
                 vs-name="comments_option"
                 vs-value="hidden"
-                >Hidden</vs-radio>
+                >Hidden</vs-radio
+              >
               <vs-radio
                 v-model="comments_option"
                 vs-name="comments_option"
@@ -330,28 +386,39 @@
         class="mb-3"
       >
         <div class="btn-alignment text-right">
-          <vs-button color="danger" type="flat" @click="deleteLessonConfirm = true">Delete Lesson</vs-button>
-          <vs-button color="primary" type="filled" @click ="saveCurrentLesson">Save</vs-button>
+          <vs-button
+            color="danger"
+            type="flat"
+            @click="deleteLessonConfirm = true"
+            >Delete Lesson</vs-button
+          >
+          <vs-button color="primary" type="filled" @click="saveCurrentLesson"
+            >Save</vs-button
+          >
         </div>
       </vs-col>
     </vs-row>
     <!-- 
       @@delete post detail  
     -->
-     <vs-popup
-        title="Delete this Lesson?"
-        :active.sync="deleteLessonConfirm"
-      >
-        <br><br><br>
-        <h5>
-          Are you sure you want to delete this lesson?
-        </h5>
-        <br><br><br>
-        <div class="btn-alignment text-right">
-          <vs-button color="primary" type="flat" @click="deleteLessonConfirm =  false">Cancel</vs-button>
-          <vs-button color="danger" type="filled" @click="deleteCurrentLesson">Delete Lesson</vs-button>
-        </div>
-      </vs-popup>
+    <vs-popup title="Delete this Lesson?" :active.sync="deleteLessonConfirm">
+      <br /><br /><br />
+      <h5>
+        Are you sure you want to delete this lesson?
+      </h5>
+      <br /><br /><br />
+      <div class="btn-alignment text-right">
+        <vs-button
+          color="primary"
+          type="flat"
+          @click="deleteLessonConfirm = false"
+          >Cancel</vs-button
+        >
+        <vs-button color="danger" type="filled" @click="deleteCurrentLesson"
+          >Delete Lesson</vs-button
+        >
+      </div>
+    </vs-popup>
   </div>
 </template>
 
@@ -373,14 +440,14 @@ export default {
     lesson_body: "",
     category_names: [],
     thumbNail: Object,
-    thumbImageUrl: '',
-    cssthumbImageUrl: '',
+    thumbImageUrl: "",
+    cssthumbImageUrl: "",
     video_file: "",
     video_type: "no_video",
     loaded_video: 0,
     video_url: null,
-    downloadfile_list:[],
-    current_downloadfile_index:0,
+    downloadfile_list: [],
+    current_downloadfile_index: 0,
     assessmet_list: [
       { text: "Select assessment", value: 0 },
       { text: "assessment 1", value: 1 },
@@ -390,198 +457,192 @@ export default {
     changedThumbNail: false,
     changedVideo: false,
     show_progress: false,
-    // comment_text: '',    
+    // comment_text: '',
   }),
 
   created() {
-    this.$store.dispatch('changeSideBar', false)
-    this.setLessonItem(this.lesson_id)
+    this.$store.dispatch("changeSideBar", false);
+    this.setLessonItem(this.lesson_id);
   },
 
   watch: {
     comments_option: function(newValue) {
       this.updateCommentStatus(newValue);
-    }
-
+    },
   },
 
   /**
-    *   computed part
+   *   computed part
    **/
   computed: {
     // downloadfile_list: {
     //   get() {
     //     this.$store.state.lessonManage.downloadfile_list
-    //   }      
+    //   }
     // },
 
     category_id: function() {
-      var id = this.$route.params.category_id
+      var id = this.$route.params.category_id;
       return id.slice(0, id.length);
     },
 
     lesson_id: function() {
-      var id = this.$route.params.lesson_id
+      var id = this.$route.params.lesson_id;
       return id.slice(0, id.length);
     },
-    product_name: function(){
-      let list = this.$store.getters["productManage/product_list"]
-      let title = ''
+    product_name: function() {
+      let list = this.$store.getters["productManage/product_list"];
+      let title = "";
       for (let i = 0; i < list.length; i++) {
-        if ( list[i].id == this.selected_lesson.product_id)
-          title = list[i].title
+        if (list[i].id == this.selected_lesson.product_id)
+          title = list[i].title;
       }
-      return title
-
+      return title;
     },
-   
 
     selected_lesson: function() {
       let lesson = [];
       lesson = this.$store.state.lessonManage.current_lesson;
-      if(lesson == undefined)
-        return []
-      else
-        return lesson;
+      if (lesson == undefined) return [];
+      else return lesson;
     },
     loading_progress: {
       get() {
-        return this.$store.getters["loading_status"]
-      }
+        return this.$store.getters["loading_status"];
+      },
     },
 
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     category_list: {
       get() {
-        return this.$store.getters["productManage/category_list"]
+        return this.$store.getters["productManage/category_list"];
       },
     },
   },
 
   methods: {
     /**
-      *   update comment Status
+     *   update comment Status
      **/
-     updateCommentStatus: function (status){
-      this.$store.dispatch('lessonManage/changeCommentStatus', [this.lesson_id, status]).then(()=>{
+    updateCommentStatus: function(status) {
+      this.$store
+        .dispatch("lessonManage/changeCommentStatus", [this.lesson_id, status])
+        .then(() => {
           this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon
-              })
-          })
-       .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
-            })
-          }
-        )
-     },
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+    },
 
     backToCurrentProduct() {
-      this.$router.push("/products/edit-product/"+this.selected_lesson.product_id);
+      this.$router.push(
+        "/products/edit-product/" + this.selected_lesson.product_id
+      );
     },
     onSelectVideo(e) {
       const file = e.target.files[0];
-      if(file !== undefined) {
-        this.loaded_video++
+      if (file !== undefined) {
+        this.loaded_video++;
         this.video_url = URL.createObjectURL(file);
         this.video_file = file;
-        this.changedVideo =true;
+        this.changedVideo = true;
       }
     },
     onClickRemoveVideo() {
-      this.changedVideo  = true;
-      this.video_url  = null
-      this.loaded_video++
-
+      this.changedVideo = true;
+      this.video_url = null;
+      this.loaded_video++;
     },
 
-     /**
-      *   set component property with selected Lesson Item 
+    /**
+     *   set component property with selected Lesson Item
      **/
     getCommentByLessonID(lesson_id) {
-      this.$store.dispatch('commentManage/getCommentByLessonID', lesson_id).then(()=>{
-     
-      })
-      .catch(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-      })
-
-
+      this.$store
+        .dispatch("commentManage/getCommentByLessonID", lesson_id)
+        .then(() => {})
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
-
-    
     /**
-      *   set component property with selected Lesson Item 
+     *   set component property with selected Lesson Item
      **/
-     setLessonItem(lesson_id) {
-      this.$store.dispatch('lessonManage/getLessonByID', lesson_id).then(()=>{
-        this.lesson_title = this.selected_lesson.title;
-        this.lesson_body = this.selected_lesson.body;
-        this.lesson_status = this.selected_lesson.status;
-        this.video_type = this.selected_lesson.video_type;
-        this.video_url = this.selected_lesson.video_url;
-        this.comments_option = this.selected_lesson.status_comments;
-        for (let i = 0; i < this.category_list.length; i++) {
-          this.category_names[i] = {value: this.category_list[i].id, text: this.category_list[i].name};
-          if(this.category_list[i].id == this.category_id) {
-            this.selected_categoryID_title = this.category_list[i].name;
+    setLessonItem(lesson_id) {
+      this.$store
+        .dispatch("lessonManage/getLessonByID", lesson_id)
+        .then(() => {
+          this.lesson_title = this.selected_lesson.title;
+          this.lesson_body = this.selected_lesson.body;
+          this.lesson_status = this.selected_lesson.status;
+          this.video_type = this.selected_lesson.video_type;
+          this.video_url = this.selected_lesson.video_url;
+          this.comments_option = this.selected_lesson.status_comments;
+          for (let i = 0; i < this.category_list.length; i++) {
+            this.category_names[i] = {
+              value: this.category_list[i].id,
+              text: this.category_list[i].name,
+            };
+            if (this.category_list[i].id == this.category_id) {
+              this.selected_categoryID_title = this.category_list[i].name;
+            }
           }
-          
-        }
-        this.cssthumbImageUrl = "url(" + this.selected_lesson.thumbnail +")";
-        this.selected_categoryID = this.category_id
-        this.getDownloadFiles(lesson_id)
-        this.getCommentByLessonID(this.lesson_id)
-      })
-      .catch(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+          this.cssthumbImageUrl = "url(" + this.selected_lesson.thumbnail + ")";
+          this.selected_categoryID = this.category_id;
+          this.getDownloadFiles(lesson_id);
+          this.getCommentByLessonID(this.lesson_id);
         })
-      })
-
-   },
-
-  
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+    },
 
     saveCurrentLesson() {
       this.selected_lesson.title = this.lesson_title;
@@ -590,78 +651,79 @@ export default {
       this.selected_lesson.video_type = this.video_type;
       this.selected_lesson.status = this.lesson_status;
       this.selected_lesson.category_id = this.selected_categoryID;
-      for( let i = 0; i < this.category_list.length; i++ ){
-        if(this.category_list[i].id == this.selected_categoryID)
-          this.selected_categoryID_title  =this.category_list[i].name
+      for (let i = 0; i < this.category_list.length; i++) {
+        if (this.category_list[i].id == this.selected_categoryID)
+          this.selected_categoryID_title = this.category_list[i].name;
       }
-      if(this.selected_lesson.title ===''){
+      if (this.selected_lesson.title === "") {
         this.$vs.notify({
           color: this.$custom_warning,
           icon: "warning",
           text: "Lesson name must be filled",
         });
-      } else{
-        this.$store.dispatch('lessonManage/updateLessonByID', this.selected_lesson).then(()=>{
-          this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon
-              })
-          })
-       .catch(() => {
+      } else {
+        this.$store
+          .dispatch("lessonManage/updateLessonByID", this.selected_lesson)
+          .then(() => {
             this.$vs.notify({
               color: this.notification_color,
               text: this.notification_text,
-              icon: this.notification_icon
-            })
-          }
-        )
+              icon: this.notification_icon,
+            });
+          })
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
       }
 
-      if( this.changedThumbNail){
-        if(this.cssthumbImageUrl !==''){
-          this.saveThumbNail(this.thumbNail);       
-        }
-        else{
+      if (this.changedThumbNail) {
+        if (this.cssthumbImageUrl !== "") {
+          this.saveThumbNail(this.thumbNail);
+        } else {
           this.removeThumbNail();
         }
       }
 
-      if(this.changedVideo){
-        if(this.video_url !==null){
-          this.saveVideo(this.video_file);       
-        }
-        else{
+      if (this.changedVideo) {
+        if (this.video_url !== null) {
+          this.saveVideo(this.video_file);
+        } else {
           this.removeVideo();
         }
       }
     },
 
-   /**
-    *   delete current Lesson
-   **/
+    /**
+     *   delete current Lesson
+     **/
 
     deleteCurrentLesson() {
-      this.$store.dispatch('lessonManage/deleteLessonByID', [this.lesson_id, this.selected_categoryID]).then(()=>{
+      this.$store
+        .dispatch("lessonManage/deleteLessonByID", [
+          this.lesson_id,
+          this.selected_categoryID,
+        ])
+        .then(() => {
           this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
-            })
-            if(this.status_got)
-              this.$router.push('/products');
-        })
-       .catch(() => {
-           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      )
+            icon: this.notification_icon,
+          });
+          if (this.status_got) this.$router.push("/products");
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
       this.deleteLessonConfirm = false;
     },
-    
 
     successUpload() {
       this.$vs.notify({
@@ -673,205 +735,214 @@ export default {
 
     /**
      * save thumbnail
-    **/
+     **/
 
-    saveThumbNail (thumbFile) {
-      this.$store.dispatch('lessonManage/saveThumbNail',[this.lesson_id, thumbFile]).then(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-        })
-       .catch(() => {
+    saveThumbNail(thumbFile) {
+      this.$store
+        .dispatch("lessonManage/saveThumbNail", [this.lesson_id, thumbFile])
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      )
-      this.changedThumbNail = false
+            icon: this.notification_icon,
+          });
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+      this.changedThumbNail = false;
     },
 
     /**
      * remove ThumbNail
-    **/
-    removeThumbNail () {
-      this.$store.dispatch('lessonManage/removeThumbNail',this.lesson_id).then(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-        })
-       .catch(() => {
-         this.$vs.notify({
+     **/
+    removeThumbNail() {
+      this.$store
+        .dispatch("lessonManage/removeThumbNail", this.lesson_id)
+        .then(() => {
+          this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      )
-      this.changedThumbNail = false
-      this.setLessonItem(this.selected_lesson)
+            icon: this.notification_icon,
+          });
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+      this.changedThumbNail = false;
+      this.setLessonItem(this.selected_lesson);
     },
 
-     /**
+    /**
      * save video
-    **/
+     **/
 
-    saveVideo (vidoeFile) {
+    saveVideo(vidoeFile) {
       this.show_progress = true;
-      this.$store.dispatch('lessonManage/saveVideo',[this.lesson_id, vidoeFile]).then(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-        this.show_progress = false;
-       })
-       .catch(() => {
+      this.$store
+        .dispatch("lessonManage/saveVideo", [this.lesson_id, vidoeFile])
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      )
+            icon: this.notification_icon,
+          });
+          this.show_progress = false;
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
     /**
      * remove ThumbNail
-    **/
-    removeVideo () {
-      this.$store.dispatch('lessonManage/removeVideo',this.lesson_id).then(()=>{
+     **/
+    removeVideo() {
+      this.$store
+        .dispatch("lessonManage/removeVideo", this.lesson_id)
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      )
+            icon: this.notification_icon,
+          });
+        });
     },
 
-
-     /**
+    /**
      * create image
-    **/
+     **/
     createImage(file) {
       var reader = new FileReader();
       reader.onload = (e) => {
         this.thumbImageUrl = e.target.result;
-        this.cssthumbImageUrl = "url(" + this.thumbImageUrl + ")"; 
+        this.cssthumbImageUrl = "url(" + this.thumbImageUrl + ")";
       };
       reader.readAsDataURL(file);
     },
 
     /**
      * remove Image
-    **/
-    onClickRemoveImage: function () {
-      this.changedThumbNail = true
-      this.cssthumbImageUrl = ''
+     **/
+    onClickRemoveImage: function() {
+      this.changedThumbNail = true;
+      this.cssthumbImageUrl = "";
     },
 
-
     onSelectImage(e) {
-      let image = e.target.files[0]      
-      if( image !== undefined) {
-        this.changedThumbNail = true;        
-        this.createImage(image)
-        this.thumbNail = image  
+      let image = e.target.files[0];
+      if (image !== undefined) {
+        this.changedThumbNail = true;
+        this.createImage(image);
+        this.thumbNail = image;
       }
-        
     },
 
     /**
      * remove Image
-    **/
-    onSelectDownload(e){
-      let file = e.target.files[0]      
-      this.addDownload(file)
+     **/
+    onSelectDownload(e) {
+      let file = e.target.files[0];
+      this.addDownload(file);
     },
 
     /**
      * add download
-    **/
+     **/
 
     addDownload(download_file) {
-      this.$store.dispatch('lessonManage/saveDownloadFile',[this.lesson_id, download_file]).then(()=>{
+      this.$store
+        .dispatch("lessonManage/saveDownloadFile", [
+          this.lesson_id,
+          download_file,
+        ])
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-          if(this.status_got){
+            icon: this.notification_icon,
+          });
+          if (this.status_got) {
             this.updateDownloadFileList();
           }
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
           this.updateDownloadFileList();
-        })
-
+        });
     },
 
     removeDownload(deletefile) {
-      this.$store.dispatch('lessonManage/removeDownloadFile',deletefile.id).then(()=>{
+      this.$store
+        .dispatch("lessonManage/removeDownloadFile", deletefile.id)
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-          if(this.status_got){
+            icon: this.notification_icon,
+          });
+          if (this.status_got) {
             this.updateDownloadFileList();
           }
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        })
+            icon: this.notification_icon,
+          });
+        });
     },
 
     /**
      * add download
-    **/    
+     **/
 
     getDownloadFiles(lesson_id) {
-      this.$store.dispatch('lessonManage/getDownloadFileList', lesson_id).then(()=>{
-        this.updateDownloadFileList();
+      this.$store
+        .dispatch("lessonManage/getDownloadFileList", lesson_id)
+        .then(() => {
+          this.updateDownloadFileList();
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        })
+            icon: this.notification_icon,
+          });
+        });
     },
 
     updateDownloadFileList() {
       this.downloadfile_list = this.$store.state.lessonManage.downloadfile_list;
     },
 
-     /**
+    /**
      * add download
-    **/
+     **/
 
     postComment() {
       // let comment = { lesson_id: this.lesson_id, comment: this.comment_text}
@@ -890,12 +961,9 @@ export default {
       //       })
       //     }
       //   )
-
-    }
-
-
+    },
   },
-}
+};
 </script>
 <style lang="scss">
 .con-vs-radio {
@@ -971,12 +1039,13 @@ export default {
 }
 
 input[type="file"] {
-    display: none;
+  display: none;
 }
-.btn-drop{
+.btn-drop {
   border-radius: 0.3rem !important;
 }
-.lesson-thumbnail-select-button, .video-select-button {
+.lesson-thumbnail-select-button,
+.video-select-button {
   margin-top: 8px;
   display: inline-block;
   padding: 10px 12px;
@@ -988,7 +1057,7 @@ input[type="file"] {
   border-radius: 0.3rem;
   // border-bottom-left-radius: 0.3rem;
 }
-.download-select-button{
+.download-select-button {
   cursor: pointer;
   border: 1px solid #5c6369;
   background-color: transparent;
@@ -997,9 +1066,7 @@ input[type="file"] {
   font-weight: 100 !important;
   font-size: 14px !important;
 }
-.routing-product:hover{
+.routing-product:hover {
   cursor: pointer;
 }
-
-
 </style>

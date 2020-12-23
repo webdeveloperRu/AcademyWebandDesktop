@@ -31,7 +31,10 @@
             </div>
           </vs-col>
           <vs-col vs-lg="4" vs-sm="6" vs-xs="12">
-            <div class="outer-setting-item" @click="linkToThirdPartyIntegration">
+            <div
+              class="outer-setting-item"
+              @click="linkToThirdPartyIntegration"
+            >
               <div class="setting-icon-background">
                 <i class="mdi mdi-call-split" style="font-size: 20px"></i>
               </div>
@@ -95,7 +98,7 @@
               </div>
             </div>
           </vs-col>
-         <!--  <vs-col vs-lg="4" vs-sm="6" vs-xs="12">
+          <!--  <vs-col vs-lg="4" vs-sm="6" vs-xs="12">
             <div class="outer-setting-item">
               <div class="setting-icon-background">
                 <i class="mdi mdi-cart" style="font-size: 20px"></i>
@@ -164,7 +167,7 @@
             </div>
           </vs-col>
 
-           <vs-col vs-lg="4" vs-sm="6" vs-xs="12">
+          <vs-col vs-lg="4" vs-sm="6" vs-xs="12">
             <div class="outer-setting-item" @click="linkToBilling">
               <div class="setting-icon-background">
                 <i class="mdi mdi-currency-usd" style="font-size: 20px"></i>
@@ -177,7 +180,6 @@
               </div>
             </div>
           </vs-col>
-
         </vs-row>
       </vs-card>
     </vs-col>
@@ -190,79 +192,78 @@ export default {
   data: () => ({}),
 
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
   },
 
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
   },
 
-
   methods: {
     linkToThirdPartyIntegration() {
-      this.$router.push('/settings/third-party-integration')
+      this.$router.push("/settings/third-party-integration");
     },
 
     linkToNotificationPrivacy() {
-      this.$router.push('/settings/notification-privacy')
+      this.$router.push("/settings/notification-privacy");
     },
 
     linkToAccountDetails() {
-      this.$router.push('/settings/account-details')
+      this.$router.push("/settings/account-details");
     },
 
-    linkToAccountUser() { 
-      this.$router.push('/settings/sub-users')
+    linkToAccountUser() {
+      this.$router.push("/settings/sub-users");
     },
 
     linkToMarketSetting() {
-      this.$router.push('/settings/market-setting')
+      this.$router.push("/settings/market-setting");
     },
 
     linkToSiteDetails() {
-      this.$router.push('/settings/site-details')
+      this.$router.push("/settings/site-details");
     },
 
     linktToEmailTemplates() {
-      this.$router.push('/settings/email-templates')
+      this.$router.push("/settings/email-templates");
     },
 
-    linkToCustomDomain() {      
-      this.$router.push('/settings/custom-domain')
+    linkToCustomDomain() {
+      this.$router.push("/settings/custom-domain");
     },
 
     linkToBilling() {
-      this.$router.push('/settings/billing-address')
-    }
-  }
+      this.$router.push("/settings/billing-address");
+    },
+  },
 };
 </script>
 
@@ -270,14 +271,14 @@ export default {
 .setting-icon-background {
   background-color: #f3f7fd;
   border-radius: 5px;
-  padding: 6px 9px;    
+  padding: 6px 9px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .outer-setting-item {
-  display: flex ;
+  display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: 5px 10px;
@@ -288,7 +289,7 @@ export default {
   background-color: #f5f7fb;
 }
 
-.outer-setting-item:hover .setting-icon-background{
+.outer-setting-item:hover .setting-icon-background {
   background-color: #e3e7eb;
 }
 </style>

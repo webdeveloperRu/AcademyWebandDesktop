@@ -5,7 +5,8 @@
         <vs-card>
           <h4 class="mb-3">Account Information</h4>
           <div>Already have an account? <a href="#">Sign in</a></div>
-          <vs-input v-if="extra_contact_information.collect_name_password"
+          <vs-input
+            v-if="extra_contact_information.collect_name_password"
             class="inputx w-100 mt-3"
             placeholder="Full Name"
             v-model="fullname"
@@ -16,7 +17,9 @@
             v-model="email"
           />
           <div v-if="extra_contact_information.collect_name_password">
-            <span class="ml-1 text-muted">You'll receive notifications at this email address.</span>
+            <span class="ml-1 text-muted"
+              >You'll receive notifications at this email address.</span
+            >
             <vs-input
               class="inputx w-100 mt-3"
               placeholder="Create Password"
@@ -33,7 +36,7 @@
           </div>
         </vs-card>
 
-        <vs-card >
+        <vs-card>
           <div v-if="extra_contact_information.collect_address">
             <h4 class="mb-3">Extra Contact Information</h4>
             <vs-input
@@ -62,8 +65,18 @@
               v-model="region"
             /> -->
             <div class="select-country">
-              <country-select v-model="country" :country="country" topCountry="US" class="w-100 mt-3" />
-              <region-select v-model="region" :country="country" :region="region"  class="w-100 mt-3"/>
+              <country-select
+                v-model="country"
+                :country="country"
+                topCountry="US"
+                class="w-100 mt-3"
+              />
+              <region-select
+                v-model="region"
+                :country="country"
+                :region="region"
+                class="w-100 mt-3"
+              />
             </div>
             <vs-input
               class="inputx w-100 mt-3"
@@ -80,10 +93,13 @@
           </div>
         </vs-card>
 
-
         <vs-card>
           <h4 class="mb-3">Payment</h4>
-          <div v-if="!payment_type" class="mt-3 payment_type" style="border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 5px">
+          <div
+            v-if="!payment_type"
+            class="mt-3 payment_type"
+            style="border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 5px"
+          >
             <vs-radio
               v-model="payment_type"
               vs-name="payment_type"
@@ -106,21 +122,42 @@
               vs-value="btcpay"
               class="ml-3"
               >Btcpay</vs-radio
-            >                
+            >
           </div>
 
           <div class="text-center">
-            <img src="../../assets/images/logo/stripe_logo.png" width="40%" class="mt-3" v-if="payment_type == 'stripe'"/>
+            <img
+              src="../../assets/images/logo/stripe_logo.png"
+              width="40%"
+              class="mt-3"
+              v-if="payment_type == 'stripe'"
+            />
             <!-- <vs-button class="w-100 mt-3" color="primary" v-if="payment_type == 'stripe'"><img src="../../assets/images/logo/stripe_logo.png" width="30%" class=""/></vs-button> -->
-            <img src="../../assets/images/logo/paypal_logo.png" width="40%" class="mt-3" v-if="payment_type == 'paypal'"/>
+            <img
+              src="../../assets/images/logo/paypal_logo.png"
+              width="40%"
+              class="mt-3"
+              v-if="payment_type == 'paypal'"
+            />
             <!-- <vs-button class="w-100 mt-3" color="warning" v-if="payment_type == 'paypal'"><img src="../../assets/images/logo/paypal_logo.png" width="40%" class=""/></vs-button> -->
-            <img src="../../assets/images/logo/btcpay_logo.png" width="40%" class="mt-3" v-if="payment_type == 'btcpay'"/>
+            <img
+              src="../../assets/images/logo/btcpay_logo.png"
+              width="40%"
+              class="mt-3"
+              v-if="payment_type == 'btcpay'"
+            />
             <!-- <vs-button class="w-100 mt-3" color="success" v-if="payment_type == 'btcpay'">BTCPAY</vs-button> -->
           </div>
 
-          <div v-if="payment_type" class="mt-2 ml-2" style="color: dodgerblue;cursor:pointer; user-select: none" @click="initPaymentType()">Change payment method</div>
+          <div
+            v-if="payment_type"
+            class="mt-2 ml-2"
+            style="color: dodgerblue;cursor:pointer; user-select: none"
+            @click="initPaymentType()"
+          >
+            Change payment method
+          </div>
 
-            
           <!-- <span class="ml-1 text-muted">Card information is stored on a secure server.</span> -->
         </vs-card>
 
@@ -131,24 +168,35 @@
           <vs-button class="w-100 mt-3" color="warning" v-if="payment_type == 'paypal'"><img src="../../assets/images/logo/paypal_logo.png" width="40%" class=""/></vs-button>
           <vs-button class="w-100 mt-3" color="success" v-if="payment_type == 'btcpay'">BTCPAY</vs-button> -->
 
-          <vs-button class="w-100 mt-3" color="primary">Complete your checkout</vs-button>
-
+          <vs-button class="w-100 mt-3" color="primary"
+            >Complete your checkout</vs-button
+          >
 
           <div class="mt-3">
             <vs-checkbox
               class="justify-content-start"
               size="small"
               v-model="subscribeEmailList"
-              >Subscribe to our email list.</vs-checkbox>
+              >Subscribe to our email list.</vs-checkbox
+            >
           </div>
-          <div class="outline-edit mt-3" v-if="show_required" @click="changeSideMenu('service-agreement')">
+          <div
+            class="outline-edit mt-3"
+            v-if="show_required"
+            @click="changeSideMenu('service-agreement')"
+          >
             <div class="">
               <vs-checkbox
                 class="justify-content-start"
                 size="small"
                 v-model="required_agreement"
-                >{{agree_title}}</vs-checkbox>
-                <div class="ml-5 mt-2" v-html="custom_agree_text" v-if="service_agreement.status == 'custom_agreement'"></div>
+                >{{ agree_title }}</vs-checkbox
+              >
+              <div
+                class="ml-5 mt-2"
+                v-html="custom_agree_text"
+                v-if="service_agreement.status == 'custom_agreement'"
+              ></div>
             </div>
             <label class="edit-button" size="small">Edit</label>
           </div>
@@ -160,12 +208,13 @@
             class="checkout-image-div text-center"
             :style="{ 'background-image': cssthumbImageUrl }"
           ></div>
-          <div >
+          <div>
             <div class="text-center p-3">
-            <h3 class="mb-2 product-title" >{{selected_offer.name}}</h3>
-              {{selected_offer.price}}{{selected_offer.currency | capitalize}}
+              <h3 class="mb-2 product-title">{{ selected_offer.name }}</h3>
+              {{ selected_offer.price
+              }}{{ selected_offer.currency | capitalize }}
             </div>
-            <div class="overlay2" ></div>
+            <div class="overlay2"></div>
           </div>
         </vs-card>
 
@@ -186,21 +235,29 @@
         </div>
         <!-- 
           testmonial section 
-          -->          
-          <br/>
+          -->
+        <br />
         <div v-for="(testimonial, index) in testimonials" v-bind:key="index">
           <div class="outline-edit" @click="changeSideMenu('testimonials')">
-            <h4 class="mt-3 mb-3" v-if="index==0">{{testimonials[index].title}}</h4>
+            <h4 class="mt-3 mb-3" v-if="index == 0">
+              {{ testimonials[index].title }}
+            </h4>
             <label class="edit-button" size="small">Edit</label>
           </div>
 
-          <div class="outline-edit mb-3"  @click="changeSideMenu('testimonials')">
+          <div
+            class="outline-edit mb-3"
+            @click="changeSideMenu('testimonials')"
+          >
             <div class="testimonial-description  mx-1 my-1">
-              {{testimonials[index].quote_text}}
+              {{ testimonials[index].quote_text }}
             </div>
             <div class="d-flex mt-2 mx-1 mb-1" style="align-items:center">
-              <vs-avatar size="large" :src="testimonials[index].avatar_img"></vs-avatar>
-              <h4>{{testimonials[index].author_name}}</h4>
+              <vs-avatar
+                size="large"
+                :src="testimonials[index].avatar_img"
+              ></vs-avatar>
+              <h4>{{ testimonials[index].author_name }}</h4>
             </div>
             <label class="edit-button" size="small">Edit</label>
           </div>
@@ -212,115 +269,113 @@
 
 <script>
 export default {
-  name : 'OfferCheckoutOld',
-  data: ()=>({
-    email: '',
-    address1: '',
-    phone_number: '',
-    apt: '',
-    city: '',
-    fullname: '',
-    confirmPW: '',
-    createPW: '',
-    country: '',
-    region: '',
-    zipcode:'',
+  name: "OfferCheckoutOld",
+  data: () => ({
+    email: "",
+    address1: "",
+    phone_number: "",
+    apt: "",
+    city: "",
+    fullname: "",
+    confirmPW: "",
+    createPW: "",
+    country: "",
+    region: "",
+    zipcode: "",
     subscribeEmailList: false,
     required_agreement: false,
     custom_agreement: false,
-    cssthumbImageUrl:'',
+    cssthumbImageUrl: "",
     agree_title: "",
     show_required: false,
-    payment_type: '',
-
+    payment_type: "",
   }),
 
   watch: {
     service_agreement: function() {
       if (this.service_agreement.status !== undefined) {
-        if (this.service_agreement.status !== 'not_required'){
-          this.show_required = true
+        if (this.service_agreement.status !== "not_required") {
+          this.show_required = true;
         }
-        if (this.service_agreement.status == 'required') {
-          this.agree_title = 'I have read read and agree to the terms and conditions of this page';
-        } else if (this.service_agreement.status == 'custom_agreement'){
-          this.agree_title = 'I have read read and agree to the terms and conditions of this page as follows';
+        if (this.service_agreement.status == "required") {
+          this.agree_title =
+            "I have read read and agree to the terms and conditions of this page";
+        } else if (this.service_agreement.status == "custom_agreement") {
+          this.agree_title =
+            "I have read read and agree to the terms and conditions of this page as follows";
         }
       }
-    }
+    },
   },
-  
+
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
     custom_agree_text: {
       get() {
-       return this.service_agreement.custom_agreement_text;
-      }
+        return this.service_agreement.custom_agreement_text;
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     offer_id: function() {
-      var id = this.$route.params.offer_id
+      var id = this.$route.params.offer_id;
       return id.slice(0, id.length);
     },
 
     testimonials: {
       get() {
         return this.$store.state.offerManage.testimonials;
-      }
+      },
     },
 
-    service_agreement:{
+    service_agreement: {
       get() {
         return this.$store.state.offerManage.service_agreement;
-      }
+      },
     },
     extra_contact_information: {
       get() {
-        return this.$store.getters["offerManage/extra_contact_information"]
-      }
+        return this.$store.getters["offerManage/extra_contact_information"];
+      },
     },
     htmlBody: {
       get() {
-        return this.selected_offer.description
-      }
+        return this.selected_offer.description;
+      },
     },
-
 
     selected_offer: function() {
       let offer = [];
       offer = this.$store.state.offerManage.current_offer;
-       if(offer == undefined)
-        return []
-      else
-        return offer;
+      if (offer == undefined) return [];
+      else return offer;
     },
   },
 
@@ -329,54 +384,56 @@ export default {
   },
 
   methods: {
-    initPaymentType(){
-      this.payment_type = ''
+    initPaymentType() {
+      this.payment_type = "";
     },
-    changeSideMenu(menu_option){
-      this.$store.dispatch('setCurrentCheckoutMenu', menu_option)
+    changeSideMenu(menu_option) {
+      this.$store.dispatch("setCurrentCheckoutMenu", menu_option);
     },
     initCheckoutPage() {
-      this.$store.dispatch('offerManage/getOfferByID', this.offer_id).then(()=>{
-        this.cssthumbImageUrl = "url(" + this.selected_offer.thumbnail +")";
-      })
-      this.$store.dispatch('offerManage/getServiceAgreement', this.offer_id).then(()=>{   
-        if (this.service_agreement.status == undefined)   {
-          this.show_required = false
-        }
-        else {
-          if (this.service_agreement.status != 'not_required'){
-            this.show_required = true
+      this.$store
+        .dispatch("offerManage/getOfferByID", this.offer_id)
+        .then(() => {
+          this.cssthumbImageUrl = "url(" + this.selected_offer.thumbnail + ")";
+        });
+      this.$store
+        .dispatch("offerManage/getServiceAgreement", this.offer_id)
+        .then(() => {
+          if (this.service_agreement.status == undefined) {
+            this.show_required = false;
+          } else {
+            if (this.service_agreement.status != "not_required") {
+              this.show_required = true;
+            }
+            if (this.service_agreement.status == "required") {
+              this.agree_title =
+                "I have read read and agree to the terms and conditions of this page";
+            } else if (this.service_agreement.status == "custom_agreement") {
+              this.agree_title =
+                "I have read read and agree to the terms and conditions of this page as follows";
+            }
           }
-          if (this.service_agreement.status == 'required') {
-            this.agree_title = 'I have read read and agree to the terms and conditions of this page';
-          } else if (this.service_agreement.status == 'custom_agreement'){
-            this.agree_title = 'I have read read and agree to the terms and conditions of this page as follows';
-          }
-
-        }
-        
-      })
-      this.$store.dispatch('offerManage/getTestimonial', this.offer_id).then(()=>{          
-      })
-      this.$store.dispatch('offerManage/getExtraContactInformation', this.offer_id).then(()=>{ 
-                 
-      })
-    }    
+        });
+      this.$store
+        .dispatch("offerManage/getTestimonial", this.offer_id)
+        .then(() => {});
+      this.$store
+        .dispatch("offerManage/getExtraContactInformation", this.offer_id)
+        .then(() => {});
+    },
   },
 
   filters: {
     capitalize: function(value) {
-       if (value == undefined) return ''
-       else
-        return value.toUpperCase();
-    }
-  }
-}
+      if (value == undefined) return "";
+      else return value.toUpperCase();
+    },
+  },
+};
 </script>
-<style lang='scss'>
-.product-preview-item.con-vs-card .vs-card--content{
+<style lang="scss">
+.product-preview-item.con-vs-card .vs-card--content {
   padding: 0;
-  
 }
 .checkout-banner {
   height: 100px;
@@ -385,7 +442,7 @@ export default {
   /* margin-right: -20px; */
   background-color: dodgerblue;
 }
-.checkout-image-div{
+.checkout-image-div {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   overflow: hidden;
@@ -415,18 +472,18 @@ export default {
 }
 .outline-edit:hover {
   border: 2px dodgerblue dashed;
-  background-color:  rgba(98, 120, 243, 0.2);
+  background-color: rgba(98, 120, 243, 0.2);
 }
 .outline-edit:hover .edit-button {
   display: block;
 }
 .edit-button {
   position: absolute;
-  top: 50%;  
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
-  background-color: #2962FF;
+  background-color: #2962ff;
   color: white;
   padding: 3px 10px;
   border-radius: 3px;
@@ -440,11 +497,11 @@ export default {
 .select-country select {
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.2) !important;
-  padding: .4rem;
+  padding: 0.4rem;
 }
 .select-country select:focus {
-  border: 1px solid rgba(var(--vs-primary),1)!important;
-  -webkit-box-shadow: 0 3px 10px 0 rgba(0,0,0,.15);
-    box-shadow: 0 3px 10px 0 rgba(0,0,0,.15);
+  border: 1px solid rgba(var(--vs-primary), 1) !important;
+  -webkit-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 }
 </style>

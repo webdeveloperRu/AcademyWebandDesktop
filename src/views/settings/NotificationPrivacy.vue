@@ -5,7 +5,12 @@
      -->
     <vs-col vs-lg="9" vs-xs="12">
       <div class="mb-4">
-      <span class="ml-2 mb-2 mt-2 primary-font" @click="backToSettings" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span>
+        <span
+          class="ml-2 mb-2 mt-2 primary-font"
+          @click="backToSettings"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span
+        >
         <div class="d-flex mt-3">
           <h2>Notification & Privacy</h2>
         </div>
@@ -161,70 +166,69 @@ export default {
     subscription_cancel: false,
     privacy: false,
   }),
-  
-   /**
+
+  /**
    * --------------computed part-------------
    */
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     notification: {
       get() {
-        return this.$store.getters["settingManage/notification"]
-      }
-    }
+        return this.$store.getters["settingManage/notification"];
+      },
+    },
   },
 
   /**
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
     this.initNotfication();
   },
-
 
   /**
    * --------------method part-------------
    */
   methods: {
     backToSettings() {
-      this.$router.push('/settings')
+      this.$router.push("/settings");
     },
 
     /**
      * --------------update notification-------------
      */
     setNotificaton() {
-      let updateNotificaton = Object.assign({}, this.notification)
+      let updateNotificaton = Object.assign({}, this.notification);
       updateNotificaton.important = this.important;
       updateNotificaton.rewards = this.rewards;
       updateNotificaton.new_comment = this.new_comment;
@@ -235,48 +239,50 @@ export default {
       updateNotificaton.card_expiry = this.card_expiry;
       updateNotificaton.privacy = this.privacy;
 
-      this.$store.dispatch('settingManage/setNotification', updateNotificaton).then(()=>{
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+      this.$store
+        .dispatch("settingManage/setNotification", updateNotificaton)
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
         })
-      })
-      .catch(() => {
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-      })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
     /**
      * --------------method part-------------
      */
     initNotfication() {
-      this.$store.dispatch('settingManage/getNotification').then(()=>{
-        this.important = this.notification.important;
-        this.rewards = this.notification.rewards;
-        this.new_comment = this.notification.new_comment;
-        this.new_reply = this.notification.new_reply;
-        this.new_post = this.notification.new_post;
-        this.payment_fail = this.notification.payment_fail;
-        this.subscription_cancel = this.notification.subscription_cancel;
-        this.card_expiry = this.notification.card_expiry;
-        this.privacy = this.notification.privacy;
-
-      })
-       .catch(() => {
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
+      this.$store
+        .dispatch("settingManage/getNotification")
+        .then(() => {
+          this.important = this.notification.important;
+          this.rewards = this.notification.rewards;
+          this.new_comment = this.notification.new_comment;
+          this.new_reply = this.notification.new_reply;
+          this.new_post = this.notification.new_post;
+          this.payment_fail = this.notification.payment_fail;
+          this.subscription_cancel = this.notification.subscription_cancel;
+          this.card_expiry = this.notification.card_expiry;
+          this.privacy = this.notification.privacy;
         })
-      })
-    }
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+    },
   },
-
 };
 </script>
 <style>

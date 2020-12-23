@@ -36,11 +36,7 @@
               v-model="author_name"
               class="w-100"
             />
-            <vs-textarea
-              label="Quote"
-              v-model="quote"
-              class="w-100 mt-3"
-            />
+            <vs-textarea label="Quote" v-model="quote" class="w-100 mt-3" />
             <label class="ml-2 mt-3"><b>Avatar</b></label>
             <div
               class="d-flex"
@@ -52,7 +48,10 @@
                   Recommended dimentions of
                   <strong>100<i class="mdi mdi-close"></i>100</strong>
                 </div>
-                <div class="d-flex" style="justify-content: flex-start; align-items: center;">
+                <div
+                  class="d-flex"
+                  style="justify-content: flex-start; align-items: center;"
+                >
                   <label class="avatar-select-button">
                     <input
                       type="file"
@@ -60,13 +59,15 @@
                       class="custom-file-input"
                       accept="image/png, image/jpeg"
                     />
-                      Select Image
+                    Select Image
                   </label>
-                  <vs-button color="danger" type="flat" class="ml-3">Remove Image</vs-button>
+                  <vs-button color="danger" type="flat" class="ml-3"
+                    >Remove Image</vs-button
+                  >
                 </div>
               </div>
             </div>
-          </vs-card>         
+          </vs-card>
         </vs-col>
       </vs-row>
       <vs-divider></vs-divider>
@@ -78,18 +79,16 @@
 </template>
 
 <script>
-
 export default {
-  name : 'StarterPage',
+  name: "StarterPage",
   data: () => ({
     author_name: "",
     quote: "",
-    avatar_url:"",
+    avatar_url: "",
     avatar_file: null,
     updated_avatar: false,
-}),
-
-}
+  }),
+};
 </script>
 <style>
 .avatar-select-button {

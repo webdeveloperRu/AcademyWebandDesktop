@@ -262,27 +262,27 @@
             >
           </div>
           <div class="mt-3" v-if="addTags">
-             <multiselect
-                v-model="selected_tag"
-                tag-placeholder="Add Tag"
-                placeholder="Type to add a new tag..."
-                label="name"
-                taggable
-                hideSelected
-                @tag="addTag"
-                track-by="code"
-                :options="peopleTags"
-                :multiple="true"
-              ></multiselect>
-              <div class="d-flex mt-3" style="flex-wrap: wrap">
-                <vs-chip
-                  @click="remove(chip)"
-                  :key="chip"
-                  v-for="chip in added_tagChips"
-                  closable
-                  >{{ chip }}</vs-chip
-                >
-              </div>
+            <multiselect
+              v-model="selected_tag"
+              tag-placeholder="Add Tag"
+              placeholder="Type to add a new tag..."
+              label="name"
+              taggable
+              hideSelected
+              @tag="addTag"
+              track-by="code"
+              :options="peopleTags"
+              :multiple="true"
+            ></multiselect>
+            <div class="d-flex mt-3" style="flex-wrap: wrap">
+              <vs-chip
+                @click="remove(chip)"
+                :key="chip"
+                v-for="chip in added_tagChips"
+                closable
+                >{{ chip }}</vs-chip
+              >
+            </div>
           </div>
           <!-- 
             @@show marketing email part
@@ -362,12 +362,12 @@ export default {
       get() {
         let value = [];
         for (let i = 0; i < this.peopleTags.length; i++) {
-          value.push(this.peopleTags[i].name)
+          value.push(this.peopleTags[i].name);
         }
         return value;
-      }
+      },
     },
-    people_records: function () {
+    people_records: function() {
       return this.people_list.length;
     },
 
@@ -430,9 +430,9 @@ export default {
     this.getPeopleList();
   },
   methods: {
-    addTag (newTag) {
+    addTag(newTag) {
       this.added_tagChips.push(newTag);
-      let tag = {code: this.peopleTags.length ,name: newTag}
+      let tag = { code: this.peopleTags.length, name: newTag };
       this.peopleTags.push(tag);
     },
 
@@ -513,9 +513,9 @@ export default {
      */
     remove(item) {
       this.added_tagChips.splice(this.added_tagChips.indexOf(item), 1);
-      for (let i = 0; i < this.peopleTags.length; i++ ){
-        if (this.peopleTags[i].name == item) {          
-          this.peopleTags.splice(i,1);
+      for (let i = 0; i < this.peopleTags.length; i++) {
+        if (this.peopleTags[i].name == item) {
+          this.peopleTags.splice(i, 1);
         }
       }
     },
@@ -534,9 +534,9 @@ export default {
         for (let i = 0; i < this.grantOfferSelection.length; i++) {
           this.grantOfferIDs[i] = this.grantOfferSelection[i].code;
         }
-        let tags = []
-        for (let i = 0; i <  this.peopleTags.length; i++) {
-          tags.push({title: this.peopleTags[i].name})          
+        let tags = [];
+        for (let i = 0; i < this.peopleTags.length; i++) {
+          tags.push({ title: this.peopleTags[i].name });
         }
         this.people.name = this.peopleName;
         this.people.email = this.peopleEmail;

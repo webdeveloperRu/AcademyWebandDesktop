@@ -407,7 +407,6 @@ export default {
           } else if (this.service_agreement.status == 'custom_agreement'){
             this.agree_title = 'I have read read and agree to the terms and conditions of this page as follows';
           }
-
         }
       })
     }

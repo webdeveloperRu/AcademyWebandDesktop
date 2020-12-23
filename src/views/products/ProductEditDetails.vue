@@ -10,9 +10,16 @@
         vs-xs="12"
         class="mb-3"
       >
-      <span class="routing-product" @click="backToProducts" style="cursor: pointer;"><h5 class="ml-2 mb-2 mt-2 primary-font"><i class="ti-angle-left" style="font-size: 14px;"></i> Products</h5></span>
-      <br>
-        <h2 class="ml-2 mb-2 mt-2">{{selected_product.title}}</h2>
+        <span
+          class="routing-product"
+          @click="backToProducts"
+          style="cursor: pointer;"
+          ><h5 class="ml-2 mb-2 mt-2 primary-font">
+            <i class="ti-angle-left" style="font-size: 14px;"></i> Products
+          </h5></span
+        >
+        <br />
+        <h2 class="ml-2 mb-2 mt-2">{{ selected_product.title }}</h2>
       </vs-col>
       <vs-col
         type="flex"
@@ -67,44 +74,53 @@
               <!-- 
                 @ image part
                -->
-               <!-- <img :src="cssthumbImageUrl" /> -->
-               <div
-                  class="image-aspect-ratio"
-                  :style="{ 'background-image': cssthumbImageUrl }"
-                ></div>
-                <div
-                  class="d-flex align-items-center mt-2 file-select"
-                  style="justify-content: center"
-                >
-
+              <!-- <img :src="cssthumbImageUrl" /> -->
+              <div
+                class="image-aspect-ratio"
+                :style="{ 'background-image': cssthumbImageUrl }"
+              ></div>
+              <div
+                class="d-flex align-items-center mt-2 file-select"
+                style="justify-content: center"
+              >
                 <!-- pic product thumbnail -->
 
-                
-                 <div class="d-flex align-items-center dropdownbtn-alignment">
-                    <vs-dropdown vs-trigger-click>
-                      <vs-button class="btn-drop" type="border" icon="expand_more" color="#5c6369">Select Image</vs-button>
-                        <vs-dropdown-menu>
-                          <vs-dropdown-item>
-                            <label class="product-thumbnail-select-button">
-                              <input
-                                type="file"
-                                @change="onSelect"
-                                style="overflow: hidden"
-                                class="custom-file-input"
-                                accept="image/png, image/jpeg"
-                              />
-                                <h6>Upload Image</h6>
-                            </label>
-                          </vs-dropdown-item>
-                        <vs-dropdown-item class="remove-thumb-menu">
-                          <div @click="removeImage" color="danger" class="text-center"><h6 style="color: red">Remove Image</h6></div>
-                        </vs-dropdown-item>
-                      </vs-dropdown-menu>
-                    </vs-dropdown>
-                  </div>
+                <div class="d-flex align-items-center dropdownbtn-alignment">
+                  <vs-dropdown vs-trigger-click>
+                    <vs-button
+                      class="btn-drop"
+                      type="border"
+                      icon="expand_more"
+                      color="#5c6369"
+                      >Select Image</vs-button
+                    >
+                    <vs-dropdown-menu>
+                      <vs-dropdown-item>
+                        <label class="product-thumbnail-select-button">
+                          <input
+                            type="file"
+                            @change="onSelect"
+                            style="overflow: hidden"
+                            class="custom-file-input"
+                            accept="image/png, image/jpeg"
+                          />
+                          <h6>Upload Image</h6>
+                        </label>
+                      </vs-dropdown-item>
+                      <vs-dropdown-item class="remove-thumb-menu">
+                        <div
+                          @click="removeImage"
+                          color="danger"
+                          class="text-center"
+                        >
+                          <h6 style="color: red">Remove Image</h6>
+                        </div>
+                      </vs-dropdown-item>
+                    </vs-dropdown-menu>
+                  </vs-dropdown>
+                </div>
 
-                    <!-- pic product thumbnail -->
-
+                <!-- pic product thumbnail -->
               </div>
               <div class="mt-2">
                 This image will be used to display this product when the users
@@ -118,34 +134,53 @@
           </vs-row>
         </vs-card>
         <div class="btn-alignment text-right">
-          <vs-button color="danger" type="flat" @click="confirmDeleteProduct = true">Delete Product</vs-button>
-          <vs-button color="primary" type="filled" @click="saveProduct">Save</vs-button>
+          <vs-button
+            color="danger"
+            type="flat"
+            @click="confirmDeleteProduct = true"
+            >Delete Product</vs-button
+          >
+          <vs-button color="primary" type="filled" @click="saveProduct"
+            >Save</vs-button
+          >
         </div>
       </vs-col>
     </vs-row>
     <!-- 
       @@ delete product popup dialog
       -->
-    <vs-popup class="product-delete" title="" :active.sync="confirmDeleteProduct">
+    <vs-popup
+      class="product-delete"
+      title=""
+      :active.sync="confirmDeleteProduct"
+    >
       <div style="font-size: 25px; color: white" class="px-5 bg-danger m-0 ">
-        <i class="mdi mdi-alert"></i> Are you sure you want to delete <strong>"{{selected_product.title}}"</strong> ?
-        
+        <i class="mdi mdi-alert"></i> Are you sure you want to delete
+        <strong>"{{ selected_product.title }}"</strong> ?
       </div>
       <div
         style="font-size: 18px; color: white; text-align: justify"
         class="px-5 py-3 bg-danger"
       >
-      <br>
+        <br />
         Deleting this product will result in the following actions that you may
         consider before moving forward.
-        <br>
-        <br>
-        <br>
-
+        <br />
+        <br />
+        <br />
       </div>
       <div style="float: right" class="m-3">
-        <vs-button color="primary" type="flat" @click="confirmDeleteProduct=false">Cancel</vs-button>
-        <vs-button color="danger" type="filled" class="ml-2" @click="deleteCurrentProduct"
+        <vs-button
+          color="primary"
+          type="flat"
+          @click="confirmDeleteProduct = false"
+          >Cancel</vs-button
+        >
+        <vs-button
+          color="danger"
+          type="filled"
+          class="ml-2"
+          @click="deleteCurrentProduct"
           >Delete Product</vs-button
         >
       </div>
@@ -161,208 +196,198 @@ export default {
   },
   data: () => ({
     thumbNail: Object,
-    thumbImageUrl: '',
-    cssthumbImageUrl: '',
-    product_description: '',
-    product_title: '',
+    thumbImageUrl: "",
+    cssthumbImageUrl: "",
+    product_description: "",
+    product_title: "",
     changed_thumbNail: false,
     confirmDeleteProduct: false,
   }),
 
   computed: {
-
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     product_id: function() {
-      var id = this.$route.params.product_id
+      var id = this.$route.params.product_id;
       return id.slice(0, id.length);
     },
 
     product_list: {
       get() {
-        return this.$store.getters["productManage/product_list"]
-      }
+        return this.$store.getters["productManage/product_list"];
+      },
     },
 
     selected_product: {
       get() {
-        let product = [];        
-        product = this.$store.state.productManage.current_product
-        if(product == undefined)
-          return []
-        else
-          return product;
-      }
+        let product = [];
+        product = this.$store.state.productManage.current_product;
+        if (product == undefined) return [];
+        else return product;
+      },
     },
-
   },
 
   created() {
-    this.$store.dispatch('changeSideBar', false)
-    this.initProduct();    
+    this.$store.dispatch("changeSideBar", false);
+    this.initProduct();
   },
 
-
   methods: {
-
-    
     createImage(file) {
       var reader = new FileReader();
       reader.onload = (e) => {
         this.thumbImageUrl = e.target.result;
-        this.cssthumbImageUrl = "url(" + this.thumbImageUrl + ")"; 
+        this.cssthumbImageUrl = "url(" + this.thumbImageUrl + ")";
       };
       reader.readAsDataURL(file);
     },
 
-    removeImage: function () {
-      this.cssthumbImageUrl = ''
+    removeImage: function() {
+      this.cssthumbImageUrl = "";
       this.changed_thumbNail = true;
     },
     backToProducts() {
-      this.$router.push('/products')
-
+      this.$router.push("/products");
     },
 
     onSelect(e) {
-      let image = e.target.files[0]
-      if( image !== undefined) {
-        this.createImage(image)
-        this.thumbNail = image  
+      let image = e.target.files[0];
+      if (image !== undefined) {
+        this.createImage(image);
+        this.thumbNail = image;
         this.changed_thumbNail = true;
       }
-        
     },
 
     /**
      * save thumbnail
-    **/
+     **/
 
-    saveThumbNail (thumbFile) {
-      this.$store.dispatch('productManage/saveThumbNail',[this.product_id, thumbFile]).then(()=>{
+    saveThumbNail(thumbFile) {
+      this.$store
+        .dispatch("productManage/saveThumbNail", [this.product_id, thumbFile])
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
           this.changed_thumbNail = false;
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
           this.changed_thumbNail = false;
-        }
-      )
+        });
     },
 
     /**
      * remove ThumbNail
-    **/
-    removeThumbNail () {
-      this.$store.dispatch('productManage/removeThumbNail',this.product_id).then(()=>{
+     **/
+    removeThumbNail() {
+      this.$store
+        .dispatch("productManage/removeThumbNail", this.product_id)
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
           this.changed_thumbNail = false;
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
           this.changed_thumbNail = false;
-        }
-      )
+        });
     },
 
     /**
-     * save product 
-    **/
+     * save product
+     **/
 
-    saveProduct () {
+    saveProduct() {
       this.selected_product.title = this.product_title;
       this.selected_product.description = this.product_description;
-      if(this.selected_product.title ===''){
+      if (this.selected_product.title === "") {
         this.$vs.notify({
           color: this.$custom_warning,
           icon: "warning",
           text: "Title must be filled",
         });
-      } else{
-        this.$store.dispatch('productManage/updateProductByID', this.selected_product).then( ()=>{
-          if(!this.status_got){
+      } else {
+        this.$store
+          .dispatch("productManage/updateProductByID", this.selected_product)
+          .then(() => {
+            if (!this.status_got) {
               this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
-            })
-            }
-          else{
-             this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon
-              })              
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
+            } else {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             }
           })
-       .catch(() => {
+          .catch(() => {
             this.$vs.notify({
               color: this.notification_color,
               text: this.notification_text,
-              icon: this.notification_icon
-            })
+              icon: this.notification_icon,
+            });
+          });
+        if (this.changed_thumbNail) {
+          if (this.cssthumbImageUrl !== "") {
+            this.saveThumbNail(this.thumbNail);
+          } else {
+            this.removeThumbNail();
           }
-        )
-      if(this.changed_thumbNail){
-        if(this.cssthumbImageUrl !==''){
-          this.saveThumbNail(this.thumbNail);       
         }
-        else{
-          this.removeThumbNail();
-        }
-      }
       }
     },
-    
-    
 
     /**
      * sucess upload
-    **/
+     **/
     successUpload() {
       this.$vs.notify({
         color: "success",
@@ -371,56 +396,52 @@ export default {
       });
     },
 
-   
-
     /**
      * init product
-    **/
+     **/
 
     initProduct() {
-      this.$store.dispatch('productManage/getProductByID', this.product_id).then(()=>{
-        this.cssthumbImageUrl = "url(" + this.selected_product.thumbnail +")";
-        this.product_title = this.selected_product.title;
-        this.product_description = this.selected_product.description;  
-        this.changed_thumbNail = false;
-      })
-      .catch(()=>{
-         this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon
-          })
-      })
-      
-    },
-
-
-    /**
-     * delete current product
-    **/
-
-    deleteCurrentProduct() {
-      this.$store.dispatch('productManage/deleteProductByID', this.product_id).then(()=>{
-          this.$router.push('/products')
-          this.confirmDeleteProduct = false;
+      this.$store
+        .dispatch("productManage/getProductByID", this.product_id)
+        .then(() => {
+          this.cssthumbImageUrl =
+            "url(" + this.selected_product.thumbnail + ")";
+          this.product_title = this.selected_product.title;
+          this.product_description = this.selected_product.description;
+          this.changed_thumbNail = false;
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      )
-    }
+            icon: this.notification_icon,
+          });
+        });
+    },
 
+    /**
+     * delete current product
+     **/
 
-
+    deleteCurrentProduct() {
+      this.$store
+        .dispatch("productManage/deleteProductByID", this.product_id)
+        .then(() => {
+          this.$router.push("/products");
+          this.confirmDeleteProduct = false;
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+    },
   },
 };
 </script>
 <style lang="scss">
-
 .image-aspect-ratio {
   border: 1px rgba(0, 0, 0, 0.2) solid;
   border-radius: 5px;
@@ -433,21 +454,21 @@ export default {
   background-position: center center;
 }
 input[type="file"] {
-    display: none;
+  display: none;
 }
-.select-button{
+.select-button {
   border: 1px solid #ccc;
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-   color: white;
+  color: white;
   background-color: #2ea169;
   border-radius: 0.3rem;
 }
-.routing-product:hover{
-  cursor:pointer;
+.routing-product:hover {
+  cursor: pointer;
 }
-.product-thumbnail-select-button{
+.product-thumbnail-select-button {
   margin-top: 8px;
   display: inline-block;
   padding: 10px 12px;
@@ -463,19 +484,19 @@ input[type="file"] {
   border-radius: 4px !important;
 }
 .product-delete .vs-popup--content {
-    padding: 0;
-    padding-left: 0;
-    margin: 0;
-    width: 100%;
-  }
+  padding: 0;
+  padding-left: 0;
+  margin: 0;
+  width: 100%;
+}
 
-  .product-delete .vs-popup--header {
-    background-color: #f62d51;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
+.product-delete .vs-popup--header {
+  background-color: #f62d51;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 
-  .product-delete .vs-icon {
-    color: white;
-  }
+.product-delete .vs-icon {
+  color: white;
+}
 </style>

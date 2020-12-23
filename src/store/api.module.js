@@ -7,13 +7,14 @@ export const apiManage = {
   namespaced: true,
   state: initialState,
   actions: {
-    getApiKey({commit}) {
+    getApiKey({
+      commit
+    }) {
       return ApiService.getApiKey().then(
         res => {
-          if(res.status ===200){
+          if (res.status === 200) {
             commit('getApiKeySuccess', res);
-          }
-          else{
+          } else {
             commit('getApiKeyFailed', res.response);
           }
         },
@@ -22,13 +23,14 @@ export const apiManage = {
         }
       );
     },
-    createApiKey({commit}) {
+    createApiKey({
+      commit
+    }) {
       return ApiService.createApiKey().then(
         res => {
-          if(res.status ===200){
+          if (res.status === 200) {
             commit('createApiKeySuccess', res);
-          }
-          else{
+          } else {
             commit('createApiKeyFailed', res.response);
           }
         },
@@ -37,13 +39,14 @@ export const apiManage = {
         }
       );
     },
-    deleteApiKey({commit}) {
+    deleteApiKey({
+      commit
+    }) {
       return ApiService.deleteApiKey().then(
         res => {
-          if(res.status ===200){
+          if (res.status === 200) {
             commit('deleteApiKeySuccess');
-          }
-          else{
+          } else {
             commit('deleteApiKeyFailed', res.response);
           }
         },
@@ -54,44 +57,50 @@ export const apiManage = {
     },
   },
   getters: {
-    api_key: state=>state.api_key,
-    error_text: state=>state.error_text
+    api_key: state => state.api_key,
+    error_text: state => state.error_text
   },
   mutations: {
-    getApiKeySuccess(state, res){
-      state.status = { got: true};
+    getApiKeySuccess(state, res) {
+      state.status = {
+        got: true
+      };
       state.api_key = res.data.api_key;
       state.error_text = '';
     },
-    getApiKeyFailed(state, error){
+    getApiKeyFailed(state, error) {
       state.status = {};
-      state.error_text = error.statusText +' : \n' + error.data.message;
+      state.error_text = error.statusText + ' : \n' + error.data.message;
     },
-    deleteApiKeySuccess(state){
-      state.status = { got: true};
+    deleteApiKeySuccess(state) {
+      state.status = {
+        got: true
+      };
       state.api_key = '';
       state.error_text = '';
     },
-    deleteApiKeyFailed(state, error){
+    deleteApiKeyFailed(state, error) {
       state.status = {};
-      state.error_text = error.statusText +' : \n' + error.data.message;
+      state.error_text = error.statusText + ' : \n' + error.data.message;
     },
-    createApiKeySuccess(state, res){
-      state.status = { got: true};
+    createApiKeySuccess(state, res) {
+      state.status = {
+        got: true
+      };
       state.api_key = res.data.api_key;
       state.error_text = '';
     },
-    createApiKeyFailed(state, error){
+    createApiKeyFailed(state, error) {
       state.status = {};
-      state.error_text = error.statusText +' : \n' + error.data.message;
+      state.error_text = error.statusText + ' : \n' + error.data.message;
     },
 
-    RESET_MODULE (state) {
-      
+    RESET_MODULE(state) {
+
       Object.assign(state, initialState)
-     }
+    }
 
 
-    
+
   }
 };

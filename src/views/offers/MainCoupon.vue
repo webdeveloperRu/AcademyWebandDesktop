@@ -5,10 +5,14 @@
      -->
     <vs-col vs-lg="9" vs-xs="12">
       <div class="d-flex">
-        <span class="ml-2 mt-2 primary-font" @click="backToOffers" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Offers</span>
-        
+        <span
+          class="ml-2 mt-2 primary-font"
+          @click="backToOffers"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Offers</span
+        >
       </div>
-      <div class="mb-4 mt-4 d-flex"  style="justify-content: space-between;">
+      <div class="mb-4 mt-4 d-flex" style="justify-content: space-between;">
         <div class="d-flex">
           <h2>Coupon</h2>
           <i
@@ -35,7 +39,11 @@
       vs-xs="12"
       code-toggler
     >
-      <vs-card class="cardx" v-for="(coupon, index) in coupon_list" v-bind:key="index">
+      <vs-card
+        class="cardx"
+        v-for="(coupon, index) in coupon_list"
+        v-bind:key="index"
+      >
         <vs-row vs-align="center">
           <vs-col vs-lg="6">
             <div
@@ -49,8 +57,8 @@
                 ></i>
               </div>
               <div>
-                <h4 class="mb-1">{{coupon.code}}</h4>
-                <div>{{offer_data[coupon.offer_id]}}</div>
+                <h4 class="mb-1">{{ coupon.code }}</h4>
+                <div>{{ offer_data[coupon.offer_id] }}</div>
               </div>
             </div>
           </vs-col>
@@ -60,10 +68,14 @@
               style="justify-content: flex-end; align-items: center"
             >
               <div class="text-right">
-                <div>{{coupon.value}}% offer {{coupon.use_limit}}</div>
-                <div>Valid Thru: {{coupon.end_on}}</div>
+                <div>{{ coupon.value }}% offer {{ coupon.use_limit }}</div>
+                <div>Valid Thru: {{ coupon.end_on }}</div>
               </div>
-              <div class="ml-3" @click ="linkToEditCoupon(coupon.id)" style="cursor: pointer">
+              <div
+                class="ml-3"
+                @click="linkToEditCoupon(coupon.id)"
+                style="cursor: pointer"
+              >
                 <i class="mdi mdi-pencil" style="font-size: 22px"></i>
               </div>
             </div>
@@ -81,43 +93,43 @@ export default {
     offer_data: {},
   }),
 
-   /**
+  /**
    * --------------computed part-------------
    */
   computed: {
     coupon_list: {
       get() {
-        return this.$store.getters["couponManage/coupon_list"]
-      }
+        return this.$store.getters["couponManage/coupon_list"];
+      },
     },
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     offer_list: {
@@ -125,82 +137,78 @@ export default {
         return this.$store.getters["offerManage/offer_list"];
       },
     },
-
   },
 
   /**
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
     this.initCoupon();
   },
   /**
    * --------------method part-------------
    */
   methods: {
-  /**
-   * --------------get coupon list-------------
-   */
+    /**
+     * --------------get coupon list-------------
+     */
     initCoupon: function() {
-      this.$store.dispatch("offerManage/getOfferList", this.offer).then(
-        () => {
-          for( let i = 0; i < this.offer_list.length; i++) {
+      this.$store
+        .dispatch("offerManage/getOfferList", this.offer)
+        .then(() => {
+          for (let i = 0; i < this.offer_list.length; i++) {
             this.offer_data[this.offer_list[i].id] = this.offer_list[i].name;
           }
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        })
+            icon: this.notification_icon,
+          });
+        });
 
-      this.$store.dispatch('couponManage/getCouponList').then(
-        () => {
+      this.$store
+        .dispatch("couponManage/getCouponList")
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      );
-
+            icon: this.notification_icon,
+          });
+        });
     },
 
     /**
-   * -------------add new coupon -------------
-   */
+     * -------------add new coupon -------------
+     */
 
     linkToNewCoupon: function() {
-      this.$router.push('/offers/new-coupon')
-
+      this.$router.push("/offers/new-coupon");
     },
 
-  /**
-   * --------------back to offers-------------
-   */
+    /**
+     * --------------back to offers-------------
+     */
 
     backToOffers: function() {
-      this.$router.push('/offers')
+      this.$router.push("/offers");
     },
 
-  /**
-   * --------------link to Edit Coupon Details------------
-   */
+    /**
+     * --------------link to Edit Coupon Details------------
+     */
     linkToEditCoupon: function(coupon_id) {
-      this.$router.push('/offers/edit-coupon/' + coupon_id)
-
-    }
+      this.$router.push("/offers/edit-coupon/" + coupon_id);
+    },
   },
-
 };
 </script>

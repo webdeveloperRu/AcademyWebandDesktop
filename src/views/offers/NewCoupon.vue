@@ -4,7 +4,13 @@
       ***@  --------heder part---------------
      -->
     <vs-col vs-lg="9" vs-xs="12">
-      <h5 class="ml-2 mb-4 mt-2 primary-font" @click="backToCoupons" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Coupons</h5>
+      <h5
+        class="ml-2 mb-4 mt-2 primary-font"
+        @click="backToCoupons"
+        style="cursor: pointer;"
+      >
+        <i class="ti-angle-left" style="font-size: 14px;"></i> Coupons
+      </h5>
       <div class="mb-4">
         <div class="d-flex">
           <h2>New Coupon</h2>
@@ -61,24 +67,26 @@
                 v-for="(item, index) in discount_types"
               />
             </vs-select>
-            <div class="mb-2 mt-3 ml-2" style="font-weight: 600;"> Select offer</div>
-              <ModelSelect
-                class="modelselect"
-                :options="offer_list"
-                v-model="selected_offer"
-                placeholder="offer_list"
-              >
-              </ModelSelect>
+            <div class="mb-2 mt-3 ml-2" style="font-weight: 600;">
+              Select offer
+            </div>
+            <ModelSelect
+              class="modelselect"
+              :options="offer_list"
+              v-model="selected_offer"
+              placeholder="offer_list"
+            >
+            </ModelSelect>
 
             <vs-input
-              v-if = "discount_type===1"
+              v-if="discount_type === 1"
               label="Percent off"
               type="number"
               v-model="coupon_value"
               class="w-100 mt-3"
             />
-             <vs-input
-             v-else
+            <vs-input
+              v-else
               label="Amount off"
               type="number"
               v-model="coupon_value"
@@ -109,7 +117,7 @@
             </label>
           </vs-card>
           <div style="float: right">
-            <vs-button class="mt-3" @click = "saveNewCoupon">Save</vs-button>
+            <vs-button class="mt-3" @click="saveNewCoupon">Save</vs-button>
           </div>
         </vs-col></vs-row
       >
@@ -118,7 +126,7 @@
 </template>
 <script>
 import { ModelSelect } from "vue-search-select";
-import Coupon from '../../models/coupon';
+import Coupon from "../../models/coupon";
 export default {
   name: "CouponInput",
   components: {
@@ -133,7 +141,7 @@ export default {
       { text: "percent_off", value: 1 },
     ],
     coupon_value: 0,
-    coupon: new Coupon('',''),
+    coupon: new Coupon("", ""),
     durations: [
       { text: "Once", value: 0 },
       { text: "Multi-month", value: 1 },
@@ -141,50 +149,50 @@ export default {
     ],
     duration: 0,
     valid_date: "",
-    selected_offer: '',
+    selected_offer: "",
   }),
 
-   /**
+  /**
    * --------------computed part-------------
    */
   computed: {
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     offer_list: {
       get() {
-        let offerList = []
-        let list = []
+        let offerList = [];
+        let list = [];
         list = this.$store.getters["offerManage/offer_list"];
-        for (let i = 0; i < list.length; i ++) {
-          offerList.push({text:list[i].name , value:list[i].id})
+        for (let i = 0; i < list.length; i++) {
+          offerList.push({ text: list[i].name, value: list[i].id });
         }
 
         return offerList;
@@ -196,28 +204,25 @@ export default {
    * --------------watch part-------------
    */
 
-   watch: {
+  watch: {
     // selected_offer: function(newValue, oldValue) {
     // }
-   },
-
-
+  },
 
   /**
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
     this.initCouponParameter();
   },
-
 
   /**
    * --------------method part-------------
    */
   methods: {
-    backToCoupons: function () {
-      this.$router.push('/offers/coupon')
+    backToCoupons: function() {
+      this.$router.push("/offers/coupon");
     },
 
     /**
@@ -225,49 +230,45 @@ export default {
      */
 
     initCouponParameter: function() {
-      this.$store.dispatch("offerManage/getOfferList", this.offer).then(
-        () => {
-
-          
-        })
-       .catch(() => {
+      this.$store
+        .dispatch("offerManage/getOfferList", this.offer)
+        .then(() => {})
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        })
-
+            icon: this.notification_icon,
+          });
+        });
     },
 
     /**
      * --------------init coupon parameter------------
      */
     saveNewCoupon() {
-
       this.coupon.code = this.coupon_code;
       this.coupon.offer_id = this.selected_offer;
       this.coupon.discount_type = this.discount_types[this.discount_type].text;
       this.coupon.end_on = this.valid_date;
       this.coupon.use_limit = this.duration;
-      this.coupon.value = this.coupon_value
-      this.$store.dispatch("couponManage/addCoupon", this.coupon).then(
-        () => {
+      this.coupon.value = this.coupon_value;
+      this.$store
+        .dispatch("couponManage/addCoupon", this.coupon)
+        .then(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        })
-    }
+            icon: this.notification_icon,
+          });
+        });
+    },
   },
- 
 };
 </script>

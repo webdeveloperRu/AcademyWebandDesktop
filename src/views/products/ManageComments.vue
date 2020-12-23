@@ -5,8 +5,13 @@
      -->
     <vs-col>
       <div class="ml-5 mb-4">
-        <span @click="backToProducts" style="cursor: pointer;" class="ml-2 mb-5 mt-2 primary-font"><i class="ti-angle-left" style="font-size: 14px;"></i> Products</span>
-        <div class="d-flex mt-3">          
+        <span
+          @click="backToProducts"
+          style="cursor: pointer;"
+          class="ml-2 mb-5 mt-2 primary-font"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Products</span
+        >
+        <div class="d-flex mt-3">
           <h2>Manage Comments</h2>
           <i
             class="mdi mdi-help-circle-outline ml-1"
@@ -30,7 +35,7 @@
         <div slot="header">
           <div class="d-flex" style="position: relative">
             <vs-tabs v-model="currentTab">
-              <vs-tab label="Unread" >
+              <vs-tab label="Unread">
                 <div class="con-tab-ejemplo">
                   <vs-table
                     multiple
@@ -52,11 +57,24 @@
                         "
                       >
                         <div>
-                          <span>Displaying <strong>{{unread_comment_list.length}}</strong> </span>
-                          <vs-button size="small" type="border" class="ml-1"  color="dark" @click="markAsRead"
+                          <span
+                            >Displaying
+                            <strong>{{ unread_comment_list.length }}</strong>
+                          </span>
+                          <vs-button
+                            size="small"
+                            type="border"
+                            class="ml-1"
+                            color="dark"
+                            @click="markAsRead"
                             >Mark As Read</vs-button
                           >
-                          <vs-button size="small" type="border" class="ml-1"  color="dark" @click="deleteComment"
+                          <vs-button
+                            size="small"
+                            type="border"
+                            class="ml-1"
+                            color="dark"
+                            @click="deleteComment"
                             >Delete</vs-button
                           >
                         </div>
@@ -83,7 +101,7 @@
                       >
                         <vs-td> <vs-avatar></vs-avatar> </vs-td>
                         <vs-td :data="data[indextr].author_name">
-                          <strong>{{ data[indextr].author_name }}</strong> 
+                          <strong>{{ data[indextr].author_name }}</strong>
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
@@ -122,11 +140,24 @@
                         "
                       >
                         <div>
-                          <span>Displaying <strong>{{read_comment_list.length}}</strong> </span>
-                          <vs-button size="small" type="border" class="ml-1" color="dark" @click="markAsUnread"
+                          <span
+                            >Displaying
+                            <strong>{{ read_comment_list.length }}</strong>
+                          </span>
+                          <vs-button
+                            size="small"
+                            type="border"
+                            class="ml-1"
+                            color="dark"
+                            @click="markAsUnread"
                             >Mark As Unread</vs-button
                           >
-                          <vs-button size="small" type="border" class="ml-1"  color="dark" @click="deleteComment"
+                          <vs-button
+                            size="small"
+                            type="border"
+                            class="ml-1"
+                            color="dark"
+                            @click="deleteComment"
                             >Delete</vs-button
                           >
                         </div>
@@ -153,7 +184,7 @@
                       >
                         <vs-td> <vs-avatar></vs-avatar> </vs-td>
                         <vs-td :data="data[indextr].author_name">
-                          <strong>{{ data[indextr].author_name }}</strong> 
+                          <strong>{{ data[indextr].author_name }}</strong>
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
@@ -192,8 +223,16 @@
                         "
                       >
                         <div>
-                          <span>Displaying <strong>{{delete_comment_list.length}}</strong> </span>
-                          <vs-button size="small" type="border" class="ml-1"   color="dark" @click="restoreComment"
+                          <span
+                            >Displaying
+                            <strong>{{ delete_comment_list.length }}</strong>
+                          </span>
+                          <vs-button
+                            size="small"
+                            type="border"
+                            class="ml-1"
+                            color="dark"
+                            @click="restoreComment"
                             >Restore</vs-button
                           >
                         </div>
@@ -220,7 +259,7 @@
                       >
                         <vs-td> <vs-avatar></vs-avatar> </vs-td>
                         <vs-td :data="data[indextr].author_name">
-                          <strong>{{ data[indextr].author_name }}</strong> 
+                          <strong>{{ data[indextr].author_name }}</strong>
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
@@ -288,7 +327,6 @@ export default {
     read_comment_list: [],
     unread_comment_list: [],
     delete_comment_list: [],
-
   }),
 
   watch: {
@@ -306,247 +344,240 @@ export default {
     // }
   },
 
-   /**
-    *   computed part
+  /**
+   *   computed part
    **/
-  computed: {    
+  computed: {
     comment_product: {
       get() {
-        let product = [{text:'All Products', value: 1}]
-        for (let i = 0; i < this.product_list.length; i++ ){
-          product[i+1] = {text: this.product_list[i].title, value:this.product_list[i].id}
+        let product = [{ text: "All Products", value: 1 }];
+        for (let i = 0; i < this.product_list.length; i++) {
+          product[i + 1] = {
+            text: this.product_list[i].title,
+            value: this.product_list[i].id,
+          };
         }
         return product;
-      }
+      },
     },
     product_filter: {
       get() {
-        var id = this.$route.params.product_id
+        var id = this.$route.params.product_id;
         return id.slice(0, id.length);
-      }
+      },
     },
     comment_list: {
       get() {
-        return this.$store.getters["commentManage/comment_list"]
-      }
+        return this.$store.getters["commentManage/comment_list"];
+      },
     },
 
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
 
     // lesson_list: {
     //   get() {
     //     let list = this.$store.getters["lessonManage/lesson_list"];
     //     return list[this.category_id];
-    //   },      
+    //   },
     // },
 
     product_list: {
       get() {
-        return this.$store.getters["productManage/product_list"]
-      }
-    }
-
-
+        return this.$store.getters["productManage/product_list"];
+      },
+    },
   },
 
-   /**
-    *   computed part
+  /**
+   *   computed part
    **/
-   created() {
-    this.$store.dispatch('changeSideBar', false)
+  created() {
+    this.$store.dispatch("changeSideBar", false);
     this.getAllComments();
-    
-   },
+  },
 
-   /**
-    *   method part
+  /**
+   *   method part
    **/
   methods: {
     /**
-    *   comment filter part
-   **/
+     *   comment filter part
+     **/
     filterCommentByProduct() {
       this.filterComments();
     },
 
-     /**
-      *   get all comments function
+    /**
+     *   get all comments function
      **/
     getAllComments() {
-      this.$store.dispatch('commentManage/getCommentList').then(()=>{
-        this.filterComments();
-        this.$vs.notify({
-          color: this.notification_color,
-          text: this.notification_text,
-          icon: this.notification_icon
-        })
-      })
-      .catch(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon
-          })
-        })
-      this.selected_product_filter = this.product_filter
-    },
-
-
-   /**
-    *   mark commnets as read
-   **/
-    markAsRead() {
-      var unreadComment={};
-      for(let i = 0; i < this.selected_unread_comments.length; i++) {
-        unreadComment = this.selected_unread_comments[i];
-        this.updateCommentStatus(unreadComment, 'READ');
-      }
-
-    },
-
-  /**
-    *   delete comments
-   **/
-   deleteComment() {
-    // if (this.currentTab == 0){
-    //   var unreadComment={};
-    //   for(let i = 0; i < this.selected_unread_comments.length; i++) {
-    //     unreadComment = this.selected_unread_comments[i];
-    //     this.updateCommentStatus(unreadComment, 'DELETE');
-    //   }
-    // } else {
-    //   var readComment={};
-    //   for(let i = 0; i < this.selected_read_comments.length; i++) {
-    //     readComment = this.selected_read_comments[i];
-    //     this.updateCommentStatus(readComment, 'DELETE');
-    //   }
-    // }
-
-
-   },
-
-   /**
-    *   mark commnets as unread
-   **/
-    markAsUnread() {
-
-      var readComment={};
-      for(let i = 0; i < this.selected_read_comments.length; i++) {
-        readComment = this.selected_read_comments[i];
-        this.updateCommentStatus(readComment, 'UNREAD');
-      }
-
-
-    },
-
-   /**
-    *   restore comment
-   **/
-
-    restoreComment() {
-
-    },
-  /**
-    *  update comment
-   **/
-
-   updateCommentStatus(comment, flag) {
-    let tempcomment = Object.assign({}, comment);    
-    tempcomment.status = flag;
-    this.$store.dispatch('commentManage/changeCommentStatus', tempcomment).then(
-        () => {
+      this.$store
+        .dispatch("commentManage/getCommentList")
+        .then(() => {
           this.filterComments();
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
+            icon: this.notification_icon,
+          });
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+      this.selected_product_filter = this.product_filter;
+    },
+
+    /**
+     *   mark commnets as read
+     **/
+    markAsRead() {
+      var unreadComment = {};
+      for (let i = 0; i < this.selected_unread_comments.length; i++) {
+        unreadComment = this.selected_unread_comments[i];
+        this.updateCommentStatus(unreadComment, "READ");
+      }
+    },
+
+    /**
+     *   delete comments
+     **/
+    deleteComment() {
+      // if (this.currentTab == 0){
+      //   var unreadComment={};
+      //   for(let i = 0; i < this.selected_unread_comments.length; i++) {
+      //     unreadComment = this.selected_unread_comments[i];
+      //     this.updateCommentStatus(unreadComment, 'DELETE');
+      //   }
+      // } else {
+      //   var readComment={};
+      //   for(let i = 0; i < this.selected_read_comments.length; i++) {
+      //     readComment = this.selected_read_comments[i];
+      //     this.updateCommentStatus(readComment, 'DELETE');
+      //   }
+      // }
+    },
+
+    /**
+     *   mark commnets as unread
+     **/
+    markAsUnread() {
+      var readComment = {};
+      for (let i = 0; i < this.selected_read_comments.length; i++) {
+        readComment = this.selected_read_comments[i];
+        this.updateCommentStatus(readComment, "UNREAD");
+      }
+    },
+
+    /**
+     *   restore comment
+     **/
+
+    restoreComment() {},
+    /**
+     *  update comment
+     **/
+
+    updateCommentStatus(comment, flag) {
+      let tempcomment = Object.assign({}, comment);
+      tempcomment.status = flag;
+      this.$store
+        .dispatch("commentManage/changeCommentStatus", tempcomment)
+        .then(() => {
+          this.filterComments();
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
           this.selected_unread_comments = [];
           this.selected_delete_comments = [];
           this.selected_read_comments = [];
         })
-       .catch(() => {
+        .catch(() => {
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
-            icon: this.notification_icon
-          })
-        }
-      );
-   },
+            icon: this.notification_icon,
+          });
+        });
+    },
 
-   /**
-    *  filter comments;
-   **/
-  filterComments() {
-    this.read_comment_list = [];
-    this.unread_comment_list = [];
-    this.delete_comment_list = [];
-    for(let i = 0; i < this.comment_list.length; i++) {
-      if(this.comment_list[i].status == 'READ' ){
-        if(this.selected_product_filter == 1) {
-          this.read_comment_list.push(this.comment_list[i])
+    /**
+     *  filter comments;
+     **/
+    filterComments() {
+      this.read_comment_list = [];
+      this.unread_comment_list = [];
+      this.delete_comment_list = [];
+      for (let i = 0; i < this.comment_list.length; i++) {
+        if (this.comment_list[i].status == "READ") {
+          if (this.selected_product_filter == 1) {
+            this.read_comment_list.push(this.comment_list[i]);
+          } else if (
+            this.selected_product_filter == this.comment_list[i].product_id
+          ) {
+            this.read_comment_list.push(this.comment_list[i]);
+          }
         }
-        else if(this.selected_product_filter == this.comment_list[i].product_id){
-          this.read_comment_list.push(this.comment_list[i])
+
+        if (this.comment_list[i].status == "UNREAD") {
+          if (this.selected_product_filter == 1) {
+            this.unread_comment_list.push(this.comment_list[i]);
+          } else if (
+            this.selected_product_filter == this.comment_list[i].product_id
+          ) {
+            this.unread_comment_list.push(this.comment_list[i]);
+          }
+        }
+
+        if (this.comment_list[i].status == "DELETE") {
+          if (this.selected_product_filter == 1) {
+            this.delete_comment_list.push(this.comment_list[i]);
+          } else if (
+            this.selected_product_filter == this.comment_list[i].product_id
+          ) {
+            this.delete_comment_list.push(this.comment_list[i]);
+          }
         }
       }
+    },
 
-      if(this.comment_list[i].status == 'UNREAD' ){
-        if(this.selected_product_filter == 1) {
-
-          this.unread_comment_list.push(this.comment_list[i])
-        }
-        else if(this.selected_product_filter == this.comment_list[i].product_id){
-          this.unread_comment_list.push(this.comment_list[i])
-        }
-      }
-
-      if(this.comment_list[i].status == 'DELETE' ){
-        if(this.selected_product_filter == 1) {
-          this.delete_comment_list.push(this.comment_list[i])
-        }
-        else if(this.selected_product_filter == this.comment_list[i].product_id){
-          this.delete_comment_list.push(this.comment_list[i])
-        }
-      }
-    }
+    backToProducts() {
+      this.$router.push("/products");
+    },
   },
-
-  backToProducts() {
-    this.$router.push('/products')
-  }
-    
-},
-
 };
 </script>
 <style lang="scss">

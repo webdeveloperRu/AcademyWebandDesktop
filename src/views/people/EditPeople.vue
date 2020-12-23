@@ -9,8 +9,13 @@
         vs-xs="12"
         class="mb-3"
       >
-        <span class="ml-2 mt-2 primary-font" @click="backToPeoples" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Students</span>
-        <h2 class="mt-3">{{selected_people.name}}</h2>
+        <span
+          class="ml-2 mt-2 primary-font"
+          @click="backToPeoples"
+          style="cursor: pointer;"
+          ><i class="ti-angle-left" style="font-size: 14px;"></i> Students</span
+        >
+        <h2 class="mt-3">{{ selected_people.name }}</h2>
       </vs-col>
       <vs-col
         type="flex"
@@ -23,7 +28,7 @@
         <vs-card>
           <div class="d-flex" style="align-items: center">
             <div>
-               <vs-avatar size="70px"></vs-avatar>
+              <vs-avatar size="70px"></vs-avatar>
             </div>
             <div class="ml-3">
               <div>{{ selected_people.name }}</div>
@@ -71,7 +76,9 @@
             style="align-items: center; justify-content: space-between"
           >
             <h4>Tags</h4>
-            <vs-button color="primary" type="flat" @click="linkToContactTag">View All Tags</vs-button>
+            <vs-button color="primary" type="flat" @click="linkToContactTag"
+              >View All Tags</vs-button
+            >
           </div>
           <multiselect
             v-model="selected_tag"
@@ -120,148 +127,143 @@ export default {
       get() {
         let value = [];
         for (let i = 0; i < this.tags.length; i++) {
-          value.push(this.tags[i].name)
+          value.push(this.tags[i].name);
         }
         return value;
-      }
+      },
     },
 
     tags: {
       get() {
         let tags = [];
-        for (let i = 0;  i < this.selected_people.tags.length; i++) {
-          tags[i] = {code: i, name: this.selected_people.tags[i].title}
+        for (let i = 0; i < this.selected_people.tags.length; i++) {
+          tags[i] = { code: i, name: this.selected_people.tags[i].title };
         }
-        return tags
-      }
-      
+        return tags;
+      },
     },
 
-    people_id : {
-      get () {
-        var id = this.$route.params.people_id
+    people_id: {
+      get() {
+        var id = this.$route.params.people_id;
         return id.slice(0, id.length);
-      }
+      },
     },
 
     people_list: {
       get() {
-        return this.$store.getters["peopleManage/people_list"]
-      }
+        return this.$store.getters["peopleManage/people_list"];
+      },
     },
 
     selected_people: {
       get() {
-        return this.$store.getters["peopleManage/current_people"]
-      }
+        return this.$store.getters["peopleManage/current_people"];
+      },
     },
 
     user_logged: {
       get() {
-        return this.$store.getters["auth/user_logged"]
-      }
+        return this.$store.getters["auth/user_logged"];
+      },
     },
 
-    notification_text:{
+    notification_text: {
       get() {
-        return this.$store.getters["notification_text"]
-      }
+        return this.$store.getters["notification_text"];
+      },
     },
 
     notification_icon: {
       get() {
-        return this.$store.getters["notification_icon"]
-      }
+        return this.$store.getters["notification_icon"];
+      },
     },
 
     notification_color: {
       get() {
-        return this.$store.getters["notification_color"]
-      }
+        return this.$store.getters["notification_color"];
+      },
     },
 
     status_got: {
-      get () {
-        return this.$store.getters["status_got"]
-      }
+      get() {
+        return this.$store.getters["status_got"];
+      },
     },
-
-
   },
 
   created() {
-    this.$store.dispatch('changeSideBar', false)
+    this.$store.dispatch("changeSideBar", false);
     this.getCurrentPeople();
-
   },
 
-
-
   methods: {
-    addTag (newTag) {
+    addTag(newTag) {
       this.added_tagChips.push(newTag);
-      let tag = {title: newTag}
+      let tag = { title: newTag };
       this.selected_people.tags.push(tag);
       this.updatePeople(true);
     },
-    getCurrentPeople(){
-      this.$store.dispatch('peopleManage/getPeopleByID',this.people_id).then(()=>{
-      })
+    getCurrentPeople() {
+      this.$store
+        .dispatch("peopleManage/getPeopleByID", this.people_id)
+        .then(() => {});
     },
 
     updatePeople(flag) {
-      let text = ''
-      if (flag) 
-        text = 'Successfully added tag'
-      else
-        text = 'Successfully removed tag'
-      this.$store.dispatch('peopleManage/updatePeopleByID', [this.selected_people, this.people_id]).then(()=>{
-        if(this.status_got){ 
-          this.$vs.notify({
-            color: this.notification_color,
-            text: text,
-            icon: this.notification_icon
-          })
-          this.getCurrentPeople();
-        }
-        else {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon
-          })
-          this.getCurrentPeople();
-        }
-          })
-       .catch(() => {
+      let text = "";
+      if (flag) text = "Successfully added tag";
+      else text = "Successfully removed tag";
+      this.$store
+        .dispatch("peopleManage/updatePeopleByID", [
+          this.selected_people,
+          this.people_id,
+        ])
+        .then(() => {
+          if (this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: text,
+              icon: this.notification_icon,
+            });
+            this.getCurrentPeople();
+          } else {
             this.$vs.notify({
               color: this.notification_color,
               text: this.notification_text,
-              icon: this.notification_icon
-            })
+              icon: this.notification_icon,
+            });
+            this.getCurrentPeople();
           }
-        )
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
     remove(item) {
       this.added_tagChips.splice(this.added_tagChips.indexOf(item), 1);
-      for (let i = 0; i < this.selected_people.tags.length; i++ ){
-        if (this.selected_people.tags[i].title == item) {          
-          this.selected_people.tags.splice(i,1);
+      for (let i = 0; i < this.selected_people.tags.length; i++) {
+        if (this.selected_people.tags[i].title == item) {
+          this.selected_people.tags.splice(i, 1);
           this.updatePeople(false);
         }
       }
     },
 
     linkToContactTag() {
-      this.$router.push('/people/' + this.people_id + '/contact-tag')
+      this.$router.push("/people/" + this.people_id + "/contact-tag");
     },
     backToPeoples() {
-      this.$router.push('/people')
-    }
+      this.$router.push("/people");
+    },
   },
 };
 </script>
-<style>
-</style>
+<style></style>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>

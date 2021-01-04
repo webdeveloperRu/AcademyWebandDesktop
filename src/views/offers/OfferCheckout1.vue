@@ -27,7 +27,7 @@
           insert a call to action 
           -->
         <div class="outline-edit">
-          <div v-html="htmlBody" class="mt-3 mb-3"></div>
+          <div v-html="htmlBody" class="mt-3 mb-3 ql-editor"></div>
           <vs-button class="edit-button" size="small">Edit</vs-button>
         </div>
         <!-- 

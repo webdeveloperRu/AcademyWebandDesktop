@@ -202,7 +202,7 @@
           ></div>
           <div>
             <div class="text-center p-3">
-              <h3 class="mb-2 product-title">
+              <h3 class="mb-2 product-title offer_checkout_title">
                 {{ selected_public_offer.name }}
               </h3>
               {{ selected_public_offer.price
@@ -224,7 +224,7 @@
           insert a call to action 
           -->
         <div>
-          <div v-html="htmlBody" class="mt-3 mb-3"></div>
+          <div v-html="htmlBody" class="mt-3 mb-3 ql-editor"></div>
           <label class="edit-button" size="small">Edit</label>
         </div>
         <!-- 

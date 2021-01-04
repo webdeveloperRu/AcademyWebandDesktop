@@ -78,3 +78,73 @@ div, tr, td, th, span, label{
   overflow: hidden !important;
   box-sizing: inherit !important;
 }
+.ql-editor {
+    box-sizing: border-box;
+    line-height: 1.42;
+    height: 100%;
+    outline: 0;
+    overflow-y: auto;
+    padding: 12px 15px;
+    tab-size: 4;
+    -moz-tab-size: 4;
+    text-align: left;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.ql-editor blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6, .ql-editor ol, .ql-editor p, .ql-editor pre, .ql-editor ul {
+    margin: 0;
+    padding: 0;
+    color: #0D0D0D;
+    counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+    font-weight: 600;
+}
+
+.ql-editor p{
+  color: #373f47;
+  font-weight: 400;
+}
+
+.ql-editor ul, .ql-editor li {
+  color: #373f47;
+  font-weight: 400;
+}
+
+.ql-editor ol li:not(.ql-direction-rtl), .ql-editor ul li:not(.ql-direction-rtl) {
+    padding-left: 1.5em;
+}
+.ql-editor ol>li, .ql-editor ul>li {
+    list-style-type: none;
+}
+
+.ql-editor li:not(.ql-direction-rtl)::before {
+    margin-left: -1.5em;
+    margin-right: .3em;
+    text-align: right;
+}
+
+.ql-editor ul>li::before {
+    content: '\2022';
+}
+.ql-editor li::before {
+    display: inline-block;
+    white-space: nowrap;
+    width: 1.2em;
+}
+
+.ql-editor {
+    font-size: 16px;
+}
+
+.offer_checkout_title {
+    // margin-top: 50px;
+    // margin-bottom: 40px;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #0D0D0D;
+    padding: 0 12px;
+}
+
+.outline-edit .ql-editor {
+  min-height: 0 !important;
+}

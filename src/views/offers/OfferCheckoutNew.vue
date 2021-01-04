@@ -34,7 +34,7 @@
           offer title 
           -->
         <div class="outline-edit mt-5" @click="changeSideMenu('offer-details')">
-          <h2 class="">{{ selected_offer.name }}</h2>
+          <h2 class="offer_checkout_title">{{ selected_offer.name }}</h2>
           <label class="edit-button" size="small">Edit</label>
         </div>
 
@@ -44,7 +44,7 @@
         <div class="outline-edit" @click="changeSideMenu('offer-details')">
           <div
             v-html="htmlBody"
-            class="mt-3 mb-3"
+            class="mt-3 mb-3 ql-editor"
             style="word-wrap: break-word;"
           ></div>
           <label class="edit-button" size="small">Edit</label>

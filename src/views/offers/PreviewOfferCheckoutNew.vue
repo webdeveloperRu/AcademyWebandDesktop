@@ -20,8 +20,8 @@
         <!-- 
           offer title 
           -->
-        <div class="mt-3">
-          <h2 class="">{{selected_public_offer.name}}</h2>          
+        <div class="mt-5">
+          <h2 class="offer_checkout_title">{{selected_public_offer.name}}</h2>          
           <label class="edit-button" size="small">Edit</label>
         </div>
 
@@ -29,7 +29,7 @@
           insert a call to action 
           -->
         <div >
-          <div v-html="htmlBody" class="mt-3 mb-3" style="word-wrap: break-word;"></div>
+          <div v-html="htmlBody" class="mt-3 mb-3 ql-editor" style="word-wrap: break-word;"></div>
           <label class="edit-button" size="small">Edit</label>
         </div>
         <!-- 

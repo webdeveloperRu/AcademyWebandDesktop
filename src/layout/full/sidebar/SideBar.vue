@@ -193,7 +193,7 @@
 
                 <!-- checkout copy -->
                 <div class="primary-font mt-4 mb-1">Checkout Copy</div>
-                <VueEditor v-model="checkout_copy"></VueEditor>
+                <VueEditor v-model="checkout_copy" :editorOptions="editorSettings"></VueEditor>
               
             </div>
           </div>
@@ -277,7 +277,10 @@
 </template>
 
 <script>
-import { VueEditor } from "vue2-editor";
+// import { VueEditor } from "vue2-editor";
+import { VueEditor, Quill } from 'vue2-editor'
+// import { ImageDrop } from "quill-clipboard-module";
+
 export default {
   name: "SideBar",
   components: {
@@ -330,6 +333,13 @@ export default {
     custom_agreetext: "",
     testimonial_title: "",
     checkout_copy:"",
+    editorSettings: {
+      modules: {
+        clipboard: {
+          matchVisual: false // https://quilljs.com/docs/modules/clipboard/#matchvisual
+        }
+      }
+    },
   }),
 
   

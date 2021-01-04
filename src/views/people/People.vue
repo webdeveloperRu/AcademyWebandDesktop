@@ -127,22 +127,111 @@
         >
           <div slot="header"></div>
           <template slot="thead">
-            <vs-th sort-key="name"
+            <!-- 
+              *** normal table headers
+             -->
+            <vs-th v-if="!all_Selected" sort-key="name"
               ><span class="primary-font">NAME</span></vs-th
             >
-            <vs-th sort-key="email"
+            <vs-th v-if="!all_Selected" sort-key="email"
               ><span class="primary-font">EMAIL</span></vs-th
             >
-            <vs-th sort-key="email_marketing"
+            <vs-th v-if="!all_Selected" sort-key="email_marketing"
               ><span class="primary-font">EMAIL MARKETING</span></vs-th
             >
-            <vs-th sort-key="join_date"
+            <vs-th v-if="!all_Selected" sort-key="join_date"
               ><span class="primary-font">JOIN DATE</span></vs-th
             >
-            <vs-th sort-key="last_activity"
+            <vs-th v-if="!all_Selected" sort-key="last_activity"
               ><span class="primary-font">LAST ACTIVITY</span></vs-th
             >
-            <vs-th></vs-th>
+            <vs-th v-if="!all_Selected"></vs-th>
+            <!-- 
+              ** all selected headers.
+             -->
+            <vs-th v-if="all_Selected">
+              <span class="primary-font" style="margin-right: 10px"
+                >{{ selected_peoples.length }} Students selected</span
+              >
+              <dropdown :close-on-click="true">
+                <template slot="btn" >
+                  <div style="width: 80px; height 30px;">Actions</div>
+                </template>
+                <template slot="body">
+                  <dropdown
+                    :trigger="'hover'"
+                    :role="'sublist'"
+                    :align="'right'"
+                  >
+                    <template slot="btn">
+                      <div class="action-menu">
+                        Offers
+                      </div>
+                    </template>
+                    <template slot="body" class="action-menu">
+                      <div class="action-menu"> Grant Offer</div>
+                      <div class="action-menu"> Revoke Offer</div>
+                    </template>
+                  </dropdown>
+                  <!-- <dropdown
+                    :trigger="'hover'"
+                    :role="'sublist'"
+                    :align="'right'"
+                  >
+                    <template slot="btn">
+                      <div class="action-menu">
+                        Sequences
+                      </div>
+                    </template>
+                    <template slot="body" class="action-menu">
+                      <div class="action-menu"> Subscribe to email sequence</div>
+                      <div class="action-menu"> Unsubscribe to email sequence</div>
+                    </template>
+                  </dropdown>
+                  <dropdown
+                    :trigger="'hover'"
+                    :role="'sublist'"
+                    :align="'right'"
+                  >
+                    <template slot="btn">
+                      <div class="action-menu">
+                        Events
+                      </div>
+                    </template>
+                    <template slot="body" class="action-menu">
+                      <div class="action-menu"> Register to event</div>
+                      <div class="action-menu"> Deregister from event</div>
+                    </template>
+                  </dropdown> -->
+
+                  <dropdown
+                    :trigger="'hover'"
+                    :role="'sublist'"
+                    :align="'right'"
+                  >
+                    <template slot="btn">
+                      <div class="action-menu">
+                        Tags
+                      </div>
+                    </template>
+                    <template slot="body" class="action-menu">
+                      <div class="action-menu"> Add Tag </div>
+                      <div class="action-menu"> Remove Tag</div>
+                    </template>
+                  </dropdown>
+                  <div class="action-menu">
+                    Export
+                  </div>
+                  <hr>
+                  <div class="action-menu">
+                    Unsubscribe
+                  </div>
+                  <div class="action-menu" style="color: #bb0000">
+                    Delete
+                  </div>
+                </template>
+              </dropdown>
+            </vs-th>
           </template>
 
           <template slot-scope="{ data }">
@@ -317,10 +406,15 @@
 <script>
 import People from "../../models/people";
 import Multiselect from "vue-multiselect";
+import VueCascaderSelect from "vue-cascader-select";
+import Dropdown from "bp-vuejs-dropdown";
+
 export default {
   name: "PeoplePage",
   components: {
     Multiselect,
+    VueCascaderSelect,
+    Dropdown,
   },
   data: () => ({
     searchpeopleItem: "",
@@ -355,6 +449,7 @@ export default {
     search_people_item: "",
     selected_peoples: [],
     selected_tag: [],
+    all_Selected: false,
   }),
 
   computed: {
@@ -424,7 +519,16 @@ export default {
       },
     },
   },
-
+  watch: {
+    // whenever question changes, this function will run
+    selected_peoples: function(newPeoples, oldPeoples) {
+      if (newPeoples.length == this.people_list.length) {
+        this.all_Selected = true;
+      } else {
+        this.all_Selected = false;
+      }
+    },
+  },
   created() {
     this.$store.dispatch("changeSideBar", false);
     this.getPeopleList();
@@ -639,7 +743,21 @@ vs-row td {
 .people-name:hover {
   text-decoration: underline;
 }
-
+.action-menu {
+  height: 30px;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  min-width: 180px;
+}
+.action-menu:hover {
+  background: #eeeeee;
+}
+.bp-dropdown__btn {
+  background: #eeeeee;
+  border-radius: 3px;
+}
 @media only screen and (max-width: 1000px) {
   .people-data-table th:nth-last-child(3) {
     display: none;

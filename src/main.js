@@ -31,10 +31,15 @@ import router from './router'
 
 import Vue2Editor from "vue2-editor";
 import Multiselect from 'vue-multiselect'
-import 'vue-search-select/dist/VueSearchSelect.css'
-import VueHtmlToPaper from 'vue-html-to-paper'
-import vueCountryRegionSelect from 'vue-country-region-select'
+import 'vue-search-select/dist/VueSearchSelect.css';
+import VueHtmlToPaper from 'vue-html-to-paper';
+import vueCountryRegionSelect from 'vue-country-region-select';
+import VueCascaderSelect from 'vue-cascader-select';
+import Dropdown from 'bp-vuejs-dropdown';
+
+Vue.use(Dropdown)
 Vue.use(vueCountryRegionSelect)
+Vue.use(VueCascaderSelect);
 const options = {
   name: '_blank',
   specs: [

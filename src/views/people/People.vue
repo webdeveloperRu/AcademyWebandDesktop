@@ -154,7 +154,7 @@
                 >{{ selected_peoples.length }} Students selected</span
               >
               <dropdown :close-on-click="true">
-                <template slot="btn" >
+                <template slot="btn">
                   <div style="width: 80px; height 30px;">Actions</div>
                 </template>
                 <template slot="body">
@@ -169,8 +169,13 @@
                       </div>
                     </template>
                     <template slot="body" class="action-menu">
-                      <div class="action-menu"> Grant Offer</div>
-                      <div class="action-menu"> Revoke Offer</div>
+                      <div
+                        class="action-menu"
+                        @click="activeBulkActionGrantOffer = true"
+                      >
+                        Grant Offer
+                      </div>
+                      <div class="action-menu">Revoke Offer</div>
                     </template>
                   </dropdown>
                   <!-- <dropdown
@@ -215,18 +220,23 @@
                       </div>
                     </template>
                     <template slot="body" class="action-menu">
-                      <div class="action-menu"> Add Tag </div>
-                      <div class="action-menu"> Remove Tag</div>
+                      <div
+                        class="action-menu"
+                        @click="activeBulkActionAddTags = true"
+                      >
+                        Add Tag
+                      </div>
+                      <div class="action-menu">Remove Tag</div>
                     </template>
                   </dropdown>
                   <div class="action-menu">
                     Export
                   </div>
-                  <hr>
-                  <div class="action-menu">
+                  <hr />
+                  <div class="action-menu" @click="unsubscribeStudentConfirm = true">
                     Unsubscribe
                   </div>
-                  <div class="action-menu" style="color: #bb0000">
+                  <div class="action-menu" style="color: #bb0000" @click="deleteStudentConfirm = true">
                     Delete
                   </div>
                 </template>
@@ -292,6 +302,123 @@
         -->
       </vs-card>
     </vs-col>
+    <!-- 
+      ***@  --------bulk action grant offer ---------------
+     -->
+    <vs-popup
+      class="bulk-grant-offer-dialog"
+      color="success"
+      :active.sync="activeBulkActionGrantOffer"
+      title="Grant an Offer"
+    >
+      <div style="height: 150px; margin-top:30px">
+        <Multiselect
+          v-model="bulkGrantOfferSelection"
+          placeholder="Search or select offer"
+          label="name"
+          track-by="code"
+          :options="grantofferlist"
+          :multiple="true"
+          :taggable="true"
+        ></Multiselect>
+      </div>
+      <div
+        style="display: flex; justify-content: flex-end; margin-bottom: 10px"
+      >
+        <vs-button
+          class="ml-3 mr-3 save-cancel-button"
+          @click="bulkActionGrantOffer"
+          >Submit</vs-button
+        >
+      </div>
+    </vs-popup>
+    <!-- 
+      ***@  --------bulk action add tags ---------------
+     -->
+    <vs-popup
+      class="bulk-grant-offer-dialog"
+      color="success"
+      :active.sync="activeBulkActionAddTags"
+      title="Add tags"
+    >
+      <div style="height: 150px; margin-top:30px">
+        <multiselect
+          v-model="selected_tag"
+          tag-placeholder="Add Tag"
+          placeholder="Type to add a new tag..."
+          label="name"
+          taggable
+          hideSelected
+          @tag="addTag"
+          track-by="code"
+          :options="peopleTags"
+          :multiple="true"
+        ></multiselect>
+        <div class="d-flex mt-3" style="flex-wrap: wrap">
+          <vs-chip
+            @click="remove(chip)"
+            :key="chip"
+            v-for="chip in added_tagChips"
+            closable
+            >{{ chip }}</vs-chip
+          >
+        </div>
+      </div>
+      <div
+        style="display: flex; justify-content: flex-end; margin-bottom: 10px"
+      >
+        <vs-button
+          class="ml-3 mr-3 save-cancel-button"
+          @click="bulkActionAddTags"
+          >Submit</vs-button
+        >
+      </div>
+    </vs-popup>
+
+    <!-- 
+      @@ delete student popup
+     -->
+    <vs-popup title="Delete Students?" :active.sync="deleteStudentConfirm">
+      <br /><br /><br />
+      <h5>
+        Are you sure you want to delete these students?
+      </h5>
+      <br /><br /><br />
+      <div class="btn-alignment text-right">
+        <vs-button
+          color="primary"
+          type="flat"
+          @click="deleteStudentConfirm = false"
+          >Cancel</vs-button
+        >
+        <vs-button color="danger" type="filled" @click="bulkActionDeleteStudents"
+          >Delete Students</vs-button
+        >
+      </div>
+    </vs-popup>
+
+    
+    <!-- 
+      @@ unsubscribe popup
+     -->
+    <vs-popup title="Unsubscribe for Students?" :active.sync="unsubscribeStudentConfirm">
+      <br /><br /><br />
+      <h5>
+        Are you sure you want to unsubscribe for these students?
+      </h5>
+      <br /><br /><br />
+      <div class="btn-alignment text-right">
+        <vs-button
+          color="primary"
+          type="flat"
+          @click="unsubscribeStudentConfirm = false"
+          >Cancel</vs-button
+        >
+        <vs-button color="danger" type="filled" @click="bulkActionUnsubscribe"
+          >Unsubscribe</vs-button
+        >
+      </div>
+    </vs-popup>
     <!-- 
       ***@  --------add People ---------------
      -->
@@ -419,6 +546,10 @@ export default {
   data: () => ({
     searchpeopleItem: "",
     activeAddPeople: false,
+    activeBulkActionGrantOffer: false,
+    activeBulkActionAddTags: false,
+    deleteStudentConfirm: false,
+    unsubscribeStudentConfirm: false,
 
     // people data
     people: new People("", ""),
@@ -450,6 +581,9 @@ export default {
     selected_peoples: [],
     selected_tag: [],
     all_Selected: false,
+
+    bulkGrantOfferSelection: [],
+    bulkActionSelectedTags: [],
   }),
 
   computed: {
@@ -522,12 +656,19 @@ export default {
   watch: {
     // whenever question changes, this function will run
     selected_peoples: function(newPeoples, oldPeoples) {
-      if (newPeoples.length == this.people_list.length) {
+      if (newPeoples.length != 0) {
         this.all_Selected = true;
       } else {
         this.all_Selected = false;
       }
     },
+
+    activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {
+      if ( newBulkAction ) {
+        this.peopleTags = [];
+        this.selected_tag = [];
+      }
+    }
   },
   created() {
     this.$store.dispatch("changeSideBar", false);
@@ -552,6 +693,7 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          console.log(this.people_list)
         })
         .catch(() => {
           this.$vs.notify({
@@ -604,6 +746,9 @@ export default {
     setFilterItem(index) {
       this.currentSelectedFilter = index;
     },
+    /**
+     * bulk action for grant offer
+     */
 
     cancelAddPeople() {
       this.grantofferStatus = false;
@@ -622,6 +767,122 @@ export default {
           this.peopleTags.splice(i, 1);
         }
       }
+    },
+    /**
+     * bulkActionGrantOffer
+     */
+
+    async bulkActionGrantOffer() {
+      this.grantOfferIDs = [];
+      for (let i = 0; i < this.bulkGrantOfferSelection.length; i++) {
+        this.grantOfferIDs[i] = this.bulkGrantOfferSelection[i].code;
+      }
+      let grantOfferData = [];
+      this.$vs.loading({ type: "material" });
+      for (let i = 0; i < this.selected_peoples.length; i++) {
+        grantOfferData = [];
+        for (
+          let j = 0;
+          j < this.selected_peoples[i].granted_access.length;
+          j++
+        ) {
+          grantOfferData.push(
+            this.selected_peoples[i].granted_access[j].offer_id
+          );
+        }
+        for (let j = 0; j < this.grantOfferIDs.length; j++) {
+          grantOfferData.push(this.grantOfferIDs[j]);
+        }
+        this.selected_peoples[i].granted_access = grantOfferData;
+        await this.$store
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.selected_peoples[i],
+            this.selected_peoples[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
+      }
+      this.$vs.loading.close();
+      this.activeBulkActionGrantOffer = false;
+    },
+
+
+    async bulkActionUnsubscribe() {
+      this.$vs.loading({ type: "material" });
+      for (let i = 0; i < this.selected_peoples.length; i++ ) {
+        this.selected_peoples[i].is_subscribe = false;
+        await this.$store
+        .dispatch("peopleManage/updatePeopleByID", [this.selected_peoples[i], this.selected_peoples[i].id])
+        .then(() => {
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+      }
+      this.$vs.loading.close();
+      this.unsubscribeStudentConfirm = false;
+    },
+
+    async bulkActionAddTags() {
+      this.$vs.loading({ type: "material" });
+      let tags = [];
+      for (let i = 0; i < this.selected_peoples.length; i++ ) {
+        tags = [];
+        for (let j = 0;  j < this.selected_peoples[i].tags.length; j++) {
+          tags.push({ title:this.selected_peoples[i].tags[j].title});
+        }
+        for (let j = 0;  j < this.peopleTags.length; j++) {
+          tags.push({ title: this.peopleTags[j].name});
+        }
+        this.selected_peoples[i].tags = tags;
+        await this.$store
+        .dispatch("peopleManage/updatePeopleByID", [this.selected_peoples[i], this.selected_peoples[i].id])
+        .then(() => {
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+      }
+      this.$vs.loading.close();
+      this.selected_tag = [];
+      this.peopleTags = [];
+      this.activeBulkActionAddTags = false;
+    },
+    /**
+     * delete selected students
+     */
+    async bulkActionDeleteStudents() {
+      this.deleteStudentConfirm = false;
+       this.$vs.loading({ type: "material" });
+      for (let i = 0; i < this.selected_peoples.length; i++ ) {
+        await this.$store
+        .dispatch("peopleManage/deletePeopleByID", this.selected_peoples[i].id)
+        .then(() => {
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+      }
+      this.$vs.loading.close();
+
     },
 
     /*
@@ -677,6 +938,7 @@ export default {
         this.addTags = false;
         this.subscribeMarketingEmail = false;
         this.activeAddPeople = false;
+      
       }
     },
   },
@@ -758,6 +1020,7 @@ vs-row td {
   background: #eeeeee;
   border-radius: 3px;
 }
+
 @media only screen and (max-width: 1000px) {
   .people-data-table th:nth-last-child(3) {
     display: none;

@@ -26,7 +26,6 @@ import VsSidebarGroup from './components/vs-sidebar-group/Sidebar-Group.vue';
 import VueClipboard from 'vue-clipboard2'
 // i18n
 import i18n from './i18n/i18n.js'
-// Vue Router
 import router from './router'
 
 import Vue2Editor from "vue2-editor";

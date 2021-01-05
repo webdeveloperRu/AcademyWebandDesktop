@@ -30,8 +30,15 @@ async function createWindow() {
     if (!process.env.IS_TEST) win.webContents.openDevTools()
   } else {
     createProtocol('app')
+    win.loadURL('file://' + __dirname + '/index.html')
     // Load the index.html when not in development
-    win.loadURL('app://./index.html')
+    // win.loadURL('app://./index.html')
+    // win.loadURL(formatUrl({
+    //   pathname: path.join(__dirname, 'index.html'),
+    //   protocol: 'file',
+    //   slashes: true
+    // }))
+
   }
 }
 

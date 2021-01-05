@@ -15,19 +15,21 @@ export default {
       this.$store.dispatch('settingManage/getAccountDetails')
       .then(() => {
         if(this.status_got){
-          if (this.$router.currentRoute.fullPath=='/'){
-            this.$router.push('/products').catch(()=>{})
+          this.$router.replace('/products').catch(()=>{})
+          // if (this.$router.currentRoute.fullPath=='/'){
+          //   this.$router.replace('/products').catch(()=>{})
 
-          } else{
-          this.$router.push(this.$router.currentRoute).catch(()=>{});
-          }
-           
+          // } else{
+          // this.$router.push(this.$router.currentRoute).catch(()=>{});
+          // }           
         }
-        if(!this.status_got) 
-          this.$router.push("/login");
+        if(!this.status_got)  {
+          this.$router.replace("/login");
+
+        }
       })
       .catch(() => {
-        this.$router.push("/login");
+        this.$router.replace("/login");
       });
     },
     
@@ -36,7 +38,7 @@ export default {
     if(this.logged_user != null)
       this.checkToken();
     else
-      this.$router.push("/login")
+      this.$router.replace("/login")
   },
   computed: {
     logged_user: {

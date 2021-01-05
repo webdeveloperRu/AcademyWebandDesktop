@@ -148,3 +148,27 @@ div, tr, td, th, span, label{
 .outline-edit .ql-editor {
   min-height: 0 !important;
 }
+
+//For font size of the page
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+h2, .h2 {
+    font-size: 1.575rem;
+}
+
+h5, .h5 {
+    font-size: 0.8rem;
+}
+
+.description-font {
+    font-size: 10px;
+}
+
+.td.vs-table--td > span,
+.vs-table-text > span,
+.vs-table-text {
+    font-size: 12px;
+}

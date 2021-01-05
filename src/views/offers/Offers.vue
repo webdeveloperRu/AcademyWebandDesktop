@@ -83,7 +83,7 @@
       </vs-card>
       <vs-card class="cardx">
         <div slot="header">
-          <h4>Published</h4>
+          <h5>Published</h5>
         </div>
 
         <!-- 
@@ -210,7 +210,7 @@
         -->
         <div class="ml-3">
           <p class="offer-records">
-            <span style="font-weight: 500">{{ offer_records }}</span> records
+            <span style="font-weight: 500">{{ offer_records }}</span> Offers
           </p>
         </div>
       </vs-card>
@@ -645,7 +645,7 @@ vs-th {
 .offer-records {
   color: #6c757d;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .offer-view-img {
   width: 80px;
@@ -688,12 +688,12 @@ vs-th {
 }
 #offerviewfield {
   width: 100px;
-  height: 30px;
+  height: 56.25px;
   overflow: hidden;
 }
 .offer-thumbnail-field {
-  border: 1px rgba(0, 0, 0, 0.2) solid;
-  border-radius: 5px;
+  // border: 1px rgba(0, 0, 0, 0.2) solid;
+  border-radius: 2px;
   overflow: hidden;
   width: 100%;
   height: 0;

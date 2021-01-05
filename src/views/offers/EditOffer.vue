@@ -502,6 +502,7 @@ export default {
     var getUrl = window.location;
     this.external_link_url =
       getUrl.protocol + "//" + getUrl.host + "/offers/" + this.offer_id;
+    console.log(this.selected_offer)
   },
 
   methods: {
@@ -771,6 +772,7 @@ export default {
       this.selected_offer.title = this.offer_title;
       this.selected_offer.description = this.offer_body;
       this.selected_offer.price = this.offer_price;
+      this.selected_offer.intern_title = this.internal_title;
       this.selected_offer.currency = this.currencyOptions[
         this.selected_currency
       ].currency;

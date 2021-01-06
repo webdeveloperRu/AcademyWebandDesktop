@@ -30,6 +30,9 @@
             ><i class="mdi mdi-eye mr-2 ml-3 primary-font"></i> Preview
           </span></a
         >
+        <span class="primary-font" @click="customizeCoursePage">
+          <i class="mdi mdi-palette mr-2 ml-3 primary-font"></i> Customize
+        </span>
         <vs-dropdown vs-trigger-click>
           <span class="ml-3 primary-font">
             More Actions <i class="mdi mdi-menu-down mr-2 ml-2"></i
@@ -516,6 +519,13 @@ export default {
         "/analytics/product-progress/" + this.current_product.id
       );
     },
+
+    /**
+     * customizeCoursePage
+     */
+    customizeCoursePage() {
+      alert('customize page called!')
+    }
   },
 };
 </script>

@@ -11,6 +11,7 @@ export default {
   },
   data: () => ({}),
   methods: {
+    
     checkToken: function() {
       this.$store.dispatch('settingManage/getAccountDetails')
       .then(() => {
@@ -24,21 +25,26 @@ export default {
           // }           
         }
         if(!this.status_got)  {
-          this.$router.replace("/login");
+          this.$router.replace("/login").catch(()=>{});
 
         }
       })
       .catch(() => {
-        this.$router.replace("/login");
+        this.$router.replace("/login").catch(()=>{});
       });
     },
     
   },
   created() {
-    if(this.logged_user != null)
+    var currentUrl = window.location.pathname;
+    if (currentUrl.substring(currentUrl.length-9,currentUrl.length ) == '/checkout') 
+      return;
+    if(this.logged_user != null){
       this.checkToken();
-    else
-      this.$router.replace("/login")
+    }
+    else {
+      this.$router.replace("/login").catch(()=>{});
+    }
   },
   computed: {
     logged_user: {

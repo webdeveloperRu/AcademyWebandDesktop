@@ -6,6 +6,6 @@ export default class Offers {
     this.price = price;
     this.end_on = end_on;
     this.currency = currency;
-    this.intern_title = intern_title
+    this.intern_title = intern_title;
   }
 }

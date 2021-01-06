@@ -12,17 +12,18 @@ export default {
   data: () => ({}),
   methods: {
     
-    checkToken: function() {
-      this.$store.dispatch('settingManage/getAccountDetails')
+    checkToken: async function() {
+      console.log('called')
+     let currentPath = this.$router.currentRoute.fullPath 
+     await this.$store.dispatch('settingManage/getAccountDetails')
       .then(() => {
         if(this.status_got){
-          this.$router.replace('/products').catch(()=>{})
-          // if (this.$router.currentRoute.fullPath=='/'){
-          //   this.$router.replace('/products').catch(()=>{})
+          if (this.$router.currentRoute.fullPath=='/' || this.$router.currentRoute.fullPath=='/Error404'){
+            this.$router.replace('/products').catch(()=>{})
 
-          // } else{
-          // this.$router.push(this.$router.currentRoute).catch(()=>{});
-          // }           
+          } else{
+            this.$router.replace(this.$router.currentRoute).catch(()=>{});
+          }           
         }
         if(!this.status_got)  {
           this.$router.replace("/login").catch(()=>{});

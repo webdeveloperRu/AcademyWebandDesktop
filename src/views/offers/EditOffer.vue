@@ -36,15 +36,15 @@
             ><i class="mdi mdi-cart" style="font-size: 14px"></i> Edit
             Checkout</span
           >
-          <a
+          <!-- <a
             :href="getUrl(selected_offer.id)"
             target="_blank"
             class="preview-checkout"
-          >
+          > -->
             <span class="mr-3 primary-font" style="cursor: pointer"
-              ><i class="mdi mdi-eye" style="font-size: 14px"></i> Preview</span
+              @click="getUrl(selected_offer.id)"><i class="mdi mdi-eye" style="font-size: 14px" ></i> Preview</span
             >
-          </a>
+          <!-- </a> -->
           <span
             class="mr-3 primary-font"
             style="cursor: pointer"
@@ -501,8 +501,7 @@ export default {
     this.setOfferItem(this.offer_id);
     var getUrl = window.location;
     this.external_link_url =
-      getUrl.protocol + "//" + getUrl.host + "/offers/" + this.offer_id;
-    console.log(this.selected_offer)
+      getUrl.protocol + "//" + getUrl.host + "/offers/" + this.offer_id + "/checkout";
   },
 
   methods: {
@@ -589,12 +588,28 @@ export default {
       this.addedProduct++;
       this.visibleSelectProduct = false;
       this.updateOffer();
+
     },
 
     /**
      * update offer
      **/
     updateOffer() {
+      this.selected_offer.title = this.offer_title;
+      this.selected_offer.description = this.offer_body;
+      this.selected_offer.price = this.offer_price;
+      this.selected_offer.intern_title = this.internal_title;
+      this.selected_offer.currency = this.currencyOptions[
+        this.selected_currency
+      ].currency;
+      if (this.selected_offer.title === "") {
+        this.$vs.notify({
+          color: this.$custom_warning,
+          text: "Offer title must be filled",
+          icon: "warning",
+        });
+        return;
+      }
       this.$store
         .dispatch("offerManage/updateOfferByID", this.selected_offer)
         .then(() => {
@@ -769,22 +784,7 @@ export default {
      **/
 
     saveCurrentOffer() {
-      this.selected_offer.title = this.offer_title;
-      this.selected_offer.description = this.offer_body;
-      this.selected_offer.price = this.offer_price;
-      this.selected_offer.intern_title = this.internal_title;
-      this.selected_offer.currency = this.currencyOptions[
-        this.selected_currency
-      ].currency;
-      if (this.selected_offer.title === "") {
-        this.$vs.notify({
-          color: this.$custom_warning,
-          text: "Offer title must be filled",
-          icon: "warning",
-        });
-      } else {
-        this.updateOffer();
-      }
+      this.updateOffer();    
       if (this.changedThumbNail) {
         if (this.cssthumbImageUrl !== "") {
           this.saveThumbNail(this.thumbNail);
@@ -851,7 +851,9 @@ export default {
      * get url
      */
     getUrl(offer_id) {
-      return "/offers/" + offer_id + "/checkout";
+      console.log('called')
+
+      window.open("/offers/" + offer_id + "/checkout", '_blank');
     },
     copyToClipBoard() {
       this.$vs.notify({

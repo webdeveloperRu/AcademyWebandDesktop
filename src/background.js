@@ -33,7 +33,7 @@ async function createWindow() {
     // win.loadURL('file://' + __dirname + '/index.html')
     // win.loadURL('app://./index.html')
     // Load the index.html when not in development
-    win.loadURL('https://localhost:8080/index.html')
+    win.loadURL('http://localhost:8080/index.html')
     // win.loadURL(formatUrl({
     //   pathname: path.join(__dirname, 'index.html'),
     //   protocol: 'file',

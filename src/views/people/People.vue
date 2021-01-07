@@ -164,9 +164,7 @@
                     :align="'right'"
                   >
                     <template slot="btn">
-                      <div class="action-menu">
-                        Offers
-                      </div>
+                      <div class="action-menu">Offers</div>
                     </template>
                     <template slot="body" class="action-menu">
                       <div
@@ -215,9 +213,7 @@
                     :align="'right'"
                   >
                     <template slot="btn">
-                      <div class="action-menu">
-                        Tags
-                      </div>
+                      <div class="action-menu">Tags</div>
                     </template>
                     <template slot="body" class="action-menu">
                       <div
@@ -229,20 +225,18 @@
                       <div class="action-menu">Remove Tag</div>
                     </template>
                   </dropdown>
-                  <div class="action-menu">
-                    Export
-                  </div>
+                  <div class="action-menu">Export</div>
                   <hr />
                   <div
                     class="action-menu"
-                    @click="unsubscribeStudentConfirm = true"
+                    @click="unsubscribePeopleConfirm = true"
                   >
                     Unsubscribe
                   </div>
                   <div
                     class="action-menu"
                     style="color: #bb0000"
-                    @click="deleteStudentConfirm = true"
+                    @click="deletePeopleConfirm = true"
                   >
                     Delete
                   </div>
@@ -303,7 +297,7 @@
                 <i
                   class="mdi mdi-delete mr-4 product-processing-icon"
                   style="font-size: 16px"
-                  @click="deletePeopleByID(data[indextr].id)"
+                  @click="confirmDeletePeopleByID(data[indextr].id)"
                 ></i>
                 <!-- <vs-button class="action-button">sdfsdf</vs-button> -->
               </vs-td>
@@ -328,7 +322,7 @@
       :active.sync="activeBulkActionGrantOffer"
       title="Grant an Offer"
     >
-      <div style="height: 150px; margin-top:30px">
+      <div style="height: 150px; margin-top: 30px">
         <Multiselect
           v-model="bulkGrantOfferSelection"
           placeholder="Search or select offer"
@@ -358,7 +352,7 @@
       :active.sync="activeBulkActionAddTags"
       title="Add tags"
     >
-      <div style="height: 150px; margin-top:30px">
+      <div style="height: 150px; margin-top: 30px">
         <multiselect
           v-model="selected_tag"
           tag-placeholder="Add Tag"
@@ -395,22 +389,20 @@
     <!-- 
       @@ delete student popup
      -->
-    <vs-popup title="Delete Students?" :active.sync="deleteStudentConfirm">
+    <vs-popup title="Delete Students?" :active.sync="deletePeopleConfirm">
       <br /><br /><br />
       <h5 class="primary-font mb-2">
-        Are you sure you want to bulk delete the selected people and all
+        Are you sure you want to bulk delete the selected stduents and all
         associated data?
       </h5>
-      <h5 class="primary-font">
-        This action cannot be undone.
-      </h5>
+      <h5 class="primary-font">This action cannot be undone.</h5>
 
       <br /><br /><br />
       <div class="btn-alignment text-right">
         <vs-button
           color="primary"
           type="flat"
-          @click="deleteStudentConfirm = false"
+          @click="deletePeopleConfirm = false"
           >Cancel</vs-button
         >
         <vs-button
@@ -423,25 +415,48 @@
     </vs-popup>
 
     <!-- 
-      @@ unsubscribe popup
+      @@ delete student by id popup
      -->
-    <vs-popup
-      title="Unsubscribe Students?"
-      :active.sync="unsubscribeStudentConfirm"
-    >
+    <vs-popup title="Delete Students?" :active.sync="deletePeopleByIDConfirm">
       <br /><br /><br />
       <h5 class="primary-font mb-2">
-        Are you sure you want to bulk unsubscribe the selected contacts?
+        Are you sure you want to bulk delete this student and all associated
+        data?
       </h5>
-      <h5 class="primary-font">
-        This action cannot be undone.
-      </h5>
+      <h5 class="primary-font">This action cannot be undone.</h5>
+
       <br /><br /><br />
       <div class="btn-alignment text-right">
         <vs-button
           color="primary"
           type="flat"
-          @click="unsubscribeStudentConfirm = false"
+          @click="deletePeopleByIDConfirm = false"
+          >Cancel</vs-button
+        >
+        <vs-button color="danger" type="filled" @click="deletePeopleByID"
+          >Delete Student</vs-button
+        >
+      </div>
+    </vs-popup>
+
+    <!-- 
+      @@ unsubscribe popup
+     -->
+    <vs-popup
+      title="Unsubscribe Students?"
+      :active.sync="unsubscribePeopleConfirm"
+    >
+      <br /><br /><br />
+      <h5 class="primary-font mb-2">
+        Are you sure you want to bulk unsubscribe the selected contacts?
+      </h5>
+      <h5 class="primary-font">This action cannot be undone.</h5>
+      <br /><br /><br />
+      <div class="btn-alignment text-right">
+        <vs-button
+          color="primary"
+          type="flat"
+          @click="unsubscribePeopleConfirm = false"
           >Cancel</vs-button
         >
         <vs-button color="danger" type="filled" @click="bulkActionUnsubscribe"
@@ -577,8 +592,9 @@ export default {
     activeAddPeople: false,
     activeBulkActionGrantOffer: false,
     activeBulkActionAddTags: false,
-    deleteStudentConfirm: false,
-    unsubscribeStudentConfirm: false,
+    deletePeopleConfirm: false,
+    unsubscribePeopleConfirm: false,
+    deletePeopleByIDConfirm: false,
 
     // people data
     people: new People("", ""),
@@ -613,6 +629,7 @@ export default {
 
     bulkGrantOfferSelection: [],
     bulkActionSelectedTags: [],
+    delete_people_id: "",
   }),
 
   computed: {
@@ -749,10 +766,10 @@ export default {
     },
 
     linkToPeopleInfo(people_id) {
-      this.$router.push("/people/" + people_id + '/edit');
+      this.$router.push("/people/" + people_id + "/edit");
     },
     deletePeopleByID(people_id) {
-      alert('delte this people')
+      alert("delte this people");
     },
 
     /*
@@ -868,7 +885,7 @@ export default {
           });
       }
       this.$vs.loading.close();
-      this.unsubscribeStudentConfirm = false;
+      this.unsubscribePeopleConfirm = false;
     },
 
     async bulkActionAddTags() {
@@ -906,7 +923,7 @@ export default {
      * delete selected students
      */
     async bulkActionDeleteStudents() {
-      this.deleteStudentConfirm = false;
+      this.deletePeopleConfirm = false;
       this.$vs.loading({ type: "material" });
       for (let i = 0; i < this.selected_peoples.length; i++) {
         await this.$store
@@ -983,9 +1000,35 @@ export default {
     },
 
     /**
-     * edit selected student
+     * confirmDeletePeopleByID
      */
-    
+    confirmDeletePeopleByID(people_id) {
+      this.delete_people_id = people_id;
+      this.deletePeopleByIDConfirm = true;
+    },
+    /**
+     * delete people by id
+     */
+    async deletePeopleByID() {
+      this.$vs.loading({ type: "material" });
+      await this.$store
+        .dispatch("peopleManage/deletePeopleByID", this.delete_people_id)
+        .then(() => {
+          this.deletePeopleByIDConfirm = false;
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.deletePeopleByIDConfirm = false;
+        });
+      this.deletePeopleByIDConfirm = false;
+      this.$vs.loading.close();
+
+
+    },
   },
 };
 </script>

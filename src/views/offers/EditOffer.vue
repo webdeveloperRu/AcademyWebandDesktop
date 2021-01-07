@@ -851,7 +851,6 @@ export default {
      * get url
      */
     getUrl(offer_id) {
-      console.log('called')
 
       window.open("/offers/" + offer_id + "/checkout", '_blank');
     },

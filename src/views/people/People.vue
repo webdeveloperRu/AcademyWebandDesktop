@@ -145,7 +145,7 @@
             <vs-th v-if="!all_Selected" sort-key="last_activity"
               ><span class="primary-font">LAST ACTIVITY</span></vs-th
             >
-            <vs-th v-if="!all_Selected"></vs-th>
+            <vs-th v-if="!all_Selected"> </vs-th>
             <!-- 
               ** all selected headers.
              -->
@@ -233,10 +233,17 @@
                     Export
                   </div>
                   <hr />
-                  <div class="action-menu" @click="unsubscribeStudentConfirm = true">
+                  <div
+                    class="action-menu"
+                    @click="unsubscribeStudentConfirm = true"
+                  >
                     Unsubscribe
                   </div>
-                  <div class="action-menu" style="color: #bb0000" @click="deleteStudentConfirm = true">
+                  <div
+                    class="action-menu"
+                    style="color: #bb0000"
+                    @click="deleteStudentConfirm = true"
+                  >
                     Delete
                   </div>
                 </template>
@@ -288,6 +295,16 @@
               </vs-td>
 
               <vs-td>
+                <i
+                  class="mdi mdi-pencil mr-4 product-processing-icon"
+                  style="font-size: 16px"
+                  @click="linkToPeopleInfo(data[indextr].id)"
+                ></i>
+                <i
+                  class="mdi mdi-delete mr-4 product-processing-icon"
+                  style="font-size: 16px"
+                  @click="deletePeopleByID(data[indextr].id)"
+                ></i>
                 <!-- <vs-button class="action-button">sdfsdf</vs-button> -->
               </vs-td>
             </vs-tr>
@@ -380,9 +397,14 @@
      -->
     <vs-popup title="Delete Students?" :active.sync="deleteStudentConfirm">
       <br /><br /><br />
-      <h5>
-        Are you sure you want to delete these students?
+      <h5 class="primary-font mb-2">
+        Are you sure you want to bulk delete the selected people and all
+        associated data?
       </h5>
+      <h5 class="primary-font">
+        This action cannot be undone.
+      </h5>
+
       <br /><br /><br />
       <div class="btn-alignment text-right">
         <vs-button
@@ -391,20 +413,28 @@
           @click="deleteStudentConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="bulkActionDeleteStudents"
+        <vs-button
+          color="danger"
+          type="filled"
+          @click="bulkActionDeleteStudents"
           >Delete Students</vs-button
         >
       </div>
     </vs-popup>
 
-    
     <!-- 
       @@ unsubscribe popup
      -->
-    <vs-popup title="Unsubscribe for Students?" :active.sync="unsubscribeStudentConfirm">
+    <vs-popup
+      title="Unsubscribe Students?"
+      :active.sync="unsubscribeStudentConfirm"
+    >
       <br /><br /><br />
-      <h5>
-        Are you sure you want to unsubscribe for these students?
+      <h5 class="primary-font mb-2">
+        Are you sure you want to bulk unsubscribe the selected contacts?
+      </h5>
+      <h5 class="primary-font">
+        This action cannot be undone.
       </h5>
       <br /><br /><br />
       <div class="btn-alignment text-right">
@@ -535,7 +565,6 @@ import People from "../../models/people";
 import Multiselect from "vue-multiselect";
 import VueCascaderSelect from "vue-cascader-select";
 import Dropdown from "bp-vuejs-dropdown";
-
 export default {
   name: "PeoplePage",
   components: {
@@ -664,13 +693,14 @@ export default {
     },
 
     activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {
-      if ( newBulkAction ) {
+      if (newBulkAction) {
         this.peopleTags = [];
         this.selected_tag = [];
       }
-    }
+    },
   },
   created() {
+    console.log(this.people_list);
     this.$store.dispatch("changeSideBar", false);
     this.getPeopleList();
   },
@@ -693,7 +723,7 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
-          console.log(this.people_list)
+          console.log(this.people_list);
         })
         .catch(() => {
           this.$vs.notify({
@@ -715,7 +745,14 @@ export default {
      ** link to people details
      */
     linkToPeopleDetails(people_id) {
-      this.$router.push("/people/edit-people/" + people_id);
+      this.$router.push("/people/" + people_id);
+    },
+
+    linkToPeopleInfo(people_id) {
+      this.$router.push("/people/" + people_id + '/edit');
+    },
+    deletePeopleByID(people_id) {
+      alert('delte this people')
     },
 
     /*
@@ -812,22 +849,23 @@ export default {
       this.activeBulkActionGrantOffer = false;
     },
 
-
     async bulkActionUnsubscribe() {
       this.$vs.loading({ type: "material" });
-      for (let i = 0; i < this.selected_peoples.length; i++ ) {
+      for (let i = 0; i < this.selected_peoples.length; i++) {
         this.selected_peoples[i].is_subscribe = false;
         await this.$store
-        .dispatch("peopleManage/updatePeopleByID", [this.selected_peoples[i], this.selected_peoples[i].id])
-        .then(() => {
-        })
-        .catch(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.selected_peoples[i],
+            this.selected_peoples[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
           });
-        });
       }
       this.$vs.loading.close();
       this.unsubscribeStudentConfirm = false;
@@ -836,26 +874,28 @@ export default {
     async bulkActionAddTags() {
       this.$vs.loading({ type: "material" });
       let tags = [];
-      for (let i = 0; i < this.selected_peoples.length; i++ ) {
+      for (let i = 0; i < this.selected_peoples.length; i++) {
         tags = [];
-        for (let j = 0;  j < this.selected_peoples[i].tags.length; j++) {
-          tags.push({ title:this.selected_peoples[i].tags[j].title});
+        for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
+          tags.push({ title: this.selected_peoples[i].tags[j].title });
         }
-        for (let j = 0;  j < this.peopleTags.length; j++) {
-          tags.push({ title: this.peopleTags[j].name});
+        for (let j = 0; j < this.peopleTags.length; j++) {
+          tags.push({ title: this.peopleTags[j].name });
         }
         this.selected_peoples[i].tags = tags;
         await this.$store
-        .dispatch("peopleManage/updatePeopleByID", [this.selected_peoples[i], this.selected_peoples[i].id])
-        .then(() => {
-        })
-        .catch(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.selected_peoples[i],
+            this.selected_peoples[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
           });
-        });
       }
       this.$vs.loading.close();
       this.selected_tag = [];
@@ -867,22 +907,23 @@ export default {
      */
     async bulkActionDeleteStudents() {
       this.deleteStudentConfirm = false;
-       this.$vs.loading({ type: "material" });
-      for (let i = 0; i < this.selected_peoples.length; i++ ) {
+      this.$vs.loading({ type: "material" });
+      for (let i = 0; i < this.selected_peoples.length; i++) {
         await this.$store
-        .dispatch("peopleManage/deletePeopleByID", this.selected_peoples[i].id)
-        .then(() => {
-        })
-        .catch(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
+          .dispatch(
+            "peopleManage/deletePeopleByID",
+            this.selected_peoples[i].id
+          )
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
           });
-        });
       }
       this.$vs.loading.close();
-
     },
 
     /*
@@ -938,9 +979,13 @@ export default {
         this.addTags = false;
         this.subscribeMarketingEmail = false;
         this.activeAddPeople = false;
-      
       }
     },
+
+    /**
+     * edit selected student
+     */
+    
   },
 };
 </script>

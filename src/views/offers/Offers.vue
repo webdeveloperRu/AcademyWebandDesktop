@@ -166,7 +166,7 @@
                     </a>
 
                     <i
-                      class="mdi mdi-border-color mr-4 product-processing-icon"
+                      class="mdi mdi-pencil mr-4 product-processing-icon"
                       style="font-size: 16px"
                       @mouseover="onEditIconMouseOver"
                       @click="editOffer(data[indextr].id)"

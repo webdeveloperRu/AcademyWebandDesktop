@@ -209,11 +209,17 @@ const router = new Router({
                 i18n: "People",
                 component: () => import('./views/people/People.vue')
             },{
-                path: '/people/edit-people/:people_id',
+                path: '/people/:people_id',
                 name: 'EditPeople',
                 index: 4.2,
                 i18n: "EditPeople",
                 component: () => import('./views/people/EditPeople.vue')
+            },{
+                path: '/people/:people_id/edit',
+                name: 'EditPeopleInfo',
+                index: 4.2,
+                i18n: "EditPeopleInfo",
+                component: () => import('./views/people/EditPeopleInfo.vue')
             },{
                 path: '/people/:people_id/contact-tag',
                 name: 'ContactTags',

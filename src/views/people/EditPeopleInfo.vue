@@ -30,7 +30,7 @@
         <vs-input label="City" v-model="people_city" class="w-100 mt-3" />
         <div class="select-country">
           <label for="" class="vs-input--label mt-3">Country</label>
-          <country-select v-model="people_country" :country="people_country" topCountry="US" class="w-100" @change="ccc" />
+          <country-select v-model="people_country" :country="people_country" topCountry="US" class="w-100" />
         </div>
         <vs-row vs-justify="center" class="primary-font">
           <vs-col type="flex" vs-justify="center" vs-align="center" vs-lg="7" vs-sm="7" vs-xs="12" code-toggler>
@@ -41,6 +41,9 @@
           </vs-col>
         </vs-row>
       </vs-card>
+      <div style="float: right">
+        <vs-button class="mt-3" @click="savePeopleInfo"> Save </vs-button>
+      </div>
     </vs-col>
   </vs-row>
 </div>
@@ -108,9 +111,8 @@ export default {
     backToPeople() {
 
     },
+    savePeopleInfo() {
 
-    ccc() {
-      console.log('tag', this.people_country)
     }
   },
 };

@@ -13,8 +13,7 @@ export default {
   methods: {
     
     checkToken: async function() {
-      console.log('called')
-     let currentPath = this.$router.currentRoute.fullPath 
+     this.$vs.loading({ type: "material" });
      await this.$store.dispatch('settingManage/getAccountDetails')
       .then(() => {
         if(this.status_got){
@@ -33,6 +32,7 @@ export default {
       .catch(() => {
         this.$router.replace("/login").catch(()=>{});
       });
+      this.$vs.loading.close();
     },
     
   },

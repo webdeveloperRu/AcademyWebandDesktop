@@ -152,8 +152,10 @@
             <vs-th v-if="all_Selected">
               <span class="primary-font" style="margin-right: 10px"
                 >{{ selected_peoples.length }} Students selected</span
-              >
-              <dropdown :close-on-click="true">
+              >            
+            </vs-th>
+            <vs-th v-if="all_Selected">
+                <dropdown :close-on-click="true">
                 <template slot="btn">
                   <div style="width: 80px; height 30px;">Actions</div>
                 </template>
@@ -717,15 +719,56 @@ export default {
     },
   },
   created() {
-    console.log(this.people_list);
     this.$store.dispatch("changeSideBar", false);
     this.getPeopleList();
+    this.getOfferList();
   },
   methods: {
     addTag(newTag) {
       this.added_tagChips.push(newTag);
       let tag = { code: this.peopleTags.length, name: newTag };
       this.peopleTags.push(tag);
+    },
+    getOfferList() {
+      this.$store
+        .dispatch("offerManage/getOfferList")
+        .then(() => {
+          // this.getPurchaseAndNetrevenue();
+         
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
+    },
+
+    getPurchaseAndNetrevenue() {
+      for (let i = 0; i < this.offer_list.length; i++) {
+        this.$store
+          .dispatch("offerManage/getOfferStats", [this.offer_list[i].id, 30])
+          .then(() => {
+            this.net_revenue30 += this.offer_stats[
+              this.offer_list[i].id
+            ].netRevenueCustom;
+            this.net_revenueall += this.offer_stats[
+              this.offer_list[i].id
+            ].netRevenueAllTime;
+            this.offer_purchases += this.offer_stats[
+              this.offer_list[i].id
+            ].total_purchases;
+          });
+
+        //  .catch(() => {
+        //    this.$vs.notify({
+        //       color: this.notification_color,
+        //       text: this.notification_text,
+        //       icon: this.notification_icon
+        //     })
+        //   });
+      }
     },
 
     /*
@@ -740,7 +783,6 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
-          console.log(this.people_list);
         })
         .catch(() => {
           this.$vs.notify({
@@ -755,7 +797,7 @@ export default {
      * @@ linkToContactTags
      */
     linkToContactTags() {
-      this.$router.push("/people/" + this.people_id + "/contact-tag");
+      this.$router.push("/people/contacts/tags");
     },
 
     /*

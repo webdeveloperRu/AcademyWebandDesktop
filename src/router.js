@@ -223,13 +223,13 @@ const router = new Router({
             },{
                 path: '/people/:people_id/edit',
                 name: 'EditPeopleInfo',
-                index: 4.2,
+                index: 4.3,
                 i18n: "EditPeopleInfo",
                 component: () => import('./views/people/EditPeopleInfo.vue')
             },{
-                path: '/people/:people_id/contact-tag',
+                path: '/people/contacts/tags',
                 name: 'ContactTags',
-                index: 4.3,
+                index: 4.4,
                 i18n: "ContactTags",
                 component: () => import('./views/people/ContactTags.vue')
             }, ]

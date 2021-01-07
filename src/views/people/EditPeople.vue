@@ -257,7 +257,7 @@ export default {
     },
 
     linkToContactTag() {
-      this.$router.push("/people/" + this.people_id + "/contact-tag");
+      this.$router.push("/people/contacts/tags");
     },
     backToPeoples() {
       this.$router.push("/people");

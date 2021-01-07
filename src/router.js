@@ -117,6 +117,12 @@ const router = new Router({
                 index: 2.6,
                 i18n: "Edit Category Detail",
                 component: () => import('./views/products/CategoryEditDetails.vue')
+            },{
+                path: '/products/:product_id/customize',
+                name: 'Product Course Customize',
+                index: 2.7,
+                i18n: "Product Course Customize",
+                component: () => import('./views/products/CustomizeProductPage.vue')
             }, ]
         },
         // offer page

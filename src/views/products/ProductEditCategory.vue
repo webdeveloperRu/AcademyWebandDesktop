@@ -524,7 +524,7 @@ export default {
      * customizeCoursePage
      */
     customizeCoursePage() {
-      alert('customize page called!')
+      this.$router.push("/products/" +this.current_product.id +"/customize");
     }
   },
 };

@@ -35,7 +35,7 @@ import VueHtmlToPaper from 'vue-html-to-paper';
 import vueCountryRegionSelect from 'vue-country-region-select';
 import VueCascaderSelect from 'vue-cascader-select';
 import Dropdown from 'bp-vuejs-dropdown';
-
+import JsonCSV from 'vue-json-csv';
 Vue.use(Dropdown)
 Vue.use(vueCountryRegionSelect)
 Vue.use(VueCascaderSelect);
@@ -54,6 +54,7 @@ const options = {
 Vue.use(VueHtmlToPaper, options);
 Vue.use(Multiselect)
 Vue.use(Vue2Editor);
+Vue.use(JsonCSV);
 Vue.use(Vuebar);
 Vue.use(VueClipboard);
 Vue.component(VsSidebarGroup.name, VsSidebarGroup);

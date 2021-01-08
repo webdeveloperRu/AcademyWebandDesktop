@@ -4760,7 +4760,7 @@ file-loader@^3.0.1:
     loader-utils "^1.0.2"
     schema-utils "^1.0.0"
 
-file-saver@^2.0.2:
+file-saver@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
   integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
@@ -7787,7 +7787,7 @@ pako@^1.0.5, pako@~1.0.2, pako@~1.0.5:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-papaparse@^5.1.1:
+papaparse@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.3.0.tgz#ab1702feb96e79ab4309652f36db9536563ad05a"
   integrity sha512-Lb7jN/4bTpiuGPrYy4tkKoUS8sTki8zacB5ke1p5zolhcSE4TlWgrlsxjrDTbG/dFVh07ck7X36hUf/b5V68pg==
@@ -10914,17 +10914,17 @@ vue-i18n@^8.6.0:
   resolved "https://registry.yarnpkg.com/vue-i18n/-/vue-i18n-8.22.0.tgz#6403381a6eab1d229e515a62addb29b2ff3abfed"
   integrity sha512-2tYS0bYDPJHKAWPy01aDe5h3wcXDGjhJmboHKOfi2OEYR+6gyXaIzdua1smZCQwOeWdlGsLntwdIgkXWrnLjxg==
 
-vue-json-csv@^1.2.11:
-  version "1.2.11"
-  resolved "https://registry.yarnpkg.com/vue-json-csv/-/vue-json-csv-1.2.11.tgz#b198bd2790b3950a821e851f3cfc6a894676a4bf"
-  integrity sha512-Z6Cqs5EnZhVzMuN/bmvxjF4Ze8mkLG0wHeZqKYHtra/wiMJkDw6F7h1pvwZNGFEcmYgo+p3nQsok7G3iB0x4yw==
+vue-json-csv@^1.2.12:
+  version "1.2.12"
+  resolved "https://registry.yarnpkg.com/vue-json-csv/-/vue-json-csv-1.2.12.tgz#8559e9f02726c7a389c10314411610a027b48343"
+  integrity sha512-TVgEmTZyzQx87OKZXA0gDSj24YL54Zs+eaHVClbr2W7uCbQTjWw0Qu9ScbHS02TXjJI5azJ0t2h/2sP58uMcjQ==
   dependencies:
-    file-saver "^2.0.2"
+    file-saver "^2.0.5"
     lodash.mapkeys "^4.6.0"
     lodash.pick "^4.4.0"
     lodash.pickby "^4.6.0"
-    papaparse "^5.1.1"
-    vue "^2.6.11"
+    papaparse "^5.3.0"
+    vue "^2.6.12"
 
 vue-loader@^15.7.0:
   version "15.9.3"
@@ -11003,7 +11003,7 @@ vue2-editor@^2.10.2:
   dependencies:
     quill "^1.3.6"
 
-vue@^2.1.8, vue@^2.5.13, vue@^2.5.17, vue@^2.5.2, vue@^2.6.10, vue@^2.6.11, vue@^2.6.9:
+vue@^2.1.8, vue@^2.5.13, vue@^2.5.17, vue@^2.5.2, vue@^2.6.10, vue@^2.6.12, vue@^2.6.9:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==

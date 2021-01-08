@@ -237,7 +237,11 @@
                       </div>
                     </template>
                   </dropdown>
-                  <div class="action-menu">Export</div>
+                  <div class="action-menu">
+                    <JsonCSV :data="selected_peoples">
+                      Export
+                    </JsonCSV>
+                  </div>
                   <hr />
                   <div
                     class="action-menu"
@@ -674,12 +678,14 @@ import People from "../../models/people";
 import Multiselect from "vue-multiselect";
 import VueCascaderSelect from "vue-cascader-select";
 import Dropdown from "bp-vuejs-dropdown";
+import JsonCSV from 'vue-json-csv';
 export default {
   name: "PeoplePage",
   components: {
     Multiselect,
     VueCascaderSelect,
     Dropdown,
+    JsonCSV
   },
   data: () => ({
     searchpeopleItem: "",
@@ -727,6 +733,28 @@ export default {
     bulkRevokeOfferSelection: [],
     bulkActionSelectedTags: [],
     delete_people_id: "",
+    json_data: [
+      {
+        name: "Tony Peña",
+        city: "New York",
+        country: "United States",
+        birthdate: "1978-03-15",
+        phone: {
+          mobile: "1-541-754-3010",
+          landline: "(541) 754-3010",
+        },
+      },
+      {
+        name: "Thessaloniki",
+        city: "Athens",
+        country: "Greece",
+        birthdate: "1987-11-23",
+        phone: {
+          mobile: "+1 855 275 5071",
+          landline: "(2741) 2621-244",
+        },
+      },
+    ],
   }),
 
   computed: {
@@ -739,7 +767,7 @@ export default {
         return value;
       },
     },
-    people_records: function () {
+    people_records: function() {
       return this.people_list.length;
     },
 
@@ -798,7 +826,7 @@ export default {
   },
   watch: {
     // whenever question changes, this function will run
-    selected_peoples: function (newPeoples, oldPeoples) {
+    selected_peoples: function(newPeoples, oldPeoples) {
       if (newPeoples.length != 0) {
         this.all_Selected = true;
       } else {
@@ -806,7 +834,7 @@ export default {
       }
     },
 
-    activeBulkActionAddTags: function (newBulkAction, oldBulkAction) {
+    activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {
       if (newBulkAction) {
         this.peopleTags = [];
         this.selected_tag = [];
@@ -1009,11 +1037,18 @@ export default {
 
     async bulkActionRevokeOffer() {
       this.$vs.loading({ type: "material" });
-      console.log('before revoke', this.selected_peoples)
+      console.log("before revoke", this.selected_peoples);
       for (let i = 0; i < this.selected_peoples.length; i++) {
-        for ( let j = 0; j < this.selected_peoples[i].granted_access.length; j++) {
-          if(this.selected_peoples[i].granted_access[j].offer_id == this.bulkRevokeOfferSelection.code){
-            this.selected_peoples[i].granted_access.splice(j,1)
+        for (
+          let j = 0;
+          j < this.selected_peoples[i].granted_access.length;
+          j++
+        ) {
+          if (
+            this.selected_peoples[i].granted_access[j].offer_id ==
+            this.bulkRevokeOfferSelection.code
+          ) {
+            this.selected_peoples[i].granted_access.splice(j, 1);
           }
         }
         await this.$store
@@ -1030,7 +1065,7 @@ export default {
             });
           });
       }
-      console.log('afrer revoke', this.selected_peoples);
+      console.log("afrer revoke", this.selected_peoples);
       this.$vs.loading.close();
       this.activeBulkActionRevokeOffer = false;
     },

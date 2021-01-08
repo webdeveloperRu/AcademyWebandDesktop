@@ -126,13 +126,8 @@ export default {
     testdata: [1, 2, 3, 4],
 
     selected_category: [],
-    // cssthumbImageUrl: 'url(../../assets/images/image-preview.png)',
   }),
-  // watch: {
-  //   selected_category : function(newValue) {
-  //     console.log('selected category', newValue)
-  //   }
-  // },
+
   computed: {
     product_id: {
       get() {

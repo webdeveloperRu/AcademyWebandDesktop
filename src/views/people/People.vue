@@ -568,107 +568,139 @@
     <vs-popup
       color="success"
       :active.sync="activeAddPeople"
-      title="Add a student"
+      title="Add Student"
     >
-      <vs-row class="px-5">
-        <vs-col>
-          <vs-input
-            v-model="peopleName"
-            class="w-100 mt-2"
-            label="Name"
-          ></vs-input>
-          <vs-input
-            label="Email"
-            v-model="peopleEmail"
-            class="w-100 mt-2"
-            type="email"
-          ></vs-input>
-          <!-- 
+      <div class="mt-3" style="display: flex; justify-content:space-around;">
+        <vs-radio v-model="add_student_method" vs-value="single"
+          >Add Single Student</vs-radio
+        >
+        <vs-radio v-model="add_student_method" vs-value="upload"
+          >Upload File</vs-radio
+        >
+      </div>
+
+      <hr />
+      <div
+        v-if="add_student_method == 'single'"
+        style=" min-height: 320px"
+        class="p-2"
+      >
+        <vs-input
+          v-model="peopleName"
+          class="w-100 mt-2"
+          label="Name"
+        ></vs-input>
+        <vs-input
+          label="Email"
+          v-model="peopleEmail"
+          class="w-100 mt-2"
+          type="email"
+        ></vs-input>
+        <!-- 
           @@ show grant offer part
            -->
-          <div class="mt-3 mb-3">
-            <vs-checkbox
-              class="justify-content-start"
-              v-model="grantofferStatus"
-              >Grant offer</vs-checkbox
-            >
-          </div>
-          <div v-if="grantofferStatus">
-            <Multiselect
-              v-model="grantOfferSelection"
-              placeholder="Search or select offer"
-              label="name"
-              track-by="code"
-              :options="grantofferlist"
-              :multiple="true"
-              :taggable="true"
-            ></Multiselect>
-            <span>
-              <i
-                >People granted access to an offer will receive a
-                <a href="">Member Welcome Email</a> containing their username
-                and password.</i
-              ></span
-            ><br />
-            <span><a href="#">Edit your offers</a></span>
-          </div>
-          <!-- 
+        <div class="mt-3 mb-3">
+          <vs-checkbox class="justify-content-start" v-model="grantofferStatus"
+            >Grant offer</vs-checkbox
+          >
+        </div>
+        <div v-if="grantofferStatus">
+          <Multiselect
+            v-model="grantOfferSelection"
+            placeholder="Search or select offer"
+            label="name"
+            track-by="code"
+            :options="grantofferlist"
+            :multiple="true"
+            :taggable="true"
+          ></Multiselect>
+          <span>
+            <i
+              >People granted access to an offer will receive a
+              <a href="">Member Welcome Email</a> containing their username and
+              password.</i
+            ></span
+          ><br />
+          <span><a href="#">Edit your offers</a></span>
+        </div>
+        <!-- 
             @@show add tag part
            -->
-          <div class="mt-3">
-            <vs-checkbox class="justify-content-start" v-model="addTags"
-              >Add tags</vs-checkbox
+        <div class="mt-3">
+          <vs-checkbox class="justify-content-start" v-model="addTags"
+            >Add tags</vs-checkbox
+          >
+        </div>
+        <div class="mt-3" v-if="addTags">
+          <multiselect
+            v-model="selected_tag"
+            tag-placeholder="Add Tag"
+            placeholder="Type to add a new tag..."
+            label="name"
+            taggable
+            hideSelected
+            @tag="addTag"
+            track-by="code"
+            :options="peopleTags"
+            :multiple="true"
+          ></multiselect>
+          <div class="d-flex mt-3" style="flex-wrap: wrap">
+            <vs-chip
+              @click="remove(chip)"
+              :key="chip"
+              v-for="chip in added_tagChips"
+              closable
+              >{{ chip }}</vs-chip
             >
           </div>
-          <div class="mt-3" v-if="addTags">
-            <multiselect
-              v-model="selected_tag"
-              tag-placeholder="Add Tag"
-              placeholder="Type to add a new tag..."
-              label="name"
-              taggable
-              hideSelected
-              @tag="addTag"
-              track-by="code"
-              :options="peopleTags"
-              :multiple="true"
-            ></multiselect>
-            <div class="d-flex mt-3" style="flex-wrap: wrap">
-              <vs-chip
-                @click="remove(chip)"
-                :key="chip"
-                v-for="chip in added_tagChips"
-                closable
-                >{{ chip }}</vs-chip
-              >
-            </div>
-          </div>
-          <!-- 
+        </div>
+        <!-- 
             @@show marketing email part
            -->
 
-          <div class="mt-3">
-            <vs-checkbox
-              class="justify-content-start"
-              v-model="subscribeMarketingEmail"
-              >Subscribe to marketing emails</vs-checkbox
-            >
+        <div class="mt-3">
+          <vs-checkbox
+            class="justify-content-start"
+            v-model="subscribeMarketingEmail"
+            >Subscribe to marketing emails</vs-checkbox
+          >
+        </div>
+        <div class="d-flex mt-3">
+          <vs-button
+            color="dark"
+            type="border"
+            class="save-cancel-button"
+            style="margin-left: auto"
+            @click="cancelAddPeople"
+            >Cancel</vs-button
+          >
+          <vs-button class="ml-3 mr-3 save-cancel-button" @click="addPeople"
+            >Save</vs-button
+          >
+        </div>
+      </div>
+      <div
+        v-if="add_student_method == 'upload'"
+        style="min-height: 320px;"
+        class="p-2 d-flex justify-content-center align-items-center min-height-320px"
+      >
+        <label class="import-file-button">
+          <input
+            type="file"
+            @change="importFile"
+            style="overflow: hidden"
+            class="custom-file-input"
+            accept=".csv"
+          />
+          <i
+            class="mdi mdi-file-import"
+            style="color: #bbbbbb; font-size: 50px"
+          ></i>
+          <div style="color:#0072ef; font-size:1rem">
+            Upload Image
           </div>
-          <div class="d-flex mt-3">
-            <vs-button
-              color="dark"
-              type="border"
-              class="save-cancel-button"
-              style="margin-left: auto"
-              @click="cancelAddPeople"
-              >Cancel</vs-button
-            >
-            <vs-button class="ml-3 mr-3 save-cancel-button" @click="addPeople"
-              >Save</vs-button
-            >
-          </div>
-        </vs-col>
-      </vs-row>
+        </label>
+      </div>
     </vs-popup>
   </vs-row>
 </template>
@@ -676,16 +708,14 @@
 <script>
 import People from "../../models/people";
 import Multiselect from "vue-multiselect";
-import VueCascaderSelect from "vue-cascader-select";
 import Dropdown from "bp-vuejs-dropdown";
-import JsonCSV from 'vue-json-csv';
+import JsonCSV from "vue-json-csv";
 export default {
   name: "PeoplePage",
   components: {
     Multiselect,
-    VueCascaderSelect,
     Dropdown,
-    JsonCSV
+    JsonCSV,
   },
   data: () => ({
     searchpeopleItem: "",
@@ -733,28 +763,8 @@ export default {
     bulkRevokeOfferSelection: [],
     bulkActionSelectedTags: [],
     delete_people_id: "",
-    json_data: [
-      {
-        name: "Tony Peña",
-        city: "New York",
-        country: "United States",
-        birthdate: "1978-03-15",
-        phone: {
-          mobile: "1-541-754-3010",
-          landline: "(541) 754-3010",
-        },
-      },
-      {
-        name: "Thessaloniki",
-        city: "Athens",
-        country: "Greece",
-        birthdate: "1987-11-23",
-        phone: {
-          mobile: "+1 855 275 5071",
-          landline: "(2741) 2621-244",
-        },
-      },
-    ],
+    add_student_method: "single",
+    selected_csv_file: Object,
   }),
 
   computed: {
@@ -905,7 +915,6 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
-          console.log(this.people_list);
         })
         .catch(() => {
           this.$vs.notify({
@@ -932,9 +941,6 @@ export default {
 
     linkToPeopleInfo(people_id) {
       this.$router.push("/people/" + people_id + "/edit");
-    },
-    deletePeopleByID(people_id) {
-      alert("delte this people");
     },
 
     /*
@@ -1037,7 +1043,6 @@ export default {
 
     async bulkActionRevokeOffer() {
       this.$vs.loading({ type: "material" });
-      console.log("before revoke", this.selected_peoples);
       for (let i = 0; i < this.selected_peoples.length; i++) {
         for (
           let j = 0;
@@ -1065,7 +1070,6 @@ export default {
             });
           });
       }
-      console.log("afrer revoke", this.selected_peoples);
       this.$vs.loading.close();
       this.activeBulkActionRevokeOffer = false;
     },
@@ -1159,11 +1163,14 @@ export default {
     async bulkActionDeleteStudents() {
       this.deletePeopleConfirm = false;
       this.$vs.loading({ type: "material" });
-      for (let i = 0; i < this.selected_peoples.length; i++) {
+      let delete_peoples_list = [];
+      for (let i = 0; i < this.selected_peoples.length; i++)
+        delete_peoples_list[i] = this.selected_peoples[i].id;
+      for (let i = 0; i < delete_peoples_list.length; i++) {
         await this.$store
           .dispatch(
             "peopleManage/deletePeopleByID",
-            this.selected_peoples[i].id
+            delete_peoples_list[i]
           )
           .then(() => {})
           .catch(() => {
@@ -1261,6 +1268,56 @@ export default {
       this.deletePeopleByIDConfirm = false;
       this.$vs.loading.close();
     },
+
+    /**
+     * import csv file
+     */
+    importFile(e) {
+      this.selected_csv_file = e.target.files[0];
+      let files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.$papa.parse(this.selected_csv_file, {
+        header: true,
+        download: true,
+        dynamicTyping: true,
+        complete:(results)=> {
+          this.loadCSV(results.data)
+        },
+      });
+    },
+
+    /**
+     * load csv data
+     */
+    async loadCSV(csv_data) {
+      this.$vs.loading({ type: "material" });
+      for(let i = 0; i < csv_data.length; i++) {
+        this.people.name = csv_data[i].name
+        this.people.email = csv_data[i].email
+        this.people.tags = [];
+        this.people.nota = csv_data[i].nota
+        this.people.is_subscribe = csv_data[i].is_subscribe
+        this.people.address = csv_data[i].address
+        this.people.granted_access = this.grantOfferIDs;
+        this.people.is_active = this.peopleActive;
+         await this.$store
+          .dispatch("peopleManage/addPeople", this.people)
+          .then(() => {
+            
+          })
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
+      }
+      this.updatedTable++;
+      this.$vs.loading.close();
+      this.activeAddPeople = false;
+
+    }
   },
 };
 </script>
@@ -1339,6 +1396,19 @@ vs-row td {
 .bp-dropdown__btn {
   background: #eeeeee;
   border-radius: 3px;
+}
+.import-file-button {
+  text-align: center;
+  border: solid 1px;
+  padding: 10px 150px;
+  border-radius: 10px;
+  color: #dddddd;
+  border-style: dashed;
+  cursor: pointer;
+  &:hover {
+    border-color: #aaaaaa;
+    background-color: #eeeeee;
+  }
 }
 
 @media only screen and (max-width: 1000px) {

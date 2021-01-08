@@ -36,6 +36,8 @@ import vueCountryRegionSelect from 'vue-country-region-select';
 import VueCascaderSelect from 'vue-cascader-select';
 import Dropdown from 'bp-vuejs-dropdown';
 import JsonCSV from 'vue-json-csv';
+import VuePapaParse from 'vue-papa-parse'
+Vue.use(VuePapaParse)
 Vue.use(Dropdown)
 Vue.use(vueCountryRegionSelect)
 Vue.use(VueCascaderSelect);

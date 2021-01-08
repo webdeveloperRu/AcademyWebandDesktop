@@ -152,10 +152,10 @@
             <vs-th v-if="all_Selected">
               <span class="primary-font" style="margin-right: 10px"
                 >{{ selected_peoples.length }} Students selected</span
-              >            
+              >
             </vs-th>
             <vs-th v-if="all_Selected">
-                <dropdown :close-on-click="true">
+              <dropdown :close-on-click="true">
                 <template slot="btn">
                   <div style="width: 80px; height 30px;">Actions</div>
                 </template>
@@ -175,7 +175,12 @@
                       >
                         Grant Offer
                       </div>
-                      <div class="action-menu">Revoke Offer</div>
+                      <div
+                        class="action-menu"
+                        @click="activeBulkActionRevokeOffer = true"
+                      >
+                        Revoke Offer
+                      </div>
                     </template>
                   </dropdown>
                   <!-- <dropdown
@@ -224,7 +229,12 @@
                       >
                         Add Tag
                       </div>
-                      <div class="action-menu">Remove Tag</div>
+                      <div
+                        class="action-menu"
+                        @click="activeBulkActionRemoveTags = true"
+                      >
+                        Remove Tag
+                      </div>
                     </template>
                   </dropdown>
                   <div class="action-menu">Export</div>
@@ -345,6 +355,45 @@
         >
       </div>
     </vs-popup>
+
+    <!-- 
+      ***@  --------bulk action revoke offer ---------------
+     -->
+    <vs-popup
+      class="bulk-grant-offer-dialog"
+      color="success"
+      :active.sync="activeBulkActionRevokeOffer"
+      title="Grant an Offer"
+    >
+      <div class="mt-5 mb-3">
+        <p style="font-size: 15px">
+          Revokes both granted and purchased offers. Revoking an offer
+          <strong>does not handle money in any way</strong>. Processing refunds
+          must be managed on the individual contact level.
+        </p>
+      </div>
+      <div style="height: 150px; margin-top: 30px">
+        <Multiselect
+          v-model="bulkRevokeOfferSelection"
+          placeholder="Search or select offer"
+          label="name"
+          track-by="code"
+          :options="grantofferlist"
+          :multiple="false"
+          :taggable="true"
+        ></Multiselect>
+      </div>
+      <div
+        style="display: flex; justify-content: flex-end; margin-bottom: 10px"
+      >
+        <vs-button
+          class="ml-3 mr-3 save-cancel-button"
+          @click="bulkActionRevokeOffer"
+          >Submit</vs-button
+        >
+      </div>
+    </vs-popup>
+
     <!-- 
       ***@  --------bulk action add tags ---------------
      -->
@@ -383,6 +432,49 @@
         <vs-button
           class="ml-3 mr-3 save-cancel-button"
           @click="bulkActionAddTags"
+          >Submit</vs-button
+        >
+      </div>
+    </vs-popup>
+
+    <!-- 
+      ***@  --------bulk action remove tags ---------------
+     -->
+    <vs-popup
+      class="bulk-grant-offer-dialog"
+      color="success"
+      :active.sync="activeBulkActionRemoveTags"
+      title="Add tags"
+    >
+      <div style="height: 150px; margin-top: 30px">
+        <multiselect
+          v-model="selected_tag"
+          tag-placeholder="Remove Tag"
+          placeholder="Type to add a new tag..."
+          label="name"
+          taggable
+          hideSelected
+          @tag="addTag"
+          track-by="code"
+          :options="peopleTags"
+          :multiple="false"
+        ></multiselect>
+        <!-- <div class="d-flex mt-3" style="flex-wrap: wrap">
+          <vs-chip
+            @click="remove(chip)"
+            :key="chip"
+            v-for="chip in added_tagChips"
+            closable
+            >{{ chip }}</vs-chip
+          >
+        </div> -->
+      </div>
+      <div
+        style="display: flex; justify-content: flex-end; margin-bottom: 10px"
+      >
+        <vs-button
+          class="ml-3 mr-3 save-cancel-button"
+          @click="bulkActionRemoveTags"
           >Submit</vs-button
         >
       </div>
@@ -597,6 +689,8 @@ export default {
     deletePeopleConfirm: false,
     unsubscribePeopleConfirm: false,
     deletePeopleByIDConfirm: false,
+    activeBulkActionRemoveTags: false,
+    activeBulkActionRevokeOffer: false,
 
     // people data
     people: new People("", ""),
@@ -630,6 +724,7 @@ export default {
     all_Selected: false,
 
     bulkGrantOfferSelection: [],
+    bulkRevokeOfferSelection: [],
     bulkActionSelectedTags: [],
     delete_people_id: "",
   }),
@@ -644,7 +739,7 @@ export default {
         return value;
       },
     },
-    people_records: function() {
+    people_records: function () {
       return this.people_list.length;
     },
 
@@ -703,7 +798,7 @@ export default {
   },
   watch: {
     // whenever question changes, this function will run
-    selected_peoples: function(newPeoples, oldPeoples) {
+    selected_peoples: function (newPeoples, oldPeoples) {
       if (newPeoples.length != 0) {
         this.all_Selected = true;
       } else {
@@ -711,7 +806,7 @@ export default {
       }
     },
 
-    activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {
+    activeBulkActionAddTags: function (newBulkAction, oldBulkAction) {
       if (newBulkAction) {
         this.peopleTags = [];
         this.selected_tag = [];
@@ -734,7 +829,6 @@ export default {
         .dispatch("offerManage/getOfferList")
         .then(() => {
           // this.getPurchaseAndNetrevenue();
-         
         })
         .catch(() => {
           this.$vs.notify({
@@ -783,6 +877,7 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          console.log(this.people_list);
         })
         .catch(() => {
           this.$vs.notify({
@@ -908,6 +1003,38 @@ export default {
       this.activeBulkActionGrantOffer = false;
     },
 
+    /**
+     * bulkActionRevokeOffer
+     */
+
+    async bulkActionRevokeOffer() {
+      this.$vs.loading({ type: "material" });
+      console.log('before revoke', this.selected_peoples)
+      for (let i = 0; i < this.selected_peoples.length; i++) {
+        for ( let j = 0; j < this.selected_peoples[i].granted_access.length; j++) {
+          if(this.selected_peoples[i].granted_access[j].offer_id == this.bulkRevokeOfferSelection.code){
+            this.selected_peoples[i].granted_access.splice(j,1)
+          }
+        }
+        await this.$store
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.selected_peoples[i],
+            this.selected_peoples[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
+      }
+      console.log('afrer revoke', this.selected_peoples);
+      this.$vs.loading.close();
+      this.activeBulkActionRevokeOffer = false;
+    },
+
     async bulkActionUnsubscribe() {
       this.$vs.loading({ type: "material" });
       for (let i = 0; i < this.selected_peoples.length; i++) {
@@ -960,6 +1087,36 @@ export default {
       this.selected_tag = [];
       this.peopleTags = [];
       this.activeBulkActionAddTags = false;
+    },
+
+    async bulkActionRemoveTags() {
+      this.$vs.loading({ type: "material" });
+      for (let i = 0; i < this.selected_peoples.length; i++) {
+        for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
+          if (
+            this.selected_peoples[i].tags[j].title == this.selected_tag.name
+          ) {
+            this.selected_peoples[i].tags.splice(j, 1);
+          }
+        }
+        await this.$store
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.selected_peoples[i],
+            this.selected_peoples[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
+      }
+      this.$vs.loading.close();
+      this.selected_tag = [];
+      this.peopleTags = [];
+      this.activeBulkActionRemoveTags = false;
     },
     /**
      * delete selected students
@@ -1068,8 +1225,6 @@ export default {
         });
       this.deletePeopleByIDConfirm = false;
       this.$vs.loading.close();
-
-
     },
   },
 };

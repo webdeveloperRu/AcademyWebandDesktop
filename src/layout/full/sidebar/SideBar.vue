@@ -1,10 +1,10 @@
 <template lang="html">
    <div id="parentx">
-      <vs-sidebar default-index="1" :parent="parent" :hiddenBackground="doNotClose" color="primary" :class="isCheckoutSidebar? 'custom-sidebar' : 'left-sidebar'" spacer v-model="isSidebarActive" :click-not-close="doNotClose" :reduce="isSidebarReduced">
+      <vs-sidebar default-index="1" :parent="parent" :hiddenBackground="doNotClose" color="primary" :class="isCustomSidebar? 'custom-sidebar' : 'left-sidebar'" spacer v-model="isSidebarActive" :click-not-close="doNotClose" :reduce="isSidebarReduced">
         <!-- 
         @@  default side bar
         -->
-        <div v-if="!isCheckoutSidebar" :key="updatedSidebar">
+        <div v-if="!isCustomSidebar" :key="updatedSidebar">
           <div class="header-sidebar text-center" slot="header" >
             <vs-avatar size="70px" :src="logged_user.data.avatar"/>
             <h4>{{logged_user.data.name}}<br/>
@@ -344,7 +344,7 @@ export default {
 
   
   // watch: {
-  //   isCheckoutSidebar: function(newValue) {
+  //   isCustomSidebar: function(newValue) {
   //     this.updatedSidebar++;
   //   }
   // },
@@ -416,8 +416,8 @@ export default {
         return offer;
     },
     // check out status
-    isCheckoutSidebar: function() {
-      return this.$store.state.isCheckoutSidebar;
+    isCustomSidebar: function() {
+      return this.$store.state.isCustomSidebar;
     },
     // current checkout menu
     current_checkoutmenu: function() {
@@ -555,7 +555,7 @@ export default {
         this.doNotClose = true;
         if (this.isSidebarReduced)
           this.$store.dispatch("updateSidebarWidth", "mini");
-        else if (this.isCheckoutSidebar)
+        else if (this.isCustomSidebar)
           this.$store.dispatch("updateSidebarWidth", "checkout");
         else
          this.$store.dispatch("updateSidebarWidth", "default");

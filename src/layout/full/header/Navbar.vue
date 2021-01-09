@@ -25,7 +25,7 @@
       <!---
       Desktop Toggle
       -->
-      <div v-if="!isCheckoutSidebar">
+      <div v-if="!isCustomSidebar">
         <div
           class="hiddenMobile cursor-pointer"
           @click="reduceSidebar"
@@ -515,8 +515,8 @@ export default {
   },
 
   computed: {
-    isCheckoutSidebar: function() {
-      return this.$store.state.isCheckoutSidebar;
+    isCustomSidebar: function() {
+      return this.$store.state.isCustomSidebar;
     },
     getCurrentLanguage() {
       const locale = this.$i18n.locale;

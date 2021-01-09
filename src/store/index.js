@@ -85,7 +85,7 @@ export default new Vuex.Store({
     notification_icon: '',
     notification_text: '',
     loading_status: 0,
-    isCheckoutSidebar: false,
+    isCustomSidebar: false,
     current_checkoutmenu: 'home',
     status: {
       inRequest: false,
@@ -129,7 +129,7 @@ export default new Vuex.Store({
     },
 
     CHANGE_SIDEBAR(state, sidebar_checkout) {
-      state.isCheckoutSidebar = sidebar_checkout;
+      state.isCustomSidebar = sidebar_checkout;
     },
 
     SET_CURRENT_CHECKOUTMENU(state, current_checkoutmenu) {
@@ -137,7 +137,7 @@ export default new Vuex.Store({
     },
 
     RESET_MODULE(state) {
-      state.isCheckoutSidebar = false;
+      state.isCustomSidebar = false;
       state.current_checkoutmenu = 'home';
     }
 
@@ -172,6 +172,6 @@ export default new Vuex.Store({
     notification_color: state => state.notification_color,
     notification_icon: state => state.notification_icon,
     loading_status: state => state.loading_status,
-    isCheckoutSidebar: state => state.isCheckoutSidebar
+    isCustomSidebar: state => state.isCustomSidebar
   }
 })

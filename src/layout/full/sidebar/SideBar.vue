@@ -1,6 +1,6 @@
 <template lang="html">
    <div id="parentx">
-      <vs-sidebar default-index="1" :parent="parent" :hiddenBackground="doNotClose" color="primary" :class="isCheckoutSidebar? 'checkout-sidebar' : 'left-sidebar'" spacer v-model="isSidebarActive" :click-not-close="doNotClose" :reduce="isSidebarReduced">
+      <vs-sidebar default-index="1" :parent="parent" :hiddenBackground="doNotClose" color="primary" :class="isCheckoutSidebar? 'custom-sidebar' : 'left-sidebar'" spacer v-model="isSidebarActive" :click-not-close="doNotClose" :reduce="isSidebarReduced">
         <!-- 
         @@  default side bar
         -->
@@ -914,10 +914,10 @@ export default {
     z-index: 100;
     border-bottom: 1px solid #e8e8e8
   }
-  .checkout-sidebar .vs-sidebar--items{
+  .custom-sidebar .vs-sidebar--items{
     overflow: auto;
   }
-  .checkout-sidebar .vs-sidebar--items{
+  .custom-sidebar .vs-sidebar--items{
     padding: 0px;
   }
   .add-custom-field{

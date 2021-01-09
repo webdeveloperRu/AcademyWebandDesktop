@@ -131,19 +131,19 @@
 **/ 
 
 .main-wrapper-checkout {
-	.checkout-sidebar .vs-sidebar.vs-sidebar-parent {
+	.custom-sidebar .vs-sidebar.vs-sidebar-parent {
 		// top: 0;
 		height: 100% !important;
 	}
-	.checkout-sidebar .vb-content{
+	.custom-sidebar .vb-content{
 		width: calc(100% + 0px)!important;
 	}
 }
 
-.checkout-sidebar {
+.custom-sidebar {
 	.vs-sidebar{
 		position: fixed;
-		max-width: $checkout-sidebar ;
+		max-width: $custom-sidebar ;
 	}
 	// .vb-content{
 	// 	width: calc(100% + 17px)!important;

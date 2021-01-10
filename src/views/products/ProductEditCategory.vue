@@ -208,7 +208,7 @@ export default {
   }),
 
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.getProductByID(this.product_id);
   },
 
@@ -524,6 +524,8 @@ export default {
      * customizeCoursePage
      */
     customizeCoursePage() {
+      this.$store.dispatch("changeSideBar", 'product-customize');
+      this.$store.dispatch("updateSidebarWidth", "checkout");
       this.$router.push("/products/" +this.current_product.id +"/customize");
     }
   },

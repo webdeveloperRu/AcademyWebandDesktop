@@ -387,7 +387,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.initProducts();
   },
 
@@ -555,7 +555,7 @@ export default {
     },
 
     editCheckout(offer_id) {
-      this.$store.dispatch("changeSideBar", true);
+      this.$store.dispatch("changeSideBar", 'checkout');
       this.$store.dispatch("setCurrentCheckoutMenu", "home");
       this.$store.dispatch("updateSidebarWidth", "checkout");
       this.$router.push("/offers/edit-checkout/" + offer_id);

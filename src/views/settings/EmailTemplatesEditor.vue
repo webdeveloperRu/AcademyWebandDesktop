@@ -173,7 +173,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.initTemplate();
   },
 

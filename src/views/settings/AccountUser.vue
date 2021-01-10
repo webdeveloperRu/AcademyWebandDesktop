@@ -185,7 +185,7 @@ export default {
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
   },
   /**
    * --------------method part-------------

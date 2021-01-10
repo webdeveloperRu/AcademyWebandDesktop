@@ -73,7 +73,7 @@ export default {
     getUserLog: Boolean,
   },
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
   },
   watch: {
     getUserLog: function(newValue) {

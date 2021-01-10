@@ -145,7 +145,7 @@ export default {
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.getProductList();
   },
   /**

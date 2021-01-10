@@ -461,7 +461,7 @@ export default {
   }),
 
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.setLessonItem(this.lesson_id);
   },
 

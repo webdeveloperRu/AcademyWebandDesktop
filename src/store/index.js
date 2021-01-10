@@ -85,13 +85,14 @@ export default new Vuex.Store({
     notification_icon: '',
     notification_text: '',
     loading_status: 0,
-    isCustomSidebar: false,
+    currentSidebar: 'default',
     current_checkoutmenu: 'home',
     status: {
       inRequest: false,
       got: false
     },
-    custom_warning: "#ff3300"
+    custom_warning: "#ff3300",
+    current_productcustomize_menu: 'home',
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -128,16 +129,20 @@ export default new Vuex.Store({
       state.sidebarWidth = width;
     },
 
-    CHANGE_SIDEBAR(state, sidebar_checkout) {
-      state.isCustomSidebar = sidebar_checkout;
+    CHANGE_SIDEBAR(state, current_sidebar) {
+      state.currentSidebar = current_sidebar;
     },
 
     SET_CURRENT_CHECKOUTMENU(state, current_checkoutmenu) {
       state.current_checkoutmenu = current_checkoutmenu
     },
 
+    SET_CURRENT_PRODUCTCUSTOMIZE_MENU(state, current_productcustomize_menu) {
+      state.current_productcustomize_menu = current_productcustomize_menu;
+    },
+
     RESET_MODULE(state) {
-      state.isCustomSidebar = false;
+      state.currentSidebar = 'default';
       state.current_checkoutmenu = 'home';
     }
 
@@ -155,13 +160,18 @@ export default new Vuex.Store({
     },
     changeSideBar({
       commit
-    }, sidebar_checkout) {
-      commit('CHANGE_SIDEBAR', sidebar_checkout)
+    }, current_sidebar) {
+      commit('CHANGE_SIDEBAR', current_sidebar)
     },
     setCurrentCheckoutMenu({
       commit
     }, current_checkoutmenu) {
       commit('SET_CURRENT_CHECKOUTMENU', current_checkoutmenu)
+    },
+    setCurrentProductCustomizeMenu({
+      commit
+    }, current_productcustomize_menu) {
+      commit('SET_CURRENT_PRODUCTCUSTOMIZE_MENU', current_productcustomize_menu)
     }
 
   },
@@ -172,6 +182,6 @@ export default new Vuex.Store({
     notification_color: state => state.notification_color,
     notification_icon: state => state.notification_icon,
     loading_status: state => state.loading_status,
-    isCustomSidebar: state => state.isCustomSidebar
+    currentSidebar: state => state.currentSidebar
   }
 })

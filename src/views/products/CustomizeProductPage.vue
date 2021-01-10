@@ -186,6 +186,7 @@
 
 <script>
 import Navbar from "../../layout/full/header/Navbar";
+
 // import Navbar from "../../layout/full/header/Navbar.vue";
 export default {
   name: "CustomizeProduct",
@@ -193,10 +194,16 @@ export default {
     Navbar,
   },
   data: () => ({}),
+  created() {
+    this.$store.dispatch("changeSideBar", 'product-customize');
+    this.$store.dispatch("updateSidebarWidth", "checkout");
+
+  }
 }
 </script>
 
-<style>
+<style lang="scss">
+
 .category-banner {
   margin: 0 -20px;
   margin-top: calc(-24px);
@@ -472,7 +479,7 @@ export default {
 
 @media (min-width: 1169px) {
   .studentapp-header {
-    width: calc(100% - 260px);
+    width: calc(100% - #{$custom-sidebar});
   }
 }
 

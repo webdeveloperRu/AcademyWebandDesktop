@@ -439,7 +439,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.category_status = this.category.status;
     this.dripDays = this.category.drip;
     this.updateLessonList();

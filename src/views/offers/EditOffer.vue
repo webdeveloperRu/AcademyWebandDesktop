@@ -497,7 +497,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("changeSideBar", false);
+    this.$store.dispatch("changeSideBar", 'default');
     this.setOfferItem(this.offer_id);
     var getUrl = window.location;
     this.external_link_url =
@@ -819,7 +819,7 @@ export default {
      *   link to check out page
      **/
     linkToCheckout() {
-      this.$store.dispatch("changeSideBar", true);
+      this.$store.dispatch("changeSideBar", 'checkout');
       this.$store.dispatch("setCurrentCheckoutMenu", "home");
       this.$store.dispatch("updateSidebarWidth", "checkout");
       this.$router.push("/offers/edit-checkout/" + this.selected_offer.id);

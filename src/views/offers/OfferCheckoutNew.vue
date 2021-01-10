@@ -283,7 +283,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("changeSideBar", true);
+    this.$store.dispatch("changeSideBar", 'checkout');
     this.initCheckoutPage();
   },
 

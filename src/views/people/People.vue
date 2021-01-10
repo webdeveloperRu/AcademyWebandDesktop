@@ -284,10 +284,11 @@
                 </div>
               </vs-td>
 
-              <vs-td :data="data[indextr].email_marketing">
-                <span class="primary-font">{{
-                  data[indextr].email_marketing
-                }}</span>
+              <vs-td :data="data[indextr].is_subscribe">
+                <span class="primary-font" v-if="data[indextr].is_subscribe"
+                  >Subscribed</span
+                >
+                <span class="primary-font" v-else>Never Subscribed</span>
               </vs-td>
 
               <vs-td :data="data[indextr].created_on">
@@ -852,7 +853,7 @@ export default {
     },
   },
   created() {
-    this.$store.dispatch("changeSideBar", 'default');
+    this.$store.dispatch("changeSideBar", "default");
     this.getPeopleList();
     this.getOfferList();
   },
@@ -1168,10 +1169,7 @@ export default {
         delete_peoples_list[i] = this.selected_peoples[i].id;
       for (let i = 0; i < delete_peoples_list.length; i++) {
         await this.$store
-          .dispatch(
-            "peopleManage/deletePeopleByID",
-            delete_peoples_list[i]
-          )
+          .dispatch("peopleManage/deletePeopleByID", delete_peoples_list[i])
           .then(() => {})
           .catch(() => {
             this.$vs.notify({
@@ -1280,8 +1278,8 @@ export default {
         header: true,
         download: true,
         dynamicTyping: true,
-        complete:(results)=> {
-          this.loadCSV(results.data)
+        complete: (results) => {
+          this.loadCSV(results.data);
         },
       });
     },
@@ -1291,20 +1289,18 @@ export default {
      */
     async loadCSV(csv_data) {
       this.$vs.loading({ type: "material" });
-      for(let i = 0; i < csv_data.length; i++) {
-        this.people.name = csv_data[i].name
-        this.people.email = csv_data[i].email
+      for (let i = 0; i < csv_data.length; i++) {
+        this.people.name = csv_data[i].name;
+        this.people.email = csv_data[i].email;
         this.people.tags = [];
-        this.people.nota = csv_data[i].nota
-        this.people.is_subscribe = csv_data[i].is_subscribe
-        this.people.address = csv_data[i].address
+        this.people.nota = csv_data[i].nota;
+        this.people.is_subscribe = csv_data[i].is_subscribe;
+        this.people.address = csv_data[i].address;
         this.people.granted_access = this.grantOfferIDs;
         this.people.is_active = this.peopleActive;
-         await this.$store
+        await this.$store
           .dispatch("peopleManage/addPeople", this.people)
-          .then(() => {
-            
-          })
+          .then(() => {})
           .catch(() => {
             this.$vs.notify({
               color: this.notification_color,
@@ -1316,8 +1312,7 @@ export default {
       this.updatedTable++;
       this.$vs.loading.close();
       this.activeAddPeople = false;
-
-    }
+    },
   },
 };
 </script>

@@ -448,7 +448,10 @@
       <div v-else>
         <!-- header part -->
         <div class="product-sidebar-head primary-font">
-          <div class="d-flex" style="justify-content: space-between; align-items: center">
+          <div
+            class="d-flex"
+            style="justify-content: space-between; align-items: center"
+          >
             <div
               class="product-sidebar-backbutton"
               @click="linkBackInProductSidebar"
@@ -527,7 +530,7 @@
             </div>
             <div class="product-section-item">
               <i
-                class="mdi mdi-layers product-section-item-icon primary-font"
+                class="mdi mdi-buffer product-section-item-icon primary-font"
               ></i>
               <span
                 class="product-section-item-title"
@@ -541,14 +544,14 @@
               ></i>
               <span
                 class="product-section-item-title"
-                @click="selectProductCustomizeMenu('sysllabus')"
+                @click="selectProductCustomizeMenu('product-syllabus')"
               >
                 Product Syllabus</span
               >
             </div>
             <div class="product-section-item">
               <i
-                class="mdi mdi-page-layout-sidebar-left product-section-item-icon primary-font"
+                class="mdi mdi-page-layout-sidebar-right product-section-item-icon primary-font"
               ></i>
               <span
                 class="product-section-item-title"
@@ -572,22 +575,43 @@
 
           <div v-if="currentCustomizeTab == 'settings'">
             <div class="product-section-item">
-              <span class="product-section-item-title" @click="selectProductCustomizeMenu('favicon')">Favicon</span>
+              <span
+                class="product-section-item-title"
+                @click="selectProductCustomizeMenu('favicon')"
+                >Favicon</span
+              >
             </div>
             <div class="product-section-item">
-              <span class="product-section-item-title" @click="selectProductCustomizeMenu('typography')">Typography</span>
+              <span
+                class="product-section-item-title"
+                @click="selectProductCustomizeMenu('typography')"
+                >Typography</span
+              >
             </div>
             <div class="product-section-item">
-              <span class="product-section-item-title" @click="selectProductCustomizeMenu('colorscheme')">Color Scheme</span>
+              <span
+                class="product-section-item-title"
+                @click="selectProductCustomizeMenu('colorscheme')"
+                >Color Scheme</span
+              >
             </div>
             <div class="product-section-item">
-              <span class="product-section-item-title" @click="selectProductCustomizeMenu('messagecolor')">Message Colors</span>
+              <span
+                class="product-section-item-title"
+                @click="selectProductCustomizeMenu('messagecolor')"
+                >Message Colors</span
+              >
             </div>
             <div class="product-section-item">
-              <span class="product-section-item-title" @click="selectProductCustomizeMenu('generalappearance')">General Appearance</span>
+              <span
+                class="product-section-item-title"
+                @click="selectProductCustomizeMenu('generalappearance')"
+                >General Appearance</span
+              >
             </div>
           </div>
         </div>
+        <!-- --------------------------------header menu body part -------------------------------------------->
         <div
           class="product-sidebar-body"
           v-else-if="currentProductCustomizeMenu == 'header'"
@@ -670,28 +694,256 @@
               v-model="product_logo_height"
             />
           </div>
+        </div>
+        <!-- ---------------------------------------------------hero menu body part --------------------------------------  -->
+        <div
+          class="product-sidebar-body"
+          v-else-if="currentProductCustomizeMenu == 'hero'"
+        >
+          <div class="product-sidebar-menu-section">
+            <span>Hero</span>
+          </div>
+          <div class="show-header-option">
+            <vs-checkbox
+              class="justify-content-start"
+              v-model="product_show_hero"
+              ><span class="ml-3 ">Show Hero</span></vs-checkbox
+            >
+          </div>
+          <div class="product-sidebar-menu-section">
+            <span>Section Appearance</span>
+          </div>
           <div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Custom Logo Height</div>
+            <div class="mb-2">Background Image</div>
+            <div
+              class="logo-image"
+              :style="{
+                'background-image': product_appearance_image_url,
+              }"
+            ></div>
+            <label class="logoimage-select-button mt-3">
+              <input
+                type="file"
+                @change="onSelectProductAppearanceImage"
+                style="overflow: hidden"
+                class="bannerimage-input"
+                accept="image/png, image/jpeg"
+              />
+              Pick File
+            </label>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Alignment</div>
+            <vs-radio
+              v-model="product_appearance_textalign"
+              vs-name="appearance-algin"
+              vs-value="Left"
+              >Left</vs-radio
+            >
+            <vs-radio
+              v-model="product_appearance_textalign"
+              vs-name="appearance-algin"
+              vs-value="Centered"
+              >Centered</vs-radio
+            >
+            <vs-radio
+              v-model="product_appearance_textalign"
+              vs-name="appearance-algin"
+              vs-value="Right"
+              >Right</vs-radio
+            >
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Spacing</div>
+            <vs-select class="w-100 mt-3" v-model="appearance_spacing">
+              <vs-select-item
+                :key="index"
+                :value="item.value"
+                :text="item.text"
+                v-for="(item, index) in appearance_spacings"
+              />
+            </vs-select>
+          </div>
+          <div class="product-sidebar-submenu mt-3">
+            <i
+              class="mdi mdi-information-outline product-section-item-icon primary-font"
+            ></i>
+            <span
+              class="product-section-item-title"
+              @click="selectProductCustomizeMenu('product-info')"
+              >Product Info</span
+            >
+          </div>
+          <div class="product-sidebar-submenu">
+            <i
+              class="mdi mdi-buffer product-section-item-icon primary-font"
+            ></i>
+            <span
+              class="product-section-item-title"
+              @click="selectProductCustomizeMenu('start-button')"
+              >Start Button</span
+            >
+          </div>
+          <div style="height:50px"></div>
+        </div>
+        <!-- --------------------------------- welcome body menu part -------------------------------- -->
+        <div
+          class="product-sidebar-body"
+          v-else-if="currentProductCustomizeMenu == 'welcome'"
+        >
+          <div class="product-sidebar-menu-section">
+            <span>Welcome Body</span>
+          </div>
+          <div class="show-header-option">
+            <vs-checkbox
+              class="justify-content-start"
+              v-model="product_show_welcomebody"
+              ><span class="ml-3 ">Show Welcome Body</span></vs-checkbox
+            >
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Text Alignment</div>
+            <vs-radio
+              v-model="product_welcom_textalign"
+              vs-name="welcome-text-algin"
+              vs-value="Left"
+              >Left</vs-radio
+            >
+            <vs-radio
+              v-model="product_welcom_textalign"
+              vs-name="welcome-text-algin"
+              vs-value="Centered"
+              >Centered</vs-radio
+            >
+            <vs-radio
+              v-model="product_welcom_textalign"
+              vs-name="welcome-text-algin"
+              vs-value="Right"
+              >Right</vs-radio
+            >
+          </div>
+          <div class="product-sidebar-submenu mt-3">
+            <i
+              class="mdi mdi-play-box-outline product-section-item-icon primary-font"
+            ></i>
+            <span
+              class="product-section-item-title"
+              @click="selectProductCustomizeMenu('video')"
+              >Video</span
+            >
+          </div>
+          <div class="product-sidebar-submenu">
+            <i
+              class="mdi mdi-information-outline product-section-item-icon primary-font"
+            ></i>
+            <span
+              class="product-section-item-title"
+              @click="selectProductCustomizeMenu('welcome-product-info')"
+              >Product Info</span
+            >
+          </div>
+          <div style="height:50px"></div>
+        </div>
+        <!-- --------------------------------- product syllabus body part -------------------------------- -->
+        <div
+          class="product-sidebar-body"
+          v-else-if="currentProductCustomizeMenu == 'product-syllabus'"
+        >
+          <div class="product-sidebar-menu-section">
+            <span>Product Syllabus</span>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <vs-checkbox
+              class="justify-content-start"
+              v-model="product_show_syllabus"
+              ><span class="ml-2 ">Show Syllabus</span></vs-checkbox
+            >
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Syllabust Type</div>
+            <vs-radio
+              v-model="product_syllabus_type"
+              vs-name="welcome-text-algin"
+              vs-value="Categories"
+              >Categories</vs-radio
+            >
+            <vs-radio
+              v-model="product_syllabus_type"
+              vs-name="welcome-text-algin"
+              vs-value="Posts"
+              >Posts</vs-radio
+            >
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Truncate At</div>
             <vs-input
               class="inputx"
               style="width:100%"
-              v-model="product_logo_height"
-            />
-          </div><div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Custom Logo Height</div>
-            <vs-input
-              class="inputx"
-              style="width:100%"
-              v-model="product_logo_height"
-            />
-          </div><div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Custom Logo Height</div>
-            <vs-input
-              class="inputx"
-              style="width:100%"
-              v-model="product_logo_height"
+              v-model="product_truncate_at"
             />
           </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Categories Text</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="product_categories_text"
+            />
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Comming Soon Text</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="product_comingsoon_text"
+            />
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Show More Text</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="product_showmore_text"
+            />
+          </div>
+          <div style="height:50px"></div>
+        </div>
+        <!-- --------------------------------- product sidebar body part -------------------------------- -->
+        <div
+          class="product-sidebar-body"
+          v-else-if="currentProductCustomizeMenu == 'sidebar'"
+        >
+          <div class="product-sidebar-menu-section">
+            <span>Product Sidebar</span>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <vs-checkbox
+              class="justify-content-start"
+              v-model="product_show_sidebar"
+              ><span class="ml-2 ">Show Sidebar</span></vs-checkbox
+            >
+          </div>
+          <div class="product-sidebar-submenu mt-3">
+            <i
+              class="mdi mdi-chart-pie product-section-item-icon primary-font"
+            ></i>
+            <span
+              class="product-section-item-title"
+              @click="selectProductCustomizeMenu('course-progress')"
+              >Course Progress</span
+            >
+          </div>
+          <div class="product-sidebar-submenu ">
+            <i
+              class="mdi mdi-account product-section-item-icon primary-font"
+            ></i>
+            <span
+              class="product-section-item-title"
+              @click="selectProductCustomizeMenu('instructor')"
+              >Instructor</span
+            >
+          </div>
+          <div style="height:50px"></div>
         </div>
       </div>
 
@@ -771,7 +1023,28 @@ export default {
     product_logo_image_url: "",
     product_logo_file: null,
     product_logo_height: "",
-
+    product_show_hero: true,
+    product_appearance_image_url: "",
+    product_appearance_file: null,
+    product_appearance_textalign: "Centered",
+    appearance_spacing: "",
+    previous_sidebar_menu: "home",
+    current_sidebar_menu: "home",
+    product_show_welcomebody: false,
+    product_welcom_textalign: "Centered",
+    appearance_spacings: [
+      { text: "Extra small", value: 0 },
+      { text: "Small", value: 1 },
+      { text: "Medium", value: 2 },
+      { text: "Large", value: 3 },
+    ],
+    product_syllabus_type: "Categories",
+    product_show_syllabus: true,
+    product_truncate_at: "",
+    product_categories_text: "Categories",
+    product_comingsoon_text: "Coming Soon",
+    product_showmore_text: "Show More",
+    product_show_sidebar: true,
   }),
 
   // watch: {
@@ -1301,8 +1574,17 @@ export default {
     linkBackInProductSidebar() {
       if (this.currentProductCustomizeMenu == "home") {
         this.$router.push("/products/edit-product/" + this.selected_product.id);
-      } else {
+      } else if (
+        this.currentProductCustomizeMenu == this.previous_sidebar_menu
+      ) {
         this.$store.dispatch("setCurrentProductCustomizeMenu", "home");
+        this.current_sidebar_menu = "home";
+      } else {
+        this.$store.dispatch(
+          "setCurrentProductCustomizeMenu",
+          this.previous_sidebar_menu
+        );
+        this.current_sidebar_menu = this.previous_sidebar_menu;
       }
     },
     previewCustomizedProductPage() {
@@ -1311,9 +1593,10 @@ export default {
 
     selectCustomizeTab(select_tab) {
       this.currentCustomizeTab = select_tab;
-      console.log(this.currentCustomizeTab);
     },
     selectProductCustomizeMenu(menu_option) {
+      this.previous_sidebar_menu = this.current_sidebar_menu;
+      this.current_sidebar_menu = menu_option;
       this.$store.dispatch("setCurrentProductCustomizeMenu", menu_option);
     },
 
@@ -1324,7 +1607,16 @@ export default {
         // this.banner_url = URL.createObjectURL(file);
         this.product_logo_image_url = "url(" + URL.createObjectURL(file) + ")";
       }
-    }
+    },
+    onSelectProductAppearanceImage(e) {
+      const file = e.target.files[0];
+      if (file !== undefined) {
+        this.product_appearance_file = file;
+        // this.banner_url = URL.createObjectURL(file);
+        this.product_appearance_image_url =
+          "url(" + URL.createObjectURL(file) + ")";
+      }
+    },
   },
 
   mounted() {
@@ -1437,8 +1729,8 @@ input[type="file"] {
   padding: 10px 20px;
   color: #111;
   background: white;
-  width:100%;
-  z-index:100;
+  width: 100%;
+  z-index: 100;
 }
 .product-sidebar-backbutton {
   cursor: pointer;
@@ -1511,14 +1803,21 @@ input[type="file"] {
   border-bottom: solid 1px #dddddd;
   align-items: center;
 }
-// .product-sidebar-save {
-//   width: 100%;
-//   border-top: solid 1px #dddddd;
-//   position: absolute;
-//   bottom: 60px;
-//   justify-content: flex-end;
-//   display: flex;
-//   padding: 10px 30px;
-//   background: white;
-// }
+.product-sidebar-submenu {
+  height: 60px;
+  border-bottom: solid 1px #dddddd;
+  border-top: solid 1px #dddddd;
+  border-left: solid 1px #dddddd;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 5px 20px;
+  margin-left: 20px;
+  align-items: center;
+  font-size: 14px;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    border-left: solid 3px #0072ef;
+  }
+}
 </style>

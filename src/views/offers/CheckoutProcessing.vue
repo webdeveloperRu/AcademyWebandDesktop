@@ -44,11 +44,12 @@ export default {
     processing_success: false,
   }),
   created() {
-    this.processing();
+    setTimeout(() => this.processing(), 1500);
   },
   methods: {
     processing() {
-      setTimeout(() => (this.processing_success = true), 1500);
+      this.processing_success = true;
+      setTimeout(() => this.$router.push("/settings/member-setup"), 1000);
     },
   },
 

@@ -407,6 +407,13 @@ const router = new Router({
       i18n: "checkout processing",
       component: () => import("./views/offers/CheckoutProcessing.vue"),
     },
+    {
+      path: "/settings/member-setup",
+      name: "member-setup",
+      index: 9.1,
+      i18n: "member-setup",
+      component: () => import("./views/offers/MemberSetup.vue"),
+    },
   ],
   scrollBehavior() {
     return { x: 0, y: 0 };

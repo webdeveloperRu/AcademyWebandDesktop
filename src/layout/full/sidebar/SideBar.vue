@@ -945,6 +945,101 @@
           </div>
           <div style="height:50px"></div>
         </div>
+
+        <!-- --------------------------------- instructor body part -------------------------------- -->
+        <div
+          class="product-sidebar-body"
+          v-else-if="currentProductCustomizeMenu == 'instructor'"
+        >
+          <div class="product-sidebar-menu-section">
+            <span>Instructor</span>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Heading</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="product_instructor_heading"
+            />
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <vs-checkbox
+              class="justify-content-start"
+              v-model="product_show_sidebar"
+              ><span class="ml-2 ">Show Sidebar</span></vs-checkbox
+            >
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Headshot</div>
+            <div
+              class="logo-image"
+              :style="{
+                'background-image': instructor_headshot_image_url,
+              }"
+            ></div>
+            <label class="logoimage-select-button mt-3">
+              <input
+                type="file"
+                @change="onSelectInstructorHeadshotImage"
+                style="overflow: hidden"
+                class="bannerimage-input"
+                accept="image/png, image/jpeg"
+              />
+              Pick File
+            </label>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Name</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="instructor_name"
+            />
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Title</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="instructor_title"
+            />
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Bio</div>
+            <textarea
+              class="instructor-bio"
+              v-model="instructor_bio"
+            ></textarea>
+          </div>
+          <div style="height:50px"></div>
+        </div>
+
+        <!-- --------------------------------- course progress body part -------------------------------- -->
+        <div
+          class="product-sidebar-body"
+          v-else-if="currentProductCustomizeMenu == 'course-progress'"
+        >
+          <div class="product-sidebar-menu-section">
+            <span>Course Progress</span>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <vs-checkbox
+              class="justify-content-start"
+              v-model="product_show_image"
+              ><span class="ml-2 ">Show Product image</span></vs-checkbox
+            >
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Completed Text</div>
+            <vs-input
+              class="inputx"
+              style="width:100%"
+              v-model="course_completed_text"
+            />
+          </div>
+
+          <div style="height:50px"></div>
+        </div>
       </div>
 
       <div class="footer-sidebar" slot="footer">
@@ -1045,6 +1140,15 @@ export default {
     product_comingsoon_text: "Coming Soon",
     product_showmore_text: "Show More",
     product_show_sidebar: true,
+    product_instructor_heading: "Instructor",
+    instructor_headshot_image_url: "",
+    instructor_headshot_file: null,
+    instructor_name: "John Doe",
+    instructor_title: "Instructor",
+    instructor_bio:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sed sapien quam. Sed dapibus est id enim facilisis, at posuere turpis adipiscing. Quisque sit amet dui dui.",
+    product_show_image: true,
+    course_completed_text: "Lesssons Completed",
   }),
 
   // watch: {
@@ -1617,6 +1721,15 @@ export default {
           "url(" + URL.createObjectURL(file) + ")";
       }
     },
+    onSelectInstructorHeadshotImage(e) {
+      const file = e.target.files[0];
+      if (file !== undefined) {
+        this.instructor_headshot_file = file;
+        // this.banner_url = URL.createObjectURL(file);
+        this.instructor_headshot_image_url =
+          "url(" + URL.createObjectURL(file) + ")";
+      }
+    },
   },
 
   mounted() {
@@ -1818,6 +1931,15 @@ input[type="file"] {
   cursor: pointer;
   &:hover {
     border-left: solid 3px #0072ef;
+  }
+}
+.instructor-bio {
+  width: 100%;
+  height: 150px;
+  border-radius: 4px;
+  padding: 10px;
+  &:focus {
+    border-color: #0072ef;
   }
 }
 </style>

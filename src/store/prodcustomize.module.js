@@ -486,7 +486,6 @@ export const prodCustomizeManage = {
       store.state.status = {
         got: true,
       };
-      console.log("ssuccess get prod settings", res);
       state.prod_settings = res.data;
       store.state.notification_text = "Settings successfully got!";
       store.state.notification_icon = "info";

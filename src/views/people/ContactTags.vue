@@ -107,7 +107,7 @@
 
     <vs-popup
       class="holamundo"
-      title="Edit Contact Tag"
+      title="Delete Contact Tag"
       :active.sync="deleteTagConfirm"
     >
       <div class="mt-5 mb-5">
@@ -117,20 +117,18 @@
           >? This action cannot be undone.
         </p>
         <p>
-          Deleting this tag will remove it from <strong>{{selected_delete_tag.peoples}} </strong>people
-        </p>       
+          Deleting this tag will remove it from
+          <strong>{{ selected_delete_tag.peoples }} </strong>people
+        </p>
       </div>
-       <div class="btn-alignment text-right">
-          <vs-button
-            color="primary"
-            type="flat"
-            @click="deleteTagConfirm = false"
-            >Cancel</vs-button
-          >
-          <vs-button color="danger" type="filled" @click="deleteSelectedTag"
-            >Save</vs-button
-          >
-        </div>
+      <div class="btn-alignment text-right">
+        <vs-button color="primary" type="flat" @click="deleteTagConfirm = false"
+          >Cancel</vs-button
+        >
+        <vs-button color="danger" type="filled" @click="deleteSelectedTag"
+          >Delete</vs-button
+        >
+      </div>
     </vs-popup>
   </vs-row>
 </template>
@@ -138,45 +136,94 @@
 <script>
 export default {
   name: "ContactTags",
+
   data: () => ({
     title: "FilterTable",
     deleteTagConfirm: false,
     editTagConfirm: false,
-    users: [
-      {
-        id: 1,
-        name: "Leanne Graham",
-        peoples: 5,
-      },
-      {
-        id: 2,
-        name: "Ervin Howell",
-        peoples: 3,
-      },
-    ],
     confirm_delete: "",
     selected_delete_tag: "",
+    selected_edit_tag: "",
     edit_tag_name: "",
     selected_tag_index: -1,
   }),
+
   created() {
-    this.$vs.notify({
-      color: "#ff0000",
-      text: "Hello, API need to shows tag list!",
-    });
+    this.$store.dispatch("peopleManage/getTagList");
   },
+
   computed: {
-    // people_id: {
-    //   get() {
-    //     var id = this.$route.params.people_id;
-    //     return id.slice(0, id.length);
-    //   },
-    // },
-    // selected_people: {
-    //   get() {
-    //     return this.$store.getters["peopleManage/current_people"];
-    //   },
-    // },
+    user_logged: {
+      get() {
+        return this.$store.getters["auth/user_logged"];
+      },
+    },
+
+    notification_text: {
+      get() {
+        return this.$store.getters["notification_text"];
+      },
+    },
+
+    notification_icon: {
+      get() {
+        return this.$store.getters["notification_icon"];
+      },
+    },
+
+    notification_color: {
+      get() {
+        return this.$store.getters["notification_color"];
+      },
+    },
+
+    status_got: {
+      get() {
+        return this.$store.getters["status_got"];
+      },
+    },
+    offer_list: {
+      get() {
+        return this.$store.getters["offerManage/offer_list"];
+      },
+    },
+    grantofferlist: {
+      get() {
+        let list = [];
+        for (let i = 0; i < this.offer_list.length; i++) {
+          list[i] = {
+            code: this.offer_list[i].id,
+            name: this.offer_list[i].name,
+          };
+        }
+        return list;
+      },
+    },
+
+    people_list: {
+      get() {
+        return this.$store.getters["peopleManage/people_list"];
+      },
+    },
+
+    tag_list: {
+      get() {
+        return this.$store.getters["peopleManage/tag_list"];
+      },
+    },
+
+    users: {
+      get() {
+        let userdata = [];
+        for (var data in this.tag_list) {
+          userdata[userdata.length] = {
+            name: data,
+            peoples: this.tag_list[data].length,
+          };
+        }
+        return userdata;
+      },
+    },
   },
   methods: {
     /**
@@ -193,17 +240,67 @@ export default {
 
     confirmEditTag(selected_tag, index) {
       this.edit_tag_name = selected_tag.name;
-      this.selected_delete_tag = selected_tag;
+      this.selected_edit_tag = selected_tag;
       this.editTagConfirm = true;
       this.selected_tag_index = index;
     },
 
-    saveEditTag() {
-      this.users[this.selected_tag_index].name = this.edit_tag_name;
+    async saveEditTag() {
+      // this.users[this.selected_tag_index].name = this.edit_tag_name;
+      for (let i = 0; i < this.people_list.length; i++) {
+        for (let j = 0; j < this.people_list[i].tags.length; j++) {
+          if (
+            this.people_list[i].tags[j].title == this.selected_edit_tag.name
+          ) {
+            this.people_list[i].tags[j].title = this.edit_tag_name;
+          }
+        }
+        await this.$store
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.people_list[i],
+            this.people_list[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
+      }
+      this.$store.dispatch("peopleManage/getTagList");
       this.editTagConfirm = false;
     },
 
-    deleteSelectedTag() {},
+    async deleteSelectedTag() {
+      // this.$vs.loading({ type: "material" });
+      for (let i = 0; i < this.people_list.length; i++) {
+        for (let j = 0; j < this.people_list[i].tags.length; j++) {
+          if (
+            this.people_list[i].tags[j].title == this.selected_delete_tag.name
+          ) {
+            this.people_list[i].tags.splice(j, 1);
+          }
+        }
+        await this.$store
+          .dispatch("peopleManage/updatePeopleByID", [
+            this.people_list[i],
+            this.people_list[i].id,
+          ])
+          .then(() => {})
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          });
+      }
+      // this.$vs.loading.close();
+      this.$store.dispatch("peopleManage/getTagList");
+      this.deleteTagConfirm = false;
+    },
   },
 };
 </script>

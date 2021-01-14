@@ -1,7 +1,8 @@
-import PeopleService from '../services/people.service';
-import store from './index'
+import PeopleService from "../services/people.service";
+import store from "./index";
 const initialState = {
   people_list: [],
+  tag_list: {},
   current_people: [],
 };
 export const peopleManage = {
@@ -11,28 +12,26 @@ export const peopleManage = {
     /**
      * ---------get offer list-------------------
      */
-    getPeopleList({
-      commit
-    }) {
+    getPeopleList({ commit }) {
       return PeopleService.getPeopleList().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('getPeopleListSuccess', res);
+            commit("getPeopleListSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -41,90 +40,87 @@ export const peopleManage = {
     /**
      * ---------add new people -----------------
      */
-    addPeople({
-      commit
-    }, people) {
+    addPeople({ commit }, people) {
       return PeopleService.addPeople(people).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('addPeopleSuccess', res);
+            commit("addPeopleSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
+    },
+
+    getTagList({ commit }) {
+      commit("GET_TAG_LIST");
     },
 
     /**
      * ---------update new people -----------------
      */
-    updatePeopleByID({
-      commit
-    }, [people, people_id]) {
+    updatePeopleByID({ commit }, [people, people_id]) {
       return PeopleService.updatePeopleByID(people, people_id).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('updatePeopleByIDSuccess', res);
+            commit("updatePeopleByIDSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
     },
 
-
     /**
      * ---------delete people id -----------------
      */
-    deletePeopleByID({
-      commit
-    }, people_id) {
+    deletePeopleByID({ commit }, people_id) {
       return PeopleService.deletePeopleByID(people_id).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('removePeopleById', people_id);
-            commit('deletePeopleByIDSuccess');
+            commit("removePeopleById", people_id);
+            commit("deletePeopleByIDSuccess");
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -133,27 +129,26 @@ export const peopleManage = {
     /**
      * ---------delete people id -----------------
      */
-    getPeopleByID({
-      commit
-    }, people_id) {
+    getPeopleByID({ commit }, people_id) {
       return PeopleService.getPeopleByID(people_id).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('getPeopleByIDSuccess', res);
+            commit("getPeopleByIDSuccess", res);
           } else {
-            commit('getPeopleByIDFailed', res.response);
+            commit("getPeopleByIDFailed", res.response);
           }
         },
-        error => {
-          commit('getPeopleByIDFailed', error.response);
+        (error) => {
+          commit("getPeopleByIDFailed", error.response);
         }
       );
     },
   },
 
   getters: {
-    people_list: state => state.people_list,
-    current_people: state => state.current_people
+    people_list: (state) => state.people_list,
+    current_people: (state) => state.current_people,
+    tag_list: (state) => state.tag_list,
   },
 
   mutations: {
@@ -162,12 +157,12 @@ export const peopleManage = {
      */
     getPeopleByIDSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_text = 'People successfully got';
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      state.current_people = res.data
+      store.state.notification_text = "People successfully got";
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      state.current_people = res.data;
     },
 
     /**
@@ -175,36 +170,52 @@ export const peopleManage = {
      */
     getPeopleListSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
       if (res.data.items == undefined) {
-        state.people_list = []
+        state.people_list = [];
       } else {
-        state.people_list = res.data.items
+        state.people_list = res.data.items;
       }
-      store.state.notification_text = 'Found ' + state.people_list.length + " people";
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
+      state.tag_list = {};
+      for (let i = 0; i < state.people_list.length; i++) {
+        for (let j = 0; j < state.people_list[i].tags.length; j++) {
+          if (state.tag_list[state.people_list[i].tags[j].title] == undefined) {
+            state.tag_list[state.people_list[i].tags[j].title] = [];
+            state.tag_list[state.people_list[i].tags[j].title][0] = {
+              id: state.people_list[i].id,
+              title: state.people_list[i].tags[j].title,
+            };
+          } else {
+            state.tag_list[state.people_list[i].tags[j].title].push({
+              id: state.people_list[i].id,
+              title: state.people_list[i].tags[j].title,
+            });
+          }
+        }
+      }
+      store.state.notification_text =
+        "Found " + state.people_list.length + " people";
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
     },
-
 
     /**
      * ---------delete People success ----------------
      */
     deletePeopleByIDSuccess() {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'people deleted!';
-
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "people deleted!";
     },
 
     removePeopleById(state, people_id) {
       for (let i = 0; i < state.people_list.length; i++) {
         if (state.people_list[i].id == people_id) {
-          state.people_list.splice(i, 1)
+          state.people_list.splice(i, 1);
         }
       }
     },
@@ -214,39 +225,53 @@ export const peopleManage = {
      */
     addPeopleSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'People successfully added!';
-      state.people_list.push(res.data)
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "People successfully added!";
+      state.people_list.push(res.data);
     },
-
 
     /**
      * ---------update proudct Success ----------------
      */
     updatePeopleByIDSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'People successfully updated!';
-      state.current_people = res.data.data
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "People successfully updated!";
+      state.current_people = res.data.data;
       for (let i = 0; i < state.people_list.length; i++) {
         if (state.people_list[i].id == state.current_people.id) {
           state.people_list[i] = state.current_people;
         }
       }
-
+    },
+    GET_TAG_LIST(state) {
+      state.tag_list = {};
+      for (let i = 0; i < state.people_list.length; i++) {
+        for (let j = 0; j < state.people_list[i].tags.length; j++) {
+          if (state.tag_list[state.people_list[i].tags[j].title] == undefined) {
+            state.tag_list[state.people_list[i].tags[j].title] = [];
+            state.tag_list[state.people_list[i].tags[j].title][0] = {
+              id: state.people_list[i].id,
+              title: state.people_list[i].tags[j].title,
+            };
+          } else {
+            state.tag_list[state.people_list[i].tags[j].title].push({
+              id: state.people_list[i].id,
+              title: state.people_list[i].tags[j].title,
+            });
+          }
+        }
+      }
     },
 
     RESET_MODULE(state) {
-
-      Object.assign(state, initialState)
-    }
-
-
-  }
+      Object.assign(state, initialState);
+    },
+  },
 };

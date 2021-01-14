@@ -462,7 +462,12 @@
               >
               <span class="ml-1" v-else>Products</span>
             </div>
-            <vs-button color="primary" type="filled">Save</vs-button>
+            <vs-button
+              color="primary"
+              type="filled"
+              @click="saveProductCustomizeSettings"
+              >Save</vs-button
+            >
           </div>
           <div
             class="product-title-head mt-2"
@@ -1804,6 +1809,7 @@ export default {
     header_announcement_color: "",
     header_announcement_openwindow: false,
     header_show_menu: true,
+    header_menu_id: null,
     header_menu_logouttext: "Logout",
     header_menu_settingstext: "Settings",
     header_menu_librarytext: "My Library",
@@ -1871,6 +1877,7 @@ export default {
   //     this.updatedSidebar++;
   //   }
   // },
+
   computed: {
     user_logged: {
       get() {
@@ -2045,6 +2052,11 @@ export default {
     },
     new_design: function(newValue) {
       this.$store.dispatch("offerManage/setNewDesign", newValue);
+    },
+    currentSidebar: function(newValue, oldValue) {
+      if (newValue == "product-customize") {
+        this.initProductCustomizeData();
+      }
     },
   },
 
@@ -2433,114 +2445,390 @@ export default {
 
     // ---------------------------------- product sidebar working methods part- ------------------------
     initProductCustomizeData() {
-      console.log("prod-settings", this.prod_settings);
+      if (this.currentSidebar == "product-customize") {
+        this.getProductCustomizeHeader();
+        this.getProductCustomizeHero();
+        this.getProductCustomizeWelcome();
+        this.getProductCustomizeSyllabus();
+        this.getProductCustomizeSidebar();
+        this.getProductCustomizeFooter();
+        this.getProductCustomizeSettings();
+      }
+    },
+    getProductCustomizeHeader() {
       this.$store
         .dispatch("prodCustomizeManage/getProdHeader", this.product_id)
         .then(() => {
-          this.setProductCustomizeData();
+          this.header_announcement_text = this.prod_header.announcement_text;
+          this.header_announcement_url = this.prod_header.announcement_url;
+          this.header_announcement_textcolor = this.prod_header.announcement_text_color;
+          this.header_announcement_color = this.prod_header.announcement_color;
+          this.header_announcement_openwindow = this.prod_header.announcement_new_window;
+          this.header_show_menu = this.prod_header.show_announcement;
+          this.header_show_menu = this.prod_header.show_menu;
+          this.product_show_header = this.prod_header.show_header;
+          this.proudct_logo_text = this.prod_header.logo_text;
+          this.product_logo_type = this.prod_header.logo_type;
+          this.product_logo_height = this.prod_header.custom_logo_height;
+          this.header_menu_id = this.prod_header.menu_id;
         });
+    },
+
+    getProductCustomizeHero() {
       this.$store
         .dispatch("prodCustomizeManage/getProdHero", this.product_id)
         .then(() => {
-          this.setProductCustomizeData();
+          this.hero_appearance_textalign = this.prod_hero.alignment;
+          this.product_hero_overlaycolor = this.prod_hero.overlay_color;
+          this.product_show_hero = this.prod_hero.show_hero;
+          this.product_hero_textcolor = this.prod_hero.text_color;
+          switch (this.prod_hero.spacing) {
+            case "Small":
+              this.hero_appearance_spacing = 1;
+              break;
+            case "Medium":
+              this.hero_appearance_spacing = 2;
+              break;
+            case "Large":
+              this.hero_appearance_spacing = 3;
+              break;
+            case "Extra Small":
+              this.hero_appearance_spacing = 0;
+              break;
+            default:
+              this.hero_appearance_spacing = 1;
+              break;
+          }
         });
+    },
+
+    getProductCustomizeWelcome() {
       this.$store
         .dispatch("prodCustomizeManage/getProdWellcome", this.product_id)
         .then(() => {
-          this.setProductCustomizeData();
+          this.product_welcome_textalign = this.prod_welcome.text_alignment;
+          this.product_show_welcomebody = this.prod_welcome.show_welcome;
         });
+    },
+
+    getProductCustomizeSyllabus() {
       this.$store
         .dispatch("prodCustomizeManage/getProdSyllabus", this.product_id)
         .then(() => {
-          this.setProductCustomizeData();
+          this.product_show_syllabus = this.prod_syllabus.show_syllabus;
+          this.product_syllabus_type = this.prod_syllabus.syllabus_type;
+          this.product_syllabus_truncate = this.prod_syllabus.truncate_at;
+          this.product_syllabus_comingsoontext = this.prod_syllabus.coming_soon_text;
+          this.product_syllabus_categoriestext = this.prod_syllabus.categories_text;
+          this.product_syllabus_showmoretext = this.prod_syllabus.show_more_text;
         });
+    },
+
+    getProductCustomizeSidebar() {
       this.$store
         .dispatch("prodCustomizeManage/getProdSlidebar", this.product_id)
         .then(() => {
-          this.setProductCustomizeData();
+          this.product_show_sidebar = this.prod_slidebar.show_sidebar;
         });
+    },
+
+    getProductCustomizeFooter() {
       this.$store
         .dispatch("prodCustomizeManage/getProdFooter", this.product_id)
         .then(() => {
-          this.setProductCustomizeData();
+          this.product_show_footer = this.prod_footer.show_footer;
+          this.product_show_footercopyright = this.prod_footer.show_copyright;
+          this.footer_copyright_text = this.prod_footer.copyright_text;
+          this.show_footer_logo = this.prod_footer.show_logo;
+          this.product_show_footermenu = this.prod_footer.show_menu;
+          this.footer_appearance_backgroundcolor = this.prod_footer.background_color;
+          this.footer_appearance_textcolor = this.prod_footer.text_color;
+          this.show_social_icons = this.prod_footer.show_social_icons;
+          this.social_new_window = this.prod_footer.links_in_new_window;
+          this.social_icon_background_style = this.prod_footer.social_icon_style;
+          this.social_icon_backgroundcolor = this.prod_footer.social_icon_background_color;
+          this.social_icon_color = this.prod_footer.social_icon_color;
+          this.footer_appearance_alignment = this.prod_footer.alignment;
+          this.footer_dribble_url = this.prod_footer.sil_dribbble;
+          this.footer_facebook_url = this.prod_footer.sil_facebook;
+          this.footer_flickr_url = this.prod_footer.sil_flickr;
+          this.footer_github_url = this.prod_footer.sil_github;
+          this.footer_instagram_url = this.prod_footer.sil_instagram;
+          this.footer_itunes_url = this.prod_footer.sil_itunes;
+          this.footer_linkedin_url = this.prod_footer.sil_linkedin;
+          this.footer_slack_url = this.prod_footer.sil_slack;
+          this.footer_soundcloud_url = this.prod_footer.sil_soundcloud;
+          this.footer_tumblr_url = this.prod_footer.sil_tumblr;
+          this.footer_twitter_url = this.prod_footer.sil_twitter;
+          this.footer_vimeo_url = this.prod_footer.sil_vimeo;
+          this.footer_yelp_url = this.prod_footer.sil_yelp;
+          this.footer_youtoube_url = this.prod_footer.sil_youtube;
+          switch (this.prod_footer.social_icon_alignment) {
+            case "Left":
+              this.social_icon_alignment = 0;
+              break;
+            case "Center":
+              this.social_icon_alignment = 1;
+
+              break;
+            case "Right":
+              this.social_icon_alignment = 2;
+              break;
+            default:
+              break;
+          }
+          switch (this.prod_footer.social_icon_style) {
+            case "Round":
+              this.social_icon_background_style = 0;
+              break;
+            case "Square":
+              this.social_icon_background_style = 1;
+
+              break;
+            case "None":
+              this.social_icon_background_style = 2;
+              break;
+            default:
+              break;
+          }
         });
+    },
+
+    getProductCustomizeSettings() {
       this.$store
         .dispatch("prodCustomizeManage/getProdSettings", this.product_id)
-        .then(() => {
-          this.setProductCustomizeData();
-        });
+        .then(() => {});
     },
-    setProductCustomizeData() {
-      this.header_announcement_text = this.prod_header.announcement_text;
-      this.header_announcement_url = this.prod_header.announcement_url;
-      this.header_announcement_textcolor = this.prod_header.announcement_text_color;
-      this.header_announcement_color = this.prod_header.announcement_color;
-      this.header_announcement_openwindow = this.prod_header.header_announcement_openwindow;
-      this.header_show_menu = this.prod_header.show_announcement;
-      this.header_show_menu = this.prod_header.show_menu;
-      this.product_show_header = this.prod_header.show_header;
-      this.proudct_logo_text = this.prod_header.logo_text;
-      this.product_logo_type = this.prod_header.logo_type;
-      this.product_logo_height = this.prod_header.custom_logo_height;
-      this.hero_appearance_textalign = this.prod_hero.alignment;
-      this.product_hero_overlaycolor = this.prod_hero.overlay_color;
-      this.product_show_hero = this.prod_hero.show_hero;
-      this.product_hero_textcolor = this.prod_hero.text_color;
-      switch (this.prod_hero.spacing) {
-        case "Small":
-          this.hero_appearance_spacing = 1;
+
+    saveProductCustomizeSettings() {
+      switch (this.currentProductCustomizeMenu) {
+        case "header":
+          this.saveProductCustomizeHeader();
           break;
-        case "Medium":
-          this.hero_appearance_spacing = 2;
+        case "hero":
+          this.saveProductCustomizeHero();
           break;
-        case "Large":
-          this.hero_appearance_spacing = 3;
+        case "welcome":
+          this.saveProductCustomizeWelcome();
           break;
-        case "Extra Small":
-          this.hero_appearance_spacing = 0;
+        case "product-syllabus":
+          this.saveProductCustomizeSyllabus();
+          break;
+        case "sidebar":
+          this.saveProductCustomizeSidebar();
+          break;
+        case "footer":
+          this.saveProductCustomizeFooter();
           break;
         default:
-          this.hero_appearance_spacing = 1;
           break;
       }
-      this.product_welcome_textalign = this.prod_welcome.text_alignment;
-      this.product_show_welcomebody = this.prod_welcome.show_welcome;
-      this.product_show_syllabus = this.prod_syllabus.show_syllabus;
-      this.product_syllabus_type = this.prod_syllabus.syllabus_type;
-      this.product_syllabus_truncate = this.prod_syllabus.truncate_at;
-      this.product_syllabus_comingsoontext = this.prod_syllabus.coming_soon_text;
-      this.product_syllabus_categoriestext = this.prod_syllabus.categories_text;
-      this.product_syllabus_showmoretext = this.prod_syllabus.show_more_text;
-      this.product_show_sidebar = this.prod_slidebar.show_sidebar;
-      this.product_show_footer = this.prod_footer.show_footer;
-      this.product_show_footercopyright = this.prod_footer.show_copyright;
-      this.footer_copyright_text = this.prod_footer.copyright_text;
-      this.show_footer_logo = this.prod_footer.show_logo;
-      this.product_show_footermenu = this.prod_footer.show_menu;
-      this.footer_appearance_backgroundcolor = this.prod_footer.background_color;
-      this.footer_appearance_textcolor = this.prod_footer.text_color;
-      this.footer_appearance_alignment = this.prod_footer.alignment;
-      this.show_social_icons = this.prod_footer.show_social_icons;
-      this.social_new_window = this.prod_footer.links_in_new_window;
-      this.social_icon_background_style = this.prod_footer.social_icon_style;
-      this.social_icon_backgroundcolor = this.prod_footer.social_icon_background_color;
-      this.social_icon_color = this.prod_footer.social_icon_color;
-      this.social_icon_alignment = this.prod_footer.social_icon_alignment;
-      this.footer_dribble_url = this.prod_footer.sil_dribbble;
-      this.footer_facebook_url = this.prod_footer.sil_facebook;
-      this.footer_flickr_url = this.prod_footer.sil_flickr;
-      this.footer_github_url = this.prod_footer.sil_github;
-      this.footer_instagram_url = this.prod_footer.sil_instagram;
-      this.footer_itunes_url = this.prod_footer.sil_itunes;
-      this.footer_linkedin_url = this.prod_footer.sil_linkedin;
-      this.footer_slack_url = this.prod_footer.sil_slack;
-      this.footer_soundcloud_url = this.prod_footer.sil_soundcloud;
-      this.footer_tumblr_url = this.prod_footer.sil_tumblr;
-      this.footer_twitter_url = this.prod_footer.sil_twitter;
-      this.footer_vimeo_url = this.prod_footer.sil_vimeo;
-      this.footer_yelp_url = this.prod_footer.sil_yelp;
-      this.footer_youtoube_url = this.prod_footer.sil_youtube;
     },
+
+    saveProductCustomizeHeader() {
+      let header = {
+        announcement_text: this.header_announcement_text,
+        announcement_url: this.header_announcement_url,
+        announcement_text_color: this.header_announcement_textcolor,
+        announcement_color: this.header_announcement_color,
+        announcement_new_window: this.header_announcement_openwindow,
+        show_announcement: this.header_show_announcement,
+        show_menu: this.header_show_menu,
+        show_header: this.product_show_header,
+        logo_text: this.proudct_logo_text,
+        logo_type: this.product_logo_type,
+        custom_logo_height: this.product_logo_height,
+        menu_id: this.header_menu_id,
+      };
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdHeader", [
+          header,
+          this.product_id,
+        ])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.getProductCustomizeHeader();
+        });
+    },
+
+    saveProductCustomizeHero() {
+      let spacing = "";
+      switch (this.hero_appearance_spacing) {
+        case 1:
+          spacing = "Small";
+          break;
+        case 2:
+          spacing = "Medium";
+          break;
+        case 3:
+          spacing = "Large";
+          break;
+        case 4:
+          spacing = "Extra Small";
+          break;
+      }
+      let hero = {
+        alignment: this.hero_appearance_textalign,
+        overlay_color: this.product_hero_overlaycolor,
+        show_hero: this.product_show_hero,
+        text_color: this.product_hero_textcolor,
+        spacing: spacing,
+      };
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdHero", [hero, this.product_id])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.getProductCustomizeHero();
+        });
+    },
+
+    saveProductCustomizeWelcome() {
+      let welcome = {
+        text_alignment: this.product_welcome_textalign,
+        show_welcome: this.product_show_welcomebody,
+      };
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdWellcome", [
+          welcome,
+          this.product_id,
+        ])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.getProductCustomizeWelcome();
+        });
+    },
+
+    saveProductCustomizeSyllabus() {
+      let syllabus = {
+        show_syllabus: this.product_show_syllabus,
+        syllabus_type: this.product_syllabus_type,
+        truncate_at: this.product_syllabus_truncate,
+        coming_soon_text: this.product_syllabus_comingsoontext,
+        categories_text: this.product_syllabus_categoriestext,
+        show_more_text: this.product_syllabus_showmoretext,
+      };
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdSyllabus", [
+          syllabus,
+          this.product_id,
+        ])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.getProductCustomizeSyllabus();
+        });
+    },
+
+    saveProductCustomizeSidebar() {
+      let sidebar = {
+        show_sidebar: this.product_show_sidebar,
+      };
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdSlidebar", [
+          sidebar,
+          this.product_id,
+        ])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.getProductCustomizeSidebar();
+        });
+    },
+
+    saveProductCustomizeFooter() {
+      let alignment = "";
+      let icon_style = "";
+      switch (this.social_icon_alignment) {
+        case 0:
+          alignment = "Left";
+          break;
+        case 1:
+          alignment = "Center";
+
+          break;
+        case 2:
+          alignment = "Right";
+          break;
+        default:
+          break;
+      }
+      switch (this.social_icon_background_style) {
+        case 0:
+          icon_style = "Round";
+          break;
+        case 1:
+          icon_style = "Square";
+
+          break;
+        case 2:
+          icon_style = "None";
+          break;
+        default:
+          break;
+      }
+      let footer = {
+        show_footer: this.product_show_footer,
+        show_copyright: this.product_show_footercopyright,
+        copyright_text: this.footer_copyright_text,
+        show_logo: this.show_footer_logo,
+        show_menu: this.product_show_footermenu,
+        background_color: this.footer_appearance_backgroundcolor,
+        text_color: this.footer_appearance_textcolor,
+        alignment: this.footer_appearance_alignment,
+        show_social_icons: this.show_social_icons,
+        links_in_new_window: this.social_new_window,
+        social_icon_style: icon_style,
+        social_icon_background_color: this.social_icon_backgroundcolor,
+        social_icon_color: this.social_icon_color,
+        social_icon_alignment: alignment,
+        sil_dribbble: this.footer_dribble_url,
+        sil_facebook: this.footer_facebook_url,
+        sil_flickr: this.footer_flickr_url,
+        sil_github: this.footer_github_url,
+        sil_instagram: this.footer_instagram_url,
+        sil_itunes: this.footer_itunes_url,
+        sil_linkedin: this.footer_linkedin_url,
+        sil_slack: this.footer_slack_url,
+        sil_soundcloud: this.footer_soundcloud_url,
+        sil_tumblr: this.footer_tumblr_url,
+        sil_twitter: this.footer_twitter_url,
+        sil_vimeo: this.footer_vimeo_url,
+        sil_yelp: this.footer_yelp_url,
+        sil_youtube: this.footer_youtoube_url,
+      };
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdFooter", [
+          footer,
+          this.product_id,
+        ])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.getProductCustomizeFooter();
+        });
+    },
+
     linkBackInProductSidebar() {
       if (this.currentProductCustomizeMenu == "home") {
         this.$router.push("/products/edit-product/" + this.selected_product.id);
@@ -2557,6 +2845,7 @@ export default {
         this.current_sidebar_menu = this.previous_sidebar_menu;
       }
     },
+
     previewCustomizedProductPage() {
       alert("clicked preview");
     },
@@ -2564,11 +2853,11 @@ export default {
     selectCustomizeTab(select_tab) {
       this.currentCustomizeTab = select_tab;
     },
+
     selectProductCustomizeMenu(menu_option) {
       this.previous_sidebar_menu = this.current_sidebar_menu;
       this.current_sidebar_menu = menu_option;
       this.$store.dispatch("setCurrentProductCustomizeMenu", menu_option);
-      this.setProductCustomizeData();
     },
 
     onSelectProductLogoImage(e) {
@@ -2579,6 +2868,7 @@ export default {
         this.product_logo_image_url = "url(" + URL.createObjectURL(file) + ")";
       }
     },
+
     onSelectProductAppearanceImage(e) {
       const file = e.target.files[0];
       if (file !== undefined) {
@@ -2588,6 +2878,7 @@ export default {
           "url(" + URL.createObjectURL(file) + ")";
       }
     },
+
     onSelectInstructorHeadshotImage(e) {
       const file = e.target.files[0];
       if (file !== undefined) {
@@ -2606,6 +2897,7 @@ export default {
         this.footer_logo_imageurl = "url(" + URL.createObjectURL(file) + ")";
       }
     },
+
     onSelectProductFaviconImage(e) {
       const file = e.target.files[0];
       if (file !== undefined) {

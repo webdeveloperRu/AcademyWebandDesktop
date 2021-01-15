@@ -70,7 +70,7 @@
             class="producttitle-category"
             @click="selectProductCustomizeMenu('product-info')"
           >
-            current product title
+            {{ current_product.title }}
           </p>
           <vs-button
             class="start-course"
@@ -341,9 +341,127 @@ export default {
     Navbar,
   },
   data: () => ({}),
+  computed: {
+    user_logged: {
+      get() {
+        return this.$store.getters["auth/user_logged"];
+      },
+    },
+
+    notification_text: {
+      get() {
+        return this.$store.getters["notification_text"];
+      },
+    },
+
+    notification_icon: {
+      get() {
+        return this.$store.getters["notification_icon"];
+      },
+    },
+
+    notification_color: {
+      get() {
+        return this.$store.getters["notification_color"];
+      },
+    },
+
+    status_got: {
+      get() {
+        return this.$store.getters["status_got"];
+      },
+    },
+    selected_product: {
+      get() {
+        let product = [];
+        product = this.$store.state.productManage.current_product;
+        if (product == undefined) return [];
+        else return product;
+      },
+    },
+    product_id: function() {
+      var id = this.$route.params.product_id;
+      return id.slice(0, id.length);
+    },
+
+    // check out status
+    currentSidebar: function() {
+      return this.$store.state.currentSidebar;
+    },
+
+    //This is for mobile trigger
+    isSidebarActive: {
+      get() {
+        return this.$store.state.isSidebarActive;
+      },
+      set(val) {
+        this.$store.commit("TOGGLE_SIDEBAR_ACTIVE", val);
+      },
+    },
+
+    //current product sidebar menu
+    currentProductCustomizeMenu() {
+      return this.$store.state.current_productcustomize_menu;
+    },
+    // ----------------------- prod customize part -----------------------
+    prod_header: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_header"];
+      },
+    },
+
+    prod_hero: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_hero"];
+      },
+    },
+    prod_footer: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_footer"];
+      },
+    },
+    prod_slidebar: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_slidebar"];
+      },
+    },
+    prod_settings: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_settings"];
+      },
+    },
+    prod_welcome: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_welcome"];
+      },
+    },
+    prod_syllabus: {
+      get() {
+        return this.$store.getters["prodCustomizeManage/prod_syllabus"];
+      },
+    },
+    product_list: {
+      get() {
+        return this.$store.getters["productManage/product_list"];
+      },
+    },
+
+    current_product: {
+      get() {
+        let product = [];
+        for (let i = 0; i < this.product_list.length; i++) {
+          if (this.product_list[i].id == this.product_id) {
+            product = this.product_list[i];
+          }
+        }
+        return product;
+      },
+    },
+  },
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
+    console.log("hero part", this.prod_hero);
   },
   methods: {
     selectProductCustomizeMenu(menu_option) {

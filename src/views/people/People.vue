@@ -415,13 +415,12 @@
           placeholder="Type to add a new tag..."
           label="name"
           taggable
-          hideSelected
           @tag="addTag"
           track-by="code"
           :options="peopleTags"
-          :multiple="true"
+          :multiple="false"
         ></multiselect>
-        <div class="d-flex mt-3" style="flex-wrap: wrap">
+        <!-- <div class="d-flex mt-3" style="flex-wrap: wrap">
           <vs-chip
             @click="remove(chip)"
             :key="chip"
@@ -429,7 +428,7 @@
             closable
             >{{ chip }}</vs-chip
           >
-        </div>
+        </div> -->
       </div>
       <div
         style="display: flex; justify-content: flex-end; margin-bottom: 10px"
@@ -449,7 +448,7 @@
       class="bulk-grant-offer-dialog"
       color="success"
       :active.sync="activeBulkActionRemoveTags"
-      title="Add tags"
+      title="Remove tags"
     >
       <div style="height: 150px; margin-top: 30px">
         <multiselect
@@ -458,7 +457,6 @@
           placeholder="Type to add a new tag..."
           label="name"
           taggable
-          hideSelected
           @tag="addTag"
           track-by="code"
           :options="peopleTags"
@@ -645,7 +643,7 @@
             :options="peopleTags"
             :multiple="true"
           ></multiselect>
-          <div class="d-flex mt-3" style="flex-wrap: wrap">
+          <!-- <div class="d-flex mt-3" style="flex-wrap: wrap">
             <vs-chip
               @click="remove(chip)"
               :key="chip"
@@ -653,7 +651,7 @@
               closable
               >{{ chip }}</vs-chip
             >
-          </div>
+          </div> -->
         </div>
         <!-- 
             @@show marketing email part
@@ -772,8 +770,8 @@ export default {
     added_tagChips: {
       get() {
         let value = [];
-        for (let i = 0; i < this.peopleTags.length; i++) {
-          value.push(this.peopleTags[i].name);
+        for (let i = 0; i < this.selected_tag.length; i++) {
+          value.push(this.selected_tag[i].name);
         }
         return value;
       },
@@ -834,6 +832,25 @@ export default {
         return this.$store.getters["peopleManage/people_list"];
       },
     },
+
+    tag_list: {
+      get() {
+        return this.$store.getters["peopleManage/tag_list"];
+      },
+    },
+
+    tag_name_list: {
+      get() {
+        let userdata = [];
+        for (var data in this.tag_list) {
+          userdata.push({
+            name: data,
+            code: userdata.length,
+          });
+        }
+        return userdata;
+      },
+    },
   },
   watch: {
     // whenever question changes, this function will run
@@ -844,13 +861,15 @@ export default {
         this.all_Selected = false;
       }
     },
-
-    activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {
-      if (newBulkAction) {
-        this.peopleTags = [];
+    activeAddPeople: function(newValue, oldValue) {
+      if (newValue) {
+        this.addTags = false;
+        this.grantofferStatus = false;
+        this.subscribeMarketingEmail = false;
         this.selected_tag = [];
       }
     },
+    activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {},
   },
   created() {
     this.$store.dispatch("changeSideBar", "default");
@@ -893,14 +912,6 @@ export default {
               this.offer_list[i].id
             ].total_purchases;
           });
-
-        //  .catch(() => {
-        //    this.$vs.notify({
-        //       color: this.notification_color,
-        //       text: this.notification_text,
-        //       icon: this.notification_icon
-        //     })
-        //   });
       }
     },
 
@@ -916,6 +927,7 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.peopleTags = this.tag_name_list;
         })
         .catch(() => {
           this.$vs.notify({
@@ -1098,23 +1110,29 @@ export default {
     },
 
     async bulkActionAddTags() {
-      this.$vs.loading({ type: "material" });
+      // this.$vs.loading({ type: "material" });
       let tags = [];
+      let is_exist = false;
       for (let i = 0; i < this.selected_peoples.length; i++) {
         tags = [];
         for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
           tags.push({ title: this.selected_peoples[i].tags[j].title });
+          if (
+            this.selected_tag.name == this.selected_peoples[i].tags[j].title
+          ) {
+            is_exist = true;
+          }
         }
-        for (let j = 0; j < this.peopleTags.length; j++) {
-          tags.push({ title: this.peopleTags[j].name });
-        }
+        if (!is_exist) tags.push(this.selected_tag);
         this.selected_peoples[i].tags = tags;
         await this.$store
           .dispatch("peopleManage/updatePeopleByID", [
             this.selected_peoples[i],
             this.selected_peoples[i].id,
           ])
-          .then(() => {})
+          .then(() => {
+            this.$store.dispatch("peopleManage/getTagList");
+          })
           .catch(() => {
             this.$vs.notify({
               color: this.notification_color,
@@ -1123,9 +1141,8 @@ export default {
             });
           });
       }
-      this.$vs.loading.close();
+      // this.$vs.loading.close();
       this.selected_tag = [];
-      this.peopleTags = [];
       this.activeBulkActionAddTags = false;
     },
 
@@ -1153,6 +1170,7 @@ export default {
             });
           });
       }
+      this.$store.dispatch("peopleManage/getTagList");
       this.$vs.loading.close();
       this.selected_tag = [];
       this.peopleTags = [];

@@ -1,8 +1,8 @@
 <template>
-  <div style="margin-top: -24px;">
+  <div class="product-customize-page" style="margin-top: -24px">
     <header
       class="vs-navbar topnavbar vs-navbar-null vs-navbar-color-white studentapp-header"
-      style="background: white;margin-left: -20px;"
+      style="background: white; margin-left: -20px"
     >
       <div class="vs-navbar--header">
         <button class="vs-navbar--btn-responsive">
@@ -19,7 +19,7 @@
                 width="50"
               />
             </a>
-            <span class="logo-text" style="display: block; width: 300px;">
+            <span class="logo-text" style="display: block; width: 300px">
               Student App</span
             >
           </div>
@@ -30,17 +30,13 @@
       <div class="outline-edit" title="Edit Product Items">
         <div class="vs-con-items">
           <div class="vs-spacer"></div>
-          <div class="cursor-pointer pr-2 pl-2 ml-1 mr-1">
-            My Library
-          </div>
+          <div class="cursor-pointer pr-2 pl-2 ml-1 mr-1">My Library</div>
           <button
             type="button"
             left=""
             class="vs-con-dropdown parent-dropdown cursor-pointer pr-2 pl-2 ml-1 mr-1"
           >
-            <a href="#" href.prevent="" class="text-white-dark">
-              Search
-            </a>
+            <a href="#" href.prevent="" class="text-white-dark"> Search </a>
           </button>
           <button
             type="button"
@@ -55,22 +51,37 @@
         <label class="edit-button" size="small">Edit</label>
       </div>
     </header>
-    <div style="padding-top: 69px;">
+    <div style="padding-top: 69px">
       <!-- This is the main body sections -->
       <div
         class="outline-edit"
-        style="padding-top: 27px;padding-bottom: 3px;margin: 0 -25px;"
+        style="padding-top: 27px; padding-bottom: 3px; margin: 0 -25px"
         title="Edit Hero Section"
+        v-if="prod_hero.show_hero"
       >
         <div
           class="category-banner"
           @click="selectProductCustomizeMenu('hero')"
+          v-bind:style="{
+            'background-image': prod_hero.background_image,
+            'text-align': hero_alignment,
+            'padding-top': hero_spacing,
+            'padding-bottom': hero_spacing,
+          }"
         >
           <p
             class="producttitle-category"
             @click="selectProductCustomizeMenu('product-info')"
+            v-bind:style="{ color: prod_hero.text_color }"
           >
             {{ current_product.title }}
+          </p>
+          <p
+            class="product-description-category"
+            @click="selectProductCustomizeMenu('product-info')"
+            v-bind:style="{ color: prod_hero.text_color }"
+          >
+            {{ current_product.description }}
           </p>
           <vs-button
             class="start-course"
@@ -78,27 +89,17 @@
             >Start Course</vs-button
           >
         </div>
+        <div
+          class="hero-overlay"
+          v-bind:style="{
+            background: prod_hero.overlay_color,
+          }"
+        ></div>
         <label class="edit-button" size="small">Edit</label>
       </div>
       <br />
       <br />
       <vs-row vs-justify="center" class="primary-font">
-        <vs-col
-          type="flex"
-          vs-justify="center"
-          vs-align="center"
-          vs-lg="9"
-          vs-sm="10"
-          vs-xs="12"
-          class="mb-3"
-          code-toggler
-        >
-          <span
-            style="cursor: pointer; user-select: none"
-            class="ml-2 mb-5 mt-2 primary-font"
-            ><i class="ti-angle-left" style="font-size: 14px"></i> My Products </span
-          >/ current_product.title
-        </vs-col>
         <vs-col
           type="flex"
           vs-justify="center"
@@ -121,12 +122,33 @@
               <div
                 class="outline-edit"
                 title="Edit Category Item"
+                @click="selectProductCustomizeMenu('welcome')"
+                v-if="prod_welcome.show_wellcome"
+              >
+                <vs-card>
+                  <div
+                    @click="selectProductCustomizeMenu('hero')"
+                    v-bind:style="{
+                      'text-align': welcome_text_aligment,
+                    }"
+                  >
+                    <p class="product-welcome-title">
+                      {{ current_product.title }}
+                    </p>
+                    <p class="product-welcome-description">
+                      {{ current_product.description }}
+                    </p>
+                  </div>
+                </vs-card>
+                <label class="edit-button" size="small">Edit</label>
+              </div>
+              <div
+                class="outline-edit"
+                title="Edit Category Item"
                 @click="selectProductCustomizeMenu('product-syllabus')"
               >
                 <vs-card>
-                  <h3 class="mb-3" style="cursor: pointer">
-                    category name
-                  </h3>
+                  <h3 class="mb-3" style="cursor: pointer">category name</h3>
                   <div style="cursor: pointer">
                     <vs-row
                       vs-justify="center"
@@ -158,9 +180,7 @@
                       >
                         <div style="cursor: pointer">
                           <h4 class="mb-2">lesson title</h4>
-                          <div class="category-description">
-                            lesson body
-                          </div>
+                          <div class="category-description">lesson body</div>
                         </div>
                       </vs-col>
                       <vs-col
@@ -193,6 +213,7 @@
                 <label class="edit-button" size="small">Edit</label>
               </div>
             </vs-col>
+
             <vs-col
               type="flex"
               vs-justify="center"
@@ -201,6 +222,7 @@
               vs-sm="12"
               vs-xs="12"
               code-toggler
+              v-if="prod_sidebar.show_sidebar"
             >
               <vs-card class="progress-product_thumbnail">
                 <div
@@ -217,9 +239,7 @@
                     title="Edit Progress Text"
                     @click="selectProductCustomizeMenu('course-progress')"
                   >
-                    <h4 class="mt-3">
-                      12 of 23 Lessons Completed
-                    </h4>
+                    <h4 class="mt-3">12 of 23 Lessons Completed</h4>
                     <label class="edit-button" size="small">Edit</label>
                   </div>
                   <div
@@ -303,26 +323,164 @@
                   </div>
                 </div>
               </vs-card>
-              <!-- <label class="edit-button" size="small">Edit</label>
-            </div> -->
             </vs-col>
           </vs-row>
         </vs-col>
       </vs-row>
     </div>
     <!-- footer section -->
-    <div class="outline-edit" title="Edit footer section">
+    <div class="outline-edit footer-layout" title="Edit footer section">
       <footer
         class="footer footer--dark footer--left"
         kjb-settings-id="sections_footer_settings_background_color"
+        v-if="prod_footer.show_footer"
+        v-bind:style="{
+          background: prod_footer.background_color,
+        }"
       >
         <div class="container">
           <div class="footer__text-container">
             <span
+              v-if="prod_footer.show_copyright"
               kjb-settings-id="sections_footer_settings_copyright"
               class="footer__copyright"
-              >© 2020 Student App</span
+              v-bind:style="{
+                color: prod_footer.text_color,
+              }"
+              >{{ prod_footer.copyright_text }}</span
             >
+          </div>
+          <div class="footer-icon-layout">
+            <div
+              v-if="prod_footer.sil_facebook != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-facebook"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_twitter != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="mdi mdi-twitter"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_instagram != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-instagram"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_youtube != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-youtube"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_vimeo != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-vimeo"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_github != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-github"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_itunes != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="mdi mdi-itunes"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_linkedin != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-linkedin"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_soundcloud != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="mdi mdi-soundcloud"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_tumblr != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-tumblr"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_flickr != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-flickr"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_slack != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="mdi mdi-slack"></i>
+            </div>
+            <div
+              v-if="prod_footer.sil_dribbble != ''"
+              class="footer-icon"
+              v-bind:style="{
+                color: prod_footer.social_icon_color,
+                background: prod_footer.social_icon_background_color,
+              }"
+            >
+              <i class="ti-dribbble"></i>
+            </div>
           </div>
         </div>
       </footer>
@@ -379,13 +537,13 @@ export default {
         else return product;
       },
     },
-    product_id: function() {
+    product_id: function () {
       var id = this.$route.params.product_id;
       return id.slice(0, id.length);
     },
 
     // check out status
-    currentSidebar: function() {
+    currentSidebar: function () {
       return this.$store.state.currentSidebar;
     },
 
@@ -420,9 +578,9 @@ export default {
         return this.$store.getters["prodCustomizeManage/prod_footer"];
       },
     },
-    prod_slidebar: {
+    prod_sidebar: {
       get() {
-        return this.$store.getters["prodCustomizeManage/prod_slidebar"];
+        return this.$store.getters["prodCustomizeManage/prod_sidebar"];
       },
     },
     prod_settings: {
@@ -457,11 +615,51 @@ export default {
         return product;
       },
     },
+
+    hero_alignment: {
+      get() {
+        switch (this.prod_hero.alignment) {
+          case "Centered":
+            return "center";
+          case "Left":
+            return "left";
+          case "Right":
+            return "right";
+        }
+      },
+    },
+
+    hero_spacing: {
+      get() {
+        switch (this.prod_hero.spacing) {
+          case "Small":
+            return "30px";
+          case "Medium":
+            return "50px";
+          case "Large":
+            return "100px";
+          case "Extra Small":
+            return "10px";
+        }
+      },
+    },
+
+    welcome_text_aligment: {
+      get() {
+        switch (this.prod_welcome.text_alignment) {
+          case "Centered":
+            return "center";
+          case "Left":
+            return "left";
+          case "Right":
+            return "right";
+        }
+      },
+    },
   },
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
-    console.log("hero part", this.prod_hero);
   },
   methods: {
     selectProductCustomizeMenu(menu_option) {
@@ -474,24 +672,36 @@ export default {
 <style lang="scss">
 .category-banner {
   margin: 0 -20px;
+  padding: 10px 200px;
   margin-top: calc(-24px);
   background-position: center;
-  background-image: url("../../assets/images/big/img1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 300px;
-  display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .producttitle-category {
   color: white;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 600;
-  margin-top: -80px;
+  z-index: 1;
 }
-
+.product-description-category {
+  font-size: 16px;
+  font-weight: 500;
+}
+.start-course {
+  z-index: 1;
+}
+.product-welcome-title {
+  font-size: 50px;
+  font-weight: 600;
+  color: #292222;
+}
+.product-welcome-description {
+  font-size: 16px;
+  font-weight: 500;
+}
 .product-image {
   width: 30%;
   background-position: center;
@@ -550,11 +760,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 5px;
 } */
-
-.start-course {
-  position: absolute;
-  margin-top: 60px;
-}
 
 .progress-product_thumbnail .vs-card--content {
   padding: 0;
@@ -781,5 +986,33 @@ export default {
   cursor: pointer;
   border-radius: 3px;
   z-index: 100;
+}
+.hero-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+.footer-layout {
+  position: absolute;
+  bottom: 30px;
+  width: calc(100% - #{$custom-sidebar});
+  .footer {
+    min-height: 120px;
+  }
+}
+.footer-icon {
+  font-size: 22px;
+  margin: 0px 5px 0px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: white;
+}
+.footer-icon-layout {
+  display: flex;
 }
 </style>

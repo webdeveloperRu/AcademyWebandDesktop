@@ -172,3 +172,15 @@ h5, .h5 {
 .vs-table-text {
     font-size: 12px;
 }
+
+.verte__guide {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #dddddd;
+  border-radius: 20px;
+}
+.verte__menu-origin--bottom {
+  top: 40px;
+  left: 10px;
+  z-index: 3000;
+}

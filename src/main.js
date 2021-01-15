@@ -37,6 +37,10 @@ import VueCascaderSelect from 'vue-cascader-select';
 import Dropdown from 'bp-vuejs-dropdown';
 import JsonCSV from 'vue-json-csv';
 import VuePapaParse from 'vue-papa-parse'
+import Verte from 'verte';
+  import 'verte/dist/verte.css';
+  // register component globally
+  Vue.component('verte', Verte);
 Vue.use(VuePapaParse)
 Vue.use(Dropdown)
 Vue.use(vueCountryRegionSelect)

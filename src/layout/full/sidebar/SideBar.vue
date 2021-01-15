@@ -78,7 +78,7 @@
           -->
         <div v-if="current_checkoutmenu == 'home'">
           <!-- save part -->
-          <div class="d-flex m-4 " style="justify-content: space-between">
+          <div class="d-flex m-4" style="justify-content: space-between">
             <div class="primary-font" style="padding: 10px">OFFER CHECKOUT</div>
             <div>
               <vs-button @click="backToOffers" class="mr-2"> back </vs-button>
@@ -104,7 +104,7 @@
           <!-- Offer Details -->
           <div
             class="m-4 d-flex primary-font"
-            style="cursor: pointer; align-items:center"
+            style="cursor: pointer; align-items: center"
           >
             <vs-icon icon="subject"></vs-icon>
             <h6
@@ -119,7 +119,7 @@
           <!-- Extra contact info -->
           <div
             class="m-4 d-flex primary-font"
-            style="cursor: pointer; align-items:center"
+            style="cursor: pointer; align-items: center"
           >
             <vs-icon icon="contacts"></vs-icon>
             <h6
@@ -133,7 +133,7 @@
           <!-- service agreement info -->
           <div
             class="m-4 d-flex primary-font"
-            style="cursor: pointer; align-items:center"
+            style="cursor: pointer; align-items: center"
           >
             <vs-icon icon="info"></vs-icon>
             <h6
@@ -147,7 +147,7 @@
           <!-- Testimonials -->
           <div
             class="m-4 d-flex primary-font"
-            style="cursor: pointer; align-items:center"
+            style="cursor: pointer; align-items: center"
           >
             <vs-icon icon="forum"></vs-icon>
             <h6
@@ -477,7 +477,7 @@
             <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
-              style="cursor:pointer"
+              style="cursor: pointer"
             ></i>
           </div>
         </div>
@@ -628,7 +628,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_header"
-              ><span class="ml-3 ">Show Header</span></vs-checkbox
+              ><span class="ml-3">Show Header</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menu-section">
@@ -668,7 +668,7 @@
             <div class="mb-2">Logo Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="proudct_logo_text"
             />
           </div>
@@ -695,7 +695,7 @@
             <div class="mb-2">Custom Logo Height</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="product_logo_height"
             />
           </div>
@@ -709,14 +709,14 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="header_show_menu"
-              ><span class="ml-3 ">Show Menu</span></vs-checkbox
+              ><span class="ml-3">Show Menu</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Logout Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="header_menu_logouttext"
             />
           </div>
@@ -724,7 +724,7 @@
             <div class="mb-2">Settings Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="header_menu_settingstext"
             />
           </div>
@@ -732,7 +732,7 @@
             <div class="mb-2">Library Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="header_menu_librarytext"
             />
           </div>
@@ -747,14 +747,14 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="header_show_announcement"
-              ><span class="ml-3 ">Show Announcement</span></vs-checkbox
+              ><span class="ml-3">Show Announcement</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Announcement text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="header_announcement_text"
             />
           </div>
@@ -762,7 +762,7 @@
             <div class="mb-2">Announcement link URL</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="header_announcement_url"
             />
           </div>
@@ -770,35 +770,32 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="header_announcement_openwindow"
-              ><span class="ml-3 ">Open In New Window </span></vs-checkbox
+              ><span class="ml-3">Open In New Window </span></vs-checkbox
             >
           </div>
-
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="header_announcement_color"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Announcement Color</span>
+              >
+              </verte>
+              <span class="ml-3">Announcement Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="header_announcement_textcolor"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Announcement Text Color</span>
+              >
+              </verte>
+              <span class="ml-3">Announcement Text Color</span>
             </div>
           </div>
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
         <!-- ---------------------------------------------------hero menu body part --------------------------------------  -->
         <div
@@ -812,7 +809,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_hero"
-              ><span class="ml-3 ">Show Hero</span></vs-checkbox
+              ><span class="ml-3">Show Hero</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menu-section">
@@ -837,6 +834,29 @@
               Pick File
             </label>
           </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="d-flex" style="align-items: center">
+              <verte
+                picker="square"
+                model="rgb"
+                v-model="product_hero_textcolor"
+              >
+              </verte>
+              <span class="ml-3">Text Color</span>
+            </div>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="d-flex" style="align-items: center">
+              <verte
+                picker="square"
+                model="rgb"
+                v-model="product_hero_overlaycolor"
+              >
+              </verte>
+              <span class="ml-3">Overlay Color</span>
+            </div>
+          </div>
+          <!-- <verte picker="square" model="rgb"> </verte> -->
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Spacing</div>
             <vs-select class="w-100 mt-3" v-model="hero_appearance_spacing">
@@ -870,30 +890,6 @@
               >Right</vs-radio
             >
           </div>
-          <div class="product-sidebar-menucontent-section">
-            <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="product_hero_overlaycolor"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Overlay Color</span>
-            </div>
-          </div>
-          <div class="product-sidebar-menucontent-section">
-            <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="product_hero_textcolor"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Text Color</span>
-            </div>
-          </div>
 
           <!-- <div class="product-sidebar-submenu mt-3">
             <i
@@ -916,7 +912,7 @@
             >
           </div> -->
 
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
         <!-- --------------------------------- welcome body menu part -------------------------------- -->
         <div
@@ -930,7 +926,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_welcomebody"
-              ><span class="ml-3 ">Show Welcome Body</span></vs-checkbox
+              ><span class="ml-3">Show Welcome Body</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -974,7 +970,7 @@
               >Product Info</span
             >
           </div> -->
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
         <!-- --------------------------------- product syllabus body part -------------------------------- -->
         <div
@@ -988,7 +984,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_syllabus"
-              ><span class="ml-2 ">Show Syllabus</span></vs-checkbox
+              ><span class="ml-2">Show Syllabus</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -1010,7 +1006,7 @@
             <div class="mb-2">Truncate At</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="product_syllabus_truncate"
             />
           </div>
@@ -1018,7 +1014,7 @@
             <div class="mb-2">Categories Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="product_syllabus_categoriestext"
             />
           </div>
@@ -1026,7 +1022,7 @@
             <div class="mb-2">Comming Soon Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="product_syllabus_comingsoontext"
             />
           </div>
@@ -1034,11 +1030,11 @@
             <div class="mb-2">Show More Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="product_syllabus_showmoretext"
             />
           </div>
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
         <!-- --------------------------------- product sidebar body part -------------------------------- -->
         <div
@@ -1052,7 +1048,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_sidebar"
-              ><span class="ml-2 ">Show Sidebar</span></vs-checkbox
+              ><span class="ml-2">Show Sidebar</span></vs-checkbox
             >
           </div>
           <!-- <div class="product-sidebar-submenu mt-3">
@@ -1090,7 +1086,7 @@
             <div class="mb-2">Heading</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="product_instructor_heading"
             />
           </div>
@@ -1098,7 +1094,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_sidebar"
-              ><span class="ml-2 ">Show Sidebar</span></vs-checkbox
+              ><span class="ml-2">Show Sidebar</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -1124,7 +1120,7 @@
             <div class="mb-2">Name</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="instructor_name"
             />
           </div>
@@ -1132,7 +1128,7 @@
             <div class="mb-2">Title</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="instructor_title"
             />
           </div>
@@ -1143,7 +1139,7 @@
               v-model="instructor_bio"
             ></textarea>
           </div>
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
 
         <!-- --------------------------------- course progress body part -------------------------------- -->
@@ -1158,19 +1154,19 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_image"
-              ><span class="ml-2 ">Show Product image</span></vs-checkbox
+              ><span class="ml-2">Show Product image</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Completed Text</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="course_completed_text"
             />
           </div>
 
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
         <!-- --------------------------------- footer body part --------------------- -->
         <div
@@ -1184,21 +1180,21 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_footer"
-              ><span class="ml-2 ">Show Footer</span></vs-checkbox
+              ><span class="ml-2">Show Footer</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_footercopyright"
-              ><span class="ml-2 ">Show Copyright</span></vs-checkbox
+              ><span class="ml-2">Show Copyright</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Copyright</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_copyright_text"
             />
           </div>
@@ -1212,7 +1208,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="show_footer_logo"
-              ><span class="ml-2 ">Show Logo</span></vs-checkbox
+              ><span class="ml-2">Show Logo</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -1244,7 +1240,7 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="product_show_footermenu"
-              ><span class="ml-2 ">Show Menu</span></vs-checkbox
+              ><span class="ml-2">Show Menu</span></vs-checkbox
             >
           </div>
           <div
@@ -1255,26 +1251,24 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="footer_appearance_backgroundcolor"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Background Color</span>
+              >
+              </verte>
+              <span class="ml-3">Background Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="footer_appearance_textcolor"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Text Color</span>
+              >
+              </verte>
+              <span class="ml-3">Text Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -1302,14 +1296,14 @@
             <vs-checkbox
               class="justify-content-start"
               v-model="show_social_icons"
-              ><span class="ml-2 ">Show Social Icons</span></vs-checkbox
+              ><span class="ml-2">Show Social Icons</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
               class="justify-content-start"
               v-model="social_new_window"
-              ><span class="ml-2 ">Open Links in New Window</span></vs-checkbox
+              ><span class="ml-2">Open Links in New Window</span></vs-checkbox
             >
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -1339,33 +1333,27 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="social_icon_color"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Social Icon Color</span>
+              <verte picker="square" model="rgb" v-model="social_icon_color">
+              </verte>
+              <span class="ml-3">Social Icon Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="social_icon_backgroundcolor"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Social Icon Background Color </span>
+              >
+              </verte>
+              <span class="ml-3">Social Icon Background Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Facebook</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_facebook_url"
             />
           </div>
@@ -1373,7 +1361,7 @@
             <div class="mb-2">Twitter</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_twitter_url"
             />
           </div>
@@ -1381,7 +1369,7 @@
             <div class="mb-2">Instagram</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_instagram_url"
             />
           </div>
@@ -1389,7 +1377,7 @@
             <div class="mb-2">YouTube</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_youtoube_url"
             />
           </div>
@@ -1397,7 +1385,7 @@
             <div class="mb-2">Vimeo</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_vimeo_url"
             />
           </div>
@@ -1405,7 +1393,7 @@
             <div class="mb-2">Github</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_github_url"
             />
           </div>
@@ -1413,7 +1401,7 @@
             <div class="mb-2">iTunes</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_itunes_url"
             />
           </div>
@@ -1421,7 +1409,7 @@
             <div class="mb-2">LinkedIn</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_linkedin_url"
             />
           </div>
@@ -1429,7 +1417,7 @@
             <div class="mb-2">Soundcloud</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_soundcloud_url"
             />
           </div>
@@ -1437,7 +1425,7 @@
             <div class="mb-2">Tumblr</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_tumblr_url"
             />
           </div>
@@ -1445,7 +1433,7 @@
             <div class="mb-2">Slack</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_slack_url"
             />
           </div>
@@ -1453,7 +1441,7 @@
             <div class="mb-2">Flickr</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_flickr_url"
             />
           </div>
@@ -1461,11 +1449,11 @@
             <div class="mb-2">Dribble</div>
             <vs-input
               class="inputx"
-              style="width:100%"
+              style="width: 100%"
               v-model="footer_dribble_url"
             />
           </div>
-          <div style="height:50px"></div>
+          <div style="height: 50px"></div>
         </div>
         <!-- --------------------------------- favicon body menu part -------------------------------- -->
         <div
@@ -1505,26 +1493,24 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="settings_darkfont_color"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Dark Font Color</span>
+              >
+              </verte>
+              <span class="ml-3">Dark Font Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="settings_lightfont_color"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Light Font Color</span>
+              >
+              </verte>
+              <span class="ml-3">Light Font Color</span>
             </div>
           </div>
         </div>
@@ -1538,50 +1524,30 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_cs_primary"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Primary</span>
+              <verte picker="square" model="rgb" v-model="settings_cs_primary">
+              </verte>
+              <span class="ml-3">Primary</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_cs_offset"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Offset</span>
+              <verte picker="square" model="rgb" v-model="settings_cs_offset">
+              </verte>
+              <span class="ml-3">Offset</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_cs_dark"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Dark</span>
+              <verte picker="square" model="rgb" v-model="settings_cs_dark">
+              </verte>
+              <span class="ml-3">Dark</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_cs_darker"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Darker</span>
+              <verte picker="square" model="rgb" v-model="settings_cs_darker">
+              </verte>
+              <span class="ml-3">Darker</span>
             </div>
           </div>
         </div>
@@ -1595,50 +1561,30 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_mc_success"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Success</span>
+              <verte picker="square" model="rgb" v-model="settings_mc_success">
+              </verte>
+              <span class="ml-3">Success</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_mc_info"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Info</span>
+              <verte picker="square" model="rgb" v-model="settings_mc_info">
+              </verte>
+              <span class="ml-3">Info</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_mc_warning"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Warning</span>
+              <verte picker="square" model="rgb" v-model="settings_mc_warning">
+              </verte>
+              <span class="ml-3">Warning</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
-                v-model="settings_mc_danger"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Danger</span>
+              <verte picker="square" model="rgb" v-model="settings_mc_danger">
+              </verte>
+              <span class="ml-3">Danger</span>
             </div>
           </div>
         </div>
@@ -1652,14 +1598,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <input
-                class="color_picker_button"
+              <verte
+                picker="square"
+                model="rgb"
                 v-model="settings_ga_background_color"
-                type="color"
-                name=""
-                value=""
-              />
-              <span>Background</span>
+              >
+              </verte>
+              <span class="ml-3">Background</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -1805,16 +1750,16 @@ export default {
     header_announcement_text: "Announcement",
     header_show_announcement: false,
     header_announcement_url: "",
-    header_announcement_textcolor: "",
-    header_announcement_color: "",
+    header_announcement_textcolor: "#ffffff",
+    header_announcement_color: "#ffffff",
     header_announcement_openwindow: false,
     header_show_menu: true,
     header_menu_id: null,
     header_menu_logouttext: "Logout",
     header_menu_settingstext: "Settings",
     header_menu_librarytext: "My Library",
-    product_hero_overlaycolor: "",
-    product_hero_textcolor: "",
+    product_hero_overlaycolor: "#ffffff47",
+    product_hero_textcolor: "#ffffff",
     product_show_footer: true,
     product_show_footercopyright: true,
     footer_copyright_text: "",
@@ -1822,8 +1767,8 @@ export default {
     footer_logo_imageurl: "",
     footer_logo_file: null,
     product_show_footermenu: false,
-    footer_appearance_backgroundcolor: "",
-    footer_appearance_textcolor: "",
+    footer_appearance_backgroundcolor: "#ffffff",
+    footer_appearance_textcolor: "#ffffff",
     show_social_icons: false,
     social_new_window: false,
     social_icon_background_styles: [
@@ -1838,8 +1783,8 @@ export default {
       { text: "Right", value: 2 },
     ],
     social_icon_alignment: "",
-    social_icon_color: "",
-    social_icon_backgroundcolor: "",
+    social_icon_color: "#ffffff",
+    social_icon_backgroundcolor: "#ffffff",
     footer_facebook_url: "",
     footer_twitter_url: "",
     footer_instagram_url: "",
@@ -1857,26 +1802,20 @@ export default {
     footer_appearance_alignment: "Inline",
     product_favicon_url: "",
     product_favicon_file: null,
-    settings_darkfont_color: "",
-    settings_lightfont_color: "",
-    settings_cs_primary: "",
-    settings_cs_offset: "",
-    settings_cs_dark: "",
-    settings_cs_darker: "",
-    settings_mc_success: "",
-    settings_mc_info: "",
-    settings_mc_warning: "",
-    settings_mc_danger: "",
-    settings_ga_background_color: "",
+    settings_darkfont_color: "#ffffff",
+    settings_lightfont_color: "#ffffff",
+    settings_cs_primary: "#2E91FC",
+    settings_cs_offset: "#F9F9F9",
+    settings_cs_dark: "#30373E",
+    settings_cs_darker: "#272D34",
+    settings_mc_success: "#1ABC9C",
+    settings_mc_info: "#34495E",
+    settings_mc_warning: "#F39C12",
+    settings_mc_danger: "#E74C3C",
+    settings_ga_background_color: "#ffffff",
     settings_ga_vertical_align: "",
     settings_ga_body_colwidth: "",
   }),
-
-  // watch: {
-  //   currentSidebar: function(newValue) {
-  //     this.updatedSidebar++;
-  //   }
-  // },
 
   computed: {
     user_logged: {
@@ -1916,12 +1855,12 @@ export default {
         else return product;
       },
     },
-    product_id: function() {
+    product_id: function () {
       var id = this.$route.params.product_id;
       return id.slice(0, id.length);
     },
 
-    offer_id: function() {
+    offer_id: function () {
       var id = this.$route.params.offer_id;
       return id.slice(0, id.length);
     },
@@ -1949,18 +1888,18 @@ export default {
       },
     },
 
-    selected_offer: function() {
+    selected_offer: function () {
       let offer = [];
       offer = this.$store.state.offerManage.current_offer;
       if (offer == undefined) return [];
       else return offer;
     },
     // check out status
-    currentSidebar: function() {
+    currentSidebar: function () {
       return this.$store.state.currentSidebar;
     },
     // current checkout menu
-    current_checkoutmenu: function() {
+    current_checkoutmenu: function () {
       return this.$store.state.current_checkoutmenu;
     },
 
@@ -2018,15 +1957,24 @@ export default {
       get() {
         return this.$store.getters["prodCustomizeManage/prod_hero"];
       },
+      set(value) {
+        this.$store.commit("prodCustomizeManage/updateProdHero", value);
+      },
     },
     prod_footer: {
       get() {
         return this.$store.getters["prodCustomizeManage/prod_footer"];
       },
+      set(value) {
+        this.$store.commit("prodCustomizeManage/updateProdFooter", value);
+      },
     },
-    prod_slidebar: {
+    prod_sidebar: {
       get() {
-        return this.$store.getters["prodCustomizeManage/prod_slidebar"];
+        return this.$store.getters["prodCustomizeManage/prod_sidebar"];
+      },
+      set(value) {
+        this.$store.commit("prodCustomizeManage/updateProdSidebar", value);
       },
     },
     prod_settings: {
@@ -2038,6 +1986,9 @@ export default {
       get() {
         return this.$store.getters["prodCustomizeManage/prod_welcome"];
       },
+      set(value) {
+        this.$store.commit("prodCustomizeManage/updateProdWelcome", value);
+      },
     },
     prod_syllabus: {
       get() {
@@ -2047,17 +1998,153 @@ export default {
   },
 
   watch: {
-    current_checkoutmenu: function() {
+    current_checkoutmenu: function () {
       this.initOfferCheckoutData();
     },
-    new_design: function(newValue) {
+    new_design: function (newValue) {
       this.$store.dispatch("offerManage/setNewDesign", newValue);
     },
-    currentSidebar: function(newValue, oldValue) {
+    currentSidebar: function (newValue, oldValue) {
       if (newValue == "product-customize") {
         this.initProductCustomizeData();
       }
     },
+    product_show_hero: function (newValue) {
+      this.prod_hero.show_hero = newValue;
+    },
+    product_appearance_image_url: function (newValue) {
+      this.prod_hero.background_image = newValue;
+    },
+    hero_appearance_textalign: function (newValue) {
+      this.prod_hero.alignment = newValue;
+    },
+    hero_appearance_spacing: function (newValue) {
+      switch (newValue) {
+        case 1:
+          this.prod_hero.spacing = "Small";
+          break;
+        case 2:
+          this.prod_hero.spacing = "Medium";
+          break;
+        case 3:
+          this.prod_hero.spacing = "Large";
+          break;
+        case 0:
+          this.prod_hero.spacing = "Extra Small";
+          break;
+      }
+    },
+    product_hero_textcolor: function (newValue) {
+      this.prod_hero.text_color = newValue;
+    },
+
+    product_hero_overlaycolor: function (newValue) {
+      this.prod_hero.overlay_color = newValue;
+    },
+
+    product_show_welcomebody: function (newValue) {
+      this.prod_welcome.show_wellcome = newValue;
+    },
+
+    product_welcome_textalign: function (newValue) {
+      this.prod_welcome.text_alignment = newValue;
+    },
+
+    product_show_sidebar: function (newValue) {
+      this.prod_sidebar.show_sidebar = newValue;
+    },
+
+    product_show_footer: function (newValue) {
+      this.prod_footer.show_footer = newValue;
+    },
+    product_show_footercopyright: function (newValue) {
+      this.prod_footer.show_copyright = newValue;
+    },
+    footer_copyright_text: function (newValue) {
+      this.prod_footer.copyright_text = newValue;
+    },
+    footer_appearance_backgroundcolor: function (newValue) {
+      this.prod_footer.background_color = newValue;
+    },
+    footer_appearance_textcolor: function (newValue) {
+      this.prod_footer.text_color = newValue;
+    },
+
+    social_icon_color: function (newValue) {
+      this.prod_footer.social_icon_color = newValue;
+    },
+    social_icon_backgroundcolor: function (newValue) {
+      this.prod_footer.social_icon_background_color = newValue;
+    },
+    social_icon_background_style: function (newValue) {
+      switch (newValue) {
+        case 0:
+          this.prod_footer.social_icon_background_style = "Round";
+          break;
+        case 1:
+          this.prod_footer.social_icon_background_style = "Square";
+          break;
+        case 2:
+          this.prod_footer.social_icon_background_style = "None";
+          break;
+      }
+    },
+
+    footer_facebook_url: function(newValue) {
+      this.prod_footer.sil_facebook = newValue;
+    },
+
+    footer_twitter_url: function(newValue) {
+      this.prod_footer.sil_twitter = newValue;
+    },
+
+    footer_instagram_url: function(newValue) {
+      this.prod_footer.sil_instagram = newValue;
+    },
+
+    footer_youtoube_url: function(newValue) {
+      this.prod_footer.sil_youtube = newValue;
+    },
+
+    footer_vimeo_url: function(newValue) {
+      this.prod_footer.sil_vimeo = newValue;
+    },
+
+    footer_github_url: function(newValue) {
+      this.prod_footer.sil_github = newValue;
+    },
+
+    footer_itunes_url: function(newValue) {
+      this.prod_footer.sil_itunes = newValue;
+    },
+
+    footer_linkedin_url: function(newValue) {
+      this.prod_footer.sil_linkedin = newValue;
+    },
+
+    footer_soundcloud_url: function(newValue) {
+      this.prod_footer.sil_soundcloud = newValue;
+    },
+
+    footer_yelp_url: function(newValue) {
+      this.prod_footer.sil_yelp = newValue;
+    },
+
+    footer_tumblr_url: function(newValue) {
+      this.prod_footer.sil_tumblr = newValue;
+    },
+
+    footer_slack_url: function(newValue) {
+      this.prod_footer.sil_slack = newValue;
+    },
+    footer_flickr_url: function(newValue) {
+      this.prod_footer.sil_flickr = newValue;
+    },
+    footer_dribble_url: function(newValue) {
+      this.prod_footer.sil_dribbble = newValue;
+    },
+
+
   },
 
   created() {
@@ -2528,7 +2615,7 @@ export default {
       this.$store
         .dispatch("prodCustomizeManage/getProdSlidebar", this.product_id)
         .then(() => {
-          this.product_show_sidebar = this.prod_slidebar.show_sidebar;
+          this.product_show_sidebar = this.prod_sidebar.show_sidebar;
         });
     },
 
@@ -2667,7 +2754,7 @@ export default {
         case 3:
           spacing = "Large";
           break;
-        case 4:
+        case 0:
           spacing = "Extra Small";
           break;
       }
@@ -2677,6 +2764,7 @@ export default {
         show_hero: this.product_show_hero,
         text_color: this.product_hero_textcolor,
         spacing: spacing,
+        background_image: this.product_appearance_image_url,
       };
       this.$store
         .dispatch("prodCustomizeManage/saveProdHero", [hero, this.product_id])
@@ -3067,7 +3155,7 @@ input[type="file"] {
   }
 }
 .product-sidebar-body {
-  overflow-y: auto;
+  min-height: 600px;
 }
 .product-sidebar-menu-section {
   height: 70px;

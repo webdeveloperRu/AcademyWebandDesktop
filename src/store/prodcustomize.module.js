@@ -4,7 +4,7 @@ const initialState = {
   prod_header: null,
   prod_footer: null,
   prod_hero: null,
-  prod_slidebar: null,
+  prod_sidebar: null,
   prod_settings: null,
   prod_welcome: null,
   prod_syllabus: null,
@@ -395,7 +395,7 @@ export const prodCustomizeManage = {
     prod_header: (state) => state.prod_header,
     prod_footer: (state) => state.prod_footer,
     prod_hero: (state) => state.prod_hero,
-    prod_slidebar: (state) => state.prod_slidebar,
+    prod_sidebar: (state) => state.prod_sidebar,
     prod_settings: (state) => state.prod_settings,
     prod_welcome: (state) => state.prod_welcome,
     prod_syllabus: (state) => state.prod_syllabus,
@@ -512,7 +512,7 @@ export const prodCustomizeManage = {
       store.state.status = {
         got: true,
       };
-      state.prod_slidebar = res.data;
+      state.prod_sidebar = res.data;
       store.state.notification_text = "Slidebar successfully got!";
       store.state.notification_icon = "info";
       store.state.notification_color = "primary";
@@ -525,7 +525,7 @@ export const prodCustomizeManage = {
       store.state.status = {
         got: true,
       };
-      state.prod_slidebar = res.data;
+      state.prod_sidebar = res.data;
       store.state.notification_text = "Slidebar successfully updated!";
       store.state.notification_icon = "info";
       store.state.notification_color = "primary";
@@ -581,6 +581,21 @@ export const prodCustomizeManage = {
       store.state.notification_text = "Syllabus successfully updated!";
       store.state.notification_icon = "info";
       store.state.notification_color = "primary";
+    },
+
+    updateProdHero(state, prod_hero) {
+      state.prod_hero = prod_hero;
+    },
+
+    updateProdWelcome(state, prod_welcome) {
+      state.prod_welcome = prod_welcome
+    },
+
+    updateProdSidebar(state, prod_sidebar) {
+      state.prod_sidebar = prod_sidebar
+    },
+    updateProdFooter(state, prod_footer) {  
+      state.prod_footer = prod_footer;
     },
 
     RESET_MODULE(state) {

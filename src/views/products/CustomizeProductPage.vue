@@ -51,7 +51,8 @@
         <label class="edit-button" size="small">Edit</label>
       </div>
     </header>
-    <div style="padding-top: 69px">
+    
+    <div style="padding-top: 69px " class="product-body-layout">
       <!-- This is the main body sections -->
       <div
         class="outline-edit"
@@ -350,13 +351,20 @@
               >{{ prod_footer.copyright_text }}</span
             >
           </div>
-          <div class="footer-icon-layout">
+          <div
+            class="footer-icon-layout"
+            v-if="prod_footer.show_social_icons"
+            v-bind:style="{
+              'justify-content': social_icon_alignment,
+            }"
+          >
             <div
               v-if="prod_footer.sil_facebook != ''"
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-facebook"></i>
@@ -366,7 +374,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="mdi mdi-twitter"></i>
@@ -376,7 +385,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-instagram"></i>
@@ -386,7 +396,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-youtube"></i>
@@ -396,7 +407,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-vimeo"></i>
@@ -406,7 +418,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-github"></i>
@@ -416,7 +429,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="mdi mdi-itunes"></i>
@@ -426,7 +440,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-linkedin"></i>
@@ -436,7 +451,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="mdi mdi-soundcloud"></i>
@@ -446,7 +462,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-tumblr"></i>
@@ -456,7 +473,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-flickr"></i>
@@ -466,7 +484,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="mdi mdi-slack"></i>
@@ -476,7 +495,8 @@
               class="footer-icon"
               v-bind:style="{
                 color: prod_footer.social_icon_color,
-                background: prod_footer.social_icon_background_color,
+                background: social_icon_background_color,
+                'border-radius': social_icon_border_radius,
               }"
             >
               <i class="ti-dribbble"></i>
@@ -490,13 +510,12 @@
 </template>
 
 <script>
-import Navbar from "../../layout/full/header/Navbar";
+// import Navbar from "../../layout/full/header/Navbar";
 
 // import Navbar from "../../layout/full/header/Navbar.vue";
 export default {
   name: "CustomizeProduct",
   components: {
-    Navbar,
   },
   data: () => ({}),
   computed: {
@@ -618,42 +637,91 @@ export default {
 
     hero_alignment: {
       get() {
+        let value = ''
         switch (this.prod_hero.alignment) {
           case "Centered":
-            return "center";
+            value = "center";
+            break;
           case "Left":
-            return "left";
+            value = "left";
+            break;
           case "Right":
-            return "right";
+            value = "right";
+            break;
         }
+        return value;
       },
     },
 
     hero_spacing: {
       get() {
+        let value =''
         switch (this.prod_hero.spacing) {
           case "Small":
-            return "30px";
+            value = "30px";
+            break;
           case "Medium":
-            return "50px";
+            value = "50px";
+            break;
           case "Large":
-            return "100px";
+            value = "100px";
+            break;
           case "Extra Small":
-            return "10px";
+            value = "10px";
+            break;
         }
+        return value;
       },
     },
 
     welcome_text_aligment: {
       get() {
+        let value = ''
         switch (this.prod_welcome.text_alignment) {
           case "Centered":
-            return "center";
+            value = "center";
+            break;
           case "Left":
-            return "left";
+            value = "left";
+            break;
           case "Right":
-            return "right";
+            value = "right";
+            break;
         }
+        return value;
+      },
+    },
+
+    social_icon_border_radius: {
+      get() {
+        if (this.prod_footer.social_icon_style != "Round") return "0px";
+        else return "18px";
+      },
+    },
+    social_icon_background_color: {
+      get() {
+        if (this.prod_footer.social_icon_style != "None")
+          return this.prod_footer.social_icon_background_color;
+        else return "none";
+      },
+    },
+
+    social_icon_alignment: {
+      get() {
+        let value = ''
+        switch (this.prod_footer.social_icon_alignment) {
+          case "Left":
+            value = "flex-start";
+            break;
+          case "Center":
+            value = "center";
+            break;
+
+          case "Right":
+            value = "flex-end";
+            break;
+        }
+        return value;
       },
     },
   },
@@ -694,9 +762,8 @@ export default {
   z-index: 1;
 }
 .product-welcome-title {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 600;
-  color: #292222;
 }
 .product-welcome-description {
   font-size: 16px;
@@ -842,19 +909,15 @@ export default {
 /* footer */
 
 .footer {
-  background: #272d34;
   padding: 15px 0;
   margin: 0 -20px;
   margin-bottom: -24px;
 }
 
-.footer--dark {
-  color: #fff;
-}
-
 .footer__text-container {
   overflow: hidden;
   text-align: center;
+  min-height: 30px;
 }
 
 .footer__copyright {
@@ -868,10 +931,6 @@ export default {
 .footer__powered-by {
   display: inline-block;
   float: right;
-}
-
-.footer--dark a {
-  color: #fff;
 }
 
 .footer__menu-item,
@@ -896,11 +955,6 @@ export default {
 
 .social-icons__row {
   margin: -10px;
-}
-
-.footer .social-icons__icon,
-.footer .social-icons__icon:hover {
-  color: #ffffff;
 }
 
 .social-icons__icon {
@@ -995,9 +1049,6 @@ export default {
   top: 0;
 }
 .footer-layout {
-  position: absolute;
-  bottom: 30px;
-  width: calc(100% - #{$custom-sidebar});
   .footer {
     min-height: 120px;
   }
@@ -1008,11 +1059,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 36px;
+  height: 36px;
   background: white;
 }
 .footer-icon-layout {
   display: flex;
+}
+.product-body-layout{
+  min-height: 80vh;
 }
 </style>

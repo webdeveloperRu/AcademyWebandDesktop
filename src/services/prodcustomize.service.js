@@ -1,6 +1,7 @@
 import axios from "axios";
 import apiurl from "./base_api_url";
 import { authHeader } from "./authHeader";
+import { authHeaderXWWW } from "./authHeader_xwww";
 const API_URL = apiurl.API_URL + "prod-customize/";
 class ProdCustomizeService {
   /**
@@ -70,10 +71,12 @@ class ProdCustomizeService {
   /**
    * ---------save product Customize hero -------------------
    */
-  saveProdHero(hero, product_id) {
+  saveProdHero(hero, product_id) {  
+    var qs = require('qs');
+    var data = qs.stringify(hero);
     return axios
-      .post(API_URL + product_id + "/hero", hero, {
-        headers: authHeader(),
+      .post(API_URL + product_id + "/hero", data, {
+        headers: authHeaderXWWW(),
       })
       .then((response) => {
         return response;
@@ -135,8 +138,9 @@ class ProdCustomizeService {
    * ---------save product Customize slidebar -------------------
    */
   saveProdSlidebar(slidebar, product_id) {
+    slidebar = JSON.stringify(slidebar)
     return axios
-      .post(API_URL + product_id + "/sldiebar", slidebar, {
+      .post(API_URL + product_id + "/slidebar", slidebar, {
         headers: authHeader(),
       })
       .then((response) => {
@@ -167,6 +171,7 @@ class ProdCustomizeService {
    * ---------save product Customize wellcome -------------------
    */
   saveProdWellcome(wellcome, product_id) {
+    wellcome = JSON.stringify(wellcome)
     return axios
       .post(API_URL + product_id + "/wellcome", wellcome, {
         headers: authHeader(),

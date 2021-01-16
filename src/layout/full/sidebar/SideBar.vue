@@ -462,12 +462,30 @@
               >
               <span class="ml-1" v-else>Products</span>
             </div>
-            <vs-button
-              color="primary"
-              type="filled"
-              @click="saveProductCustomizeSettings"
-              >Save</vs-button
-            >
+            <div class="process-customization-form">
+              <div
+                class="processing-customization-indicator vs-con-loading__container loading"
+                ref="loading"
+                id="loading"
+              ></div>
+              <div v-if="customization_processing">
+                <vs-button
+                  color="primary"
+                  disabled
+                  type="filled"
+                  @click="saveProductCustomizeSettings"
+                  >...Saving</vs-button
+                >
+              </div>
+              <div v-else>
+                <vs-button
+                  color="primary"
+                  type="filled"
+                  @click="saveProductCustomizeSettings"
+                  >Save</vs-button
+                >
+              </div>
+            </div>
           </div>
           <div
             class="product-title-head mt-2"
@@ -775,22 +793,14 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="header_announcement_color"
-              >
+              <verte picker="square" v-model="header_announcement_color">
               </verte>
               <span class="ml-3">Announcement Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="header_announcement_textcolor"
-              >
+              <verte picker="square" v-model="header_announcement_textcolor">
               </verte>
               <span class="ml-3">Announcement Text Color</span>
             </div>
@@ -836,27 +846,18 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="product_hero_textcolor"
-              >
-              </verte>
+              <verte picker="square" v-model="product_hero_textcolor"> </verte>
               <span class="ml-3">Text Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="product_hero_overlaycolor"
-              >
+              <verte picker="square" v-model="product_hero_overlaycolor">
               </verte>
               <span class="ml-3">Overlay Color</span>
             </div>
           </div>
-          <!-- <verte picker="square" model="rgb"> </verte> -->
+          <!-- <verte picker="square"   > </verte> -->
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Spacing</div>
             <vs-select class="w-100 mt-3" v-model="hero_appearance_spacing">
@@ -925,7 +926,7 @@
           <div class="show-header-option">
             <vs-checkbox
               class="justify-content-start"
-              v-model="product_show_welcomebody"
+              v-model="product_show_wellcomebody"
               ><span class="ml-3">Show Welcome Body</span></vs-checkbox
             >
           </div>
@@ -1253,7 +1254,6 @@
             <div class="d-flex" style="align-items: center">
               <verte
                 picker="square"
-                model="rgb"
                 v-model="footer_appearance_backgroundcolor"
               >
               </verte>
@@ -1262,11 +1262,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="footer_appearance_textcolor"
-              >
+              <verte picker="square" v-model="footer_appearance_textcolor">
               </verte>
               <span class="ml-3">Text Color</span>
             </div>
@@ -1333,18 +1329,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="social_icon_color">
-              </verte>
+              <verte picker="square" v-model="social_icon_color"> </verte>
               <span class="ml-3">Social Icon Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="social_icon_backgroundcolor"
-              >
+              <verte picker="square" v-model="social_icon_background_color">
               </verte>
               <span class="ml-3">Social Icon Background Color</span>
             </div>
@@ -1493,22 +1484,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="settings_darkfont_color"
-              >
-              </verte>
+              <verte picker="square" v-model="settings_darkfont_color"> </verte>
               <span class="ml-3">Dark Font Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="settings_lightfont_color"
-              >
+              <verte picker="square" v-model="settings_lightfont_color">
               </verte>
               <span class="ml-3">Light Font Color</span>
             </div>
@@ -1524,29 +1506,25 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_cs_primary">
-              </verte>
+              <verte picker="square" v-model="settings_cs_primary"> </verte>
               <span class="ml-3">Primary</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_cs_offset">
-              </verte>
+              <verte picker="square" v-model="settings_cs_offset"> </verte>
               <span class="ml-3">Offset</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_cs_dark">
-              </verte>
+              <verte picker="square" v-model="settings_cs_dark"> </verte>
               <span class="ml-3">Dark</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_cs_darker">
-              </verte>
+              <verte picker="square" v-model="settings_cs_darker"> </verte>
               <span class="ml-3">Darker</span>
             </div>
           </div>
@@ -1561,29 +1539,25 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_mc_success">
-              </verte>
+              <verte picker="square" v-model="settings_mc_success"> </verte>
               <span class="ml-3">Success</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_mc_info">
-              </verte>
+              <verte picker="square" v-model="settings_mc_info"> </verte>
               <span class="ml-3">Info</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_mc_warning">
-              </verte>
+              <verte picker="square" v-model="settings_mc_warning"> </verte>
               <span class="ml-3">Warning</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" model="rgb" v-model="settings_mc_danger">
-              </verte>
+              <verte picker="square" v-model="settings_mc_danger"> </verte>
               <span class="ml-3">Danger</span>
             </div>
           </div>
@@ -1598,11 +1572,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
-                picker="square"
-                model="rgb"
-                v-model="settings_ga_background_color"
-              >
+              <verte picker="square" v-model="settings_ga_background_color">
               </verte>
               <span class="ml-3">Background</span>
             </div>
@@ -1651,7 +1621,7 @@
 
 <script>
 // import { VueEditor } from "vue2-editor";
-import { VueEditor, Quill } from "vue2-editor";
+import { VueEditor } from "vue2-editor";
 // import { ImageDrop } from "quill-clipboard-module";
 
 export default {
@@ -1723,7 +1693,7 @@ export default {
     hero_appearance_spacing: "",
     previous_sidebar_menu: "home",
     current_sidebar_menu: "home",
-    product_show_welcomebody: false,
+    product_show_wellcomebody: false,
     product_welcome_textalign: "Centered",
     hero_appearance_spacings: [
       { text: "Extra Small", value: 0 },
@@ -1750,16 +1720,16 @@ export default {
     header_announcement_text: "Announcement",
     header_show_announcement: false,
     header_announcement_url: "",
-    header_announcement_textcolor: "#ffffff",
-    header_announcement_color: "#ffffff",
+    header_announcement_textcolor: "",
+    header_announcement_color: "",
     header_announcement_openwindow: false,
     header_show_menu: true,
     header_menu_id: null,
     header_menu_logouttext: "Logout",
     header_menu_settingstext: "Settings",
     header_menu_librarytext: "My Library",
-    product_hero_overlaycolor: "#ffffff47",
-    product_hero_textcolor: "#ffffff",
+    product_hero_overlaycolor: "",
+    product_hero_textcolor: "",
     product_show_footer: true,
     product_show_footercopyright: true,
     footer_copyright_text: "",
@@ -1767,8 +1737,8 @@ export default {
     footer_logo_imageurl: "",
     footer_logo_file: null,
     product_show_footermenu: false,
-    footer_appearance_backgroundcolor: "#ffffff",
-    footer_appearance_textcolor: "#ffffff",
+    footer_appearance_backgroundcolor: "",
+    footer_appearance_textcolor: "",
     show_social_icons: false,
     social_new_window: false,
     social_icon_background_styles: [
@@ -1784,7 +1754,7 @@ export default {
     ],
     social_icon_alignment: "",
     social_icon_color: "#ffffff",
-    social_icon_backgroundcolor: "#ffffff",
+    social_icon_background_color: "#ffffff",
     footer_facebook_url: "",
     footer_twitter_url: "",
     footer_instagram_url: "",
@@ -1802,19 +1772,20 @@ export default {
     footer_appearance_alignment: "Inline",
     product_favicon_url: "",
     product_favicon_file: null,
-    settings_darkfont_color: "#ffffff",
-    settings_lightfont_color: "#ffffff",
-    settings_cs_primary: "#2E91FC",
-    settings_cs_offset: "#F9F9F9",
-    settings_cs_dark: "#30373E",
-    settings_cs_darker: "#272D34",
-    settings_mc_success: "#1ABC9C",
-    settings_mc_info: "#34495E",
-    settings_mc_warning: "#F39C12",
-    settings_mc_danger: "#E74C3C",
-    settings_ga_background_color: "#ffffff",
+    settings_darkfont_color: "",
+    settings_lightfont_color: "",
+    settings_cs_primary: "",
+    settings_cs_offset: "",
+    settings_cs_dark: "",
+    settings_cs_darker: "",
+    settings_mc_success: "",
+    settings_mc_info: "",
+    settings_mc_warning: "",
+    settings_mc_danger: "",
+    settings_ga_background_color: "",
     settings_ga_vertical_align: "",
     settings_ga_body_colwidth: "",
+    customization_processing: false,
   }),
 
   computed: {
@@ -2004,7 +1975,7 @@ export default {
     new_design: function (newValue) {
       this.$store.dispatch("offerManage/setNewDesign", newValue);
     },
-    currentSidebar: function (newValue, oldValue) {
+    currentSidebar: function (newValue) {
       if (newValue == "product-customize") {
         this.initProductCustomizeData();
       }
@@ -2042,7 +2013,7 @@ export default {
       this.prod_hero.overlay_color = newValue;
     },
 
-    product_show_welcomebody: function (newValue) {
+    product_show_wellcomebody: function (newValue) {
       this.prod_welcome.show_wellcome = newValue;
     },
 
@@ -2073,78 +2044,94 @@ export default {
     social_icon_color: function (newValue) {
       this.prod_footer.social_icon_color = newValue;
     },
-    social_icon_backgroundcolor: function (newValue) {
+    social_icon_background_color: function (newValue) {
       this.prod_footer.social_icon_background_color = newValue;
     },
     social_icon_background_style: function (newValue) {
       switch (newValue) {
         case 0:
-          this.prod_footer.social_icon_background_style = "Round";
+          this.prod_footer.social_icon_style = "Round";
           break;
         case 1:
-          this.prod_footer.social_icon_background_style = "Square";
+          this.prod_footer.social_icon_style = "Square";
           break;
         case 2:
-          this.prod_footer.social_icon_background_style = "None";
+          this.prod_footer.social_icon_style = "None";
           break;
       }
     },
 
-    footer_facebook_url: function(newValue) {
+    social_icon_alignment: function (newValue) {
+      switch (newValue) {
+        case 0:
+          this.prod_footer.social_icon_alignment = "Left";
+          break;
+        case 1:
+          this.prod_footer.social_icon_alignment = "Center";
+          break;
+
+        case 2:
+          this.prod_footer.social_icon_alignment = "Right";
+          break;
+      }
+    },
+
+    footer_facebook_url: function (newValue) {
       this.prod_footer.sil_facebook = newValue;
     },
 
-    footer_twitter_url: function(newValue) {
+    footer_twitter_url: function (newValue) {
       this.prod_footer.sil_twitter = newValue;
     },
 
-    footer_instagram_url: function(newValue) {
+    footer_instagram_url: function (newValue) {
       this.prod_footer.sil_instagram = newValue;
     },
 
-    footer_youtoube_url: function(newValue) {
+    footer_youtoube_url: function (newValue) {
       this.prod_footer.sil_youtube = newValue;
     },
 
-    footer_vimeo_url: function(newValue) {
+    footer_vimeo_url: function (newValue) {
       this.prod_footer.sil_vimeo = newValue;
     },
 
-    footer_github_url: function(newValue) {
+    footer_github_url: function (newValue) {
       this.prod_footer.sil_github = newValue;
     },
 
-    footer_itunes_url: function(newValue) {
+    footer_itunes_url: function (newValue) {
       this.prod_footer.sil_itunes = newValue;
     },
 
-    footer_linkedin_url: function(newValue) {
+    footer_linkedin_url: function (newValue) {
       this.prod_footer.sil_linkedin = newValue;
     },
 
-    footer_soundcloud_url: function(newValue) {
+    footer_soundcloud_url: function (newValue) {
       this.prod_footer.sil_soundcloud = newValue;
     },
 
-    footer_yelp_url: function(newValue) {
+    footer_yelp_url: function (newValue) {
       this.prod_footer.sil_yelp = newValue;
     },
 
-    footer_tumblr_url: function(newValue) {
+    footer_tumblr_url: function (newValue) {
       this.prod_footer.sil_tumblr = newValue;
     },
 
-    footer_slack_url: function(newValue) {
+    footer_slack_url: function (newValue) {
       this.prod_footer.sil_slack = newValue;
     },
-    footer_flickr_url: function(newValue) {
+    footer_flickr_url: function (newValue) {
       this.prod_footer.sil_flickr = newValue;
     },
-    footer_dribble_url: function(newValue) {
+    footer_dribble_url: function (newValue) {
       this.prod_footer.sil_dribbble = newValue;
     },
-
-
+    show_social_icons: function (newValue) {
+      this.prod_footer.show_social_icons = newValue;
+    },
   },
 
   created() {
@@ -2594,7 +2581,7 @@ export default {
         .dispatch("prodCustomizeManage/getProdWellcome", this.product_id)
         .then(() => {
           this.product_welcome_textalign = this.prod_welcome.text_alignment;
-          this.product_show_welcomebody = this.prod_welcome.show_welcome;
+          this.product_show_wellcomebody = this.prod_welcome.show_wellcome;
         });
     },
 
@@ -2633,7 +2620,7 @@ export default {
           this.show_social_icons = this.prod_footer.show_social_icons;
           this.social_new_window = this.prod_footer.links_in_new_window;
           this.social_icon_background_style = this.prod_footer.social_icon_style;
-          this.social_icon_backgroundcolor = this.prod_footer.social_icon_background_color;
+          this.social_icon_background_color = this.prod_footer.social_icon_background_color;
           this.social_icon_color = this.prod_footer.social_icon_color;
           this.footer_appearance_alignment = this.prod_footer.alignment;
           this.footer_dribble_url = this.prod_footer.sil_dribbble;
@@ -2684,7 +2671,21 @@ export default {
     getProductCustomizeSettings() {
       this.$store
         .dispatch("prodCustomizeManage/getProdSettings", this.product_id)
-        .then(() => {});
+        .then(() => {
+          this.settings_darkfont_color = this.prod_settings.dark_font_color;
+          this.settings_lightfont_color = this.prod_settings.light_font_color;
+          this.settings_cs_dark = this.prod_settings.cs_dark;
+          this.settings_cs_darker = this.prod_settings.cs_darker;
+          this.settings_cs_offset = this.prod_settings.cs_offset;
+          this.settings_cs_primary = this.prod_settings.cs_primary;
+          this.settings_mc_success = this.prod_settings.mc_success;
+          this.settings_mc_info = this.prod_settings.mc_info;
+          this.settings_mc_warning = this.prod_settings.mc_warning;
+          this.settings_mc_danger = this.prod_settings.mc_danger;
+          this.settings_ga_background_color = this.prod_settings.ga_background;
+          this.settings_ga_vertical_align = this.prod_settings.ga_vertical_alignment;
+          this.settings_ga_body_colwidth = this.prod_settings.ga_body_column_width;
+        });
     },
 
     saveProductCustomizeSettings() {
@@ -2727,6 +2728,12 @@ export default {
         custom_logo_height: this.product_logo_height,
         menu_id: this.header_menu_id,
       };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
       this.$store
         .dispatch("prodCustomizeManage/saveProdHeader", [
           header,
@@ -2738,7 +2745,18 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
           this.getProductCustomizeHeader();
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
         });
     },
 
@@ -2764,8 +2782,13 @@ export default {
         show_hero: this.product_show_hero,
         text_color: this.product_hero_textcolor,
         spacing: spacing,
-        background_image: this.product_appearance_image_url,
       };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
       this.$store
         .dispatch("prodCustomizeManage/saveProdHero", [hero, this.product_id])
         .then(() => {
@@ -2774,15 +2797,32 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
           this.getProductCustomizeHero();
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
         });
     },
 
     saveProductCustomizeWelcome() {
       let welcome = {
         text_alignment: this.product_welcome_textalign,
-        show_welcome: this.product_show_welcomebody,
+        show_wellcome: this.product_show_wellcomebody,
       };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
       this.$store
         .dispatch("prodCustomizeManage/saveProdWellcome", [
           welcome,
@@ -2794,7 +2834,18 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
           this.getProductCustomizeWelcome();
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
         });
     },
 
@@ -2807,6 +2858,12 @@ export default {
         categories_text: this.product_syllabus_categoriestext,
         show_more_text: this.product_syllabus_showmoretext,
       };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
       this.$store
         .dispatch("prodCustomizeManage/saveProdSyllabus", [
           syllabus,
@@ -2818,7 +2875,18 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
           this.getProductCustomizeSyllabus();
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
         });
     },
 
@@ -2826,6 +2894,12 @@ export default {
       let sidebar = {
         show_sidebar: this.product_show_sidebar,
       };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
       this.$store
         .dispatch("prodCustomizeManage/saveProdSlidebar", [
           sidebar,
@@ -2837,7 +2911,18 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
           this.getProductCustomizeSidebar();
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
         });
     },
 
@@ -2884,7 +2969,7 @@ export default {
         show_social_icons: this.show_social_icons,
         links_in_new_window: this.social_new_window,
         social_icon_style: icon_style,
-        social_icon_background_color: this.social_icon_backgroundcolor,
+        social_icon_background_color: this.social_icon_background_color,
         social_icon_color: this.social_icon_color,
         social_icon_alignment: alignment,
         sil_dribbble: this.footer_dribble_url,
@@ -2902,6 +2987,12 @@ export default {
         sil_yelp: this.footer_yelp_url,
         sil_youtube: this.footer_youtoube_url,
       };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
       this.$store
         .dispatch("prodCustomizeManage/saveProdFooter", [
           footer,
@@ -2913,7 +3004,18 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
           this.getProductCustomizeFooter();
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
         });
     },
 
@@ -3210,5 +3312,15 @@ input[type="file"] {
   margin-right: 20px;
   width: 35px;
   height: 35px;
+}
+.processing-customization-indicator {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+.process-customization-form {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

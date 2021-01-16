@@ -233,7 +233,7 @@ export const prodCustomizeManage = {
      * ---------save product customize slidebar ----------------
      */
     saveProdSlidebar({ commit }, [slidebar, product_id]) {
-      return ProdCustomizeService.saveProdHero(slidebar, product_id).then(
+      return ProdCustomizeService.saveProdSlidebar(slidebar, product_id).then(
         (res) => {
           if (res.status === 200) {
             commit("saveProdSlidebarSuccess", res);

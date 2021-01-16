@@ -418,7 +418,6 @@ export default {
   border-color: #288bf5;
 }
 
-,
 .pf-input-pin__wrapper input {
   overflow: visible;
   font-family: proxima nova;

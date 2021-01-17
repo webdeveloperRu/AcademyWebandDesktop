@@ -278,11 +278,7 @@ export default {
       },
     },
   },
-  watch: {
-    is_fake: function(newValue, oldValue) {
-      this.getCategoriesForProductID(this.product_id);
-    },
-  },
+
   created() {
     this.$store.dispatch("setFakeMenu", false);
     this.getCategoriesForProductID(this.product_id);

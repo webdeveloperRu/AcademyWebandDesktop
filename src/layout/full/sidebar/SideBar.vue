@@ -787,7 +787,7 @@
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
               class="justify-content-start"
-              v-model="header_announcement_openwindow"
+              v-model="announcement_new_window"
               ><span class="ml-3">Open In New Window </span></vs-checkbox
             >
           </div>
@@ -1722,7 +1722,7 @@ export default {
     header_announcement_url: "",
     header_announcement_textcolor: "",
     header_announcement_color: "",
-    header_announcement_openwindow: false,
+    announcement_new_window: false,
     header_show_menu: true,
     header_menu_id: null,
     header_menu_logouttext: "Logout",
@@ -2560,7 +2560,7 @@ export default {
           this.header_announcement_textcolor = this.prod_header.announcement_text_color;
           this.header_announcement_color = this.prod_header.announcement_color;
           this.header_show_announcement = this.prod_header.show_announcement;
-          this.header_announcement_openwindow = this.prod_header.announcement_new_window;
+          this.announcement_new_window = this.prod_header.announcement_new_window;
           this.header_show_menu = this.prod_header.show_menu;
           this.product_show_header = this.prod_header.show_header;
           this.proudct_logo_text = this.prod_header.logo_text;
@@ -2742,7 +2742,7 @@ export default {
         announcement_url: this.header_announcement_url,
         announcement_text_color: this.header_announcement_textcolor,
         announcement_color: this.header_announcement_color,
-        announcement_new_window: this.header_announcement_openwindow,
+        announcement_new_window: this.announcement_new_window,
         show_announcement: this.header_show_announcement,
         show_menu: this.header_show_menu,
         show_header: this.product_show_header,

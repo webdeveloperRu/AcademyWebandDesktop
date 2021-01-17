@@ -29,6 +29,9 @@
     <header
       class="vs-navbar topnavbar vs-navbar-null vs-navbar-color-white studentapp-header"
       style="background: white; margin-left: -20px"
+      v-bind:style="{
+        top: navbar_header_height,
+      }"
       v-if="prod_header.show_header"
     >
       <div class="vs-navbar--header">
@@ -87,7 +90,10 @@
       </div>
     </header>
 
-    <div style="padding-top: 119px" class="product-body-layout">
+    <div
+      v-bind:style="{ 'padding-top': header_height }"
+      class="product-body-layout"
+    >
       <!-- This is the main body sections -->
       <div
         class="outline-edit"
@@ -181,10 +187,18 @@
                 class="outline-edit"
                 title="Edit Category Item"
                 @click="selectProductCustomizeMenu('product-syllabus')"
+                v-for="(category, index_card) in category_list"
+                v-bind:key="index_card"
               >
                 <vs-card>
-                  <h3 class="mb-3" style="cursor: pointer">category name</h3>
-                  <div style="cursor: pointer">
+                  <h3 class="mb-3" style="cursor: pointer">
+                    {{ category.name }}
+                  </h3>
+                  <div
+                    style="cursor: pointer"
+                    v-for="(lesson, index) in lesson_list[category.id]"
+                    v-bind:key="index"
+                  >
                     <vs-row
                       vs-justify="center"
                       vs-align="center"
@@ -202,6 +216,9 @@
                         <div
                           class="category-image"
                           style="cursor: pointer"
+                          v-bind:style="{
+                            'background-image': 'url(' + lesson.thumbnail + ')',
+                          }"
                         ></div>
                       </vs-col>
                       <vs-col
@@ -214,25 +231,14 @@
                         code-toggler
                       >
                         <div style="cursor: pointer">
-                          <h4 class="mb-2">lesson title</h4>
-                          <div class="category-description">lesson body</div>
+                          <h4 class="mb-2">{{ lesson.title }}</h4>
+                          <div
+                            class="category-description"
+                            :title="lesson.body"
+                          >
+                            {{ lesson.body }}
+                          </div>
                         </div>
-                      </vs-col>
-                      <vs-col
-                        type="flex"
-                        vs-justify="center"
-                        vs-align="center"
-                        vs-lg="1"
-                        vs-sm="12"
-                        vs-xs="12"
-                        code-toggler
-                        :title="'This lesson is completed'"
-                      >
-                        <vs-icon
-                          icon="check"
-                          color="danger"
-                          style="font-size: 20px"
-                        ></vs-icon>
                       </vs-col>
                     </vs-row>
                   </div>
@@ -261,7 +267,7 @@
             >
               <vs-card class="progress-product_thumbnail">
                 <div title="Edit Product Image">
-                  <div class="category-image"></div>
+                  <div class="instructor-image"></div>
                   <label class="edit-button" size="small">Edit</label>
                 </div>
                 <div class="mx-4 mt-3">
@@ -311,7 +317,7 @@
                   <div class="ml-3">
                     <div class="mb-1">
                       <div>
-                        <strong>instructor name</strong>
+                        <strong>John Doe</strong>
                         <label class="edit-button" size="small">Edit</label>
                       </div>
                     </div>
@@ -323,10 +329,9 @@
                 </div>
                 <div class="mt-3">
                   <div>
-                    current product instructor description current product
-                    instructor description current product instructor
-                    description current product instructor description current
-                    product instructor description
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Cras sed sapien quam. Sed dapibus est id enim facilisis, at
+                    posuere turpis adipiscing. Quisque sit amet dui dui.
                     <label class="edit-button" size="small">Edit</label>
                   </div>
                 </div>
@@ -734,10 +739,70 @@ export default {
         return value;
       },
     },
+
+    header_height: {
+      get() {
+        let value = "69px";
+        if (this.prod_header.show_header) {
+          if (this.prod_header.show_announcement) value = "119px";
+          else value = "69px";
+        } else {
+          value = "0px";
+        }
+        return value;
+      },
+    },
+
+    navbar_header_height: {
+      get() {
+        if (this.prod_header.show_announcement) {
+          return "108px";
+        } else return "58px";
+      },
+    },
+
+    current_product: {
+      get() {
+        let product = [];
+        for (let i = 0; i < this.product_list.length; i++) {
+          if (this.product_list[i].id == this.product_id) {
+            product = this.product_list[i];
+          }
+        }
+        return product;
+      },
+    },
+
+    category_list: {
+      get() {
+        let list = [];
+        list = this.$store.getters["productManage/category_list"];
+        if (list == undefined) return [];
+        else return list;
+      },
+    },
+
+    lesson_list: {
+      get() {
+        let list = [];
+        list = this.$store.getters["lessonManage/lesson_list"];
+        if (list == undefined) return [];
+        else return list;
+      },
+    },
+
+    instructor_image: {
+      get() {
+        return "../../assets/images/users/2.jpg";
+      },
+    },
   },
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
+    console.log("product", this.current_product);
+    console.log("category list", this.category_list);
+    console.log("lesson list", this.lesson_list);
   },
   methods: {
     selectProductCustomizeMenu(menu_option) {
@@ -800,9 +865,19 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url("../../assets/images/big/img4.jpg");
 }
-
+.instructor-image {
+  border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+  height: 0;
+  padding-top: 56.25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-image: url("../../assets/images/users/2.jpg");
+}
 .category-item .category-description {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1108,9 +1183,5 @@ export default {
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
-}
-
-.studentapp-header {
-  top: 108px;
 }
 </style>

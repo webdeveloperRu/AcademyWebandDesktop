@@ -640,7 +640,12 @@
           v-else-if="currentProductCustomizeMenu == 'header'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Header</span>
+            <span class='mr-2'>Header</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="show-header-option">
             <vs-checkbox
@@ -813,7 +818,12 @@
           v-else-if="currentProductCustomizeMenu == 'hero'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Hero</span>
+            <span class="mr-2">Hero</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="show-header-option">
             <vs-checkbox
@@ -921,7 +931,12 @@
           v-else-if="currentProductCustomizeMenu == 'welcome'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Welcome Body</span>
+            <span class="mr-2">Welcome Body</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="show-header-option">
             <vs-checkbox
@@ -979,7 +994,12 @@
           v-else-if="currentProductCustomizeMenu == 'product-syllabus'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Product Syllabus</span>
+            <span class="mr-2">Product Syllabus</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
@@ -1043,7 +1063,12 @@
           v-else-if="currentProductCustomizeMenu == 'sidebar'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Product Sidebar</span>
+            <span class="mr-2">Product Sidebar</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
@@ -1081,7 +1106,12 @@
           v-else-if="currentProductCustomizeMenu == 'instructor'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Instructor</span>
+            <span class="mr-2">Instructor</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Heading</div>
@@ -1149,7 +1179,12 @@
           v-else-if="currentProductCustomizeMenu == 'course-progress'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Course Progress</span>
+            <span class="mr-2">Course Progress</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
@@ -1175,7 +1210,12 @@
           v-else-if="currentProductCustomizeMenu == 'footer'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Footer</span>
+            <span class="mr-2">Footer</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <vs-checkbox
@@ -1452,7 +1492,12 @@
           v-else-if="currentProductCustomizeMenu == 'favicon'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Favicon</span>
+            <span class="mr-2">Favicon</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Favicon Image</div>
@@ -1480,7 +1525,12 @@
           v-else-if="currentProductCustomizeMenu == 'typography'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Typography</span>
+            <span class="mr-2">Typography</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
@@ -1502,7 +1552,12 @@
           v-else-if="currentProductCustomizeMenu == 'color-scheme'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Color Scheme</span>
+            <span class="mr-2">Color Scheme</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
@@ -1535,7 +1590,12 @@
           v-else-if="currentProductCustomizeMenu == 'message-color'"
         >
           <div class="product-sidebar-menu-section">
-            <span>Message Colors</span>
+            <span class="mr-2">Message Colors</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
@@ -1568,7 +1628,12 @@
           v-else-if="currentProductCustomizeMenu == 'general-appearance'"
         >
           <div class="product-sidebar-menu-section">
-            <span>General Appearance</span>
+            <span class="mr-2">General Appearance</span>
+             <i
+              class="mdi mdi-open-in-new"
+              @click="previewCustomizedProductPage"
+              style="cursor: pointer"
+            ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">

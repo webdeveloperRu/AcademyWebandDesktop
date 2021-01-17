@@ -474,7 +474,7 @@
                   disabled
                   type="filled"
                   @click="saveProductCustomizeSettings"
-                  >...Saving</vs-button
+                  >Saving...</vs-button
                 >
               </div>
               <div v-else>
@@ -793,14 +793,14 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="header_announcement_color">
+              <verte  picker="square" v-model="header_announcement_color">
               </verte>
               <span class="ml-3">Announcement Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="header_announcement_textcolor">
+              <verte  picker="square" v-model="header_announcement_textcolor">
               </verte>
               <span class="ml-3">Announcement Text Color</span>
             </div>
@@ -846,18 +846,18 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="product_hero_textcolor"> </verte>
+              <verte  picker="square" v-model="product_hero_textcolor"> </verte>
               <span class="ml-3">Text Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="product_hero_overlaycolor">
+              <verte  picker="square" v-model="product_hero_overlaycolor">
               </verte>
               <span class="ml-3">Overlay Color</span>
             </div>
           </div>
-          <!-- <verte picker="square"   > </verte> -->
+          <!-- <verte  picker="square"   > </verte> -->
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Spacing</div>
             <vs-select class="w-100 mt-3" v-model="hero_appearance_spacing">
@@ -1252,7 +1252,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte
+              <verte 
                 picker="square"
                 v-model="footer_appearance_backgroundcolor"
               >
@@ -1262,7 +1262,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="footer_appearance_textcolor">
+              <verte  picker="square" v-model="footer_appearance_textcolor">
               </verte>
               <span class="ml-3">Text Color</span>
             </div>
@@ -1329,13 +1329,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="social_icon_color"> </verte>
+              <verte  picker="square" v-model="social_icon_color"> </verte>
               <span class="ml-3">Social Icon Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="social_icon_background_color">
+              <verte  picker="square" v-model="social_icon_background_color">
               </verte>
               <span class="ml-3">Social Icon Background Color</span>
             </div>
@@ -1484,13 +1484,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_darkfont_color"> </verte>
+              <verte  picker="square" v-model="settings_darkfont_color"> </verte>
               <span class="ml-3">Dark Font Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_lightfont_color">
+              <verte  picker="square" v-model="settings_lightfont_color">
               </verte>
               <span class="ml-3">Light Font Color</span>
             </div>
@@ -1506,25 +1506,25 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_cs_primary"> </verte>
+              <verte  picker="square" v-model="settings_cs_primary"> </verte>
               <span class="ml-3">Primary</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_cs_offset"> </verte>
+              <verte  picker="square" v-model="settings_cs_offset"> </verte>
               <span class="ml-3">Offset</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_cs_dark"> </verte>
+              <verte  picker="square" v-model="settings_cs_dark"> </verte>
               <span class="ml-3">Dark</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_cs_darker"> </verte>
+              <verte  picker="square" v-model="settings_cs_darker"> </verte>
               <span class="ml-3">Darker</span>
             </div>
           </div>
@@ -1539,25 +1539,25 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_mc_success"> </verte>
+              <verte  picker="square" v-model="settings_mc_success"> </verte>
               <span class="ml-3">Success</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_mc_info"> </verte>
+              <verte  picker="square" v-model="settings_mc_info"> </verte>
               <span class="ml-3">Info</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_mc_warning"> </verte>
+              <verte  picker="square" v-model="settings_mc_warning"> </verte>
               <span class="ml-3">Warning</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_mc_danger"> </verte>
+              <verte  picker="square" v-model="settings_mc_danger"> </verte>
               <span class="ml-3">Danger</span>
             </div>
           </div>
@@ -1572,7 +1572,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte picker="square" v-model="settings_ga_background_color">
+              <verte  picker="square" v-model="settings_ga_background_color">
               </verte>
               <span class="ml-3">Background</span>
             </div>
@@ -1922,6 +1922,9 @@ export default {
       get() {
         return this.$store.getters["prodCustomizeManage/prod_header"];
       },
+      set() {
+        this.$store.commit("prodCustomizeManage/updateProdHeader", value);
+      }
     },
 
     prod_hero: {
@@ -2132,6 +2135,25 @@ export default {
     show_social_icons: function (newValue) {
       this.prod_footer.show_social_icons = newValue;
     },
+    header_show_announcement: function (newValue) {
+      this.prod_header.show_announcement = newValue;
+    },
+
+    header_announcement_url: function (newValue) {
+      this.prod_header.announcement_url = newValue;
+    },
+
+    header_announcement_textcolor: function (newValue) {
+      this.prod_header.announcement_text_color = newValue;
+    },
+
+    header_announcement_color: function(newValue) {
+      this.prod_header.announcement_color = newValue;
+    },
+
+    product_show_header: function(newValue) {
+      this.prod_header.show_header = newValue;
+    }
   },
 
   created() {
@@ -2537,8 +2559,8 @@ export default {
           this.header_announcement_url = this.prod_header.announcement_url;
           this.header_announcement_textcolor = this.prod_header.announcement_text_color;
           this.header_announcement_color = this.prod_header.announcement_color;
+          this.header_show_announcement = this.prod_header.show_announcement;
           this.header_announcement_openwindow = this.prod_header.announcement_new_window;
-          this.header_show_menu = this.prod_header.show_announcement;
           this.header_show_menu = this.prod_header.show_menu;
           this.product_show_header = this.prod_header.show_header;
           this.proudct_logo_text = this.prod_header.logo_text;
@@ -2556,6 +2578,7 @@ export default {
           this.product_hero_overlaycolor = this.prod_hero.overlay_color;
           this.product_show_hero = this.prod_hero.show_hero;
           this.product_hero_textcolor = this.prod_hero.text_color;
+          this.product_appearance_image_url = this.prod_hero.background_image;
           switch (this.prod_hero.spacing) {
             case "Small":
               this.hero_appearance_spacing = 1;
@@ -2782,6 +2805,7 @@ export default {
         show_hero: this.product_show_hero,
         text_color: this.product_hero_textcolor,
         spacing: spacing,
+        background_image: this.product_appearance_image_url
       };
       this.$vs.loading({
         container: "#loading",

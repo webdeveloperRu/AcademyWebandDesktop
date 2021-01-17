@@ -597,6 +597,9 @@ export const prodCustomizeManage = {
     updateProdFooter(state, prod_footer) {  
       state.prod_footer = prod_footer;
     },
+    updateProdHeader(state, prod_header) {
+      state.prod_header  = prod_header
+    },
 
     RESET_MODULE(state) {
       Object.assign(state, initialState);

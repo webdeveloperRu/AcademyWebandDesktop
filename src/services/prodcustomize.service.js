@@ -8,9 +8,11 @@ class ProdCustomizeService {
    * ---------save Product Customize Header -------------------
    */
   saveProdHeader(header, product_id) {
+    var qs = require('qs');
+    var data = qs.stringify(header);
     return axios
-      .post(API_URL + product_id + "/header", header, {
-        headers: authHeader(),
+      .post(API_URL + product_id + "/header", data, {
+        headers: authHeaderXWWW(),
       })
       .then((response) => {
         return response;
@@ -24,6 +26,7 @@ class ProdCustomizeService {
    * ---------get product customize header -----------------------
    */
   getProdHeader(product_id) {
+    
     return axios
       .get(API_URL + product_id + "/header", {
         headers: authHeader(),

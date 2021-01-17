@@ -1,8 +1,35 @@
 <template>
   <div class="product-customize-page" style="margin-top: -24px">
+    <div
+      class="product-announcement"
+      v-if="prod_header.show_announcement && prod_header.show_header"
+      v-bind:style="{
+        background: prod_header.announcement_color,
+        color: prod_header.announcement_text_color,
+      }"
+    >
+      <div
+        class="product-announcement-text"
+        @click="linkToAnnouncementUrl"
+        v-if="prod_header.announcement_new_window"
+      >
+        {{ prod_header.announcement_text }}
+      </div>
+      <a
+        v-if="!prod_header.announcement_new_window"
+        class="product-announcement-text"
+        :href="prod_header.announcement_url"
+        v-bind:style="{
+          color: prod_header.announcement_text_color,
+        }"
+      >
+        {{ prod_header.announcement_text }}
+      </a>
+    </div>
     <header
       class="vs-navbar topnavbar vs-navbar-null vs-navbar-color-white studentapp-header"
       style="background: white; margin-left: -20px"
+      v-if="prod_header.show_header"
     >
       <div class="vs-navbar--header">
         <button class="vs-navbar--btn-responsive">
@@ -10,7 +37,11 @@
           <span class="btn-responsive-line line--2"></span>
           <span class="btn-responsive-line line--3"></span>
         </button>
-        <div class="outline-edit" title="Edit Logo and Site Title">
+        <div
+          class="outline-edit"
+          title="Edit Logo and Site Title"
+          @click="selectProductCustomizeMenu('header')"
+        >
           <div class="themelogo">
             <a>
               <img
@@ -27,7 +58,11 @@
         </div>
       </div>
 
-      <div class="outline-edit" title="Edit Product Items">
+      <div
+        class="outline-edit"
+        title="Edit Product Items"
+        @click="selectProductCustomizeMenu('header')"
+      >
         <div class="vs-con-items">
           <div class="vs-spacer"></div>
           <div class="cursor-pointer pr-2 pl-2 ml-1 mr-1">My Library</div>
@@ -51,18 +86,18 @@
         <label class="edit-button" size="small">Edit</label>
       </div>
     </header>
-    
-    <div style="padding-top: 69px " class="product-body-layout">
+
+    <div style="padding-top: 69px" class="product-body-layout">
       <!-- This is the main body sections -->
       <div
         class="outline-edit"
         style="padding-top: 27px; padding-bottom: 3px; margin: 0 -25px"
         title="Edit Hero Section"
+        @click="selectProductCustomizeMenu('hero')"
         v-if="prod_hero.show_hero"
       >
         <div
           class="category-banner"
-          @click="selectProductCustomizeMenu('hero')"
           v-bind:style="{
             'background-image': prod_hero.background_image,
             'text-align': hero_alignment,
@@ -72,23 +107,17 @@
         >
           <p
             class="producttitle-category"
-            @click="selectProductCustomizeMenu('product-info')"
             v-bind:style="{ color: prod_hero.text_color }"
           >
             {{ current_product.title }}
           </p>
           <p
             class="product-description-category"
-            @click="selectProductCustomizeMenu('product-info')"
             v-bind:style="{ color: prod_hero.text_color }"
           >
             {{ current_product.description }}
           </p>
-          <vs-button
-            class="start-course"
-            @click="selectProductCustomizeMenu('start-button')"
-            >Start Course</vs-button
-          >
+          <vs-button class="start-course">Start Course</vs-button>
         </div>
         <div
           class="hero-overlay"
@@ -226,28 +255,16 @@
               v-if="prod_sidebar.show_sidebar"
             >
               <vs-card class="progress-product_thumbnail">
-                <div
-                  class="outline-edit"
-                  title="Edit Product Image"
-                  @click="selectProductCustomizeMenu('course-progress')"
-                >
+                <div title="Edit Product Image">
                   <div class="category-image"></div>
                   <label class="edit-button" size="small">Edit</label>
                 </div>
                 <div class="mx-4 mt-3">
-                  <div
-                    class="outline-edit"
-                    title="Edit Progress Text"
-                    @click="selectProductCustomizeMenu('course-progress')"
-                  >
+                  <div title="Edit Progress Text">
                     <h4 class="mt-3">12 of 23 Lessons Completed</h4>
                     <label class="edit-button" size="small">Edit</label>
                   </div>
-                  <div
-                    class="outline-edit"
-                    title="Edit Progress bar Color"
-                    @click="selectProductCustomizeMenu('course-progress')"
-                  >
+                  <div title="Edit Progress bar Color">
                     <vs-progress :percent="80" color="primary"
                       >primary</vs-progress
                     >
@@ -273,10 +290,7 @@
               <!-- <div class="outline-edit"> -->
               <vs-card>
                 <h4 class="mb-3">
-                  <div
-                    class="outline-edit"
-                    @click="selectProductCustomizeMenu('instructor')"
-                  >
+                  <div>
                     Instructor
                     <label class="edit-button" size="small">Edit</label>
                   </div>
@@ -285,37 +299,25 @@
                   class="d-flex"
                   style="align-items: center; justify-content: flex-start"
                 >
-                  <div
-                    class="outline-edit"
-                    @click="selectProductCustomizeMenu('instructor')"
-                  >
+                  <div>
                     <vs-avatar size="70px"></vs-avatar>
                     <label class="edit-button" size="small">Edit</label>
                   </div>
                   <div class="ml-3">
                     <div class="mb-1">
-                      <div
-                        class="outline-edit"
-                        @click="selectProductCustomizeMenu('instructor')"
-                      >
+                      <div>
                         <strong>instructor name</strong>
                         <label class="edit-button" size="small">Edit</label>
                       </div>
                     </div>
-                    <div
-                      class="outline-edit"
-                      @click="selectProductCustomizeMenu('instructor')"
-                    >
+                    <div>
                       <div style="color: dodgerblue">Instructor</div>
                       <label class="edit-button" size="small">Edit</label>
                     </div>
                   </div>
                 </div>
                 <div class="mt-3">
-                  <div
-                    class="outline-edit"
-                    @click="selectProductCustomizeMenu('instructor')"
-                  >
+                  <div>
                     current product instructor description current product
                     instructor description current product instructor
                     description current product instructor description current
@@ -330,7 +332,11 @@
       </vs-row>
     </div>
     <!-- footer section -->
-    <div class="outline-edit footer-layout" title="Edit footer section">
+    <div
+      class="outline-edit footer-layout"
+      title="Edit footer section"
+      @click="selectProductCustomizeMenu('footer')"
+    >
       <footer
         class="footer footer--dark footer--left"
         kjb-settings-id="sections_footer_settings_background_color"
@@ -515,8 +521,7 @@
 // import Navbar from "../../layout/full/header/Navbar.vue";
 export default {
   name: "CustomizeProduct",
-  components: {
-  },
+  components: {},
   data: () => ({}),
   computed: {
     user_logged: {
@@ -637,7 +642,7 @@ export default {
 
     hero_alignment: {
       get() {
-        let value = ''
+        let value = "";
         switch (this.prod_hero.alignment) {
           case "Centered":
             value = "center";
@@ -655,7 +660,7 @@ export default {
 
     hero_spacing: {
       get() {
-        let value =''
+        let value = "";
         switch (this.prod_hero.spacing) {
           case "Small":
             value = "30px";
@@ -676,7 +681,7 @@ export default {
 
     welcome_text_aligment: {
       get() {
-        let value = ''
+        let value = "";
         switch (this.prod_welcome.text_alignment) {
           case "Centered":
             value = "center";
@@ -708,7 +713,7 @@ export default {
 
     social_icon_alignment: {
       get() {
-        let value = ''
+        let value = "";
         switch (this.prod_footer.social_icon_alignment) {
           case "Left":
             value = "flex-start";
@@ -732,6 +737,10 @@ export default {
   methods: {
     selectProductCustomizeMenu(menu_option) {
       this.$store.dispatch("setCurrentProductCustomizeMenu", menu_option);
+    },
+    linkToAnnouncementUrl() {
+      console.log(this.prod_header.announcement_url);
+      window.open(this.prod_header.announcement_url, "_blank");
     },
   },
 };
@@ -758,9 +767,7 @@ export default {
   font-size: 16px;
   font-weight: 500;
 }
-.start-course {
-  z-index: 1;
-}
+
 .product-welcome-title {
   font-size: 40px;
   font-weight: 600;
@@ -1066,7 +1073,19 @@ export default {
 .footer-icon-layout {
   display: flex;
 }
-.product-body-layout{
+.product-body-layout {
   min-height: 80vh;
+}
+.product-announcement {
+  height: 50px;
+  background: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-announcement-text {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
 }
 </style>

@@ -133,10 +133,10 @@
               type="border"
               class="save-cancel-button"
               style="margin-left: auto"
-              @click="activeAddCategory = false"
+              @click.native="activeAddCategory = false"
               >Cancel</vs-button
             >
-            <vs-button class="ml-3 mr-3 save-cancel-button" @click="addCategory"
+            <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="addCategory"
               >Save</vs-button
             >
           </div>
@@ -171,14 +171,14 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="confirmDeleteProduct = false"
+          @click.native="confirmDeleteProduct = false"
           >Cancel</vs-button
         >
         <vs-button
           color="danger"
           type="filled"
           class="ml-2"
-          @click="deleteCurrentProduct"
+          @click.native="deleteCurrentProduct"
           >Delete Product</vs-button
         >
       </div>

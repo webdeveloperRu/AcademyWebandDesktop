@@ -130,7 +130,7 @@
           class="mt-3"
           type="flat"
           color="danger"
-          @click="activeConfirmDeletCoupon = true"
+          @click.native="activeConfirmDeletCoupon = true"
           >Delete Coupon</vs-button
         >
       </div>
@@ -160,7 +160,7 @@
           color="danger"
           type="filled"
           class="ml-2"
-          @click="deleteCurrentCoupon"
+          @click.native="deleteCurrentCoupon"
           >Delete Coupon</vs-button
         >
       </div>

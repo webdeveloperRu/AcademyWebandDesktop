@@ -4,13 +4,13 @@
       <div class="api_key_label mb-3">{{ api_key }}</div>
       <vs-button
         class="w-100 vs-input-large mb-4"
-        v-on:click="createCredential"
+        @click.native="createCredential"
       >
         Create Credential</vs-button
       >
       <vs-button
         class="w-100 vs-input-large mb-4"
-        v-on:click="deleteCredential"
+        @click.native="deleteCredential"
       >
         Delete</vs-button
       >

@@ -29,7 +29,7 @@
           <vs-button
             style="margin-left: auto; height: 45px"
             class="mr-2"
-            @click="addProductPopup"
+            @click.native="addProductPopup"
             >+ Add Product</vs-button
           >
         </vs-row>
@@ -65,10 +65,10 @@
                   type="border"
                   class="save-cancel-button"
                   style="margin-left:auto;"
-                  @click="activeAddProduct = false"
+                  @click.native="activeAddProduct = false"
                   >Cancel</vs-button
                 >
-                <vs-button class="ml-3 save-cancel-button" @click="addProduct"
+                <vs-button class="ml-3 save-cancel-button" @click.native="addProduct"
                   >Save</vs-button
                 >
               </div>

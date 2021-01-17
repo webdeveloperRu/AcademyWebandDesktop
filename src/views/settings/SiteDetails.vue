@@ -100,7 +100,7 @@
               <vs-button
                 class="mt-4"
                 color="primary"
-                @click="saveSiteDetails('info')"
+                @click.native="saveSiteDetails('info')"
               >
                 save
               </vs-button>
@@ -248,7 +248,7 @@
               <vs-button
                 class="mt-4"
                 color="primary"
-                @click="saveSiteDetails('branding')"
+                @click.native="saveSiteDetails('branding')"
               >
                 save
               </vs-button>
@@ -351,7 +351,7 @@
               <vs-button
                 class="mt-4"
                 color="primary"
-                @click="saveSiteDetails('instructor')"
+                @click.native="saveSiteDetails('instructor')"
               >
                 save
               </vs-button>
@@ -399,7 +399,7 @@
               <vs-button
                 class="mt-4"
                 color="primary"
-                @click="saveSiteDetails('pagescript')"
+                @click.native="saveSiteDetails('pagescript')"
               >
                 save
               </vs-button>
@@ -514,7 +514,7 @@
               <vs-button
                 class="mt-4"
                 color="primary"
-                @click="saveSiteDetails('sharing')"
+                @click.native="saveSiteDetails('sharing')"
               >
                 save
               </vs-button>

@@ -67,7 +67,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(mailchimp_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(mailchimp_config.slug)"
                 >
                   save
                 </vs-button>
@@ -128,7 +128,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(drip_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(drip_config.slug)"
                 >
                   save
                 </vs-button>
@@ -186,7 +186,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(convert_kit_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(convert_kit_config.slug)"
                 >
                   save
                 </vs-button>
@@ -249,7 +249,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="
+                  @click.native="
                     saveThirdPartyConfiguration(active_campaign_config.slug)
                   "
                 >
@@ -308,7 +308,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(segment_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(segment_config.slug)"
                 >
                   save
                 </vs-button>
@@ -367,7 +367,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="
+                  @click.native="
                     saveThirdPartyConfiguration(google_analytics_config.slug)
                   "
                 >
@@ -429,7 +429,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="
+                  @click.native="
                     saveThirdPartyConfiguration(facebook_pixel_config.slug)
                   "
                 >
@@ -508,7 +508,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(amazon_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(amazon_config.slug)"
                 >
                   save
                 </vs-button>
@@ -571,7 +571,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(paypal_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(paypal_config.slug)"
                 >
                   save
                 </vs-button>
@@ -632,7 +632,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(stripe_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(stripe_config.slug)"
                 >
                   save
                 </vs-button>
@@ -692,7 +692,7 @@
                 <vs-button
                   class="mt-4"
                   color="primary"
-                  @click="saveThirdPartyConfiguration(btcpay_config.slug)"
+                  @click.native="saveThirdPartyConfiguration(btcpay_config.slug)"
                 >
                   save
                 </vs-button>
@@ -703,7 +703,7 @@
             <vs-switch
               color="green"
               v-model="btcpay_status"
-              @click="changeThirdPartyIntegraitonSatus(btcpay_config.slug)"
+              @click.native="changeThirdPartyIntegraitonSatus(btcpay_config.slug)"
             >
               <span slot="on">On</span>
               <span slot="off">Off</span>

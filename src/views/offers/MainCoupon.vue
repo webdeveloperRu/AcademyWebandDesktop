@@ -23,7 +23,7 @@
         <vs-button
           style="margin-left: auto; height: 45px"
           class="mr-3"
-          @click="linkToNewCoupon"
+          @click.native="linkToNewCoupon"
           ><i class="mdi mdi-plus mr-2"></i>Add New Coupon</vs-button
         >
       </div>

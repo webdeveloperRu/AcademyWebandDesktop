@@ -15,7 +15,7 @@
           <h2>Account User</h2>
           <vs-button
             style="margin-left: auto; height: 45px"
-            @click="linkToNewUser"
+            @click.native="linkToNewUser"
             >+ New User</vs-button
           >
         </div>

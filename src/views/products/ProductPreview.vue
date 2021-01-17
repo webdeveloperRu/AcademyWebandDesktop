@@ -121,14 +121,14 @@
               <vs-button
                 color="primary"
                 type="flat"
-                @click="confirmDeleteProduct = false"
+                @click.native="confirmDeleteProduct = false"
                 >Cancel</vs-button
               >
               <vs-button
                 color="danger"
                 type="filled"
                 class="ml-2"
-                @click="deleteCurrentProduct"
+                @click.native="deleteCurrentProduct"
                 >Delete Product</vs-button
               >
             </div>
@@ -207,7 +207,7 @@ export default {
       this.$router.push("/products/product-details/" + this.product.id);
     },
     gotoPreview() {
-      this.$router.push(this.product_preview_link);
+      window.open("/products/preview/" + this.product.id, "_blank");
     },
 
     linkToManageComments() {

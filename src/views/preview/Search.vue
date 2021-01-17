@@ -84,8 +84,6 @@ export default {
   computed: {
     keyword: function() {
       var keyword = this.$route.params.query;
-      // console.log("queyr", id);
-      // return id.slice(0, id.length);
       return keyword;
     },
 
@@ -122,7 +120,6 @@ export default {
     //     icon: this.notification_icon,
     //   });
     // } else {
-    //   console.log("search result: ", this.search_result);
     // }
   },
 

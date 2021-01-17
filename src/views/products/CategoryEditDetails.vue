@@ -211,10 +211,10 @@
         class="mb-3"
       >
         <div class="btn-alignment text-right">
-          <vs-button color="danger" type="flat" @click="deleteCurrentCategory">
+          <vs-button color="danger" type="flat" @click.native="deleteCurrentCategory">
             Delete Category</vs-button
           >
-          <vs-button color="primary" type="filled" @click="saveCurrentCategory"
+          <vs-button color="primary" type="filled" @click.native="saveCurrentCategory"
             >Save</vs-button
           >
         </div>

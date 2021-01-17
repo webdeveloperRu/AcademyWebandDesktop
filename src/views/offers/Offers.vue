@@ -40,7 +40,7 @@
         <vs-button
           style="margin-left: auto; height: 45px"
           class="mt-3 mr-3"
-          @click="activeAddOffer = true"
+          @click.native="activeAddOffer = true"
           ><i class="mdi mdi-plus mr-2"></i>Add New Offer</vs-button
         >
       </vs-row>
@@ -277,10 +277,10 @@
               type="border"
               class="save-cancel-button"
               style="margin-left: auto"
-              @click="activeAddOffer = false"
+              @click.native="activeAddOffer = false"
               >Cancel</vs-button
             >
-            <vs-button class="ml-3 mr-3 save-cancel-button" @click="addOffer"
+            <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="addOffer"
               >Save</vs-button
             >
           </div>

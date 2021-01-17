@@ -179,12 +179,12 @@
           <div style="float: right">
             <vs-button
               class="mt-3 mr-3"
-              @click="activeConfirmDeleteUser = true"
+              @click.native="activeConfirmDeleteUser = true"
               type="flat"
               color="danger"
               >Delete User</vs-button
             >
-            <vs-button class="mt-3" @click="updateUser">Save</vs-button>
+            <vs-button class="mt-3" @click.native="updateUser">Save</vs-button>
           </div>
         </vs-col>
       </vs-row>
@@ -207,10 +207,10 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="activeConfirmDeleteUser = false"
+          @click.native="activeConfirmDeleteUser = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" class="ml-2" @click="deleteUser"
+        <vs-button color="danger" type="filled" class="ml-2" @click.native="deleteUser"
           >Delete User</vs-button
         >
       </div>

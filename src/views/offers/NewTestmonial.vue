@@ -72,7 +72,7 @@
       </vs-row>
       <vs-divider></vs-divider>
       <div style="float: right">
-        <vs-button class="mt-3" @click="addTestimonial">Save</vs-button>
+        <vs-button class="mt-3" @click.native="addTestimonial">Save</vs-button>
       </div>
     </vs-col>
   </vs-row>

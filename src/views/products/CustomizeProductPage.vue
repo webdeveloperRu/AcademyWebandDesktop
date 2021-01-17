@@ -638,18 +638,6 @@ export default {
       },
     },
 
-    current_product: {
-      get() {
-        let product = [];
-        for (let i = 0; i < this.product_list.length; i++) {
-          if (this.product_list[i].id == this.product_id) {
-            product = this.product_list[i];
-          }
-        }
-        return product;
-      },
-    },
-
     hero_alignment: {
       get() {
         let value = "";
@@ -800,9 +788,6 @@ export default {
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
-    console.log("product", this.current_product);
-    console.log("category list", this.category_list);
-    console.log("lesson list", this.lesson_list);
   },
   methods: {
     selectProductCustomizeMenu(menu_option) {

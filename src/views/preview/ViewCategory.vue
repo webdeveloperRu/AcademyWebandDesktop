@@ -143,17 +143,16 @@
               >
                 <vs-avatar
                   size="70px"
-                  :src="current_product.instructor.headshot"
                 ></vs-avatar>
                 <div class="ml-3">
                   <div class="mb-1">
-                    <strong>{{ current_product.instructor.name }}</strong>
+                    <!-- <strong>{{ current_product.instructor.name }}</strong> -->
                   </div>
                   <div style="color: dodgerblue">Instructor</div>
                 </div>
               </div>
               <div class="mt-3">
-                {{ current_product.instructor.description }}
+                <!-- {{ current_product.instructor.description }} -->
               </div>
             </vs-card>
           </vs-col>
@@ -174,7 +173,7 @@ export default {
 
   computed: {
     category_id: function() {
-      var id = this.$route.params.id;
+      var id = this.$route.params.category_id;
       return id.slice(0, id.length);
     },
 
@@ -237,21 +236,8 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
-    is_fake: {
-      get() {
-        return this.$store.getters["is_fake"];
-      },
-    },
   },
-  watch: {
-    is_fake: function(newValue, oldValue) {
-      this.getLessonsForCategoryID(this.category_id);
-    },
-  },
-
   created() {
-    this.$store.dispatch("setFakeMenu", false);
-
     this.getLessonsForCategoryID(this.category_id);
     // let total_lesson = this.lesson_list.length + 1;
     // console.log('lesson list', this.lesson_list)
@@ -268,26 +254,6 @@ export default {
   methods: {
     async getLessonsForCategoryID(category_id) {
       this.$vs.loading({ type: "material" });
-      if (this.is_fake) {
-        await this.$store
-          .dispatch("lessonManage/getLessonListDemo", category_id)
-          .then(() => {
-            var count = 0;
-            var total_lesson = this.lesson_list[category_id].length;
-            for (let i = 0; i < total_lesson; i++) {
-              if (this.lesson_list[category_id][i].lessons_completed)
-                count = count + 1;
-            }
-            this.completed_lesson = count;
-            this.completed_lesson_percent = (count * 100) / total_lesson;
-
-            // this.$vs.notify({
-            //   color: this.notification_color,
-            //   text: this.notification_text,
-            //   icon: this.notification_icon,
-            // });
-          });
-      } else {
         await this.$store
           .dispatch("lessonManage/getLessonList", category_id)
           .then(() => {
@@ -299,15 +265,8 @@ export default {
             }
             this.completed_lesson = count;
             this.completed_lesson_percent = (count * 100) / total_lesson;
-
-            // this.$vs.notify({
-            //   color: this.notification_color,
-            //   text: this.notification_text,
-            //   icon: this.notification_icon,
-            // });
           });
-      }
-      this.$vs.loading.close(this.$refs.loading);
+      this.$vs.loading.close();
     },
 
     viewLesson(lesson) {
@@ -316,14 +275,14 @@ export default {
         this.current_category
       );
       this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      this.$router.push("/view-lesson/" + lesson.id);
+      this.$router.push("/products/preview/view-lesson/" + lesson.id);
     },
     backToMyproducts() {
-      this.$router.push("/library");
+      this.$router.push("/products/preview");
     },
 
     backToCurrentProduct() {
-      this.$router.push("/product/" + this.current_product.id);
+      this.$router.push("/products/preview/" + this.current_product.id);
     },
   },
 };

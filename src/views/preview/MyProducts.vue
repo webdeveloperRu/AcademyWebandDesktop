@@ -36,7 +36,7 @@
             color="primary"
             type="border"
             class="view-product"
-            @click="viewProduct(product.id)"
+            @click.native="viewProduct(product.id)"
             >View Product</vs-button
           >
         </vs-card>
@@ -118,7 +118,7 @@ export default {
     },
 
     viewProduct(product_id) {
-      // this.$router.push("/products/preview/" + product_id );
+      this.$router.push("/products/preview/" + product_id );
     },
   },
 };

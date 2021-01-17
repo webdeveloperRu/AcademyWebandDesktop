@@ -257,7 +257,7 @@
           >
             <template slot="checkout-button">
               <vs-button
-                @click="$refs.sessionRef.redirectToCheckout()"
+                @click.native="$refs.sessionRef.redirectToCheckout()"
                 color="#42b883"
                 class="w-100 mt-3"
                 >Checkout</vs-button
@@ -269,7 +269,7 @@
             class="w-100 mt-3"
             color="primary"
             :disabled="signingUpFree"
-            @click="signUpFree"
+            @click.native="signUpFree"
             >{{ signUpFreeText }}</vs-button
           >
           <!-- <div

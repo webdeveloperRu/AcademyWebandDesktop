@@ -66,7 +66,7 @@
                             type="border"
                             class="ml-1"
                             color="dark"
-                            @click="markAsRead"
+                            @click.native="markAsRead"
                             >Mark As Read</vs-button
                           >
                           <vs-button
@@ -74,7 +74,7 @@
                             type="border"
                             class="ml-1"
                             color="dark"
-                            @click="deleteComment"
+                            @click.native="deleteComment"
                             >Delete</vs-button
                           >
                         </div>
@@ -149,7 +149,7 @@
                             type="border"
                             class="ml-1"
                             color="dark"
-                            @click="markAsUnread"
+                            @click.native="markAsUnread"
                             >Mark As Unread</vs-button
                           >
                           <vs-button
@@ -157,7 +157,7 @@
                             type="border"
                             class="ml-1"
                             color="dark"
-                            @click="deleteComment"
+                            @click.native="deleteComment"
                             >Delete</vs-button
                           >
                         </div>
@@ -232,7 +232,7 @@
                             type="border"
                             class="ml-1"
                             color="dark"
-                            @click="restoreComment"
+                            @click.native="restoreComment"
                             >Restore</vs-button
                           >
                         </div>

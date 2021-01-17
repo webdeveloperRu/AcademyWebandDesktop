@@ -1,7 +1,7 @@
 import CategoryService from '../services/category.service';
 import store from './index'
 const initialState = {
-  current_category: Object,
+  current_category: [],
 };
 export const categoryManage = {
   namespaced: true,
@@ -274,6 +274,10 @@ export const categoryManage = {
       );
     },
 
+    setCurrentCategory({ commit }, category) {
+      commit("setCurrentCategory", category);
+    },
+
   },
 
   getters: {
@@ -421,6 +425,10 @@ export const categoryManage = {
       store.state.notification_text = 'ThumbNail successfully saved';
       store.state.notification_icon = 'info';
       store.state.notification_color = 'primary';
+    },
+
+    setCurrentCategory(state, category) {
+      state.current_category = category;
     },
 
     RESET_MODULE(state) {

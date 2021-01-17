@@ -137,10 +137,10 @@
           <vs-button
             color="danger"
             type="flat"
-            @click="confirmDeleteProduct = true"
+            @click.native="confirmDeleteProduct = true"
             >Delete Product</vs-button
           >
-          <vs-button color="primary" type="filled" @click="saveProduct"
+          <vs-button color="primary" type="filled" @click.native="saveProduct"
             >Save</vs-button
           >
         </div>
@@ -173,14 +173,14 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="confirmDeleteProduct = false"
+          @click.native="confirmDeleteProduct = false"
           >Cancel</vs-button
         >
         <vs-button
           color="danger"
           type="filled"
           class="ml-2"
-          @click="deleteCurrentProduct"
+          @click.native="deleteCurrentProduct"
           >Delete Product</vs-button
         >
       </div>

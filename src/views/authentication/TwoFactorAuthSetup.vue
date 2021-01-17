@@ -205,7 +205,7 @@
                       type="flat"
                       class="ml-3"
                       style="float: right;"
-                      v-on:click="deleteTwoFactorLogin"
+                      @click.native="deleteTwoFactorLogin"
                       v-if="twoFALoggedin"
                       >Disable</vs-button
                     >
@@ -214,7 +214,7 @@
                       type="filled"
                       class="ml-3"
                       style="float: right;"
-                      v-on:click="setTwoFactorLogin"
+                      @click.native="setTwoFactorLogin"
                       >Log in</vs-button
                     >
                   </vs-row>

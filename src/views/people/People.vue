@@ -355,7 +355,7 @@
       >
         <vs-button
           class="ml-3 mr-3 save-cancel-button"
-          @click="bulkActionGrantOffer"
+          @click.native="bulkActionGrantOffer"
           >Submit</vs-button
         >
       </div>
@@ -393,7 +393,7 @@
       >
         <vs-button
           class="ml-3 mr-3 save-cancel-button"
-          @click="bulkActionRevokeOffer"
+          @click.native="bulkActionRevokeOffer"
           >Submit</vs-button
         >
       </div>
@@ -435,7 +435,7 @@
       >
         <vs-button
           class="ml-3 mr-3 save-cancel-button"
-          @click="bulkActionAddTags"
+          @click.native="bulkActionAddTags"
           >Submit</vs-button
         >
       </div>
@@ -477,7 +477,7 @@
       >
         <vs-button
           class="ml-3 mr-3 save-cancel-button"
-          @click="bulkActionRemoveTags"
+          @click.native="bulkActionRemoveTags"
           >Submit</vs-button
         >
       </div>
@@ -499,13 +499,13 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="deletePeopleConfirm = false"
+          @click.native="deletePeopleConfirm = false"
           >Cancel</vs-button
         >
         <vs-button
           color="danger"
           type="filled"
-          @click="bulkActionDeleteStudents"
+          @click.native="bulkActionDeleteStudents"
           >Delete Students</vs-button
         >
       </div>
@@ -530,7 +530,7 @@
           @click="deletePeopleByIDConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="deletePeopleByID"
+        <vs-button color="danger" type="filled" @click.native="deletePeopleByID"
           >Delete Student</vs-button
         >
       </div>
@@ -553,10 +553,10 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="unsubscribePeopleConfirm = false"
+          @click.native="unsubscribePeopleConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="bulkActionUnsubscribe"
+        <vs-button color="danger" type="filled" @click.native="bulkActionUnsubscribe"
           >Unsubscribe</vs-button
         >
       </div>
@@ -670,10 +670,10 @@
             type="border"
             class="save-cancel-button"
             style="margin-left: auto"
-            @click="cancelAddPeople"
+            @click.native="cancelAddPeople"
             >Cancel</vs-button
           >
-          <vs-button class="ml-3 mr-3 save-cancel-button" @click="addPeople"
+          <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="addPeople"
             >Save</vs-button
           >
         </div>

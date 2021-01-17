@@ -435,6 +435,21 @@ const router = new Router({
           il8n: "Product Preview ID",
           component: () => import("./views/preview/Product.vue"),
         },
+        {
+          path: "/products/preview/view-category/:category_id",
+          name: "View Category",
+          index: 10.3,
+          il8n: "View Category",
+          component: () => import("./views/preview/ViewCategory.vue"),
+        },
+        {
+          path: "/products/preview/view-lesson/:lesson_id",
+          name: "View Lesson",
+          index: 10.4,
+          il8n: "View Lesson",
+          component: () => import("./views/preview/ViewLesson.vue"),
+        },
+
       ],
     },
   ],

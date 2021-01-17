@@ -42,7 +42,7 @@
         </vs-row>
       </vs-card>
       <div style="float: right">
-        <vs-button class="mt-3" @click="savePeopleInfo"> Save </vs-button>
+        <vs-button class="mt-3" @click.native="savePeopleInfo"> Save </vs-button>
       </div>
     </vs-col>
   </vs-row>

@@ -2,7 +2,7 @@
   <div>
     <div class="category-banner">
       <p class="producttitle-category">{{ current_product.title }}</p>
-      <vs-button class="start-course" @click="startCourse(current_product)"
+      <vs-button class="start-course" @click.native="startCourse(current_product)"
         >Start Course</vs-button
       >
     </div>
@@ -178,17 +178,16 @@
               >
                 <vs-avatar
                   size="70px"
-                  :src="current_product.instructor.headshot"
                 ></vs-avatar>
                 <div class="ml-3">
                   <div class="mb-1">
-                    <strong>{{ current_product.instructor.name }}</strong>
+                    <!-- <strong>{{ current_product.instructor.name }}</strong> -->
                   </div>
                   <div style="color: dodgerblue">Instructor</div>
                 </div>
               </div>
               <div class="mt-3">
-                {{ current_product.instructor.description }}
+                <!-- {{ current_product.instructor.description }} -->
               </div>
             </vs-card>
           </vs-col>
@@ -213,7 +212,7 @@ export default {
 
   computed: {
     product_id: function() {
-      var id = this.$route.params.id;
+      var id = this.$route.params.product_id;
       if (id == undefined) return "";
       else return id.slice(0, id.length);
     },
@@ -272,15 +271,9 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
-    is_fake: {
-      get() {
-        return this.$store.getters["is_fake"];
-      },
-    },
   },
 
   created() {
-    this.$store.dispatch("setFakeMenu", false);
     this.getCategoriesForProductID(this.product_id);
   },
 
@@ -294,12 +287,11 @@ export default {
           await this.getLessonsForCategoryID(this.category_list[i].id);
         }
       }
-      this.$vs.loading.close(this.$refs.loading);
+      this.$vs.loading.close();
       this.lesson_list = this.lesson_list_store;
       var total_lesson_num = 0;
       var completed_lesson_num = 0;
       for (let i = 0; i < total_category_num; i++) {
-        // console.log('id', this.lesson_list[this.category_list[i].id])
         for (
           let j = 0;
           j < this.lesson_list[this.category_list[i].id].length;
@@ -321,9 +313,8 @@ export default {
     },
     async getCategoriesForProductID(product_id) {
       this.showCategory = false;
-      if (this.is_fake) {
         await this.$store
-          .dispatch("categoryManage/getCategoryByProductIDDemo", product_id)
+          .dispatch("productManage/getCategoriesForProductID", product_id)
           .then(() => {
             if (this.status_got) this.loadingLessons();
             else {
@@ -334,34 +325,9 @@ export default {
               });
             }
           });
-      } else {
-        await this.$store
-          .dispatch("categoryManage/getCategoryByProductID", product_id)
-          .then(() => {
-            if (this.status_got) this.loadingLessons();
-            else {
-              this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon,
-              });
-            }
-          });
-      }
     },
 
     async getLessonsForCategoryID(category_id) {
-      if (this.is_fake) {
-        await this.$store
-          .dispatch("lessonManage/getLessonListDemo", category_id)
-          .then(() => {
-            // this.$vs.notify({
-            //   color: this.notification_color,
-            //   text: this.notification_text,
-            //   icon: this.notification_icon,
-            // });
-          });
-      } else {
         await this.$store
           .dispatch("lessonManage/getLessonList", category_id)
           .then(() => {
@@ -371,7 +337,6 @@ export default {
             //   icon: this.notification_icon,
             // });
           });
-      }
     },
 
     viewMore(index) {
@@ -380,13 +345,13 @@ export default {
     },
 
     viewLesson(lesson, category) {
-      this.$store.dispatch(
-        "productManage/setCurrentProduct",
-        this.current_product
-      );
-      this.$store.dispatch("categoryManage/setCurrentCategory", category);
-      this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      this.$router.push("/view-lesson/" + lesson.id);
+      // this.$store.dispatch(
+      //   "productManage/setCurrentProduct",
+      //   this.current_product
+      // );
+      // this.$store.dispatch("categoryManage/setCurrentCategory", category);
+      // this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
+      // this.$router.push("/view-lesson/" + lesson.id);
     },
 
     viewCategory(category_id) {
@@ -394,11 +359,11 @@ export default {
         "productManage/setCurrentProduct",
         this.current_product
       );
-      this.$router.push("/view-category/" + category_id);
+      this.$router.push("/products/preview/view-category/" + category_id);
     },
 
     backToMyproducts() {
-      this.$router.push("/library");
+      // this.$router.push("/library");
     },
 
     startCourse(current_product) {

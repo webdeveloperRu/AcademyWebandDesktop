@@ -76,7 +76,7 @@
             style="align-items: center; justify-content: space-between"
           >
             <h4>Tags</h4>
-            <vs-button color="primary" type="flat" @click="linkToContactTag"
+            <vs-button color="primary" type="flat" @click.native="linkToContactTag"
               >View All Tags</vs-button
             >
           </div>

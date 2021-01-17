@@ -91,10 +91,10 @@
           style="width:100%"
         ></vs-input>
         <div class="btn-alignment text-right">
-          <vs-button color="primary" type="flat" @click="editTagConfirm = false"
+          <vs-button color="primary" type="flat" @click.native="editTagConfirm = false"
             >Cancel</vs-button
           >
-          <vs-button color="primary" type="filled" @click="saveEditTag"
+          <vs-button color="primary" type="filled" @click.native="saveEditTag"
             >Save</vs-button
           >
         </div>
@@ -122,10 +122,10 @@
         </p>
       </div>
       <div class="btn-alignment text-right">
-        <vs-button color="primary" type="flat" @click="deleteTagConfirm = false"
+        <vs-button color="primary" type="flat" @click.native="deleteTagConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="deleteSelectedTag"
+        <vs-button color="danger" type="filled" @click.native="deleteSelectedTag"
           >Delete</vs-button
         >
       </div>

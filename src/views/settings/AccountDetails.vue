@@ -109,7 +109,7 @@
                     Select Image
                   </label>
                   <vs-button
-                    @click="onClickRemoveAvatar"
+                    @click.native="onClickRemoveAvatar"
                     color="danger"
                     type="flat"
                     class="ml-3"
@@ -159,7 +159,7 @@
         </vs-col>
       </vs-row>
       <div style="float: right">
-        <vs-button class="mt-3" @click="saveAccountDetails">Save</vs-button>
+        <vs-button class="mt-3" @click.native="saveAccountDetails">Save</vs-button>
       </div>
     </vs-col>
   </vs-row>

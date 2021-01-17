@@ -333,10 +333,10 @@
               type="border"
               class="save-cancel-button"
               style="margin-left:auto;"
-              @click="activeAddLesson = false"
+              @click.native="activeAddLesson = false"
               >Cancel</vs-button
             >
-            <vs-button class="ml-3 mr-3 save-cancel-button" @click="addLesson"
+            <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="addLesson"
               >Save</vs-button
             >
           </div>
@@ -367,10 +367,10 @@
               type="border"
               class="save-cancel-button"
               style="margin-left:auto;"
-              @click="activeSetDrip = false"
+              @click.native="activeSetDrip = false"
               >Cancel</vs-button
             >
-            <vs-button class="ml-3 mr-3 save-cancel-button" @click="setDrip"
+            <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="setDrip"
               >Save</vs-button
             >
           </div>
@@ -394,10 +394,10 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="deleteCategoryConfirm = false"
+          @click,native="deleteCategoryConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="deleteCategory"
+        <vs-button color="danger" type="filled" @click.native="deleteCategory"
           >Delete Cagegory</vs-button
         >
       </div>

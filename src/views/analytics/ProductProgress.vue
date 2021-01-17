@@ -109,7 +109,7 @@
             <vs-button
               color="primary"
               type="flat"
-              @click="searchProductProgress"
+              @click.native="searchProductProgress"
               >Apply</vs-button
             >
           </div>

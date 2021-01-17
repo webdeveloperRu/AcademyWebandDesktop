@@ -56,7 +56,7 @@
                   color="primary"
                   type="gradient"
                   class="w-100"
-                  @click="sendTestEmail"
+                  @click.native="sendTestEmail"
                   >Send Test Email</vs-button
                 >
               </div>
@@ -99,7 +99,7 @@
           v-if="visibleReset"
           >Reset Template</vs-button
         >
-        <vs-button color="primary" type="filled" @click="saveTemplate"
+        <vs-button color="primary" type="filled" @click.native="saveTemplate"
           >Save</vs-button
         >
       </div>

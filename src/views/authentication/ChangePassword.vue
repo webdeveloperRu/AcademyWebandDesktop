@@ -39,7 +39,7 @@
         placeholder="Confirm New Password"
         v-model="confirm_newpwd"
       />
-      <vs-button class="w-100 vs-input-large mb-4" v-on:click="changePassword">
+      <vs-button class="w-100 vs-input-large mb-4" @click.native="changePassword">
         Change Password</vs-button
       >
     </form>

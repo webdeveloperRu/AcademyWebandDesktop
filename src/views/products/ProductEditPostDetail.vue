@@ -192,7 +192,7 @@
               <vs-textarea v-model="comment_text" />
             </vs-col>
             <vs-col vs-sm="12">
-              <vs-button @click = "postComment">post</vs-button>
+              <vs-button @click.native = "postComment">post</vs-button>
             </vs-col>
           </vs-row>          
         </vs-card>-->
@@ -389,10 +389,10 @@
           <vs-button
             color="danger"
             type="flat"
-            @click="deleteLessonConfirm = true"
+            @click.native="deleteLessonConfirm = true"
             >Delete Lesson</vs-button
           >
-          <vs-button color="primary" type="filled" @click="saveCurrentLesson"
+          <vs-button color="primary" type="filled" @click.native="saveCurrentLesson"
             >Save</vs-button
           >
         </div>
@@ -411,10 +411,10 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="deleteLessonConfirm = false"
+          @click.native="deleteLessonConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="deleteCurrentLesson"
+        <vs-button color="danger" type="filled" @click.native="deleteCurrentLesson"
           >Delete Lesson</vs-button
         >
       </div>

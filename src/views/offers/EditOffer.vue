@@ -278,10 +278,10 @@
           <vs-button
             color="danger"
             type="flat"
-            @click="deleteOfferConfirm = true"
+            @click.native="deleteOfferConfirm = true"
             >Delete Offer</vs-button
           >
-          <vs-button color="primary" type="filled" @click="saveCurrentOffer"
+          <vs-button color="primary" type="filled" @click.native="saveCurrentOffer"
             >Save</vs-button
           >
         </div>
@@ -300,10 +300,10 @@
         <vs-button
           color="primary"
           type="flat"
-          @click="deleteOfferConfirm = false"
+          @click.native="deleteOfferConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click="deleteCurrentOffer"
+        <vs-button color="danger" type="filled" @click.native="deleteCurrentOffer"
           >Delete Offer</vs-button
         >
       </div>
@@ -348,7 +348,7 @@
       <!-- <label class="mt-3">Purchase webhook URL</label> -->
       <vs-input v-model="purchase_webhook" class="w-100 mb-5 mt-5"></vs-input>
       <div class="btn-alignment text-right">
-        <vs-button color="primary" type="filled" @click="saveWebhook"
+        <vs-button color="primary" type="filled" @click.native="saveWebhook"
           >Save</vs-button
         >
       </div>

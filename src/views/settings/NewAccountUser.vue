@@ -174,7 +174,7 @@
             </div>
           </vs-card>
           <div style="float: right">
-            <vs-button class="mt-3" @click="createNewUser">Save</vs-button>
+            <vs-button class="mt-3" @click.native="createNewUser">Save</vs-button>
           </div>
         </vs-col>
       </vs-row>

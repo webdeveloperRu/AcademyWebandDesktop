@@ -64,7 +64,7 @@
       </vs-row>
       <vs-divider class="mb-4" />
       <div style="float: right">
-        <vs-button class="mt-3" @click="setCustomDomain">Save</vs-button>
+        <vs-button class="mt-3" @click.native="setCustomDomain">Save</vs-button>
       </div>
     </vs-col>
   </vs-row>

@@ -192,7 +192,7 @@
                       color="dark"
                       type="filled"
                       size="small"
-                      @click="prevCategory"
+                      @click.native="prevCategory"
                       >Previous Category</vs-button
                     >
                     <vs-button
@@ -200,7 +200,7 @@
                       color="dark"
                       type="filled"
                       size="small"
-                      @click="nextCategory"
+                      @click.native="nextCategory"
                       >Next Category</vs-button
                     >
                   </div>
@@ -222,7 +222,7 @@
             <vs-card>
               <div
                 v-if="current_lesson.lessons_completed"
-                style="background-color: #2962FF; color: white;"
+                style="background-color: #2962ff; color: white"
                 class="mark-as-complete mb-3 w-100 p-2"
                 @click="markAsComplete(false)"
               >
@@ -238,11 +238,11 @@
               <vs-row
                 v-if="
                   current_lesson.lessons_completed &&
-                    endlesson &&
-                    show_congratulation
+                  endlesson &&
+                  show_congratulation
                 "
                 class="p-2 mb-3"
-                style="background-color: #f6f6f6; margin: 0 auto;"
+                style="background-color: #f6f6f6; margin: 0 auto"
                 vs-align="center"
                 vs-justify="center"
               >
@@ -272,7 +272,7 @@
                   vs-sm="12"
                   vs-align="center"
                   vs-justify="center"
-                  style="color: dodgerblue;cursor: pointer; font-size: 12px"
+                  style="color: dodgerblue; cursor: pointer; font-size: 12px"
                 >
                   <div @click="nextLesson" style="text-align: center">
                     Next Lesson
@@ -306,7 +306,7 @@
                 v-model="comment"
                 class="w-100 mt-3"
               />
-              <vs-button class="mt-3" @click="postComment"
+              <vs-button class="mt-3" @click.native="postComment"
                 >Post Comment</vs-button
               >
               <vs-divider></vs-divider>
@@ -381,19 +381,16 @@
                 class="d-flex"
                 style="align-items: center; justify-content: flex-start"
               >
-                <vs-avatar
-                  size="70px"
-                  :src="current_product.instructor.headshot"
-                ></vs-avatar>
+                <vs-avatar size="70px"></vs-avatar>
                 <div class="ml-3">
                   <div class="mb-1">
-                    <strong>{{ current_product.instructor.name }}</strong>
+                    <!-- <strong>{{ current_product.instructor.name }}</strong> -->
                   </div>
                   <div style="color: dodgerblue">Instructor</div>
                 </div>
               </div>
               <div class="mt-3">
-                {{ current_product.instructor.description }}
+                <!-- {{ current_product.instructor.description }} -->
               </div>
             </vs-card>
           </vs-col>
@@ -444,8 +441,8 @@ export default {
   }),
 
   computed: {
-    lesson_id: function() {
-      var id = this.$route.params.id;
+    lesson_id: function () {
+      var id = this.$route.params.lesson_id;
       return id.slice(0, id.length);
     },
 
@@ -476,6 +473,12 @@ export default {
     current_category: {
       get() {
         return this.$store.getters["categoryManage/current_category"];
+      },
+      set(value) {
+        this.$store.dispatch(
+          "categoryManage/setCurrentCategory",
+          value
+        );
       },
     },
 
@@ -525,18 +528,13 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
-    is_fake: {
-      get() {
-        return this.$store.getters["is_fake"];
-      },
-    },
   },
 
   created() {
-    this.$store.dispatch("setFakeMenu", false);
-    this.getCommentsForLessonID(this.lesson_id);
-    if (this.current_category.sort_position == 0) this.prev_button = false;
-    if (this.current_category.sort_position == this.category_list.length - 1)
+    // this.getCommentsForLessonID(this.lesson_id);
+    
+    if (this.current_category.sort_position == 1) this.prev_button = false;
+    if (this.current_category.sort_position == this.category_list.length)
       this.next_button = false;
 
     if (
@@ -559,82 +557,56 @@ export default {
       this.$vs.loading({
         type: "material",
       });
-      if (this.is_fake) {
-        await this.$store
-          .dispatch("commentManage/getCommentList", lesson_id)
-          .then(() => {
-            if (!this.status_got) {
-              this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon,
-              });
-            }
-          });
-      } else {
-        await this.$store
-          .dispatch("commentManage/getCommentListDemo", lesson_id)
-          .then(() => {
-            if (!this.status_got) {
-              this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon,
-              });
-            }
-          });
-      }
-
-      this.$vs.loading.close(this.$refs.loading);
+      await this.$store
+        .dispatch("commentManage/getCommentListDemo", lesson_id)
+        .then(() => {
+          if (!this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          }
+        });
+      this.$vs.loading.close();
     },
 
     async getLessonsForCategoryID(category_id) {
       this.$vs.loading({
         type: "material",
       });
-
-      if (this.is_fake) {
-        await this.$store
-          .dispatch("lessonManage/getLessonListDemo", category_id)
-          .then(() => {
+      await this.$store
+        .dispatch("lessonManage/getLessonList", category_id)
+        .then(() => {
+          if (!this.status_got) {
             this.$vs.notify({
               color: this.notification_color,
               text: this.notification_text,
               icon: this.notification_icon,
             });
-          });
-      } else {
-        await this.$store
-          .dispatch("lessonManage/getLessonList", category_id)
-          .then(() => {
-            if (!this.status_got) {
-              this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon,
-              });
-            }
-          });
-      }
+          }
+        });
 
-      this.$vs.loading.close(this.$refs.loading);
+      this.$vs.loading.close();
     },
 
     backToMyproducts() {
-      this.$router.push("/library");
+      this.$router.push("/products/preview");
     },
 
     backToCurrentProduct() {
-      this.$router.push("/product/" + this.current_product.id);
+      this.$router.push("/products/preview/" + this.current_product.id);
     },
 
     backToCurrentCategory() {
-      this.$router.push("/view-category/" + this.current_category.id);
+      this.$router.push(
+        "/products/preview/view-category/" + this.current_category.id
+      );
     },
 
     clickLessonItem(current_lesson) {
       this.$store.dispatch("lessonManage/setCurrentLesson", current_lesson);
-      this.getCommentsForLessonID(current_lesson.id);
+      // this.getCommentsForLessonID(current_lesson.id);
       if (
         this.current_lesson.sort_position >
         this.lesson_list[this.current_category.id].length - 2
@@ -645,46 +617,37 @@ export default {
       }
     },
 
-    prevCategory() {
-      this.$store.dispatch(
-        "categoryManage/setCurrentCategory",
-        this.category_list[this.current_category.sort_position - 1]
-      );
-
-      // this.getLessonsForCategoryID(this.current_category.id);
+    prevCategory() {      
+      this.current_category = this.category_list[this.current_category.sort_position-2]
+      this.getLessonsForCategoryID(this.current_category.id);
 
       this.$store.dispatch(
         "lessonManage/setCurrentLesson",
         this.lesson_list[this.current_category.id][0]
       );
 
-      this.getCommentsForLessonID(this.current_lesson.id);
-      if (this.current_category.sort_position == 0) this.prev_button = false;
+      // this.getCommentsForLessonID(this.current_lesson.id);
+      if (this.current_category.sort_position == 1) this.prev_button = false;
       else this.prev_button = true;
 
-      if (this.current_category.sort_position == this.category_list.length - 1)
+      if (this.current_category.sort_position == this.category_list.length )
         this.next_button = false;
       else this.next_button = true;
     },
 
     nextCategory() {
-      this.$store.dispatch(
-        "categoryManage/setCurrentCategory",
-        this.category_list[this.current_category.sort_position + 1]
-      );
-
-      // this.getLessonsForCategoryID(this.current_category.id);
-
+      this.current_category = this.category_list[this.current_category.sort_position]
+      this.getLessonsForCategoryID(this.current_category.id);
       this.$store.dispatch(
         "lessonManage/setCurrentLesson",
         this.lesson_list[this.current_category.id][0]
       );
-      this.getCommentsForLessonID(this.current_lesson.id);
+      // this.getCommentsForLessonID(this.current_lesson.id);
 
-      if (this.current_category.sort_position == 0) this.prev_button = false;
+      if (this.current_category.sort_position == 1) this.prev_button = false;
       else this.prev_button = true;
 
-      if (this.current_category.sort_position == this.category_list.length - 1)
+      if (this.current_category.sort_position == this.category_list.length)
         this.next_button = false;
       else this.next_button = true;
     },
@@ -696,7 +659,7 @@ export default {
           this.current_lesson.sort_position + 1
         ]
       );
-      this.getCommentsForLessonID(this.current_lesson.id);
+      // this.getCommentsForLessonID(this.current_lesson.id);
       if (
         this.current_lesson.sort_position >
         this.lesson_list[this.current_category.id].length - 2
@@ -744,7 +707,9 @@ export default {
         .then((response) => {
           this.forceFileDownload(response, title);
         })
-        .catch(() => console.log("error occured"));
+        .catch(() => {
+          console.log("error occured");
+        });
     },
 
     markAsComplete(param) {
@@ -755,11 +720,6 @@ export default {
         ])
         .then(() => {
           if (param == true) this.show_congratulation = true;
-          // this.$vs.notify({
-          //   color: this.notification_color,
-          //   text: this.notification_text,
-          //   icon: this.notification_icon,
-          // });
         });
     },
 
@@ -792,8 +752,6 @@ export default {
     postComment() {
       var test = this.comment.replace(/\s/g, "");
       if (test != "") {
-        // if not space string only...  ;)
-        // console.log("do something for post");
         this.$store.dispatch("commentManage/postComment", [
           this.current_lesson.id,
           this.comment,

@@ -501,16 +501,16 @@ export const lessonManage = {
       );
     },
 
-
-
-
-
+    setCurrentLesson({ commit }, lesson) {
+      commit("setCurrentLesson", lesson);
+    },
   },
 
   getters: {
     lesson_list: state => state.lesson_list,
     current_downloadfile: state => state.current_downloadfile,
     downloadfile_list: state => state.downloadfile_list,
+    current_lesson: state => state.current_lesson,
   },
 
   mutations: {
@@ -748,6 +748,10 @@ export const lessonManage = {
       store.state.notification_icon = 'info';
       store.state.notification_color = 'primary';
       state.current_lesson = res.data;
+    },
+
+    setCurrentLesson(state, lesson) {
+      state.current_lesson = lesson;
     },
 
     RESET_MODULE(state) {

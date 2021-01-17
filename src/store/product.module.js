@@ -337,6 +337,10 @@ export const productManage = {
       );
     },
 
+    setCurrentProduct({ commit }, product) {
+      commit("setCurrentProduct", product);
+    },
+
 
   },
   getters: {
@@ -344,6 +348,7 @@ export const productManage = {
     product_list: state => state.product_list,
     category_list: state => state.category_list,
     vousher_list: state => state.vousher_list,
+    current_product: state => state.current_product,
   },
 
   mutations: {
@@ -501,6 +506,10 @@ export const productManage = {
       store.state.notification_color = "primary"
       store.state.notification_text = 'student progress succesfully got';
       state.current_student_progress = res.data
+    },
+
+    setCurrentProduct(state, product) {
+      state.current_product = product;
     },
 
     RESET_MODULE(state) {

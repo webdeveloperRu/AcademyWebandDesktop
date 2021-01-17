@@ -81,8 +81,8 @@
           <div class="d-flex m-4" style="justify-content: space-between">
             <div class="primary-font" style="padding: 10px">OFFER CHECKOUT</div>
             <div>
-              <vs-button @click="backToOffers" class="mr-2"> back </vs-button>
-              <vs-button @click="saveEditCheckout"> save </vs-button>
+              <vs-button @click.native="backToOffers" class="mr-2"> back </vs-button>
+              <vs-button @click.native="saveEditCheckout"> save </vs-button>
             </div>
           </div>
           <hr />
@@ -176,7 +176,7 @@
             >
               <vs-icon icon="keyboard_arrow_left"></vs-icon> Back
             </div>
-            <vs-button class="mr-4" @click="saveOfferDetails"> save </vs-button>
+            <vs-button class="mr-4" @click.native="saveOfferDetails"> save </vs-button>
           </div>
           <div class="m-4">
             <h4>Offer Details</h4>
@@ -246,7 +246,7 @@
                 />
                 Add Video
               </label>
-              <vs-button color="danger" type="flat" @click="removeVideo">remove</vs-button> -->
+              <vs-button color="danger" type="flat" @click.native="removeVideo">remove</vs-button> -->
 
             <!-- image part -->
             <div class="primary-font mt-4 mb-1">image</div>
@@ -264,7 +264,7 @@
               />
               Pick File
             </label>
-            <vs-button color="danger" type="flat" @click="removeContentImage"
+            <vs-button color="danger" type="flat" @click.native="removeContentImage"
               >remove</vs-button
             >
 
@@ -311,7 +311,7 @@
             >
               <vs-icon icon="keyboard_arrow_left"></vs-icon> Back
             </div>
-            <vs-button class="mr-4" @click="saveExtraContactInformation">
+            <vs-button class="mr-4" @click.native="saveExtraContactInformation">
               save
             </vs-button>
           </div>
@@ -362,7 +362,7 @@
             >
               <vs-icon icon="keyboard_arrow_left"></vs-icon> Back
             </div>
-            <vs-button class="mr-4" @click="saveServiceAgreement">
+            <vs-button class="mr-4" @click.native="saveServiceAgreement">
               save
             </vs-button>
           </div>
@@ -437,7 +437,7 @@
               icon="playlist_add"
               size="large"
               type="border"
-              @click="linkToNewTestmonial"
+              @click.native="linkToNewTestmonial"
             >
               Add Testimonial
             </vs-button>
@@ -473,7 +473,7 @@
                   color="primary"
                   disabled
                   type="filled"
-                  @click="saveProductCustomizeSettings"
+                  @click.native="saveProductCustomizeSettings"
                   >Saving...</vs-button
                 >
               </div>
@@ -481,7 +481,7 @@
                 <vs-button
                   color="primary"
                   type="filled"
-                  @click="saveProductCustomizeSettings"
+                  @click.native="saveProductCustomizeSettings"
                   >Save</vs-button
                 >
               </div>
@@ -640,8 +640,8 @@
           v-else-if="currentProductCustomizeMenu == 'header'"
         >
           <div class="product-sidebar-menu-section">
-            <span class='mr-2'>Header</span>
-             <i
+            <span class="mr-2">Header</span>
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -798,14 +798,14 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="header_announcement_color">
+              <verte picker="square" v-model="header_announcement_color">
               </verte>
               <span class="ml-3">Announcement Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="header_announcement_textcolor">
+              <verte picker="square" v-model="header_announcement_textcolor">
               </verte>
               <span class="ml-3">Announcement Text Color</span>
             </div>
@@ -819,7 +819,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Hero</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -856,13 +856,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="product_hero_textcolor"> </verte>
+              <verte picker="square" v-model="product_hero_textcolor"> </verte>
               <span class="ml-3">Text Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="product_hero_overlaycolor">
+              <verte picker="square" v-model="product_hero_overlaycolor">
               </verte>
               <span class="ml-3">Overlay Color</span>
             </div>
@@ -932,7 +932,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Welcome Body</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -995,7 +995,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Product Syllabus</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1064,7 +1064,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Product Sidebar</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1107,7 +1107,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Instructor</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1180,7 +1180,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Course Progress</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1211,7 +1211,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Footer</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1292,7 +1292,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte 
+              <verte
                 picker="square"
                 v-model="footer_appearance_backgroundcolor"
               >
@@ -1302,7 +1302,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="footer_appearance_textcolor">
+              <verte picker="square" v-model="footer_appearance_textcolor">
               </verte>
               <span class="ml-3">Text Color</span>
             </div>
@@ -1369,13 +1369,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="social_icon_color"> </verte>
+              <verte picker="square" v-model="social_icon_color"> </verte>
               <span class="ml-3">Social Icon Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="social_icon_background_color">
+              <verte picker="square" v-model="social_icon_background_color">
               </verte>
               <span class="ml-3">Social Icon Background Color</span>
             </div>
@@ -1493,7 +1493,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Favicon</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1526,7 +1526,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Typography</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1534,13 +1534,13 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_darkfont_color"> </verte>
+              <verte picker="square" v-model="settings_darkfont_color"> </verte>
               <span class="ml-3">Dark Font Color</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_lightfont_color">
+              <verte picker="square" v-model="settings_lightfont_color">
               </verte>
               <span class="ml-3">Light Font Color</span>
             </div>
@@ -1553,7 +1553,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Color Scheme</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1561,25 +1561,25 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_cs_primary"> </verte>
+              <verte picker="square" v-model="settings_cs_primary"> </verte>
               <span class="ml-3">Primary</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_cs_offset"> </verte>
+              <verte picker="square" v-model="settings_cs_offset"> </verte>
               <span class="ml-3">Offset</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_cs_dark"> </verte>
+              <verte picker="square" v-model="settings_cs_dark"> </verte>
               <span class="ml-3">Dark</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_cs_darker"> </verte>
+              <verte picker="square" v-model="settings_cs_darker"> </verte>
               <span class="ml-3">Darker</span>
             </div>
           </div>
@@ -1591,7 +1591,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">Message Colors</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1599,25 +1599,25 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_mc_success"> </verte>
+              <verte picker="square" v-model="settings_mc_success"> </verte>
               <span class="ml-3">Success</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_mc_info"> </verte>
+              <verte picker="square" v-model="settings_mc_info"> </verte>
               <span class="ml-3">Info</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_mc_warning"> </verte>
+              <verte picker="square" v-model="settings_mc_warning"> </verte>
               <span class="ml-3">Warning</span>
             </div>
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_mc_danger"> </verte>
+              <verte picker="square" v-model="settings_mc_danger"> </verte>
               <span class="ml-3">Danger</span>
             </div>
           </div>
@@ -1629,7 +1629,7 @@
         >
           <div class="product-sidebar-menu-section">
             <span class="mr-2">General Appearance</span>
-             <i
+            <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
               style="cursor: pointer"
@@ -1637,7 +1637,7 @@
           </div>
           <div class="product-sidebar-menucontent-section">
             <div class="d-flex" style="align-items: center">
-              <verte  picker="square" v-model="settings_ga_background_color">
+              <verte picker="square" v-model="settings_ga_background_color">
               </verte>
               <span class="ml-3">Background</span>
             </div>
@@ -1892,13 +1892,19 @@ export default {
       },
     },
     product_id: function () {
-      var id = this.$route.params.product_id;
-      return id.slice(0, id.length);
+      let id = "";
+      if (this.$route.params.product_id !== undefined) {
+        id = this.$route.params.product_id;
+        return id.slice(0, id.length);
+      } else return id;
     },
 
     offer_id: function () {
-      var id = this.$route.params.offer_id;
-      return id.slice(0, id.length);
+      let id = "";
+      if (this.$route.params.offer_id !== undefined) {
+        id = this.$route.params.offer_id;
+        return id.slice(0, id.length);
+      } else return id;
     },
 
     testimonials: {
@@ -1989,7 +1995,7 @@ export default {
       },
       set(value) {
         this.$store.commit("prodCustomizeManage/updateProdHeader", value);
-      }
+      },
     },
 
     prod_hero: {
@@ -2212,14 +2218,13 @@ export default {
       this.prod_header.announcement_text_color = newValue;
     },
 
-    header_announcement_color: function(newValue) {
+    header_announcement_color: function (newValue) {
       this.prod_header.announcement_color = newValue;
     },
 
-    product_show_header: function(newValue) {
+    product_show_header: function (newValue) {
       this.prod_header.show_header = newValue;
     },
-    
   },
 
   created() {
@@ -2871,7 +2876,7 @@ export default {
         show_hero: this.product_show_hero,
         text_color: this.product_hero_textcolor,
         spacing: spacing,
-        background_image: this.product_appearance_image_url
+        background_image: this.product_appearance_image_url,
       };
       this.$vs.loading({
         container: "#loading",
@@ -3127,7 +3132,7 @@ export default {
     },
 
     previewCustomizedProductPage() {
-      window.open("/products/preview/", '_blank');
+      window.open("/products/preview/" + this.product_id, "_blank");
     },
 
     selectCustomizeTab(select_tab) {

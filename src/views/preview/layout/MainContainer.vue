@@ -1,7 +1,10 @@
 <template>
-  <div>
+    <div >
     <!---Navigation-->
     <Navbar
+      :topbarColor="topbarColor"
+      :logo="require('@/assets/images/logo/icon.png')"
+      :title="logotitle"
     />
     <!---Sidebar-->
     <!-- <SideBar parent=".main-wrapper" :sidebarLinks="sidebarLinks"/> -->
@@ -25,6 +28,7 @@
 <script>
 import Navbar from './header/Navbar.vue';
 import Footer from "./footer/Footer.vue";
+import themeConfig from "@/../themeConfig.js";
 
 export default {
   name: "MainContainer",
@@ -33,6 +37,8 @@ export default {
     Footer,
   },
   data: () => ({
+    topbarColor: "white",
+    logotitle: themeConfig.logotitle,
   }),
 
   methods: {

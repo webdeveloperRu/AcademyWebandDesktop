@@ -2153,7 +2153,8 @@ export default {
 
     product_show_header: function(newValue) {
       this.prod_header.show_header = newValue;
-    }
+    },
+    
   },
 
   created() {
@@ -3061,7 +3062,7 @@ export default {
     },
 
     previewCustomizedProductPage() {
-      alert("clicked preview");
+      window.open("/products/preview/", '_blank');
     },
 
     selectCustomizeTab(select_tab) {

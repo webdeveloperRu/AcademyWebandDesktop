@@ -2,6 +2,7 @@
   <header class="gridx">
     <vs-navbar
       v-model="indexActive"
+      :color="topbarColor"
       class="topnavbar"
       text-color="rgba(255,255,255,0.7)"
       active-text-color="rgba(255,255,255,1)"
@@ -12,7 +13,7 @@
       <div slot="title" class="themelogo">
         <!-- <a href="/"> <img src="@/assets/images/logo.s" v-if="logo" alt="Dashboard" width="50" /></a> -->
         <span class="logo-text" style="display: block; width: 300px"
-          >dffsdfdsfdsf</span
+          >Student App</span
         >
       </div>
 

@@ -9,8 +9,9 @@
     <!---Sidebar-->
     <!-- <SideBar parent=".main-wrapper" :sidebarLinks="sidebarLinks"/> -->
     <!---Page Container-->
-    <div class="main-container-fluid" style="">
+    <div class="main-container-fluid " style="position:relative">
       <!-- <Breadcrumb/>	 -->
+      <div class="product-preview-layout">
       <transition
         name="router-anim"
         enter-active-class="fade-enter-active fade-enter"
@@ -18,10 +19,11 @@
       >
         <router-view></router-view>
       </transition>
+      </div>
       <!---Customizer / Settings-->
       <!-- <Customizer @updateTopbarColor="updateTopbarColor" /> -->
-    </div>
     <Footer></Footer>
+    </div>
   </div>
 </template>
 
@@ -77,3 +79,8 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.product-preview-layout {
+  padding-bottom: 100px;
+}
+</style>

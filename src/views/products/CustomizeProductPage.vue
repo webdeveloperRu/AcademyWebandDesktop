@@ -1137,7 +1137,7 @@ export default {
 }
 
 .product-body-layout {
-  min-height: 80vh;
+  min-height: 100vh;
 }
 
 .product-announcement {

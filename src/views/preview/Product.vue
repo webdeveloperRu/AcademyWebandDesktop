@@ -345,13 +345,13 @@ export default {
     },
 
     viewLesson(lesson, category) {
-      // this.$store.dispatch(
-      //   "productManage/setCurrentProduct",
-      //   this.current_product
-      // );
-      // this.$store.dispatch("categoryManage/setCurrentCategory", category);
-      // this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      // this.$router.push("/view-lesson/" + lesson.id);
+      this.$store.dispatch(
+        "productManage/setCurrentProduct",
+        this.current_product
+      );
+      this.$store.dispatch("categoryManage/setCurrentCategory", category);
+      this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
+      this.$router.push("/products/preview/view-lesson/" + lesson.id);
     },
 
     viewCategory(category_id) {

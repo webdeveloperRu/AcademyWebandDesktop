@@ -1,5 +1,5 @@
 <template lang="html">
- <footer class="footer footer--dark footer--left" kjb-settings-id="sections_footer_settings_background_color">
+ <footer class="footer footer--dark footer--left" kjb-settings-id="sections_footer_settings_background_color" >
     <div class="container">
       <div class="footer__text-container">
           <span kjb-settings-id="sections_footer_settings_copyright" class="footer__copyright">© 2020 Student App</span>
@@ -20,6 +20,10 @@ export default {
 .footer {
   background: #272d34;
   padding: 15px 0;
+  position:absolute;
+  margin-bottom: 100px;
+  width: 100%;
+  margin-left: -20px;
 }
 .footer--dark {
   color: #fff;

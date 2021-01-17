@@ -10,26 +10,25 @@
     >
       <span
         @click="backToProducts"
-        style="cursor: pointer;"
+        style="cursor: pointer"
         class="ml-2 mb-5 mt-2 primary-font"
-        ><i class="ti-angle-left" style="font-size: 14px;"></i> Products</span
+        ><i class="ti-angle-left" style="font-size: 14px"></i> Products</span
       >
       <h2 class="mt-3" style="color: #333; font-weight: 600">
         {{ product_title }}
       </h2>
       <br />
       <div
-        style="font-size: 14px; cursor: pointer; line-height:14px !important; "
+        style="font-size: 14px; cursor: pointer; line-height: 14px !important"
         class="mb-3"
       >
         <span class="primary-font" @click="editProductDetails">
           <i class="mdi mdi-pencil mr-2 primary-font"></i> Edit details
         </span>
-        <a :href="current_product.preview_link"
-          ><span class="primary-font"
-            ><i class="mdi mdi-eye mr-2 ml-3 primary-font"></i> Preview
-          </span></a
-        >
+        <span class="primary-font"
+        @click="previewProductPage"
+          ><i class="mdi mdi-eye mr-2 ml-3 primary-font"></i> Preview
+        </span>
         <span class="primary-font" @click="customizeCoursePage">
           <i class="mdi mdi-palette mr-2 ml-3 primary-font"></i> Customize
         </span>
@@ -42,7 +41,7 @@
             <vs-dropdown-item>
               <div
                 class="ml-3 mr-3 primary-font"
-                style="font-size: 14px; line-height:14px; font-weight:400"
+                style="font-size: 14px; line-height: 14px; font-weight: 400"
                 @click="manageComments"
               >
                 Manage Comments
@@ -52,7 +51,7 @@
             <vs-dropdown-item>
               <div
                 class="ml-3 mr-3 primary-font"
-                style="font-size: 14px; line-height:14px; font-weight:400"
+                style="font-size: 14px; line-height: 14px; font-weight: 400"
                 @click="linkToProductProgress"
               >
                 Product Progress
@@ -63,7 +62,7 @@
             <vs-dropdown-item>
               <div
                 class="ml-3 mr-3 primary-font"
-                style="font-size: 14px;  line-height:14px; font-weight:400"
+                style="font-size: 14px; line-height: 14px; font-weight: 400"
                 @click="confirmDeleteProduct = true"
               >
                 Delete
@@ -74,9 +73,7 @@
       </div>
       <vs-card actionable>
         <div class="d-flex">
-          <h4 class="primary-font" style="font-size: 20px">
-            Product Outline
-          </h4>
+          <h4 class="primary-font" style="font-size: 20px">Product Outline</h4>
           <i
             class="mdi mdi-plus-circle-outline ml-2"
             style="color: #2962ff; font-size: 20px; margin-top: -5px"
@@ -135,7 +132,7 @@
               color="dark"
               type="border"
               class="save-cancel-button"
-              style="margin-left:auto;"
+              style="margin-left: auto"
               @click="activeAddCategory = false"
               >Cancel</vs-button
             >
@@ -155,7 +152,7 @@
       title=""
       :active.sync="confirmDeleteProduct"
     >
-      <div style="font-size: 25px; color: white" class="px-5 bg-danger m-0 ">
+      <div style="font-size: 25px; color: white" class="px-5 bg-danger m-0">
         <i class="mdi mdi-alert"></i> Are you sure you want to delete
         <strong>"{{ current_product.title }}"</strong> ?
       </div>
@@ -218,13 +215,13 @@ export default {
   },
 
   watch: {
-    category_list: function(newValue) {
+    category_list: function (newValue) {
       this.current_categories = newValue;
     },
   },
 
   computed: {
-    product_id: function() {
+    product_id: function () {
       var id = this.$route.params.id;
       return id.slice(0, id.length);
     },
@@ -247,7 +244,7 @@ export default {
       },
     },
 
-    product_title: function() {
+    product_title: function () {
       let title = "";
       for (let i = 0; i < this.product_list.length; i++) {
         if (this.product_list[i].id == this.product_id) {
@@ -528,6 +525,14 @@ export default {
       this.$store.dispatch("updateSidebarWidth", "checkout");
       this.$router.push("/products/" + this.current_product.id + "/customize");
     },
+
+    /**
+     * preview product page
+     */
+
+    previewProductPage() {
+      window.open("/products/preview/", '_blank');
+    }
   },
 };
 </script>

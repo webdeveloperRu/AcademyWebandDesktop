@@ -739,7 +739,6 @@ export default {
       this.$store.dispatch("setCurrentProductCustomizeMenu", menu_option);
     },
     linkToAnnouncementUrl() {
-      console.log(this.prod_header.announcement_url);
       window.open(this.prod_header.announcement_url, "_blank");
     },
   },

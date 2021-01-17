@@ -414,6 +414,29 @@ const router = new Router({
       i18n: "member-setup",
       component: () => import("./views/offers/MemberSetup.vue"),
     },
+    {
+      // ======================
+      // Full Layout
+      // ======================
+      path: "",
+      component: () => import("./views/preview/layout/MainContainer.vue"),
+      children: [
+        {
+          path: "/products/preview",
+          name: "Product Preview",
+          index: 10.1,
+          il8n: "Product Preview",
+          component: () => import("./views/preview/MyProducts.vue"),
+        },
+        {
+          path: "/products/preview/:product_id",
+          name: "Product Preview ID  ",
+          index: 10.2,
+          il8n: "Product Preview ID",
+          component: () => import("./views/preview/Product.vue"),
+        },
+      ],
+    },
   ],
   scrollBehavior() {
     return { x: 0, y: 0 };

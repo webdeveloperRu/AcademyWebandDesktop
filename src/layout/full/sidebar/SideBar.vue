@@ -1922,7 +1922,7 @@ export default {
       get() {
         return this.$store.getters["prodCustomizeManage/prod_header"];
       },
-      set() {
+      set(value) {
         this.$store.commit("prodCustomizeManage/updateProdHeader", value);
       }
     },

@@ -17,156 +17,208 @@
         >
       </div>
       <div
-            class="footer-icon-layout d-flex"
-            v-if="current_product.customize_footer.show_social_icons"
-            v-bind:style="{
-              'justify-content': social_icon_alignment,
-            }"
-          >
-            <div
-              v-if="current_product.customize_footer.sil_facebook != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-facebook"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_twitter != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="mdi mdi-twitter"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_instagram != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-instagram"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_youtube != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-youtube"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_vimeo != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-vimeo"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_github != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-github"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_itunes != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="mdi mdi-itunes"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_linkedin != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-linkedin"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_soundcloud != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="mdi mdi-soundcloud"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_tumblr != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-tumblr"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_flickr != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-flickr"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_slack != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="mdi mdi-slack"></i>
-            </div>
-            <div
-              v-if="current_product.customize_footer.sil_dribbble != ''"
-              class="footer-icon"
-              v-bind:style="{
-                color: current_product.customize_footer.social_icon_color,
-                background: social_icon_background_color,
-                'border-radius': social_icon_border_radius,
-              }"
-            >
-              <i class="ti-dribbble"></i>
-            </div>
-          </div>
+        class="footer-icon-layout d-flex"
+        v-if="current_product.customize_footer.show_social_icons"
+        v-bind:style="{
+          'justify-content': social_icon_alignment,
+        }"
+      >
+        <div
+          v-if="current_product.customize_footer.sil_facebook != ''"
+          class="footer-icon"
+          :title="current_product.customize_footer.sil_facebook"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-facebook"
+            @click="linkToSocial(current_product.customize_footer.sil_facebook)"
+          ></i>
+        </div>
+        <div
+          v-if="current_product.customize_footer.sil_twitter != ''"
+          class="footer-icon"
+          :title="current_product.customize_footer.sil_twitter"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="mdi mdi-twitter"
+            @click="linkToSocial(current_product.customize_footer.sil_twitter)"
+          ></i>
+        </div>
+        <div
+          v-if="current_product.customize_footer.sil_instagram != ''"
+          class="footer-icon"
+          :title="current_product.customize_footer.sil_instagram"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-instagram"
+            @click="linkToSocial(current_product.customize_footer.sil_instagram)"
+          ></i>
+        </div>
+        <div
+          v-if="current_product.customize_footer.sil_youtube != ''"
+          class="footer-icon"
+          :title="current_product.customize_footer.sil_youtube"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-youtube"
+            @click="linkToSocial(current_product.customize_footer.sil_youtube)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_vimeo"
+          v-if="current_product.customize_footer.sil_vimeo != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-vimeo"
+            @click="linkToSocial(current_product.customize_footer.sil_vimeo)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_github"
+          v-if="current_product.customize_footer.sil_github != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-github"
+            @click="linkToSocial(current_product.customize_footer.sil_github)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_itunes"
+          v-if="current_product.customize_footer.sil_itunes != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="mdi mdi-itunes"
+            @click="linkToSocial(current_product.customize_footer.sil_itunes)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_linkedin"
+          v-if="current_product.customize_footer.sil_linkedin != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-linkedin"
+            @click="linkToSocial(current_product.customize_footer.sil_linkedin)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_soundcloud"
+          v-if="current_product.customize_footer.sil_soundcloud != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="mdi mdi-soundcloud"
+            @click="linkToSocial(current_product.customize_footer.sil_soundcloud)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_tumblr"
+          v-if="current_product.customize_footer.sil_tumblr != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-tumblr"
+            @click="linkToSocial(current_product.customize_footer.sil_tumblr)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_flickr"
+          v-if="current_product.customize_footer.sil_flickr != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-flickr"
+            @click="linkToSocial(current_product.customize_footer.sil_flickr)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_slack"
+          v-if="current_product.customize_footer.sil_slack != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="mdi mdi-slack"
+            @click="linkToSocial(current_product.customize_footer.sil_slack)"
+          ></i>
+        </div>
+        <div
+          :title="current_product.customize_footer.sil_dribbble"
+          v-if="current_product.customize_footer.sil_dribbble != ''"
+          class="footer-icon"
+          v-bind:style="{
+            color: current_product.customize_footer.social_icon_color,
+            background: social_icon_background_color,
+            'border-radius': social_icon_border_radius,
+          }"
+        >
+          <i
+            class="ti-dribbble"
+            @click="linkToSocial(current_product.customize_footer.sil_dribbble)"
+          ></i>
+        </div>
+      </div>
     </div>
   </footer>
 </template>
@@ -176,17 +228,17 @@ export default {
   name: "Footer",
   data: () => ({}),
   computed: {
-    product_id: function () {
+    product_id: function() {
       var id = this.$route.params.product_id;
       if (id !== undefined) return id.slice(0, id.length);
       else return "";
     },
-    category_id: function () {
+    category_id: function() {
       var id = this.$route.params.category_id;
       if (id !== undefined) return id.slice(0, id.length);
       else return "";
     },
-    lesson_id: function () {
+    lesson_id: function() {
       var id = this.$route.params.lesson_id;
       if (id !== undefined) return id.slice(0, id.length);
       else return "";
@@ -253,6 +305,15 @@ export default {
         }
         return value;
       },
+    },
+  },
+
+  methods: {
+    linkToSocial(url) {
+      if(this.current_product.customize_footer.links_in_new_window)
+        window.open(url, "_blank");
+      else
+        window.open(url, "_self");
     },
   },
 };
@@ -329,6 +390,7 @@ export default {
   width: 36px;
   display: flex;
   height: 36px;
+  cursor: pointer;
 }
 
 @media (max-width: 767px) {

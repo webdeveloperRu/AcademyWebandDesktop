@@ -114,7 +114,7 @@
             'text-align': hero_alignment,
             'padding-top': hero_spacing,
             'padding-bottom': hero_spacing,
-            'background': prod_hero.overlay_color,
+            background: prod_hero.overlay_color,
           }"
         >
           <p
@@ -227,9 +227,7 @@
                       >
                         <div style="cursor: pointer">
                           <h4 class="mb-2">{{ lesson.title }}</h4>
-                          <div
-                            class="category-description"
-                          >
+                          <div class="category-description">
                             <span v-html="lesson.body"></span>
                           </div>
                         </div>
@@ -787,6 +785,9 @@ export default {
     },
     linkToAnnouncementUrl() {
       window.open(this.prod_header.announcement_url, "_blank");
+    },
+    linkToSocial(url) {
+      window.open(url, "_blank");
     },
   },
 };

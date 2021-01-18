@@ -3,11 +3,6 @@
     <vs-navbar
       class="product-announcement topnavbar"
       style="min-height:50px"
-      v-if="
-        current_product.customize_header.show_announcement &&
-        current_product.customize_header.show_header &&
-        product_id !== ''
-      "
       v-bind:style="{
         background: current_product.customize_header.announcement_color,
         color: current_product.customize_header.announcement_text_color,

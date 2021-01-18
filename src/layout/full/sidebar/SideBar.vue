@@ -2768,6 +2768,7 @@ export default {
               break;
           }
         });
+        
     },
 
     getProductCustomizeSettings() {
@@ -2788,6 +2789,7 @@ export default {
           this.settings_ga_vertical_align = this.prod_settings.ga_vertical_alignment;
           this.settings_ga_body_colwidth = this.prod_settings.ga_body_column_width;
         });
+         
     },
 
     saveProductCustomizeSettings() {
@@ -2813,6 +2815,7 @@ export default {
         default:
           break;
       }
+      
     },
 
     saveProductCustomizeHeader() {
@@ -3120,6 +3123,7 @@ export default {
           this.$vs.loading.close(this.$refs.loading);
           this.customization_processing = false;
         });
+      
     },
 
     linkBackInProductSidebar() {

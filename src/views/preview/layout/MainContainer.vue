@@ -82,5 +82,6 @@ export default {
 <style lang="scss">
 .product-preview-layout {
   padding-bottom: 100px;
+  min-height: 100vh;
 }
 </style>

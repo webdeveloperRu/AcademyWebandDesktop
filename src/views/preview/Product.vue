@@ -329,6 +329,8 @@ export default {
     hero_spacing: {
       get() {
         let value = "";
+        console.log(this.current_product.customize_hero.spacing);
+        console.log(this.current_product);
         switch (this.current_product.customize_hero.spacing) {
           case "Small":
             value = "30px";
@@ -349,6 +351,8 @@ export default {
   },
 
   created() {
+
+    this.$store.dispatch("productManage/getProductList");
     this.getCategoriesForProductID(this.product_id);
   },
 
@@ -455,7 +459,8 @@ export default {
       );
 
       this.$router.push(
-        "/products/preview/view-lesson/" + this.lesson_list[this.category_list[0].id][0].id
+        "/products/preview/view-lesson/" +
+          this.lesson_list[this.category_list[0].id][0].id
       );
 
       // this.getCategoriesForProductID(current_product.id)

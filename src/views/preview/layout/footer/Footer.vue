@@ -11,8 +11,25 @@
 <script>
 export default {
   name: "Footer",
-
   data: () => ({}),
+  computed: {
+    product_id: function () {
+      var id = this.$route.params.product_id;
+      if (id == undefined) return "";
+      else return id.slice(0, id.length);
+    },
+    current_product: {
+      get() {
+        let product = [];
+        for (let i = 0; i < this.product_list.length; i++) {
+          if (this.product_list[i].id == this.product_id) {
+            product = this.product_list[i];
+          }
+        }
+        return product;
+      },
+    },
+  }
 };
 </script>
 
@@ -21,9 +38,9 @@ export default {
   background: #272d34;
   padding: 15px 0;
   position:absolute;
-  margin-bottom: 100px;
   width: 100%;
   margin-left: -20px;
+  margin-bottom: 100px;
 }
 .footer--dark {
   color: #fff;

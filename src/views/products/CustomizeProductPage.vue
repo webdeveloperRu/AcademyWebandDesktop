@@ -156,7 +156,7 @@
                 class="outline-edit"
                 title="Edit Category Item"
                 @click="selectProductCustomizeMenu('welcome')"
-                v-if="prod_welcome.show_wellcome"
+                v-if="prod_welcome.show_welcome"
               >
                 <vs-card>
                   <div
@@ -775,6 +775,7 @@ export default {
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
+    console.log(this.current_product)
   },
   methods: {
     selectProductCustomizeMenu(menu_option) {

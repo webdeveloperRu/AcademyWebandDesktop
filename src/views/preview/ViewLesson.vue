@@ -621,7 +621,6 @@ export default {
           } else {
             for (let i = 0; i < this.comment_list.length; i++) {
               this.show_edit_comment[this.comment_list[i].id] = false;
-              console.log(this.show_edit_comment);
             }
           }
         });
@@ -836,23 +835,22 @@ export default {
     },
 
     postComment() {
-      var test = this.comment.replace(/\s/g, "");
+      var test = this.comment_text.replace(/\s/g, "");
       if (test != "") {
         this.$store
           .dispatch("commentManage/addComment", [
-            this.comment,
+            this.comment_text,
             this.current_lesson.id,
           ])
           .then(() => {
             this.getCommentsForLessonID(this.current_lesson.id);
           });
       }
-      this.comment = "";
+      this.comment_text = "";
     },
 
     editComment(comment_id) {
       this.show_edit_comment[comment_id] = true;
-      console.log(this.show_edit_comment);
       this.updateEditComment++;
     },
   },

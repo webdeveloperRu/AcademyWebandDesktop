@@ -114,6 +114,7 @@
             </vs-card>
           </vs-col>
           <vs-col
+            v-if="current_product.customize_sidebar.show_sidebar == true"
             type="flex"
             vs-justify="center"
             vs-align="center"
@@ -193,7 +194,14 @@ export default {
 
     current_product: {
       get() {
-        return this.$store.getters["productManage/current_product"];
+        let current_product = []
+         let product = this.$store.getters["productManage/current_product"];
+         for (let i = 0; i < this.product_list.length; i++) {
+          if (this.product_list[i].id == product.id) {
+            current_product = this.product_list[i]
+          }
+        }
+         return current_product
       },
     },
 
@@ -225,6 +233,11 @@ export default {
         return this.$store.getters["notification_color"];
       },
     },
+    product_list: {
+      get() {
+        return this.$store.getters["productManage/product_list"];
+      },
+    },
 
     lesson_list: {
       get() {
@@ -252,6 +265,8 @@ export default {
     },
   },
   created() {
+    this.$store.dispatch("productManage/getProductList");
+
     this.getLessonsForCategoryID(this.category_id);
     // let total_lesson = this.lesson_list.length + 1;
     // console.log('lesson list', this.lesson_list)
@@ -289,7 +304,12 @@ export default {
         this.current_category
       );
       this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      this.$router.push("/products/preview/view-category" + this.current_category.id + "/view-lesson/" + lesson.id);
+      this.$router.push(
+        "/products/preview/view-category" +
+          this.current_category.id +
+          "/view-lesson/" +
+          lesson.id
+      );
     },
     backToMyproducts() {
       this.$router.push("/products/preview");

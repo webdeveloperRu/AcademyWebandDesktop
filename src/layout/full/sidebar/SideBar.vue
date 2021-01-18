@@ -2085,7 +2085,8 @@ export default {
     },
 
     product_show_wellcomebody: function (newValue) {
-      this.prod_welcome.show_wellcome = newValue;
+      this.prod_welcome.show_welcome = newValue;
+      console.log('updated1!', this.prod_welcome)
     },
 
     product_welcome_textalign: function (newValue) {
@@ -2233,6 +2234,7 @@ export default {
   },
 
   created() {
+    console.log(this.prod_welcome)
     this.initOfferCheckoutData();
     this.initProductCustomizeData();
   },
@@ -2680,7 +2682,7 @@ export default {
         .dispatch("prodCustomizeManage/getProdWellcome", this.product_id)
         .then(() => {
           this.product_welcome_textalign = this.prod_welcome.text_alignment;
-          this.product_show_wellcomebody = this.prod_welcome.show_wellcome;
+          this.product_show_wellcomebody = this.prod_welcome.show_welcome;
         });
     },
 
@@ -2918,7 +2920,7 @@ export default {
     saveProductCustomizeWelcome() {
       let welcome = {
         text_alignment: this.product_welcome_textalign,
-        show_wellcome: this.product_show_wellcomebody,
+        show_welcome: this.product_show_wellcomebody,
       };
       this.$vs.loading({
         container: "#loading",

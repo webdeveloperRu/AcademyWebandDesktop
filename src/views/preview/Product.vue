@@ -77,6 +77,21 @@
             vs-xs="12"
             code-toggler
           >
+            <vs-card v-if="current_product.customize_wellcome.show_welcome">
+              <div
+                @click="selectProductCustomizeMenu('hero')"
+                v-bind:style="{
+                  'text-align': welcome_text_aligment,
+                }"
+              >
+                <p class="product-welcome-title">
+                  {{ current_product.title }}
+                </p>
+                <p class="product-welcome-description">
+                  {{ current_product.description }}
+                </p>
+              </div>
+            </vs-card>
             <vs-card
               v-for="(category, index_card) in category_list"
               v-bind:key="index_card"
@@ -169,6 +184,7 @@
             </vs-card>
           </vs-col>
           <vs-col
+            v-if="current_product.customize_sidebar.show_sidebar == true"
             type="flex"
             vs-justify="center"
             vs-align="center"
@@ -352,6 +368,23 @@ export default {
         return value;
       },
     },
+    welcome_text_aligment: {
+      get(){
+        let value = "";
+        switch (this.current_product.customize_wellcome.text_alignment) {
+          case "Centered":
+            value = "center";
+            break;
+          case "Left":
+            value = "left";
+            break;
+          case "Right":
+            value = "right";
+            break;
+        }
+        return value;
+      }
+    }
   },
 
   created() {
@@ -434,7 +467,12 @@ export default {
       );
       this.$store.dispatch("categoryManage/setCurrentCategory", category);
       this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      this.$router.push("/products/preview/view-category/" + category.id + "/view-lesson/" + lesson.id);
+      this.$router.push(
+        "/products/preview/view-category/" +
+          category.id +
+          "/view-lesson/" +
+          lesson.id
+      );
     },
 
     viewCategory(category_id) {
@@ -449,6 +487,8 @@ export default {
       this.$router.push("/products/preview");
     },
 
+
+
     startCourse(current_product) {
       this.$store.dispatch("productManage/setCurrentProduct", current_product);
 
@@ -462,7 +502,9 @@ export default {
       );
 
       this.$router.push(
-        "/products/preview/view-category/"+ this.category_list[0].id + "view-lesson/" +
+        "/products/preview/view-category/" +
+          this.category_list[0].id +
+          "view-lesson/" +
           this.lesson_list[this.category_list[0].id][0].id
       );
 
@@ -567,6 +609,16 @@ export default {
 .hero-overlay {
   width: 100%;
   height: 100%;
+}
+
+.product-welcome-title {
+  font-size: 40px;
+  font-weight: 600;
+}
+
+.product-welcome-description {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* @media only screen and (min-width: 400px) {

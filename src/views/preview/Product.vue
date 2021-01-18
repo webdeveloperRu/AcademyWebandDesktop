@@ -97,8 +97,8 @@
                   >
                     <div style="cursor: pointer">
                       <h4 class="mb-2">{{ lesson.title }}</h4>
-                      <div class="category-description" :title="lesson.body">
-                        {{ lesson.body }}
+                      <div class="category-description">
+                        <span v-html="lesson.body"></span>
                       </div>
                     </div>
                   </vs-col>
@@ -279,15 +279,15 @@ export default {
 
   methods: {
     async loadingLessons() {
-      this.$vs.loading({ type: "material" });
-      if (this.category_list != undefined) {
+      if (this.category_list != undefined && this.category_list.length !== 0) {
+        this.$vs.loading({ type: "material" });
         var total_category_num = this.category_list.length;
         for (let i = 0; i < total_category_num; i++) {
           this.view_more[i] = false;
           await this.getLessonsForCategoryID(this.category_list[i].id);
         }
+        this.$vs.loading.close();
       }
-      this.$vs.loading.close();
       this.lesson_list = this.lesson_list_store;
       var total_lesson_num = 0;
       var completed_lesson_num = 0;
@@ -311,6 +311,7 @@ export default {
         (completed_lesson_num * 100) / total_lesson_num;
       this.newLength = total_category_num;
     },
+
     async getCategoriesForProductID(product_id) {
       this.showCategory = false;
         await this.$store

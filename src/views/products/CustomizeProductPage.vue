@@ -114,6 +114,7 @@
             'text-align': hero_alignment,
             'padding-top': hero_spacing,
             'padding-bottom': hero_spacing,
+            'background': prod_hero.overlay_color,
           }"
         >
           <p
@@ -130,12 +131,6 @@
           </p>
           <vs-button class="start-course">Start Course</vs-button>
         </div>
-        <div
-          class="hero-overlay"
-          v-bind:style="{
-            background: prod_hero.overlay_color,
-          }"
-        ></div>
         <label class="edit-button" size="small">Edit</label>
       </div>
       <br />
@@ -234,9 +229,8 @@
                           <h4 class="mb-2">{{ lesson.title }}</h4>
                           <div
                             class="category-description"
-                            :title="lesson.body"
                           >
-                            {{ lesson.body }}
+                            <span v-html="lesson.body"></span>
                           </div>
                         </div>
                       </vs-col>

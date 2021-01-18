@@ -369,6 +369,7 @@
                   <div style="color: dodgerblue">
                     <a
                       v-text="filesrc.title"
+                      style="cursor:pointer"
                       @click="downloadWithAxios(filesrc.src, filesrc.title)"
                     />
                   </div>

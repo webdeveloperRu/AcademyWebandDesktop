@@ -534,7 +534,7 @@ export default {
      */
 
     previewProductPage() {
-      window.open("/products/preview/", '_blank');
+      window.open("/products/preview/" + this.current_product.id, '_blank');
     }
   },
 };

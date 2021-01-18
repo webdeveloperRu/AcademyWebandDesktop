@@ -307,7 +307,7 @@
               </div>
               <vs-textarea
                 placeholder="Say Something here..."
-                v-model="comment"
+                v-model="comment_text"
                 class="w-100 mt-3"
               />
               <vs-button class="mt-3" @click.native="postComment"
@@ -341,9 +341,29 @@
                     {{ timeDifference(Date.now(), comment.created_on) }}
                   </div>
                 </div>
-                <p>{{ comment.comment }}</p>
-                <vs-button size="small" type="flat">REPLY</vs-button>
-                <vs-button size="small" type="flat">EDIT</vs-button>
+
+                <div>
+                  <p>{{ comment.comment }}</p>
+                </div>
+                <div class="mb-2" v-if="show_edit_comment[comment.id]==true" v-bind:key="show_edit_comment[comment.id]">
+                  <vs-textarea
+                    placeholder="Say Something here..."
+                    v-model="comment.comment"
+                    class="w-100 mt-3"
+                  />
+
+                  
+                  <vs-button class="mt-3" size="small" @click.native="postComment"
+                    >Post Comment</vs-button
+                  >
+                </div>
+                <vs-button size="medium" type="flat">REPLY</vs-button>
+                <vs-button
+                  size="medium"
+                  type="flat"
+                  @click.native="editComment(comment.id)"
+                  >EDIT</vs-button
+                >
               </div>
             </vs-card>
           </vs-col>
@@ -410,12 +430,14 @@ import Axios from "axios";
 export default {
   name: "ViewLesson",
   data: () => ({
-    comment: "",
+    comment_text: "",
     prev_button: true,
     next_button: true,
     endlesson: true,
     instructor_avatar_url: "",
     show_congratulation: false,
+    show_edit_comment: {},
+    updateEditComment: 0,
     // item: {
     //   url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     //   label: 'samplePDF',
@@ -486,6 +508,12 @@ export default {
         return this.$store.getters["productManage/current_product"];
       },
     },
+    category_id: {
+      get() {
+        var id = this.$route.params.category_id;
+        return id.slice(0, id.length);
+      },
+    },
 
     current_category: {
       get() {
@@ -531,7 +559,7 @@ export default {
     comment_list: {
       get() {
         let list = [];
-        list = this.$store.getters["commentManage/comment_list"];
+        list = this.$store.getters["lessonManage/lesson_comments"];
         if (list == undefined) return [];
         else return list;
       },
@@ -544,19 +572,18 @@ export default {
     },
 
     download_files: {
-      get(){
-        return this.$store.getters["lessonManage/downloadfile_list"]
-      }
-    }
+      get() {
+        return this.$store.getters["lessonManage/downloadfile_list"];
+      },
+    },
   },
 
   created() {
     this.getDownloadFileList();
-    // this.getCommentsForLessonID(this.lesson_id);
+    this.getCommentsForLessonID(this.lesson_id);
     if (this.current_category.sort_position == 1) this.prev_button = false;
     if (this.current_category.sort_position == this.category_list.length)
       this.next_button = false;
-
     if (
       this.current_lesson.sort_position >
       this.lesson_list[this.current_category.id].length - 2
@@ -574,17 +601,16 @@ export default {
 
   methods: {
     getDownloadFileList() {
-      this.$store.dispatch('lessonManage/getDownloadFileList', this.current_lesson.id).then(()=>{
-        console.log('download files', this.download_files)
-      })
-
+      this.$store
+        .dispatch("lessonManage/getDownloadFileList", this.current_lesson.id)
+        .then(() => {});
     },
     async getCommentsForLessonID(lesson_id) {
       this.$vs.loading({
         type: "material",
       });
       await this.$store
-        .dispatch("commentManage/getCommentListDemo", lesson_id)
+        .dispatch("lessonManage/getCommentList", lesson_id)
         .then(() => {
           if (!this.status_got) {
             this.$vs.notify({
@@ -592,6 +618,11 @@ export default {
               text: this.notification_text,
               icon: this.notification_icon,
             });
+          } else {
+            for (let i = 0; i < this.comment_list.length; i++) {
+              this.show_edit_comment[this.comment_list[i].id] = false;
+              console.log(this.show_edit_comment);
+            }
           }
         });
       this.$vs.loading.close();
@@ -632,7 +663,13 @@ export default {
 
     clickLessonItem(current_lesson) {
       this.$store.dispatch("lessonManage/setCurrentLesson", current_lesson);
-      // this.getCommentsForLessonID(current_lesson.id);
+      this.$router.push(
+        "/products/preview/view-category/" +
+          this.current_category.id +
+          "/view-lesson/" +
+          current_lesson.id
+      );
+      this.getCommentsForLessonID(current_lesson.id);
       if (
         this.current_lesson.sort_position >
         this.lesson_list[this.current_category.id].length - 2
@@ -653,8 +690,14 @@ export default {
         "lessonManage/setCurrentLesson",
         this.lesson_list[this.current_category.id][0]
       );
+      this.$router.push(
+        "/products/preview/view-category/" +
+          this.current_category.id +
+          "/view-lesson/" +
+          this.lesson_list[this.current_category.id][0].id
+      );
 
-      // this.getCommentsForLessonID(this.current_lesson.id);
+      this.getCommentsForLessonID(this.current_lesson.id);
       if (this.current_category.sort_position == 1) this.prev_button = false;
       else this.prev_button = true;
 
@@ -667,12 +710,19 @@ export default {
       this.current_category = this.category_list[
         this.current_category.sort_position
       ];
-      this.getLessonsForCategoryID(this.current_category.id);
       this.$store.dispatch(
         "lessonManage/setCurrentLesson",
         this.lesson_list[this.current_category.id][0]
       );
-      // this.getCommentsForLessonID(this.current_lesson.id);
+      this.$router.push(
+        "/products/preview/view-category/" +
+          this.current_category.id +
+          "/view-lesson/" +
+          this.lesson_list[this.current_category.id][0].id
+      );
+      this.getLessonsForCategoryID(this.current_category.id);
+
+      this.getCommentsForLessonID(this.current_lesson.id);
 
       if (this.current_category.sort_position == 1) this.prev_button = false;
       else this.prev_button = true;
@@ -689,7 +739,13 @@ export default {
           this.current_lesson.sort_position + 1
         ]
       );
-      // this.getCommentsForLessonID(this.current_lesson.id);
+      this.$router.push(
+        "/products/preview/view-category/" +
+          this.current_category.id +
+          "/view-lesson/" +
+          this.current_lesson.id
+      );
+      this.getCommentsForLessonID(this.current_lesson.id);
       if (
         this.current_lesson.sort_position >
         this.lesson_list[this.current_category.id].length - 2
@@ -782,12 +838,22 @@ export default {
     postComment() {
       var test = this.comment.replace(/\s/g, "");
       if (test != "") {
-        this.$store.dispatch("commentManage/postComment", [
-          this.current_lesson.id,
-          this.comment,
-        ]);
+        this.$store
+          .dispatch("commentManage/addComment", [
+            this.comment,
+            this.current_lesson.id,
+          ])
+          .then(() => {
+            this.getCommentsForLessonID(this.current_lesson.id);
+          });
       }
       this.comment = "";
+    },
+
+    editComment(comment_id) {
+      this.show_edit_comment[comment_id] = true;
+      console.log(this.show_edit_comment);
+      this.updateEditComment++;
     },
   },
 };

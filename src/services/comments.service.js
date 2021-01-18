@@ -1,9 +1,7 @@
-import axios from 'axios';
-import apiurl from './base_api_url'
-import {
-  authHeader
-} from './authHeader'
-const API_URL = apiurl.API_URL + 'comments/';
+import axios from "axios";
+import apiurl from "./base_api_url";
+import { authHeader } from "./authHeader";
+const API_URL = apiurl.API_URL + "comments/";
 class CommentsService {
   /**
    * ---------get comment list---------
@@ -11,12 +9,12 @@ class CommentsService {
   getCommentList() {
     return axios
       .get(API_URL, {
-        headers: authHeader()
+        headers: authHeader(),
       })
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -24,17 +22,23 @@ class CommentsService {
   /**
    * ---------add new comment -----------------------
    */
-  addComment(comment) {
+  addComment(comment, lesson_id) {
     comment = JSON.stringify(comment);
     return axios
-      .post(API_URL,
-        comment, {
-          headers: authHeader()
-        })
-      .then(response => {
+      .post(
+        API_URL,
+        {
+          comment: comment,
+          lesson_id: lesson_id,
+        },
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -45,12 +49,12 @@ class CommentsService {
   getCommentByID(comment_id) {
     return axios
       .get(API_URL + comment_id, {
-        headers: authHeader()
+        headers: authHeader(),
       })
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -60,13 +64,13 @@ class CommentsService {
    */
   getCommentByLessonID(lesson_id) {
     return axios
-      .get(API_URL + '?lesson_id=' + lesson_id, {
-        headers: authHeader()
+      .get(API_URL + "?lesson_id=" + lesson_id, {
+        headers: authHeader(),
       })
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -76,13 +80,13 @@ class CommentsService {
    */
   getCommentByProductID(product_id) {
     return axios
-      .get(API_URL + '?product_id=' + product_id, {
-        headers: authHeader()
+      .get(API_URL + "?product_id=" + product_id, {
+        headers: authHeader(),
       })
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -93,14 +97,13 @@ class CommentsService {
   updateCommentByID(comment) {
     let data = JSON.stringify(comment);
     return axios
-      .put(API_URL + comment.id,
-        data, {
-          headers: authHeader()
-        })
-      .then(response => {
+      .put(API_URL + comment.id, data, {
+        headers: authHeader(),
+      })
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -111,15 +114,14 @@ class CommentsService {
   deleteCommentByID(comment_id) {
     return axios
       .delete(API_URL + comment_id, {
-        headers: authHeader()
+        headers: authHeader(),
       })
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
-
   }
 
   /**
@@ -128,12 +130,13 @@ class CommentsService {
   changeCommentStatus(comment) {
     let data = JSON.stringify(comment);
     return axios
-      .put(API_URL + comment.id + '/change-status/' + comment.status, data, {
-        headers: authHeader()
-      }).then(response => {
+      .put(API_URL + comment.id + "/change-status/" + comment.status, data, {
+        headers: authHeader(),
+      })
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
   }
@@ -144,17 +147,15 @@ class CommentsService {
 
   removeThumbNail(offer_id) {
     return axios
-      .delete(API_URL + offer_id + '/thumbnail', {
-        headers: authHeader()
+      .delete(API_URL + offer_id + "/thumbnail", {
+        headers: authHeader(),
       })
-      .then(response => {
+      .then((response) => {
         return response;
       })
-      .catch(err => {
+      .catch((err) => {
         return err;
       });
-
   }
-
 }
 export default new CommentsService();

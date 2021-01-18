@@ -434,7 +434,7 @@ export default {
       );
       this.$store.dispatch("categoryManage/setCurrentCategory", category);
       this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      this.$router.push("/products/preview/view-lesson/" + lesson.id);
+      this.$router.push("/products/preview/view-category/" + category.id + "/view-lesson/" + lesson.id);
     },
 
     viewCategory(category_id) {
@@ -462,7 +462,7 @@ export default {
       );
 
       this.$router.push(
-        "/products/preview/view-lesson/" +
+        "/products/preview/view-category/"+ this.category_list[0].id + "view-lesson/" +
           this.lesson_list[this.category_list[0].id][0].id
       );
 

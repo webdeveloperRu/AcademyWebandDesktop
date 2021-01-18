@@ -289,7 +289,7 @@ export default {
         this.current_category
       );
       this.$store.dispatch("lessonManage/setCurrentLesson", lesson);
-      this.$router.push("/products/preview/view-lesson/" + lesson.id);
+      this.$router.push("/products/preview/view-category" + this.current_category.id + "/view-lesson/" + lesson.id);
     },
     backToMyproducts() {
       this.$router.push("/products/preview");

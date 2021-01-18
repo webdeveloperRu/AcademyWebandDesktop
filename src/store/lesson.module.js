@@ -5,7 +5,7 @@ const initialState = {
   current_lesson: [],
   downloadfile_list: [],
   current_category_id: '',
-  lesson_comment: "",
+  lesson_comments: [],
   current_downloadfile: []
 };
 export const lessonManage = {
@@ -111,13 +111,13 @@ export const lessonManage = {
     /**
      * ---------get comment by id--------------
      */
-    getCommentByID({
+    getCommentList({
       commit
     }, lesson_id) {
-      return LessonService.getCommentByID(lesson_id).then(
+      return LessonService.getCommentList(lesson_id).then(
         res => {
           if (res.status === 200) {
-            commit('getCommentByIDSuccess');
+            commit('getCommentListSuccess',res);
           } else {
             if (res.response == undefined)
               commit('NETWORK_ERROR', null, {
@@ -127,6 +127,7 @@ export const lessonManage = {
               commit("REQUEST_FAILED", res.response, {
                 root: true
               });
+              commit("getCommentListFailed")
             }
           }
         },
@@ -511,6 +512,7 @@ export const lessonManage = {
     current_downloadfile: state => state.current_downloadfile,
     downloadfile_list: state => state.downloadfile_list,
     current_lesson: state => state.current_lesson,
+    lesson_comments: state => state.lesson_comments
   },
 
   mutations: {
@@ -599,19 +601,23 @@ export const lessonManage = {
       store.state.notification_text = 'Lesson successfully updated!';
     },
 
+    getCommentListFailed(state){
+      state.lesson_comments =[]
+    },
+
 
 
     /**
      * ---------get comment by id ----------------
      */
-    getCommentByIDSuccess() {
+    getCommentListSuccess(state, res) {
       store.state.status = {
         got: true
       };
       store.state.notification_icon = 'info';
       store.state.notification_color = 'primary';
       store.state.notification_text = 'comment successfully got';
-      // state.lesson_comment = res.data.data
+      state.lesson_comments = res.data.data
     },
 
 

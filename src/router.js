@@ -443,7 +443,7 @@ const router = new Router({
           component: () => import("./views/preview/ViewCategory.vue"),
         },
         {
-          path: "/products/preview/view-lesson/:lesson_id",
+          path: "/products/preview/view-category/:category_id/view-lesson/:lesson_id",
           name: "View Lesson",
           index: 10.4,
           il8n: "View Lesson",

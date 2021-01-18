@@ -42,8 +42,8 @@ export const commentManage = {
      */
     addComment({
       commit
-    }, comment) {
-      return CommentService.addComment(comment).then(
+    }, [comment, lesson_id]) {
+      return CommentService.addComment(comment, lesson_id).then(
         res => {
           if (res.status === 200) {
             commit('addCommentSuccess');

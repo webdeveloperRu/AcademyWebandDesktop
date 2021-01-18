@@ -58,7 +58,7 @@ class LessonService {
   /**
    * ---------get comment by ID----------------
    */
-  getCommentByID(lesson_id) {
+  getCommentList(lesson_id) {
     return axios
       .get(API_URL + lesson_id + '/comments', {
         headers: authHeader()

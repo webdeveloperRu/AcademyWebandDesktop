@@ -112,24 +112,30 @@
           v-bind:style="{
             'background-image': prod_hero.background_image,
             'text-align': hero_alignment,
-            'padding-top': hero_spacing,
-            'padding-bottom': hero_spacing,
-            background: prod_hero.overlay_color,
           }"
         >
-          <p
-            class="producttitle-category"
-            v-bind:style="{ color: prod_hero.text_color }"
+          <div
+            class="hero-overlay"
+            v-bind:style="{
+              'padding-top': hero_spacing,
+              'padding-bottom': hero_spacing,
+              background: prod_hero.overlay_color,
+            }"
           >
-            {{ current_product.title }}
-          </p>
-          <p
-            class="product-description-category"
-            v-bind:style="{ color: prod_hero.text_color }"
-          >
-            {{ current_product.description }}
-          </p>
-          <vs-button class="start-course">Start Course</vs-button>
+            <p
+              class="producttitle-category"
+              v-bind:style="{ color: prod_hero.text_color }"
+            >
+              {{ current_product.title }}
+            </p>
+            <p
+              class="product-description-category"
+              v-bind:style="{ color: prod_hero.text_color }"
+            >
+              {{ current_product.description }}
+            </p>
+            <vs-button class="start-course">Start Course</vs-button>
+          </div>
         </div>
         <label class="edit-button" size="small">Edit</label>
       </div>
@@ -795,7 +801,6 @@ export default {
 
 <style lang="scss">
 .category-banner {
-  padding: 10px 200px;
   margin-top: -5px;
   background-position: center;
   background-repeat: no-repeat;
@@ -1145,11 +1150,8 @@ export default {
   margin-left: -20px;
 }
 .hero-overlay {
-  position: absolute;
   width: 100%;
   height: 100%;
-  left: 0;
-  top: -3px;
 }
 @media (min-width: 1169px) {
   .product-announcement {
@@ -1161,5 +1163,8 @@ export default {
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
+}
+.hero-overlay {
+  height: 100%;
 }
 </style>

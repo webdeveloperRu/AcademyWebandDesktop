@@ -9,28 +9,34 @@
       v-bind:style="{
         'background-image': current_product.customize_hero.background_image,
         'text-align': hero_alignment,
-        'padding-top': hero_spacing,
-        'padding-bottom': hero_spacing,
-        background: current_product.customize_hero.overlay_color,
       }"
     >
-      <p
-        class="producttitle-category"
-        v-bind:style="{ color: current_product.customize_hero.text_color }"
+      <div
+        class="hero-overlay"
+        v-bind:style="{
+          'padding-top': hero_spacing,
+          'padding-bottom': hero_spacing,
+          background: current_product.customize_hero.overlay_color,
+        }"
       >
-        {{ current_product.title }}
-      </p>
-      <p
-        class="product-description-category"
-        v-bind:style="{ color: current_product.customize_hero.text_color }"
-      >
-        {{ current_product.description }}
-      </p>
-      <vs-button
-        class="start-course"
-        @click.native="startCourse(current_product)"
-        >Start Course</vs-button
-      >
+        <p
+          class="producttitle-category"
+          v-bind:style="{ color: current_product.customize_hero.text_color }"
+        >
+          {{ current_product.title }}
+        </p>
+        <p
+          class="product-description-category"
+          v-bind:style="{ color: current_product.customize_hero.text_color }"
+        >
+          {{ current_product.description }}
+        </p>
+        <vs-button
+          class="start-course"
+          @click.native="startCourse(current_product)"
+          >Start Course</vs-button
+        >
+      </div>
     </div>
     <br />
     <br />
@@ -351,7 +357,6 @@ export default {
   },
 
   created() {
-
     this.$store.dispatch("productManage/getProductList");
     this.getCategoriesForProductID(this.product_id);
   },
@@ -486,7 +491,6 @@ export default {
 .category-banner {
   margin: 0 -20px;
   margin-top: -24px;
-  padding: 10px 200px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -561,6 +565,10 @@ export default {
 .progress-product_thumbnail .vs-card--content .category-image {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+}
+.hero-overlay {
+  width: 100%;
+  height: 100%;
 }
 
 /* @media only screen and (min-width: 400px) {

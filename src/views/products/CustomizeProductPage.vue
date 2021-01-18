@@ -1,30 +1,21 @@
 <template>
   <div class="product-customize-page" style="margin-top: -24px">
     <div
-      class="product-announcement"
-      v-if="prod_header.show_announcement && prod_header.show_header"
-      v-bind:style="{
-        background: prod_header.announcement_color,
-        color: prod_header.announcement_text_color,
-      }"
+      class="outline-edit"
+      @click="selectProductCustomizeMenu('header')"
     >
       <div
-        class="product-announcement-text"
-        @click="linkToAnnouncementUrl"
-        v-if="prod_header.announcement_new_window"
-      >
-        {{ prod_header.announcement_text }}
-      </div>
-      <a
-        v-if="!prod_header.announcement_new_window"
-        class="product-announcement-text"
-        :href="prod_header.announcement_url"
+        class="product-announcement"
+        v-if="prod_header.show_announcement && prod_header.show_header"
         v-bind:style="{
+          background: prod_header.announcement_color,
           color: prod_header.announcement_text_color,
         }"
       >
-        {{ prod_header.announcement_text }}
-      </a>
+        <div class="product-announcement-text">
+          {{ prod_header.announcement_text }}
+        </div>
+      </div>
     </div>
     <header
       class="vs-navbar topnavbar vs-navbar-null vs-navbar-color-white studentapp-header"

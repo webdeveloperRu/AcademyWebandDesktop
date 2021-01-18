@@ -693,6 +693,7 @@ export const lessonManage = {
       store.state.notification_text = 'download file  successfully got';
       store.state.notification_icon = 'info';
       store.state.notification_color = 'primary';
+      
       // state.current_downloadfile = res.data
     },
 

@@ -227,6 +227,8 @@
 export default {
   name: "Footer",
   data: () => ({}),
+  created() {
+  },
   computed: {
     product_id: function() {
       var id = this.$route.params.product_id;
@@ -263,13 +265,7 @@ export default {
 
     current_product: {
       get() {
-        let product = [];
-        for (let i = 0; i < this.product_list.length; i++) {
-          if (this.product_list[i].id == this.product_id) {
-            product = this.product_list[i];
-          }
-        }
-        return product;
+        return this.$store.getters["productManage/current_product"]
       },
     },
     social_icon_border_radius: {
@@ -306,6 +302,8 @@ export default {
         return value;
       },
     },
+  },
+  created() {
   },
 
   methods: {

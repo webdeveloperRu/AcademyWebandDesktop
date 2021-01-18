@@ -207,6 +207,7 @@ export default {
       this.$router.push("/products/product-details/" + this.product.id);
     },
     gotoPreview() {
+      this.$store.dispatch('productManage/setCurrentProduct', this.product)
       window.open("/products/preview/" + this.product.id, "_blank");
     },
 

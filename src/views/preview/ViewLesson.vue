@@ -359,7 +359,7 @@
             <vs-card>
               <h4 class="mb-3">Downloads</h4>
               <div
-                v-for="(filesrc, index) in filesrcs"
+                v-for="(filesrc, index) in download_files"
                 :key="index"
                 class="d-flex mt-2"
                 style="align-items: center; justify-content: flex-start"
@@ -372,9 +372,9 @@
                 <div class="ml-3">
                   <div style="color: dodgerblue">
                     <a
-                      v-text="filesrc.title"
+                      v-text="filesrc.name"
                       style="cursor: pointer"
-                      @click="downloadWithAxios(filesrc.src, filesrc.title)"
+                      @click="downloadWithAxios(filesrc.url, filesrc.name)"
                     />
                   </div>
                 </div>
@@ -542,11 +542,17 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
+
+    download_files: {
+      get(){
+        return this.$store.getters["lessonManage/downloadfile_list"]
+      }
+    }
   },
 
   created() {
+    this.getDownloadFileList();
     // this.getCommentsForLessonID(this.lesson_id);
-
     if (this.current_category.sort_position == 1) this.prev_button = false;
     if (this.current_category.sort_position == this.category_list.length)
       this.next_button = false;
@@ -567,6 +573,12 @@ export default {
   // },
 
   methods: {
+    getDownloadFileList() {
+      this.$store.dispatch('lessonManage/getDownloadFileList', this.current_lesson.id).then(()=>{
+        console.log('download files', this.download_files)
+      })
+
+    },
     async getCommentsForLessonID(lesson_id) {
       this.$vs.loading({
         type: "material",

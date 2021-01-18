@@ -335,8 +335,6 @@ export default {
     hero_spacing: {
       get() {
         let value = "";
-        console.log(this.current_product.customize_hero.spacing);
-        console.log(this.current_product);
         switch (this.current_product.customize_hero.spacing) {
           case "Small":
             value = "30px";

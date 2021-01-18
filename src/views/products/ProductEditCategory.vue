@@ -243,6 +243,7 @@ export default {
             product = this.product_list[i];
           }
         }
+        this.$store.dispatch('productManage/setCurrentProduct', product)
         return product;
       },
     },

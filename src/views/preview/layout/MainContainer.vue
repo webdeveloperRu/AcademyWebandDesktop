@@ -9,9 +9,8 @@
     <!---Sidebar-->
     <!-- <SideBar parent=".main-wrapper" :sidebarLinks="sidebarLinks"/> -->
     <!---Page Container-->
-    <div class="main-container-fluid " style="position:relative">
+    <div class="main-container-fluid preview-product-layout">
       <!-- <Breadcrumb/>	 -->
-      <div class="product-preview-layout">
       <transition
         name="router-anim"
         enter-active-class="fade-enter-active fade-enter"
@@ -19,11 +18,10 @@
       >
         <router-view></router-view>
       </transition>
-      </div>
       <!---Customizer / Settings-->
       <!-- <Customizer @updateTopbarColor="updateTopbarColor" /> -->
-    <Footer></Footer>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 
@@ -49,7 +47,16 @@ export default {
     },
    
   },
+  created() {
+    this.$store.dispatch('productManage/setCurrentProduct', this.current_product)
+  },
   computed: {
+
+    current_product: {
+      get() {
+        return this.$store.getters["productManage/current_product"]
+      },
+    },
     sidebarWidth: function () {
       return this.$store.state.sidebarWidth;
     },
@@ -79,9 +86,5 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-.product-preview-layout {
-  padding-bottom: 120px;
-  min-height: 100vh;
-}
+<style>
 </style>

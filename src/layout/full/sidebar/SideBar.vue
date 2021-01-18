@@ -491,7 +491,7 @@
             class="product-title-head mt-2"
             v-if="currentProductCustomizeMenu == 'home'"
           >
-            <span>{{ selected_product.title }}</span>
+            <span>{{ current_product.title }}</span>
             <i
               class="mdi mdi-open-in-new"
               @click="previewCustomizedProductPage"
@@ -1883,12 +1883,9 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
-    selected_product: {
+    current_product: {
       get() {
-        let product = [];
-        product = this.$store.state.productManage.current_product;
-        if (product == undefined) return [];
-        else return product;
+        return this.$store.getters["productManage/current_product"]
       },
     },
     product_id: function () {
@@ -3128,7 +3125,7 @@ export default {
 
     linkBackInProductSidebar() {
       if (this.currentProductCustomizeMenu == "home") {
-        this.$router.push("/products/edit-product/" + this.selected_product.id);
+        this.$router.push("/products/edit-product/" + this.current_product.id);
       } else if (
         this.currentProductCustomizeMenu == this.previous_sidebar_menu
       ) {

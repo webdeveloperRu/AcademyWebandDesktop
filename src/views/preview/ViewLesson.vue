@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div
+    v-bind:style="{
+      'margin-top': product_margin_top,
+    }"
+  >
     <vs-row vs-justify="center" class="primary-font">
       <vs-col
         type="flex"
@@ -369,7 +373,7 @@
                   <div style="color: dodgerblue">
                     <a
                       v-text="filesrc.title"
-                      style="cursor:pointer"
+                      style="cursor: pointer"
                       @click="downloadWithAxios(filesrc.src, filesrc.title)"
                     />
                   </div>
@@ -446,6 +450,18 @@ export default {
       var id = this.$route.params.lesson_id;
       return id.slice(0, id.length);
     },
+    product_margin_top: {
+      get() {
+        if (this.lesson_id !== "") {
+          if (
+            this.current_product.customize_header.show_announcement &&
+            this.current_product.customize_header.show_header
+          ) {
+            return "55px";
+          } else return "0px";
+        } else return "0px";
+      },
+    },
 
     // current_lesson: {
     //   get() {
@@ -476,10 +492,7 @@ export default {
         return this.$store.getters["categoryManage/current_category"];
       },
       set(value) {
-        this.$store.dispatch(
-          "categoryManage/setCurrentCategory",
-          value
-        );
+        this.$store.dispatch("categoryManage/setCurrentCategory", value);
       },
     },
 
@@ -533,7 +546,7 @@ export default {
 
   created() {
     // this.getCommentsForLessonID(this.lesson_id);
-    
+
     if (this.current_category.sort_position == 1) this.prev_button = false;
     if (this.current_category.sort_position == this.category_list.length)
       this.next_button = false;
@@ -618,8 +631,10 @@ export default {
       }
     },
 
-    prevCategory() {      
-      this.current_category = this.category_list[this.current_category.sort_position-2]
+    prevCategory() {
+      this.current_category = this.category_list[
+        this.current_category.sort_position - 2
+      ];
       this.getLessonsForCategoryID(this.current_category.id);
 
       this.$store.dispatch(
@@ -631,13 +646,15 @@ export default {
       if (this.current_category.sort_position == 1) this.prev_button = false;
       else this.prev_button = true;
 
-      if (this.current_category.sort_position == this.category_list.length )
+      if (this.current_category.sort_position == this.category_list.length)
         this.next_button = false;
       else this.next_button = true;
     },
 
     nextCategory() {
-      this.current_category = this.category_list[this.current_category.sort_position]
+      this.current_category = this.category_list[
+        this.current_category.sort_position
+      ];
       this.getLessonsForCategoryID(this.current_category.id);
       this.$store.dispatch(
         "lessonManage/setCurrentLesson",

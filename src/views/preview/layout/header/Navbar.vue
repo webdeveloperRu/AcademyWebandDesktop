@@ -267,11 +267,6 @@ export default {
       );
     },
   },
-  watch: {
-    current_product: function (newValue) {
-      console.log(newValue);
-    },
-  },
   computed: {
     logged_user: {
       get() {
@@ -303,7 +298,7 @@ export default {
     },
     navbar_header_height: {
       get() {
-        if (this.product_id !== "") {
+        if (this.product_id !== "" || this.category_id !=="" || this.lesson_id !== "") {
           if (this.current_product.customize_header.show_announcement && this.current_product.customize_header.show_header) {
             return "50px";
           } else return "0px";
@@ -313,6 +308,16 @@ export default {
 
     product_id: function () {
       var id = this.$route.params.product_id;
+      if (id !== undefined) return id.slice(0, id.length);
+      else return "";
+    },
+    category_id: function () {
+      var id = this.$route.params.category_id;
+      if (id !== undefined) return id.slice(0, id.length);
+      else return "";
+    },
+    lesson_id: function () {
+      var id = this.$route.params.lesson_id;
       if (id !== undefined) return id.slice(0, id.length);
       else return "";
     },

@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div
+    v-bind:style="{
+      'margin-top': product_margin_top,
+    }"
+  >
     <vs-row vs-justify="center" class="primary-font">
       <vs-col
         type="flex"
@@ -141,9 +145,7 @@
                 class="d-flex"
                 style="align-items: center; justify-content: flex-start"
               >
-                <vs-avatar
-                  size="70px"
-                ></vs-avatar>
+                <vs-avatar size="70px"></vs-avatar>
                 <div class="ml-3">
                   <div class="mb-1">
                     <!-- <strong>{{ current_product.instructor.name }}</strong> -->
@@ -172,7 +174,19 @@ export default {
   }),
 
   computed: {
-    category_id: function() {
+    product_margin_top: {
+      get() {
+        if (this.category_id !== "") {
+          if (
+            this.current_product.customize_header.show_announcement &&
+            this.current_product.customize_header.show_header
+          ) {
+            return "55px";
+          } else return "0px";
+        } else return "0px";
+      },
+    },
+    category_id: function () {
       var id = this.$route.params.category_id;
       return id.slice(0, id.length);
     },
@@ -254,18 +268,18 @@ export default {
   methods: {
     async getLessonsForCategoryID(category_id) {
       this.$vs.loading({ type: "material" });
-        await this.$store
-          .dispatch("lessonManage/getLessonList", category_id)
-          .then(() => {
-            var count = 0;
-            var total_lesson = this.lesson_list[category_id].length;
-            for (let i = 0; i < total_lesson; i++) {
-              if (this.lesson_list[category_id][i].lessons_completed)
-                count = count + 1;
-            }
-            this.completed_lesson = count;
-            this.completed_lesson_percent = (count * 100) / total_lesson;
-          });
+      await this.$store
+        .dispatch("lessonManage/getLessonList", category_id)
+        .then(() => {
+          var count = 0;
+          var total_lesson = this.lesson_list[category_id].length;
+          for (let i = 0; i < total_lesson; i++) {
+            if (this.lesson_list[category_id][i].lessons_completed)
+              count = count + 1;
+          }
+          this.completed_lesson = count;
+          this.completed_lesson_percent = (count * 100) / total_lesson;
+        });
       this.$vs.loading.close();
     },
 

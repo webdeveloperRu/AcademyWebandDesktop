@@ -343,7 +343,6 @@
     >
       <footer
         class="footer footer--dark footer--left"
-        kjb-settings-id="sections_footer_settings_background_color"
         v-if="prod_footer.show_footer"
         v-bind:style="{
           background: prod_footer.background_color,
@@ -353,7 +352,6 @@
           <div class="footer__text-container">
             <span
               v-if="prod_footer.show_copyright"
-              kjb-settings-id="sections_footer_settings_copyright"
               class="footer__copyright"
               v-bind:style="{
                 color: prod_footer.text_color,

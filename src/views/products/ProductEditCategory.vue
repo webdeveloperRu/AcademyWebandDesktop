@@ -223,7 +223,10 @@ export default {
   computed: {
     product_id: function () {
       var id = this.$route.params.id;
-      return id.slice(0, id.length);
+      if (id !== undefined)
+        return id.slice(0, id.length);
+      else
+        return '';
     },
 
     product_list: {

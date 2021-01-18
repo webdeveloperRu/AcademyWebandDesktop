@@ -2225,6 +2225,14 @@ export default {
     product_show_header: function (newValue) {
       this.prod_header.show_header = newValue;
     },
+
+    header_announcement_text: function (newValue) {
+      this.prod_header.announcement_text = newValue;
+    },
+
+    announcement_new_window: function (newValue) {
+      this.prod_header.announcement_new_window = newValue;
+    }
   },
 
   created() {

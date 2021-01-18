@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-top:0px">
     <div class="main-banner">
       <p class="banner-title">Library</p>
       <!-- <p class="banner-subtitle">Library subtitle</p> -->
@@ -27,6 +27,7 @@
           <div
             slot="media"
             class="product-image"
+            @click="viewProduct(product)"
             v-bind:style="{
               'background-image': 'url(' + product.thumbnail + ')',
             }"
@@ -36,7 +37,7 @@
             color="primary"
             type="border"
             class="view-product"
-            @click.native="viewProduct(product.id)"
+            @click.native="viewProduct(product)"
             >View Product</vs-button
           >
         </vs-card>
@@ -117,8 +118,9 @@ export default {
       this.$vs.loading.close(this.$refs.loading);
     },
 
-    viewProduct(product_id) {
-      this.$router.push("/products/preview/" + product_id );
+    viewProduct(product) {
+      this.$store.dispatch("productManage/setCurrentProduct", product);
+      this.$router.push("/products/preview/" + product.id);
     },
   },
 };

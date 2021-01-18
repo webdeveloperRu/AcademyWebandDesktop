@@ -1,8 +1,34 @@
 <template>
-  <div>
-    <div class="category-banner">
-      <p class="producttitle-category">{{ current_product.title }}</p>
-      <vs-button class="start-course" @click.native="startCourse(current_product)"
+  <div
+    v-bind:style="{
+      'margin-top': product_margin_top,
+    }"
+  >
+    <div
+      class="category-banner"
+      v-bind:style="{
+        'background-image': current_product.customize_hero.background_image,
+        'text-align': hero_alignment,
+        'padding-top': hero_spacing,
+        'padding-bottom': hero_spacing,
+        background: current_product.customize_hero.overlay_color,
+      }"
+    >
+      <p
+        class="producttitle-category"
+        v-bind:style="{ color: current_product.customize_hero.text_color }"
+      >
+        {{ current_product.title }}
+      </p>
+      <p
+        class="product-description-category"
+        v-bind:style="{ color: current_product.customize_hero.text_color }"
+      >
+        {{ current_product.description }}
+      </p>
+      <vs-button
+        class="start-course"
+        @click.native="startCourse(current_product)"
         >Start Course</vs-button
       >
     </div>
@@ -125,7 +151,7 @@
                 <div
                   v-if="
                     lesson_list[category.id].length > 10 &&
-                      view_more[index_card] != true
+                    view_more[index_card] != true
                   "
                   color="danger"
                   @click="viewMore(index_card)"
@@ -176,9 +202,7 @@
                 class="d-flex"
                 style="align-items: center; justify-content: flex-start"
               >
-                <vs-avatar
-                  size="70px"
-                ></vs-avatar>
+                <vs-avatar size="70px"></vs-avatar>
                 <div class="ml-3">
                   <div class="mb-1">
                     <!-- <strong>{{ current_product.instructor.name }}</strong> -->
@@ -211,7 +235,7 @@ export default {
   }),
 
   computed: {
-    product_id: function() {
+    product_id: function () {
       var id = this.$route.params.product_id;
       if (id == undefined) return "";
       else return id.slice(0, id.length);
@@ -271,6 +295,57 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
+    product_margin_top: {
+      get() {
+        if (this.product_id !== "") {
+          if (
+            this.current_product.customize_header.show_announcement &&
+            this.current_product.customize_header.show_header
+          ) {
+            return "55px";
+          } else return "0px";
+        } else return "0px";
+      },
+    },
+
+    hero_alignment: {
+      get() {
+        let value = "";
+        switch (this.current_product.customize_hero.alignment) {
+          case "Centered":
+            value = "center";
+            break;
+          case "Left":
+            value = "left";
+            break;
+          case "Right":
+            value = "right";
+            break;
+        }
+        return value;
+      },
+    },
+
+    hero_spacing: {
+      get() {
+        let value = "";
+        switch (this.current_product.customize_hero.spacing) {
+          case "Small":
+            value = "30px";
+            break;
+          case "Medium":
+            value = "50px";
+            break;
+          case "Large":
+            value = "100px";
+            break;
+          case "Extra Small":
+            value = "10px";
+            break;
+        }
+        return value;
+      },
+    },
   },
 
   created() {
@@ -314,30 +389,30 @@ export default {
 
     async getCategoriesForProductID(product_id) {
       this.showCategory = false;
-        await this.$store
-          .dispatch("productManage/getCategoriesForProductID", product_id)
-          .then(() => {
-            if (this.status_got) this.loadingLessons();
-            else {
-              this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon,
-              });
-            }
-          });
+      await this.$store
+        .dispatch("productManage/getCategoriesForProductID", product_id)
+        .then(() => {
+          if (this.status_got) this.loadingLessons();
+          else {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          }
+        });
     },
 
     async getLessonsForCategoryID(category_id) {
-        await this.$store
-          .dispatch("lessonManage/getLessonList", category_id)
-          .then(() => {
-            // this.$vs.notify({
-            //   color: this.notification_color,
-            //   text: this.notification_text,
-            //   icon: this.notification_icon,
-            // });
-          });
+      await this.$store
+        .dispatch("lessonManage/getLessonList", category_id)
+        .then(() => {
+          // this.$vs.notify({
+          //   color: this.notification_color,
+          //   text: this.notification_text,
+          //   icon: this.notification_icon,
+          // });
+        });
     },
 
     viewMore(index) {
@@ -364,7 +439,7 @@ export default {
     },
 
     backToMyproducts() {
-      // this.$router.push("/library");
+      this.$router.push("/products/preview");
     },
 
     startCourse(current_product) {
@@ -380,7 +455,7 @@ export default {
       );
 
       this.$router.push(
-        "/view-lesson/" + this.lesson_list[this.category_list[0].id][0].id
+        "/products/preview/view-lesson/" + this.lesson_list[this.category_list[0].id][0].id
       );
 
       // this.getCategoriesForProductID(current_product.id)
@@ -406,22 +481,22 @@ export default {
 .category-banner {
   margin: 0 -20px;
   margin-top: -24px;
+  padding: 10px 200px;
   background-position: center;
-  background-image: url("../../assets/images/big/img1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  height: 300px;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
 .producttitle-category {
   color: white;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: 600;
-  margin-top: -80px;
 }
-
+.product-description-category {
+  font-size: 16px;
+  font-weight: 500;
+}
 .product-image {
   width: 30%;
   background-position: center;
@@ -473,11 +548,6 @@ export default {
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 5px;
 }
-.start-course {
-  position: absolute;
-  margin-top: 60px;
-}
-
 .progress-product_thumbnail .vs-card--content {
   padding: 0;
   padding-bottom: 20px;

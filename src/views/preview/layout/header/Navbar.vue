@@ -1,11 +1,46 @@
 <template>
   <header class="gridx">
     <vs-navbar
+      class="product-announcement topnavbar"
+      style="min-height:50px"
+      v-if="
+        current_product.customize_header.show_announcement &&
+        current_product.customize_header.show_header &&
+        product_id !== ''
+      "
+      v-bind:style="{
+        background: current_product.customize_header.announcement_color,
+        color: current_product.customize_header.announcement_text_color,
+      }"
+    >
+      <div
+        class="product-announcement-text"
+        @click="linkToAnnouncementUrl"
+        v-if="current_product.customize_header.announcement_new_window"
+      >
+        {{ current_product.customize_header.announcement_text }}
+      </div>
+      <a
+        v-if="!current_product.customize_header.announcement_new_window"
+        class="product-announcement-text"
+        :href="current_product.customize_header.announcement_url"
+        v-bind:style="{
+          color: current_product.customize_header.announcement_text_color,
+        }"
+      >
+        {{ current_product.customize_header.announcement_text }}
+      </a>
+    </vs-navbar>
+    <vs-navbar
       v-model="indexActive"
       :color="topbarColor"
       class="topnavbar"
       text-color="rgba(255,255,255,0.7)"
       active-text-color="rgba(255,255,255,1)"
+      v-bind:style="{
+        top: navbar_header_height,
+      }"
+      v-if="current_product.customize_header.show_header"
     >
       <!---
       Template logo
@@ -230,6 +265,17 @@ export default {
     linkToMyproducts() {
       this.$router.push("/library").catch(() => {});
     },
+    linkToAnnouncementUrl() {
+      window.open(
+        this.current_product.customize_header.announcement_url,
+        "_blank"
+      );
+    },
+  },
+  watch: {
+    current_product: function (newValue) {
+      console.log(newValue);
+    },
   },
   computed: {
     logged_user: {
@@ -254,6 +300,27 @@ export default {
         return this.$store.getters["notification_color"];
       },
     },
+
+    current_product: {
+      get() {
+        return this.$store.getters["productManage/current_product"];
+      },
+    },
+    navbar_header_height: {
+      get() {
+        if (this.product_id !== "") {
+          if (this.current_product.customize_header.show_announcement && this.current_product.customize_header.show_header) {
+            return "50px";
+          } else return "0px";
+        }else return "0px"
+      },
+    },
+
+    product_id: function () {
+      var id = this.$route.params.product_id;
+      if (id !== undefined) return id.slice(0, id.length);
+      else return "";
+    },
   },
 };
 </script>
@@ -262,4 +329,22 @@ export default {
 /* .con-vs-dropdown--menu {
   width: 100%;
 } */
+.product-announcement {
+  /* height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  z-index: 101;
+}
+.product-announcement-text {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
 </style>

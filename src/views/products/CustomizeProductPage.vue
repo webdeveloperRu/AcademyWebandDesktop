@@ -797,7 +797,7 @@ export default {
 <style lang="scss">
 .category-banner {
   padding: 10px 200px;
-  margin-top: calc(-24px);
+  margin-top: -5px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

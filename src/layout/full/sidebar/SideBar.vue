@@ -1890,10 +1890,8 @@ export default {
     },
     product_id: function () {
       let id = "";
-      if (this.$route.params.product_id !== undefined) {
         id = this.$route.params.product_id;
         return id.slice(0, id.length);
-      } else return id;
     },
 
     offer_id: function () {
@@ -2086,7 +2084,6 @@ export default {
 
     product_show_wellcomebody: function (newValue) {
       this.prod_welcome.show_welcome = newValue;
-      console.log('updated1!', this.prod_welcome)
     },
 
     product_welcome_textalign: function (newValue) {
@@ -2234,7 +2231,6 @@ export default {
   },
 
   created() {
-    console.log(this.prod_welcome)
     this.initOfferCheckoutData();
     this.initProductCustomizeData();
   },
@@ -3143,7 +3139,10 @@ export default {
     },
 
     previewCustomizedProductPage() {
-      window.open("/products/preview/" + this.product_id, "_blank");
+      console.log('dskjlfsjdfdsf')
+      // window.open("/products/preview/" + this.product_id, "_blank");
+      let token = this.$store.state.auth.user.token;
+      window.open("http://localhost:8081/product/" + this.product_id +"?academy_token=" + token + "&id=" +this.product_id , "_blank");
     },
 
     selectCustomizeTab(select_tab) {

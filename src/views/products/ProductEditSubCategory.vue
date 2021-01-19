@@ -409,7 +409,7 @@
 import draggable from "vuedraggable";
 import Lesson from "../../models/lesson";
 export default {
-  name: "DragnDropAnimation",
+  name: "ProductEditSubCategory",
 
   props: {
     title: String,

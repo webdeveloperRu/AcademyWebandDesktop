@@ -268,16 +268,6 @@ export default {
     this.$store.dispatch("productManage/getProductList");
 
     this.getLessonsForCategoryID(this.category_id);
-    // let total_lesson = this.lesson_list.length + 1;
-    // console.log('lesson list', this.lesson_list)
-    //   var count = 0;
-    //   console.log('totla lesson', total_lesson)
-    //   for (let i = 0 ; i < total_lesson ; i ++) {
-    //     if (this.lesson_list[i].lessons_completed)
-    //       count = count + 1;
-    //   }
-    //   console.log('count', count)
-    //   this.completed_lesson = count;
   },
 
   methods: {

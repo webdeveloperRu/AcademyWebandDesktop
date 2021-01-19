@@ -297,7 +297,6 @@ export default {
             this.current_category = this.$store.getters[
               "categoryManage/current_category"
             ];
-            console.log(this.current_category)
             this.category_title = this.current_category.name;
             this.category_description = this.current_category.description;
             this.category_status = this.current_category.status;

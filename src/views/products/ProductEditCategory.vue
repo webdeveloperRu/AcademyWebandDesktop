@@ -194,7 +194,7 @@ export default {
   name: "ProductEditCategory",
 
   data: () => ({
-    title: "DragnDropAnimation",
+    title: "ProductEditCategory",
     categoryTitle: "",
     category: new Category("", ""),
     loaded: 0,
@@ -535,7 +535,9 @@ export default {
      */
 
     previewProductPage() {
-      window.open("/products/preview/" + this.current_product.id, '_blank');
+      // window.open("/products/preview/" + this.current_product.id, '_blank');
+      let token = this.$store.state.auth.user.token;
+      window.open("http://localhost:8081/product/" + this.current_product.id +"?academy_token=" + token + "&id=" +this.current_product.id , "_blank");
     }
   },
 };

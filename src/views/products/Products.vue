@@ -35,11 +35,11 @@
         </vs-row>
 
         <vs-row vs-justify="left">
-          <ProductPreview
+          <ProductCard
             v-for="product in product_list"
             :key="product.id"
             :product="product"
-          ></ProductPreview>
+          ></ProductCard>
         </vs-row>
 
         <!-- 
@@ -81,13 +81,13 @@
 </template>
 
 <script>
-import ProductPreview from "./ProductPreview";
+import ProductCard from "./ProductCard";
 import Product from "../../models/product";
 export default {
   name: "Products",
 
   components: {
-    ProductPreview,
+    ProductCard,
   },
 
   /**

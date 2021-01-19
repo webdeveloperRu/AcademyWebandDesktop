@@ -1,7 +1,7 @@
 import CategoryService from '../services/category.service';
 import store from './index'
 const initialState = {
-  current_category: [],
+  current_category: Object
 };
 export const categoryManage = {
   namespaced: true,

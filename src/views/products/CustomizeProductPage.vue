@@ -775,7 +775,6 @@ export default {
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
-    console.log(this.current_product)
   },
   methods: {
     selectProductCustomizeMenu(menu_option) {

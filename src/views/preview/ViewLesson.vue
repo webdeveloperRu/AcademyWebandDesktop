@@ -393,7 +393,7 @@
                   <div style="color: dodgerblue">
                     <a
                       v-text="filesrc.name"
-                      style="cursor: pointer"
+                      class="download-file-link"
                       @click="downloadWithAxios(filesrc.url, filesrc.name)"
                     />
                   </div>
@@ -857,7 +857,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .lesson-image {
   border-radius: 4px;
   overflow: hidden;
@@ -961,6 +961,12 @@ export default {
   color: #2962ff;
   text-align: center;
   cursor: pointer;
+}
+.download-file-link {
+  cursor: pointer;
+  :hover{
+    text-decoration: underline !important;
+  }
 }
 
 @media only screen and (max-width: 900px) {

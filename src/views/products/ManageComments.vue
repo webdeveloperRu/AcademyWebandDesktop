@@ -108,10 +108,10 @@
                         </vs-td>
                         <vs-td>
                           {{ data[indextr].created_on }}
-                          <vs-button size="small" type="flat"
+                          <vs-button size="15" type="flat"
                             >Show context</vs-button
                           >
-                          <vs-button size="small" type="flat">Reply</vs-button>
+                          <vs-button size="15" type="flat">Reply</vs-button>
                         </vs-td>
                       </vs-tr>
                     </template>

@@ -7,9 +7,9 @@
       <div class="ml-5 mb-4">
         <span
           @click="backToProducts"
-          style="cursor: pointer;"
+          style="cursor: pointer"
           class="ml-2 mb-5 mt-2 primary-font"
-          ><i class="ti-angle-left" style="font-size: 14px;"></i> Products</span
+          ><i class="ti-angle-left" style="font-size: 14px"></i> Products</span
         >
         <div class="d-flex mt-3">
           <h2>Manage Comments</h2>
@@ -101,7 +101,9 @@
                       >
                         <vs-td> <vs-avatar></vs-avatar> </vs-td>
                         <vs-td :data="data[indextr].author_name">
-                          <strong>{{ data[indextr].author_name }}</strong>
+                          <strong>{{ data[indextr].author_name }}  </strong>
+                          on
+                          <strong v-if="lesson_list_comment[data[indextr].lesson_id]!==undefined">{{lesson_list_comment[data[indextr].lesson_id].title}}</strong>
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
@@ -185,16 +187,18 @@
                         <vs-td> <vs-avatar></vs-avatar> </vs-td>
                         <vs-td :data="data[indextr].author_name">
                           <strong>{{ data[indextr].author_name }}</strong>
+                          on
+                          <strong v-if="lesson_list_comment[data[indextr].lesson_id]!==undefined">{{lesson_list_comment[data[indextr].lesson_id].title}}</strong>
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
                         </vs-td>
                         <vs-td>
                           {{ data[indextr].created_on }}
-                          <vs-button size="small" type="flat"
+                          <vs-button  type="flat"
                             >Show context</vs-button
                           >
-                          <vs-button size="small" type="flat">Reply</vs-button>
+                          <vs-button type="flat">Reply</vs-button>
                         </vs-td>
                       </vs-tr>
                     </template>
@@ -327,10 +331,11 @@ export default {
     read_comment_list: [],
     unread_comment_list: [],
     delete_comment_list: [],
+    lesson_list_comment: {},
   }),
 
   watch: {
-    selected_product_filter: function() {
+    selected_product_filter: function () {
       this.filterCommentByProduct();
     },
 
@@ -414,13 +419,19 @@ export default {
         return this.$store.getters["productManage/product_list"];
       },
     },
+
+    current_lesson: {
+      get() {
+        return this.$store.getters["lessonManage/current_lesson"]
+      }
+    }
   },
 
   /**
    *   computed part
    **/
   created() {
-    this.$store.dispatch("changeSideBar", 'default');
+    this.$store.dispatch("changeSideBar", "default");
     this.getAllComments();
   },
 
@@ -434,6 +445,19 @@ export default {
     filterCommentByProduct() {
       this.filterComments();
     },
+    getLessonsForComment() {
+      for (let i = 0; i < this.comment_list.length; i++) {
+        this.$store
+          .dispatch(
+            "lessonManage/getLessonByID",
+            this.comment_list[i].lesson_id
+          )
+          .then(() => {
+            this.lesson_list_comment[this.comment_list[i].lesson_id] =  this.current_lesson
+          });
+      }
+      console.log(this.lesson_list_comment)
+    },
 
     /**
      *   get all comments function
@@ -443,6 +467,7 @@ export default {
         .dispatch("commentManage/getCommentList")
         .then(() => {
           this.filterComments();
+          this.getLessonsForComment();
           this.$vs.notify({
             color: this.notification_color,
             text: this.notification_text,
@@ -612,8 +637,7 @@ tr .td-check {
 
 @media only screen and (max-width: 767px) {
   .tr-comment td:last-child {
-  width: 200px;
+    width: 200px;
   }
 }
-
 </style>

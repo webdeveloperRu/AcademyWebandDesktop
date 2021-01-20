@@ -90,7 +90,7 @@
                         </div> -->
                       </div>
                       <vs-th></vs-th>
-                      <vs-th></vs-th>
+                      <!-- <vs-th></vs-th> -->
                     </template>
                     <template slot-scope="{ data }">
                       <vs-tr
@@ -107,14 +107,16 @@
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
-                        </vs-td>
-                        <vs-td>
+                          <br />
                           {{ data[indextr].created_on }}
                           <vs-button size="15" type="flat"
                             >Show context</vs-button
                           >
                           <vs-button size="15" type="flat">Reply</vs-button>
                         </vs-td>
+                        <!-- <vs-td>
+                          
+                        </vs-td> -->
                       </vs-tr>
                     </template>
                   </vs-table>
@@ -175,7 +177,7 @@
                         </div> -->
                       </div>
                       <vs-th></vs-th>
-                      <vs-th></vs-th>
+                      <!-- <vs-th></vs-th> -->
                     </template>
                     <template slot-scope="{ data }">
                       <vs-tr
@@ -192,14 +194,20 @@
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
-                        </vs-td>
-                        <vs-td>
+                          <br/>
                           {{ data[indextr].created_on }}
                           <vs-button  type="flat"
                             >Show context</vs-button
                           >
                           <vs-button type="flat">Reply</vs-button>
                         </vs-td>
+                        <!-- <vs-td>
+                          {{ data[indextr].created_on }}
+                          <vs-button  type="flat"
+                            >Show context</vs-button
+                          >
+                          <vs-button type="flat">Reply</vs-button>
+                        </vs-td> -->
                       </vs-tr>
                     </template>
                   </vs-table>
@@ -252,7 +260,7 @@
                         </div> -->
                       </div>
                       <vs-th></vs-th>
-                      <vs-th></vs-th>
+                      <!-- <vs-th></vs-th> -->
                     </template>
                     <template slot-scope="{ data }">
                       <vs-tr
@@ -267,14 +275,20 @@
                           <!-- <strong>{{ data[indextr].name }}</strong> -->
                           <br />
                           {{ data[indextr].comment }}
-                        </vs-td>
-                        <vs-td>
+                          <br/>
                           {{ data[indextr].created_on }}
                           <vs-button size="small" type="flat"
                             >Show context</vs-button
                           >
                           <vs-button size="small" type="flat">Reply</vs-button>
                         </vs-td>
+                        <!-- <vs-td>
+                          {{ data[indextr].created_on }}
+                          <vs-button size="small" type="flat"
+                            >Show context</vs-button
+                          >
+                          <vs-button size="small" type="flat">Reply</vs-button>
+                        </vs-td> -->
                       </vs-tr>
                     </template>
                   </vs-table>
@@ -628,16 +642,26 @@ vs-th {
 .tr-comment td:nth-child(2) .vs-table-text {
   width: 70px;
 }
-tr .td-check {
-  width: 7%;
+.vs-con-table tr td.td-check {
+  width: 20px;
+  padding-top: 23px !important;
 }
-.tr-comment td:last-child {
-  width: 350px;
+// .tr-comment td:last-child {
+//   width: 350px;
+// }
+
+.tr-comment td:nth-child(2)  {
+  width: 50px;
+  padding-top: 10px ;
 }
 
-@media only screen and (max-width: 767px) {
-  .tr-comment td:last-child {
-    width: 200px;
-  }
+.tr-comment {
+  vertical-align: top;
 }
+
+// @media only screen and (max-width: 767px) {
+//   .tr-comment td:last-child {
+//     width: 200px;
+//   }
+// }
 </style>

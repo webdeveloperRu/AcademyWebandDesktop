@@ -238,9 +238,7 @@
                     </template>
                   </dropdown>
                   <div class="action-menu">
-                    <JsonCSV :data="selected_peoples">
-                      Export
-                    </JsonCSV>
+                    <JsonCSV :data="selected_peoples"> Export </JsonCSV>
                   </div>
                   <hr />
                   <div
@@ -556,7 +554,10 @@
           @click.native="unsubscribePeopleConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click.native="bulkActionUnsubscribe"
+        <vs-button
+          color="danger"
+          type="filled"
+          @click.native="bulkActionUnsubscribe"
           >Unsubscribe</vs-button
         >
       </div>
@@ -569,7 +570,7 @@
       :active.sync="activeAddPeople"
       title="Add Student"
     >
-      <div class="mt-3" style="display: flex; justify-content:space-around;">
+      <div class="mt-3" style="display: flex; justify-content: space-around">
         <vs-radio v-model="add_student_method" vs-value="single"
           >Add Single Student</vs-radio
         >
@@ -581,7 +582,7 @@
       <hr />
       <div
         v-if="add_student_method == 'single'"
-        style=" min-height: 320px"
+        style="min-height: 320px"
         class="p-2"
       >
         <vs-input
@@ -673,14 +674,16 @@
             @click.native="cancelAddPeople"
             >Cancel</vs-button
           >
-          <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="addPeople"
+          <vs-button
+            class="ml-3 mr-3 save-cancel-button"
+            @click.native="addPeople"
             >Save</vs-button
           >
         </div>
       </div>
       <div
         v-if="add_student_method == 'upload'"
-        style="min-height: 320px;"
+        style="min-height: 320px"
         class="p-2 d-flex justify-content-center align-items-center min-height-320px"
       >
         <label class="import-file-button">
@@ -695,9 +698,7 @@
             class="mdi mdi-file-import"
             style="color: #bbbbbb; font-size: 50px"
           ></i>
-          <div style="color:#0072ef; font-size:1rem">
-            Upload Image
-          </div>
+          <div style="color: #0072ef; font-size: 1rem">Upload Image</div>
         </label>
       </div>
     </vs-popup>
@@ -776,7 +777,7 @@ export default {
         return value;
       },
     },
-    people_records: function() {
+    people_records: function () {
       return this.people_list.length;
     },
 
@@ -854,14 +855,14 @@ export default {
   },
   watch: {
     // whenever question changes, this function will run
-    selected_peoples: function(newPeoples, oldPeoples) {
+    selected_peoples: function (newPeoples, oldPeoples) {
       if (newPeoples.length != 0) {
         this.all_Selected = true;
       } else {
         this.all_Selected = false;
       }
     },
-    activeAddPeople: function(newValue, oldValue) {
+    activeAddPeople: function (newValue, oldValue) {
       if (newValue) {
         this.addTags = false;
         this.grantofferStatus = false;
@@ -869,7 +870,7 @@ export default {
         this.selected_tag = [];
       }
     },
-    activeBulkActionAddTags: function(newBulkAction, oldBulkAction) {},
+    activeBulkActionAddTags: function (newBulkAction, oldBulkAction) {},
   },
   created() {
     this.$store.dispatch("changeSideBar", "default");
@@ -1012,42 +1013,44 @@ export default {
 
     async bulkActionGrantOffer() {
       this.grantOfferIDs = [];
-      for (let i = 0; i < this.bulkGrantOfferSelection.length; i++) {
-        this.grantOfferIDs[i] = this.bulkGrantOfferSelection[i].code;
-      }
-      let grantOfferData = [];
-      this.$vs.loading({ type: "material" });
-      for (let i = 0; i < this.selected_peoples.length; i++) {
-        grantOfferData = [];
-        for (
-          let j = 0;
-          j < this.selected_peoples[i].granted_access.length;
-          j++
-        ) {
-          grantOfferData.push(
-            this.selected_peoples[i].granted_access[j].offer_id
-          );
+      if (this.bulkGrantOfferSelection.length !== 0) {
+        for (let i = 0; i < this.bulkGrantOfferSelection.length; i++) {
+          this.grantOfferIDs[i] = this.bulkGrantOfferSelection[i].code;
         }
-        for (let j = 0; j < this.grantOfferIDs.length; j++) {
-          grantOfferData.push(this.grantOfferIDs[j]);
-        }
-        this.selected_peoples[i].granted_access = grantOfferData;
-        await this.$store
-          .dispatch("peopleManage/updatePeopleByID", [
-            this.selected_peoples[i],
-            this.selected_peoples[i].id,
-          ])
-          .then(() => {})
-          .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon,
+        let grantOfferData = [];
+        this.$vs.loading({ type: "material" });
+        for (let i = 0; i < this.selected_peoples.length; i++) {
+          grantOfferData = [];
+          for (
+            let j = 0;
+            j < this.selected_peoples[i].granted_access.length;
+            j++
+          ) {
+            grantOfferData.push(
+              this.selected_peoples[i].granted_access[j].offer_id
+            );
+          }
+          for (let j = 0; j < this.grantOfferIDs.length; j++) {
+            grantOfferData.push(this.grantOfferIDs[j]);
+          }
+          this.selected_peoples[i].granted_access = grantOfferData;
+          await this.$store
+            .dispatch("peopleManage/updatePeopleByID", [
+              this.selected_peoples[i],
+              this.selected_peoples[i].id,
+            ])
+            .then(() => {})
+            .catch(() => {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             });
-          });
+        }
+        this.$vs.loading.close();
+        this.activeBulkActionGrantOffer = false;
       }
-      this.$vs.loading.close();
-      this.activeBulkActionGrantOffer = false;
     },
 
     /**
@@ -1055,36 +1058,38 @@ export default {
      */
 
     async bulkActionRevokeOffer() {
-      this.$vs.loading({ type: "material" });
-      for (let i = 0; i < this.selected_peoples.length; i++) {
-        for (
-          let j = 0;
-          j < this.selected_peoples[i].granted_access.length;
-          j++
-        ) {
-          if (
-            this.selected_peoples[i].granted_access[j].offer_id ==
-            this.bulkRevokeOfferSelection.code
+      if (this.bulkRevokeOfferSelection.code !== undefined) {
+        this.$vs.loading({ type: "material" });
+        for (let i = 0; i < this.selected_peoples.length; i++) {
+          for (
+            let j = 0;
+            j < this.selected_peoples[i].granted_access.length;
+            j++
           ) {
-            this.selected_peoples[i].granted_access.splice(j, 1);
+            if (
+              this.selected_peoples[i].granted_access[j].offer_id ==
+              this.bulkRevokeOfferSelection.code
+            ) {
+              this.selected_peoples[i].granted_access.splice(j, 1);
+            }
           }
-        }
-        await this.$store
-          .dispatch("peopleManage/updatePeopleByID", [
-            this.selected_peoples[i],
-            this.selected_peoples[i].id,
-          ])
-          .then(() => {})
-          .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon,
+          await this.$store
+            .dispatch("peopleManage/updatePeopleByID", [
+              this.selected_peoples[i],
+              this.selected_peoples[i].id,
+            ])
+            .then(() => {})
+            .catch(() => {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             });
-          });
+        }
+        this.$vs.loading.close();
+        this.activeBulkActionRevokeOffer = false;
       }
-      this.$vs.loading.close();
-      this.activeBulkActionRevokeOffer = false;
     },
 
     async bulkActionUnsubscribe() {
@@ -1110,71 +1115,75 @@ export default {
     },
 
     async bulkActionAddTags() {
-      // this.$vs.loading({ type: "material" });
       let tags = [];
       let is_exist = false;
-      for (let i = 0; i < this.selected_peoples.length; i++) {
-        tags = [];
-        for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
-          tags.push({ title: this.selected_peoples[i].tags[j].title });
-          if (
-            this.selected_tag.name == this.selected_peoples[i].tags[j].title
-          ) {
-            is_exist = true;
+      if (this.selected_tag.name !== undefined) {
+        this.$vs.loading({ type: "material" });
+        for (let i = 0; i < this.selected_peoples.length; i++) {
+          tags = [];
+          for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
+            tags.push({ title: this.selected_peoples[i].tags[j].title });
+            if (
+              this.selected_tag.name == this.selected_peoples[i].tags[j].title
+            ) {
+              is_exist = true;
+            }
           }
-        }
-        if (!is_exist) tags.push(this.selected_tag);
-        this.selected_peoples[i].tags = tags;
-        await this.$store
-          .dispatch("peopleManage/updatePeopleByID", [
-            this.selected_peoples[i],
-            this.selected_peoples[i].id,
-          ])
-          .then(() => {
-            this.$store.dispatch("peopleManage/getTagList");
-          })
-          .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon,
+          if (!is_exist) tags.push(this.selected_tag);
+          this.selected_peoples[i].tags = tags;
+          await this.$store
+            .dispatch("peopleManage/updatePeopleByID", [
+              this.selected_peoples[i],
+              this.selected_peoples[i].id,
+            ])
+            .then(() => {
+              this.$store.dispatch("peopleManage/getTagList");
+            })
+            .catch(() => {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             });
-          });
+        }
+        this.$vs.loading.close();
+        this.selected_tag = [];
+        this.activeBulkActionAddTags = false;
       }
-      // this.$vs.loading.close();
-      this.selected_tag = [];
-      this.activeBulkActionAddTags = false;
     },
 
     async bulkActionRemoveTags() {
-      this.$vs.loading({ type: "material" });
-      for (let i = 0; i < this.selected_peoples.length; i++) {
-        for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
-          if (
-            this.selected_peoples[i].tags[j].title == this.selected_tag.name
-          ) {
-            this.selected_peoples[i].tags.splice(j, 1);
+      if (this.selected_tag.name !== undefined) {
+        this.$vs.loading({ type: "material" });
+        for (let i = 0; i < this.selected_peoples.length; i++) {
+          for (let j = 0; j < this.selected_peoples[i].tags.length; j++) {
+            if (
+              this.selected_peoples[i].tags[j].title == this.selected_tag.name
+            ) {
+              this.selected_peoples[i].tags.splice(j, 1);
+            }
           }
-        }
-        await this.$store
-          .dispatch("peopleManage/updatePeopleByID", [
-            this.selected_peoples[i],
-            this.selected_peoples[i].id,
-          ])
-          .then(() => {})
-          .catch(() => {
-            this.$vs.notify({
-              color: this.notification_color,
-              text: this.notification_text,
-              icon: this.notification_icon,
+          await this.$store
+            .dispatch("peopleManage/updatePeopleByID", [
+              this.selected_peoples[i],
+              this.selected_peoples[i].id,
+            ])
+            .then(() => {})
+            .catch(() => {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
             });
-          });
+        }
+        this.$store.dispatch("peopleManage/getTagList");
+        this.$vs.loading.close();
+        this.selected_tag = [];
+        this.peopleTags = [];
+        this.activeBulkActionRemoveTags = false;
       }
-      this.$store.dispatch("peopleManage/getTagList");
-      this.$vs.loading.close();
-      this.selected_tag = [];
-      this.peopleTags = [];
-      this.activeBulkActionRemoveTags = false;
     },
     /**
      * delete selected students

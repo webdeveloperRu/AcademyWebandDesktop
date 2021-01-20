@@ -1237,19 +1237,23 @@ export default {
         this.people.address = this.peopleAddress;
         this.$store
           .dispatch("peopleManage/addPeople", this.people)
-          .then(() => {
-            // this.$vs.notify({
-            //     color: this.notification_color,
-            //     text: this.notification_text,
-            //     icon: this.notification_icon
-            //   })
-            this.updatedTable++;
-            this.grantofferStatus = false;
-            this.addTags = false;
-            this.subscribeMarketingEmail = false;
-            this.linkToPeopleDetails(
-              this.people_list[this.people_list.length - 1].id
-            );
+          .then(() => {            
+            if(this.status_got){
+              this.updatedTable++;
+              this.grantofferStatus = false;
+              this.addTags = false;
+              this.subscribeMarketingEmail = false;
+              this.linkToPeopleDetails(
+                this.people_list[this.people_list.length - 1].id
+              );
+            }
+            else{
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon
+              })
+            }
           })
           .catch(() => {
             this.$vs.notify({

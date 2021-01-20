@@ -406,6 +406,29 @@ export default {
         };
       }
       this.getOfferList();
+      this.getPeopleList();
+    },
+    /*
+     ** View Edit item hover processing
+     */
+    getPeopleList() {
+      this.$store
+        .dispatch("peopleManage/getPeopleList")
+        .then(() => {
+          // this.$vs.notify({
+          //   color: this.notification_color,
+          //   text: this.notification_text,
+          //   icon: this.notification_icon,
+          // });
+          // this.peopleTags = this.tag_name_list;
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
     /*
      ** get offers list

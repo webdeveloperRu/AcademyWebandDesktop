@@ -39,7 +39,7 @@
           <div
             v-html="htmlBody"
             class="mt-3 mb-3 ql-editor"
-            style="word-wrap: break-word;"
+            style="word-wrap: break-word"
           ></div>
         </div>
         <!-- 
@@ -54,10 +54,10 @@
           </div>
 
           <div class="mb-3">
-            <div class="testimonial-description  mx-1 my-1">
+            <div class="testimonial-description mx-1 my-1">
               {{ testimonials[index].quote_text }}
             </div>
-            <div class="d-flex mt-2 mx-1 mb-1" style="align-items:center">
+            <div class="d-flex mt-2 mx-1 mb-1" style="align-items: center">
               <vs-avatar
                 size="large"
                 :src="testimonials[index].avatar_img"
@@ -215,7 +215,7 @@
             <div
               v-if="payment_type"
               class="mt-2 ml-2"
-              style="color: dodgerblue;cursor:pointer; user-select: none"
+              style="color: dodgerblue; cursor: pointer; user-select: none"
               @click="initPaymentType()"
             >
               Change payment method
@@ -268,7 +268,6 @@
             v-else
             class="w-100 mt-3"
             color="primary"
-            :disabled="signingUpFree"
             @click.native="signUpFree"
             >{{ signUpFreeText }}</vs-button
           >
@@ -280,6 +279,36 @@
         </vs-card>
       </vs-col>
     </vs-row>
+    <!-- 
+      ***@  --------Head Up offer ---------------
+     -->
+    <vs-popup
+      color="success"
+      :active.sync="active_headup_pop"
+      title="Heads up!"
+    >
+      <div class="mt-3">
+        <h5>
+          It looks like you already purchased {{ selected_public_offer.name }}
+        </h5>
+      </div>
+      <div class="take-me-there">Take me there!</div>
+      <i
+        class="mdi mdi-open-in-new take-me-there ml-2"
+        @click="linkToStudentApp"
+        style="cursor: pointer; font-size: 20px"
+      ></i>
+      <div class="d-flex mt-5">
+        <vs-button
+          color="primary"
+          type="border"
+          class="save-cancel-button"
+          style="margin-left: auto"
+          @click.native="closeHeadUp"
+          >close</vs-button
+        >
+      </div>
+    </vs-popup>
   </div>
 </template>
 
@@ -315,8 +344,8 @@ export default {
     css_banner_height: "",
     payment_type: "stripe",
     invalid_email: false,
-    signingUpFree: false,
     signUpFreeText: "Sign up for free",
+    active_headup_pop: false,
   }),
   computed: {
     user_logged: {
@@ -354,7 +383,7 @@ export default {
       },
     },
 
-    offer_id: function() {
+    offer_id: function () {
       var id = this.$route.params.offer_id;
       return id.slice(0, id.length);
     },
@@ -384,7 +413,7 @@ export default {
       },
     },
 
-    selected_public_offer: function() {
+    selected_public_offer: function () {
       let offer = [];
       offer = this.$store.state.offerManage.current_public_offer;
       if (offer == undefined) return [];
@@ -426,10 +455,16 @@ export default {
         return this.$store.state.paymentManage.stripe_session_id;
       },
     },
+
+    people_list: {
+      get() {
+        return this.$store.getters["peopleManage/people_list"];
+      },
+    },
   },
 
   watch: {
-    service_agreement: function() {
+    service_agreement: function () {
       if (this.service_agreement.status !== undefined) {
         if (this.service_agreement.status == "not_required") {
           this.show_required = false;
@@ -477,12 +512,67 @@ export default {
         return;
       }
       this.invalid_email = false;
-      this.signingUpFree = true;
       this.signUpFreeText = "Submitting";
-      this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
+      let email_exist = false;
+      for (let i = 0; i < this.people_list.length; i++) {
+        if (this.people_list[i].email == this.email) {
+          email_exist = true;
+          for (let j = 0; j < this.people_list[i].granted_access.length; j++) {
+            if (
+              this.people_list[i].granted_access[j].offer_id ==
+              this.selected_public_offer.id
+            ) {
+              this.active_headup_pop = true;
+              return;
+            }
+          }
+          if (this.active_headup_pop == false) {
+            let offer = {
+              offer_id: this.selected_public_offer.id,
+              price: this.selected_public_offer.price,
+              title: this.selected_public_offer.name,
+            };
+            let access = [];
+            for (
+              let j = 0;
+              j < this.people_list[i].granted_access.length;
+              j++
+            ) {
+              access[j] = this.people_list[i].granted_access[j].offer_id;
+            }
+            access[access.length] = this.selected_public_offer.id
+            this.people_list[i].granted_access = [];
+            this.people_list[i].granted_access = access;
+            this.addGrantedAccess(this.people_list[i]);
+          }
+        }
+      }
+      if (email_exist == false) {
+        this.$store.commit('SET_PURCHASER_EMAIL', this.email)
+        this.$store.commit('SET_PURCHASER_OFFER_ID', this.offer_id)
+        this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
+      }
+    },
+    addGrantedAccess(people) {
+      this.$store
+        .dispatch("peopleManage/updatePeopleByID", [people, people.id])
+        .then(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: text,
+            icon: this.notification_icon,
+          });
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        });
     },
 
-    validEmail: function(email) {
+    validEmail: function (email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/;
       return re.test(email);
     },
@@ -509,9 +599,15 @@ export default {
           }
         });
     },
+    linkToStudentApp() {
+      window.open("http://localhost:8081/", "_blank");
+    },
+    closeHeadUp() {
+      this.active_headup_pop = false;
+    },
   },
   filters: {
-    capitalize: function(value) {
+    capitalize: function (value) {
       if (value == undefined) return "";
       else return value.toUpperCase();
     },
@@ -603,6 +699,16 @@ export default {
   -webkit-box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.15);
 }
+.take-me-there {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  color: #0072ef;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
 /* .loading {
   width: 50px;
   height: 50px;

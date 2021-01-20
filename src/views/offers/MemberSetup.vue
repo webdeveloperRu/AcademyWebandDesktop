@@ -3,39 +3,70 @@
     <div>
       <div class="member-setup-title">
         <i class="mdi mdi-check" style="font-size: 32px"></i>
-        <div>
-          Purchase Successful!
-        </div>
+        <div>Purchase Successful!</div>
       </div>
       <div class="member-setup-note primary-font">
         Please complete the fiedls below to create your account
       </div>
       <vs-card class="member-register">
         <vs-input
-          label="First Name"
+          label="Full Name"
           class="inputx w-100 mb-3"
-          v-model="first_name"
-        />
-        <vs-input
-          label="Last Name"
-          class="inputx w-100 mb-3"
-          v-model="last_name"
+          v-model="full_name"
+          :danger="valid_name"
+          :danger-text="name_danger_text"
         />
         <vs-input
           label="Password"
           class="inputx w-100 mb-3"
           v-model="password"
+          type="password"
+          :danger="valid_password"
+          :danger-text="password_danger_text"
         />
         <vs-input
           label="Verify Password"
           class="inputx w-100 mb-3"
+          type="password"
           v-model="verify_password"
+          :danger="valid_verify_password"
+          :danger-text="verify_password_danger_text"
         />
       </vs-card>
       <div class="create-account-button">
-        <vs-button color="primary">Create Account</vs-button>
+        <vs-button color="primary" @click.native="createAccount"
+          >Create Account</vs-button
+        >
       </div>
     </div>
+    <!-- 
+      ***@  --------Success ---------------
+     -->
+    <vs-popup
+      color="success"
+      :active.sync="active_success_register"
+      title="Register"
+    >
+      <div class="mt-3">
+        <h5>Successsfully Registered!</h5>
+      </div>
+      <div class="take-me-there">Take me there!</div>
+      <i
+        class="mdi mdi-open-in-new take-me-there ml-2"
+        @click="linkToStudentApp"
+        style="cursor: pointer; font-size: 20px"
+      ></i>
+      <div class="d-flex mt-5">
+        <vs-button
+          color="primary"
+          type="border"
+          class="save-cancel-button"
+          style="margin-left: auto"
+          @click.native="active_success_register = false"
+          >close</vs-button
+        >
+      </div>
+    </vs-popup>
   </div>
 </template>
 <script>
@@ -44,19 +75,107 @@ export default {
   components: {},
 
   data: () => ({
-    first_name: "",
-    last_name: "",
+    full_name: "",
     password: "",
     verify_password: "",
+    name_danger_text: "",
+    valid_name: false,
+    valid_password: false,
+    valid_verify_password: false,
+    verify_password_danger_text: "",
+    password_danger_text: "",
+    active_success_register: false,
   }),
 
   created() {},
+  watch: {
+    full_name: function (newValue) {
+      if (newValue !== "") this.valid_name = false;
+    },
+    password: function (newValue) {
+      if (newValue !== "") this.valid_password = false;
+    },
+    verify_password: function (newValue) {
+      if (newValue !== "") this.valid_verify_password = false;
+    },
+  },
 
   methods: {
-    processing() {},
+    linkToStudentApp() {
+      window.open("http://localhost:8081/", "_blank");
+    },
+    createAccount() {
+      if (this.full_name == "") {
+        this.name_danger_text = "name required";
+        this.valid_name = true;
+        return;
+      }
+      if (this.password == "") {
+        this.password_danger_text = "password required";
+        this.valid_password = true;
+        return;
+      }
+      if (this.verify_password == "") {
+        this.verify_password_danger_text = "verify password required";
+        this.valid_verify_password = true;
+        return;
+      }
+      if (this.password != this.verify_password) {
+        this.valid_verify_password = true;
+        this.verify_password_danger_text = "verify password doesn't match";
+        return;
+      }
+      let granted_access = [];
+      granted_access[0] = this.purchaser_offer_id;
+      let user = {
+        email: this.purchaser_email,
+        name: this.full_name,
+        password: this.password,
+        otp: "",
+      };
+      let people = {
+        email: this.purchaser_email,
+        name: this.full_name,
+        tags: [],
+        is_subscribe: false,
+        granted_access: granted_access,
+      };
+
+      this.$store.dispatch("auth/createNewStudent", user).then(() => {
+        if (this.status_got) {
+          this.$store.dispatch("peopleManage/addPeople", people).then(() => {
+            if (this.status_got) {
+              this.active_success_register = true;
+            } else {
+              this.$vs.notify({
+                color: this.notification_color,
+                text: this.notification_text,
+                icon: this.notification_icon,
+              });
+            }
+          });
+        } else {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+        }
+      });
+    },
   },
 
   computed: {
+    purchaser_email: {
+      get() {
+        return this.$store.getters["purchaser_email"];
+      },
+    },
+    purchaser_offer_id: {
+      get() {
+        return this.$store.getters["purchaser_offer_id"];
+      },
+    },
     user_logged: {
       get() {
         return this.$store.getters["auth/user_logged"];
@@ -109,5 +228,14 @@ export default {
 }
 .create-account-button {
   text-align: center;
+}
+.take-me-there {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  color: #0072ef;
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 10px;
 }
 </style>

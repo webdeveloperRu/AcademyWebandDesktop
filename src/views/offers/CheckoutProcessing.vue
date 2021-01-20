@@ -44,6 +44,7 @@ export default {
     processing_success: false,
   }),
   created() {
+
     setTimeout(() => this.processing(), 1500);
   },
   methods: {
@@ -86,7 +87,10 @@ export default {
 
     offer_id: function() {
       var id = this.$route.params.offer_id;
-      return id.slice(0, id.length);
+      if (id==undefined) 
+        return '';
+      else
+        return id.slice(0, id.length);
     },
   },
 };

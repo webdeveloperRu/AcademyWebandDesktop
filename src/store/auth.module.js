@@ -199,6 +199,30 @@ export const auth = {
         }
       );
     },
+
+    createNewStudent({ commit }, user) {
+      return AuthService.createNewStudent(user).then(
+        (res) => {
+          if (res.status == 200) {
+            commit("createNewStudentSuccess", res);
+          } else {
+            if (res.response == undefined)
+              commit("NETWORK_ERROR", null, {
+                root: true,
+              });
+            else
+              commit("REQUEST_FAILED", res.response, {
+                root: true,
+              });
+          }
+        },
+        (error) => {
+          commit("REQUEST_FAILED", error.response, {
+            root: true,
+          });
+        }
+      );
+    },
   },
 
   getters: {
@@ -311,10 +335,20 @@ export const auth = {
       store.state.notification_text = "password changed successfuly";
     },
 
-    changePasswordFailed(state, error) {
+    changePasswordFailed(error) {
+      store.state.status = {};
       store.state.notification_icon = "warning";
       store.state.notification_color = "#ff3300";
       store.state.notification_text = error.data.message;
+    },
+
+    createNewStudentSuccess() {
+      store.state.status = {
+        got: true,
+      };
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "Success to register!";
     },
 
     RESET_MODULE(state) {

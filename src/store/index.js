@@ -65,6 +65,8 @@ export default new Vuex.Store({
     },
     custom_warning: "#ff3300",
     current_productcustomize_menu: "home",
+    purchaser_email: "",
+    purchaser_offer_id: ""
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -113,6 +115,13 @@ export default new Vuex.Store({
       state.current_productcustomize_menu = current_productcustomize_menu;
     },
 
+    SET_PURCHASER_EMAIL(state, email){
+      state.purchaser_email = email;
+    },
+    SET_PURCHASER_OFFER_ID(state, offer_id){
+      state.purchaser_offer_id = offer_id;
+    },
+
     RESET_MODULE(state) {
       state.currentSidebar = "default";
       state.current_checkoutmenu = "home";
@@ -146,5 +155,7 @@ export default new Vuex.Store({
     notification_icon: (state) => state.notification_icon,
     loading_status: (state) => state.loading_status,
     currentSidebar: (state) => state.currentSidebar,
+    purchaser_email: (state) => state.purchaser_email,
+    purchaser_offer_id: (state) => state.purchaser_offer_id,
   },
 });

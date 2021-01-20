@@ -2,6 +2,7 @@ import axios from 'axios';
 import apiurl from './base_api_url'
 import store from '../store'
 const API_URL = apiurl.API_URL + 'auth/';
+const API_STUDNET_URL = apiurl.API_URL_V3 + 'auth/';
 class AuthService {
   login(user, rememberme) {
     return axios
@@ -54,6 +55,9 @@ class AuthService {
         return err;
       });
   }
+
+ 
+
 
   forgotPassword(useremail) {
     return axios.post(API_URL + 'forgot-password', {
@@ -112,6 +116,25 @@ class AuthService {
         return response;
       })
       .catch(err => {
+        return err;
+      });
+  }
+
+  createNewStudent(user) {
+    return axios
+      .post(
+        API_STUDNET_URL + "register",
+        user,
+        {
+          headers: {
+            Auth: "allow",
+          },
+        }
+      )
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
         return err;
       });
   }

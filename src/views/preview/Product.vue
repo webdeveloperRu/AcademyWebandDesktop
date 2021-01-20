@@ -388,7 +388,6 @@ export default {
   },
 
   created() {
-    console.log(this.product_id)
     this.$store.dispatch("productManage/getProductList");
     this.getCategoriesForProductID(this.product_id);
   },

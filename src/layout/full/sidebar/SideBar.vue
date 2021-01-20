@@ -3139,7 +3139,6 @@ export default {
     },
 
     previewCustomizedProductPage() {
-      console.log('dskjlfsjdfdsf')
       // window.open("/products/preview/" + this.product_id, "_blank");
       let token = this.$store.state.auth.user.token;
       window.open("http://localhost:8081/product/" + this.product_id +"?academy_token=" + token + "&id=" +this.product_id , "_blank");

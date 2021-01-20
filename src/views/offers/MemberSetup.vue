@@ -101,9 +101,7 @@ export default {
   },
 
   methods: {
-    linkToStudentApp() {
-      window.open("http://localhost:8081/", "_blank");
-    },
+    
     createAccount() {
       if (this.full_name == "") {
         this.name_danger_text = "name required";
@@ -141,19 +139,36 @@ export default {
         granted_access: granted_access,
       };
 
-      this.$store.dispatch("auth/createNewStudent", user).then(() => {
+      this.$store.dispatch("peopleManage/addPeople", people).then(() => {
         if (this.status_got) {
-          this.$store.dispatch("peopleManage/addPeople", people).then(() => {
-            if (this.status_got) {
-              this.active_success_register = true;
-            } else {
-              this.$vs.notify({
-                color: this.notification_color,
-                text: this.notification_text,
-                icon: this.notification_icon,
-              });
-            }
-          });
+          this.$store
+            .dispatch("auth/forgotStudentPassword", this.purchaser_email)
+            .then(() => {
+              if (this.status_got) {
+                this.$store
+                  .dispatch("auth/resetStudentPassword", [
+                    user,
+                    this.student_email_code,
+                  ])
+                  .then(() => {
+                    if (this.status_got) {
+                      window.open("http://localhost:8081/", "_blank");
+                    } else {
+                      this.$vs.notify({
+                        color: this.notification_color,
+                        text: this.notification_text,
+                        icon: this.notification_icon,
+                      });
+                    }
+                  });
+              } else {
+                this.$vs.notify({
+                  color: this.notification_color,
+                  text: this.notification_text,
+                  icon: this.notification_icon,
+                });
+              }
+            });
         } else {
           this.$vs.notify({
             color: this.notification_color,
@@ -166,6 +181,11 @@ export default {
   },
 
   computed: {
+    student_email_code: {
+      get() {
+        return this.$store.getters["student_email_code"];
+      },
+    },
     purchaser_email: {
       get() {
         return this.$store.getters["purchaser_email"];

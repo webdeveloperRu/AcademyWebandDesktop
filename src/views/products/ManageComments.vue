@@ -460,7 +460,6 @@ export default {
             this.lesson_list_comment[this.comment_list[i].lesson_id] =  this.current_lesson
           });
       }
-      console.log(this.lesson_list_comment)
     },
 
     /**

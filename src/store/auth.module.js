@@ -223,6 +223,54 @@ export const auth = {
         }
       );
     },
+
+    forgotStudentPassword({ commit }, useremail) {
+      return AuthService.forgotStudentPassword(useremail).then(
+        (res) => {
+          if (res.status == 200) {
+            commit("forgotStudentPasswordSuccess", res);
+          } else {
+            if (res.response == undefined)
+              commit("NETWORK_ERROR", null, {
+                root: true,
+              });
+            else
+              commit("REQUEST_FAILED", res.response, {
+                root: true,
+              });
+          }
+        },
+        (error) => {
+          commit("REQUEST_FAILED", error.response, {
+            root: true,
+          });
+        }
+      );
+    },
+
+    resetStudentPassword({ commit }, [user, emailcode]) {
+      return AuthService.resetStudentPassword(user, emailcode).then(
+        (res) => {
+          if (res.status == 200) {
+            commit("resetStudentPasswordSuccess", res);
+          } else {
+            if (res.response == undefined)
+              commit("NETWORK_ERROR", null, {
+                root: true,
+              });
+            else
+              commit("REQUEST_FAILED", res.response, {
+                root: true,
+              });
+          }
+        },
+        (error) => {
+          commit("REQUEST_FAILED", error.response, {
+            root: true,
+          });
+        }
+      );
+    },
   },
 
   getters: {
@@ -350,6 +398,26 @@ export const auth = {
       store.state.notification_color = "primary";
       store.state.notification_text = "Success to register!";
     },
+
+    forgotStudentPasswordSuccess(state, res) {
+      state.res = user;
+      store.state.status = {
+        got: true,
+      };
+      store.state.student_email_code = res.data.resetcode;
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "";
+    },
+    resetStudentPasswordSuccess()  {
+      store.state.status = {
+        got: true,
+      };
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "Success to register!";
+    },
+
 
     RESET_MODULE(state) {
       Object.assign(state, initialState);

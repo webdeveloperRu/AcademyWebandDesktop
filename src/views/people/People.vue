@@ -855,14 +855,14 @@ export default {
   },
   watch: {
     // whenever question changes, this function will run
-    selected_peoples: function (newPeoples, oldPeoples) {
+    selected_peoples: function (newPeoples) {
       if (newPeoples.length != 0) {
         this.all_Selected = true;
       } else {
         this.all_Selected = false;
       }
     },
-    activeAddPeople: function (newValue, oldValue) {
+    activeAddPeople: function (newValue) {
       if (newValue) {
         this.addTags = false;
         this.grantofferStatus = false;
@@ -870,7 +870,6 @@ export default {
         this.selected_tag = [];
       }
     },
-    activeBulkActionAddTags: function (newBulkAction, oldBulkAction) {},
   },
   created() {
     this.$store.dispatch("changeSideBar", "default");

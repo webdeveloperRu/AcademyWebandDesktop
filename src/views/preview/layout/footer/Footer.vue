@@ -227,8 +227,7 @@
 export default {
   name: "Footer",
   data: () => ({}),
-  created() {
-  },
+  
   computed: {
     product_id: function() {
       var id = this.$route.params.product_id;

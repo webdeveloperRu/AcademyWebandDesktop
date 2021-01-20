@@ -66,7 +66,8 @@ export default new Vuex.Store({
     custom_warning: "#ff3300",
     current_productcustomize_menu: "home",
     purchaser_email: "",
-    purchaser_offer_id: ""
+    purchaser_offer_id: "",
+    student_email_code: ""
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -157,5 +158,6 @@ export default new Vuex.Store({
     currentSidebar: (state) => state.currentSidebar,
     purchaser_email: (state) => state.purchaser_email,
     purchaser_offer_id: (state) => state.purchaser_offer_id,
+    student_email_code: (state) => state.student_email_code,
   },
 });

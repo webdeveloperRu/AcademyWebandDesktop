@@ -139,6 +139,49 @@ class AuthService {
       });
   }
 
+  forgotStudentPassword(useremail) {
+    return axios
+      .post(
+        API_STUDNET_URL + "forgot-password",
+        {
+          email: useremail,
+        },
+        {
+          headers: {
+            Auth: "allow",
+          },
+        }
+      )
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        return err;
+      });
+  }
+
+  resetStudentPassword(user, emailcode) {
+    return axios
+      .post(
+        API_STUDNET_URL + "reset-password?code=" + emailcode,
+        {
+          email: user.email,
+          "email-code": emailcode,
+          newpassword: user.password,
+        },
+        {
+          headers: {
+            Auth: "allow",
+          },
+        }
+      )
+      .then((response) => {
+        return response;
+      })
+      .catch((err) => {
+        return err;
+      });
+  }
 
 }
 

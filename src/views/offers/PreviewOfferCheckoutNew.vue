@@ -527,11 +527,11 @@ export default {
             }
           }
           if (this.active_headup_pop == false) {
-            let offer = {
-              offer_id: this.selected_public_offer.id,
-              price: this.selected_public_offer.price,
-              title: this.selected_public_offer.name,
-            };
+            // let offer = {
+            //   offer_id: this.selected_public_offer.id,
+            //   price: this.selected_public_offer.price,
+            //   title: this.selected_public_offer.name,
+            // };
             let access = [];
             for (
               let j = 0;
@@ -559,7 +559,7 @@ export default {
         .then(() => {
           this.$vs.notify({
             color: this.notification_color,
-            text: text,
+            text: this.notification_text,
             icon: this.notification_icon,
           });
         })

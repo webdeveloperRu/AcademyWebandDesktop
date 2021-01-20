@@ -248,16 +248,6 @@
                             >Restore</vs-button
                           >
                         </div>
-                        <!-- <div>
-                          <vs-select v-model="sortby" icon="arrow_downward">
-                            <vs-select-item
-                              :key="index"
-                              :value="item.value"
-                              :text="item.text"
-                              v-for="(item, index) in comment_sortby"
-                            />
-                          </vs-select>
-                        </div> -->
                       </div>
                       <vs-th></vs-th>
                       <!-- <vs-th></vs-th> -->
@@ -513,19 +503,19 @@ export default {
      *   delete comments
      **/
     deleteComment() {
-      // if (this.currentTab == 0){
-      //   var unreadComment={};
-      //   for(let i = 0; i < this.selected_unread_comments.length; i++) {
-      //     unreadComment = this.selected_unread_comments[i];
-      //     this.updateCommentStatus(unreadComment, 'DELETE');
-      //   }
-      // } else {
-      //   var readComment={};
-      //   for(let i = 0; i < this.selected_read_comments.length; i++) {
-      //     readComment = this.selected_read_comments[i];
-      //     this.updateCommentStatus(readComment, 'DELETE');
-      //   }
-      // }
+      if (this.currentTab == 0){
+        var unreadComment={};
+        for(let i = 0; i < this.selected_unread_comments.length; i++) {
+          unreadComment = this.selected_unread_comments[i];
+          this.updateCommentStatus(unreadComment, 'DELETE');
+        }
+      } else {
+        var readComment={};
+        for(let i = 0; i < this.selected_read_comments.length; i++) {
+          readComment = this.selected_read_comments[i];
+          this.updateCommentStatus(readComment, 'DELETE');
+        }
+      }
     },
 
     /**

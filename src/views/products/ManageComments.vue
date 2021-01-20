@@ -606,4 +606,14 @@ vs-th {
 tr .td-check {
   width: 7%;
 }
+.tr-comment td:last-child {
+  width: 350px;
+}
+
+@media only screen and (max-width: 767px) {
+  .tr-comment td:last-child {
+  width: 200px;
+  }
+}
+
 </style>

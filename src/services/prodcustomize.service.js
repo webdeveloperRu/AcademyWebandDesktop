@@ -42,7 +42,7 @@ class ProdCustomizeService {
    /**
    * ---------get product customize header -----------------------
    */
-  saveHeaderLogo(header_logo, product_id) {
+  saveProductImages(header_logo, product_id, place_type) {
     var FormData = require('form-data');
     var data = new FormData()
     let header = {
@@ -51,7 +51,7 @@ class ProdCustomizeService {
     };
 
     data.append('file', header_logo);
-    data.append('place_type', "header_logo_image");
+    data.append('place_type', place_type);
     return axios
       .post(API_URL + product_id + '/images', data, {
         headers: header

@@ -793,7 +793,6 @@ export default {
           this.forceFileDownload(response, title);
         })
         .catch(() => {
-          // console.log("error occured");
         });
     },
 

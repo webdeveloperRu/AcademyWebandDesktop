@@ -395,11 +395,11 @@ export const prodCustomizeManage = {
      * ------------------------------ save prod header logo  --------------------
      * */
 
-    saveHeaderLogo({commit}, [header_logo, product_id]) {
-      return ProdCustomizeService.saveHeaderLogo(header_logo, product_id).then(
+    saveProductImages({commit}, [header_logo, product_id, place_type]) {
+      return ProdCustomizeService.saveProductImages(header_logo, product_id, place_type).then(
         (res) => {
           if (res.status === 200) {
-            commit("saveHeaderLogoSuccess", res);
+            commit("saveProductImagesSuccess", res);
           } else {
             if (res.response == undefined)
               commit("NETWORK_ERROR", null, {
@@ -612,10 +612,10 @@ export const prodCustomizeManage = {
     },
 
     /**
-     *  @save saveHeaderLogoSuccess ----------
+     *  @save saveProductImagesSuccess ----------
      */
 
-    saveHeaderLogoSuccess(state, res) {
+    saveProductImagesSuccess(state, res) {
       store.state.status = {
         got: true,
       };

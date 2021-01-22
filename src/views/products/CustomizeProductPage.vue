@@ -103,7 +103,7 @@
         <div
           class="category-banner"
           v-bind:style="{
-            'background-image': prod_hero.background_image,
+            'background-image': convertBackgroundCssImageUrl(hero_background_image_url),
             'text-align': hero_alignment,
           }"
         >
@@ -811,6 +811,12 @@ export default {
         return this.$store.getters["header_logo_url"]
       }
     },
+
+    hero_background_image_url: {
+      get() {
+        return this.$store.getters["hero_background_image_url"]
+      }
+    },
     
     header_logo_height: {
       get() {
@@ -840,6 +846,10 @@ export default {
     linkToSocial(url) {
       window.open(url, "_blank");
     },
+
+    convertBackgroundCssImageUrl(url) {
+      return "url(" + url + ")";
+    }
   },
 };
 </script>

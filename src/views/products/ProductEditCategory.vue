@@ -410,7 +410,6 @@ export default {
               icon: this.notification_icon,
             });
           } else {
-            console.log(this.current_product)
             this.getCategoriesForProductID(product_id);
           }
         });

@@ -849,7 +849,9 @@
             <div
               class="logo-image"
               :style="{
-                'background-image': convertBackgroundCssImageUrl(hero_background_image_url),
+                'background-image': convertBackgroundCssImageUrl(
+                  hero_background_image_url
+                ),
               }"
             ></div>
             <label class="logoimage-select-button mt-3">
@@ -1266,7 +1268,9 @@
             <div
               class="banner-image"
               :style="{
-                'background-image': footer_logo_imageurl,
+                'background-image': convertBackgroundCssImageUrl(
+                  footer_logo_image_url
+                ),
               }"
             ></div>
             <label class="bannerimage-select-button mt-3">
@@ -1808,7 +1812,7 @@ export default {
     product_show_footercopyright: true,
     footer_copyright_text: "",
     show_footer_logo: false,
-    footer_logo_imageurl: "",
+    footer_logo_image_url: "",
     footer_logo_file: null,
     product_show_footermenu: false,
     footer_appearance_backgroundcolor: "",
@@ -2042,6 +2046,9 @@ export default {
       get() {
         return this.$store.getters["prodCustomizeManage/prod_settings"];
       },
+      set(value) {
+        this.$store.commit("prodCustomizeManage/updateProdSettings", value);
+      },
     },
     prod_welcome: {
       get() {
@@ -2263,8 +2270,24 @@ export default {
       this.prod_header.custom_logo_height = newValue;
     },
 
-    hero_background_image_url: function(newValue) {
+    hero_background_image_url: function (newValue) {
       this.$store.commit("SET_CUSTOMIZE_HERO_BACKGROUND", newValue);
+    },
+
+    product_syllabus_showmoretext: function (newValue) {
+      this.prod_syllabus.show_more_text = newValue;
+    },
+
+    show_footer_logo: function (newValue) {
+      this.prod_footer.show_logo = newValue;
+    },
+
+    footer_logo_image_url: function (newValue) {
+      this.$store.commit("SET_CUSTOMIZE_FOOTER_LOGO", newValue);
+    },
+
+    settings_ga_background_color: function(newValue) {
+      this.prod_settings.ga_background = newValue
     }
   },
 
@@ -2660,6 +2683,19 @@ export default {
         this.$store.dispatch("productManage/getProductList").then(() => {
           this.header_logo_image_url = this.current_product.header_logo_image;
           this.hero_background_image_url = this.current_product.hero_background_image;
+          this.footer_logo_image_url = this.current_product.footer_logo_image;
+          this.$store.commit(
+            "SET_CUSTOMIZE_HEADER_LOGO",
+            this.header_logo_image_url
+          );
+          this.$store.commit(
+            "SET_CUSTOMIZE_FOOTER_LOGO",
+            this.footer_logo_image_url
+          );
+          this.$store.commit(
+            "SET_CUSTOMIZE_HERO_BACKGROUND",
+            this.hero_background_image_url
+          );
         });
         this.getProductCustomizeHeader();
         this.getProductCustomizeHero();
@@ -2954,7 +2990,7 @@ export default {
               this.hero_background_image_file,
               "hero_background_image"
             );
-          } else{
+          } else {
             this.$vs.notify({
               color: this.notification_color,
               text: this.notification_text,
@@ -3163,15 +3199,23 @@ export default {
           footer,
           this.product_id,
         ])
-        .then(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
-          });
-          this.$vs.loading.close(this.$refs.loading);
-          this.customization_processing = false;
+        .then(async () => {
+          if (this.status_got && this.footer_logo_file !== null) {
+            await this.saveProductImage(
+              this.footer_logo_file,
+              "footer_logo_image"
+            );
+          } else {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+            this.$vs.loading.close(this.$refs.loading);
+            this.customization_processing = false;
+          }
           this.getProductCustomizeFooter();
+          this.$store.dispatch("productManage/getProductList");
         })
         .catch(() => {
           this.$vs.notify({
@@ -3257,7 +3301,7 @@ export default {
       if (file !== undefined) {
         this.footer_logo_file = file;
         // this.banner_url = URL.createObjectURL(file);
-        this.footer_logo_imageurl = "url(" + URL.createObjectURL(file) + ")";
+        this.footer_logo_image_url = URL.createObjectURL(file);
       }
     },
 

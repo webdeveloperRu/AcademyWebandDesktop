@@ -71,6 +71,7 @@ export default new Vuex.Store({
     customize_product_id: "",
     header_logo_url: "",
     hero_background_image_url: "",
+    footer_logo_url: "",
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -141,6 +142,10 @@ export default new Vuex.Store({
 
     SET_CUSTOMIZE_HERO_BACKGROUND(state, hero_background_image_url) {
       state.hero_background_image_url = hero_background_image_url;
+    },
+
+    SET_CUSTOMIZE_FOOTER_LOGO(state, footer_logo_url) {
+      state.footer_logo_url = footer_logo_url;
     }
   },
   actions: {
@@ -177,5 +182,6 @@ export default new Vuex.Store({
     customize_product_id: (state) => state.customize_product_id,
     header_logo_url: (state) => state.header_logo_url,
     hero_background_image_url: (state) => state.hero_background_image_url,
+    footer_logo_url: (state) => state.footer_logo_url
   },
 });

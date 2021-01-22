@@ -643,6 +643,10 @@ export const prodCustomizeManage = {
       state.prod_header  = prod_header
     },
 
+    updateProdSettings(state, prod_settings) {
+      state.prod_settings  = prod_settings
+    },
+
     RESET_MODULE(state) {
       Object.assign(state, initialState);
     },

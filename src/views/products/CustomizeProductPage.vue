@@ -1,5 +1,9 @@
 <template>
-  <div class="product-customize-page" style="margin-top: -24px">
+  <div class="product-customize-page" style="margin-top: -24px"
+    v-bind:style="{
+      'background': prod_settings.ga_background
+        }"
+  >
     <div
       class="outline-edit"
       @click="selectProductCustomizeMenu('header')"
@@ -40,11 +44,14 @@
           >
             <div v-if="prod_header.logo_type == 'image'" class="ml-3">
               <a style="display: block; width: 300px">
-                <img :src="header_logo" alt="Dashboard" :height="header_logo_height" />
+                <img
+                  :src="header_logo"
+                  alt="Dashboard"
+                  :height="header_logo_height"
+                />
               </a>
-             
             </div>
-            <div v-else  class="ml-3">
+            <div v-else class="ml-3">
               <span class="logo-text" style="display: block; width: 300px">
                 {{ prod_header.logo_text }}
               </span>
@@ -91,7 +98,6 @@
       <div
         class="outline-edit"
         style="
-          padding-top: 2px;
           padding-bottom: 3px;
           margin-left: -20px;
           margin-right: -20px;
@@ -103,7 +109,9 @@
         <div
           class="category-banner"
           v-bind:style="{
-            'background-image': convertBackgroundCssImageUrl(hero_background_image_url),
+            'background-image': convertBackgroundCssImageUrl(
+              hero_background_image_url
+            ),
             'text-align': hero_alignment,
           }"
         >
@@ -240,7 +248,7 @@
                       color="danger"
                       style="cursor: pointer; color: dodgerblue"
                     >
-                      View More
+                      {{ prod_syllabus.show_more_text }}
                     </div>
                   </div>
                 </vs-card>
@@ -349,6 +357,9 @@
       >
         <div class="container">
           <div class="footer__text-container">
+            <span v-if="prod_footer.show_logo" class="footer__copyright mr-3"
+              ><img :src="footer_logo" alt="Dashboard" height="50"/>
+            </span>
             <span
               v-if="prod_footer.show_copyright"
               class="footer__copyright"
@@ -728,12 +739,12 @@ export default {
 
     header_height: {
       get() {
-        let value = 69;    
-        if(parseInt(this.header_logo_height) < 65) {
+        let value = 60;
+        if (parseInt(this.header_logo_height) < 65) {
           if (this.prod_header) {
             if (this.prod_header.show_header) {
-              if (this.prod_header.show_announcement) value = 119;
-              else value = 69;
+              if (this.prod_header.show_announcement) value = 110;
+              else value = 60;
             } else {
               value = 0;
             }
@@ -741,8 +752,9 @@ export default {
         } else {
           if (this.prod_header) {
             if (this.prod_header.show_header) {
-              if (this.prod_header.show_announcement) value = 54 + this.header_logo_height ;
-              else value = 4 + this.header_logo_height;
+              if (this.prod_header.show_announcement)
+                value = 46 + this.header_logo_height;
+              else value = this.header_logo_height;
             } else {
               value = 0;
             }
@@ -806,30 +818,44 @@ export default {
       },
     },
 
+    footer_logo: {
+      get() {
+        if (this.footer_logo_url == "") {
+          return this.default_logo;
+        } else {
+          return this.footer_logo_url;
+        }
+      },
+    },
+
+    footer_logo_url: {
+      get() {
+        return this.$store.getters["footer_logo_url"];
+      },
+    },
+
     header_logo_url: {
       get() {
-        return this.$store.getters["header_logo_url"]
-      }
+        return this.$store.getters["header_logo_url"];
+      },
     },
 
     hero_background_image_url: {
       get() {
-        return this.$store.getters["hero_background_image_url"]
-      }
+        return this.$store.getters["hero_background_image_url"];
+      },
     },
-    
+
     header_logo_height: {
       get() {
         let height = parseInt(this.prod_header.custom_logo_height);
         if (isNaN(height)) {
-          return '50';
-        } 
-        else{
-          return height
-        } 
-      }
-    }
-
+          return "50";
+        } else {
+          return height;
+        }
+      },
+    },
   },
 
   created() {
@@ -849,18 +875,19 @@ export default {
 
     convertBackgroundCssImageUrl(url) {
       return "url(" + url + ")";
-    }
+    },
   },
 };
 </script>
 
 <style lang="scss">
 .category-banner {
-  margin-top: -5px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   align-items: center;
+  margin-left: -2px;
+  margin-right: -2px;
 }
 
 .producttitle-category {
@@ -1139,7 +1166,6 @@ export default {
 
 .outline-edit {
   position: relative;
-  border: 2px transparent dashed;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;

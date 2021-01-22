@@ -390,6 +390,34 @@ export const prodCustomizeManage = {
         }
       );
     },
+
+    /** 
+     * ------------------------------ save prod header logo  --------------------
+     * */
+
+    saveHeaderLogo({commit}, [header_logo, product_id]) {
+      return ProdCustomizeService.saveHeaderLogo(header_logo, product_id).then(
+        (res) => {
+          if (res.status === 200) {
+            commit("saveHeaderLogoSuccess", res);
+          } else {
+            if (res.response == undefined)
+              commit("NETWORK_ERROR", null, {
+                root: true,
+              });
+            else
+              commit("REQUEST_FAILED", res.response, {
+                root: true,
+              });
+          }
+        },
+        (error) => {
+          commit("REQUEST_FAILED", error.response, {
+            root: true,
+          });
+        }
+      );
+    }
   },
   getters: {
     prod_header: (state) => state.prod_header,
@@ -579,6 +607,20 @@ export const prodCustomizeManage = {
       };
       state.prod_syllabus = res.data;
       store.state.notification_text = "Syllabus successfully updated!";
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+    },
+
+    /**
+     *  @save saveHeaderLogoSuccess ----------
+     */
+
+    saveHeaderLogoSuccess(state, res) {
+      store.state.status = {
+        got: true,
+      };
+      state.prod_syllabus = res.data;
+      store.state.notification_text = "Header Logo successfully updated!";
       store.state.notification_icon = "info";
       store.state.notification_color = "primary";
     },

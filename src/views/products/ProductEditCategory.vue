@@ -410,6 +410,7 @@ export default {
               icon: this.notification_icon,
             });
           } else {
+            console.log(this.current_product)
             this.getCategoriesForProductID(product_id);
           }
         });
@@ -527,6 +528,7 @@ export default {
     customizeCoursePage() {
       this.$store.dispatch("changeSideBar", "product-customize");
       this.$store.dispatch("updateSidebarWidth", "checkout");
+      this.$store.commit('SET_CUSTOMIZE_PRODUCT_ID', this.current_product.id)
       this.$router.push("/products/" + this.current_product.id + "/customize");
     },
 

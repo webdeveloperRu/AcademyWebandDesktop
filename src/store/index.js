@@ -67,7 +67,9 @@ export default new Vuex.Store({
     current_productcustomize_menu: "home",
     purchaser_email: "",
     purchaser_offer_id: "",
-    student_email_code: ""
+    student_email_code: "",
+    customize_product_id: "",
+    header_logo_url: "",
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -78,7 +80,7 @@ export default new Vuex.Store({
       state.status = {};
       state.notification_icon = "warning";
       state.notification_color = state.custom_warning;
-      state.notification_text = error.data.message;
+      state.notification_text = JSON.stringify(error.data.errors);
     },
     // Network Error
     NETWORK_ERROR(state) {
@@ -127,6 +129,14 @@ export default new Vuex.Store({
       state.currentSidebar = "default";
       state.current_checkoutmenu = "home";
     },
+
+    SET_CUSTOMIZE_PRODUCT_ID(state, product_id) {
+      state.customize_product_id = product_id
+    },
+    
+    SET_CUSTOMIZE_HEADER_LOGO(state, header_logo_url) {
+      state.header_logo_url = header_logo_url;
+    }
   },
   actions: {
     updateSidebarWidth({ commit }, width) {
@@ -159,5 +169,7 @@ export default new Vuex.Store({
     purchaser_email: (state) => state.purchaser_email,
     purchaser_offer_id: (state) => state.purchaser_offer_id,
     student_email_code: (state) => state.student_email_code,
+    customize_product_id: (state) => state.customize_product_id,
+    header_logo_url: (state) => state.header_logo_url,
   },
 });

@@ -81,7 +81,9 @@
           <div class="d-flex m-4" style="justify-content: space-between">
             <div class="primary-font" style="padding: 10px">OFFER CHECKOUT</div>
             <div>
-              <vs-button @click.native="backToOffers" class="mr-2"> back </vs-button>
+              <vs-button @click.native="backToOffers" class="mr-2">
+                back
+              </vs-button>
               <vs-button @click.native="saveEditCheckout"> save </vs-button>
             </div>
           </div>
@@ -176,7 +178,9 @@
             >
               <vs-icon icon="keyboard_arrow_left"></vs-icon> Back
             </div>
-            <vs-button class="mr-4" @click.native="saveOfferDetails"> save </vs-button>
+            <vs-button class="mr-4" @click.native="saveOfferDetails">
+              save
+            </vs-button>
           </div>
           <div class="m-4">
             <h4>Offer Details</h4>
@@ -264,7 +268,10 @@
               />
               Pick File
             </label>
-            <vs-button color="danger" type="flat" @click.native="removeContentImage"
+            <vs-button
+              color="danger"
+              type="flat"
+              @click.native="removeContentImage"
               >remove</vs-button
             >
 
@@ -660,13 +667,13 @@
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Logo Type</div>
             <vs-radio
-              v-model="product_logo_type"
+              v-model="header_logo_type"
               vs-name="logo-type"
               vs-value="text"
               >Text</vs-radio
             >
             <vs-radio
-              v-model="product_logo_type"
+              v-model="header_logo_type"
               vs-name="logo-type"
               vs-value="image"
               >Image</vs-radio
@@ -692,7 +699,7 @@
             <vs-input
               class="inputx"
               style="width: 100%"
-              v-model="proudct_logo_text"
+              v-model="header_logo_text"
             />
           </div>
           <div class="product-sidebar-menucontent-section">
@@ -700,7 +707,9 @@
             <div
               class="logo-image"
               :style="{
-                'background-image': product_logo_image_url,
+                'background-image': convertBackgroundImageUrl(
+                  header_logo_image_url
+                ),
               }"
             ></div>
             <label class="logoimage-select-button mt-3">
@@ -719,7 +728,7 @@
             <vs-input
               class="inputx"
               style="width: 100%"
-              v-model="product_logo_height"
+              v-model="header_logo_height"
             />
           </div>
           <div
@@ -1745,12 +1754,12 @@ export default {
     // product customize sidebar variables
     currentCustomizeTab: "sections",
     product_show_header: true,
-    product_logo_type: "image",
+    header_logo_type: "image",
     product_logo_action: "Site",
-    proudct_logo_text: "Student App",
-    product_logo_image_url: "",
-    product_logo_file: null,
-    product_logo_height: "",
+    header_logo_text: "Student App",
+    header_logo_image_url: "",
+    header_logo_file: null,
+    header_logo_height: "",
     product_show_hero: true,
     product_appearance_image_url: "",
     product_appearance_file: null,
@@ -1883,15 +1892,27 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
+    product_list: {
+      get() {
+        return this.$store.getters["productManage/product_list"];
+      },
+    },
     current_product: {
       get() {
-        return this.$store.getters["productManage/current_product"]
+        let product = [];
+        for (let i = 0; i < this.product_list.length; i++) {
+          if (this.product_list[i].id == this.product_id) {
+            product = this.product_list[i];
+          }
+        }
+        return product;
+      },
+      set(newValue) {
+        this.$store.dispatch[("productManage/setCurrentProduct", newValue)];
       },
     },
     product_id: function () {
-      let id = "";
-        id = this.$route.params.product_id;
-        return id.slice(0, id.length);
+      return this.$store.getters["customize_product_id"];
     },
 
     offer_id: function () {
@@ -1899,7 +1920,7 @@ export default {
       if (this.$route.params.offer_id !== undefined) {
         id = this.$route.params.offer_id;
         return id.slice(0, id.length);
-      } else return id;
+      } else return "";
     },
 
     testimonials: {
@@ -2146,94 +2167,113 @@ export default {
     },
 
     footer_facebook_url: function (newValue) {
-      this.prod_footer.sil_facebook = newValue;
+      if (this.prod_footer) this.prod_footer.sil_facebook = newValue;
     },
 
     footer_twitter_url: function (newValue) {
-      this.prod_footer.sil_twitter = newValue;
+      if (this.prod_footer) this.prod_footer.sil_twitter = newValue;
     },
 
     footer_instagram_url: function (newValue) {
-      this.prod_footer.sil_instagram = newValue;
+      if (this.prod_footer) this.prod_footer.sil_instagram = newValue;
     },
 
     footer_youtoube_url: function (newValue) {
-      this.prod_footer.sil_youtube = newValue;
+      if (this.prod_footer) this.prod_footer.sil_youtube = newValue;
     },
 
     footer_vimeo_url: function (newValue) {
-      this.prod_footer.sil_vimeo = newValue;
+      if (this.prod_footer) this.prod_footer.sil_vimeo = newValue;
     },
 
     footer_github_url: function (newValue) {
-      this.prod_footer.sil_github = newValue;
+      if (this.prod_footer) this.prod_footer.sil_github = newValue;
     },
 
     footer_itunes_url: function (newValue) {
-      this.prod_footer.sil_itunes = newValue;
+      if (this.prod_footer) this.prod_footer.sil_itunes = newValue;
     },
 
     footer_linkedin_url: function (newValue) {
-      this.prod_footer.sil_linkedin = newValue;
+      if (this.prod_footer) this.prod_footer.sil_linkedin = newValue;
     },
 
     footer_soundcloud_url: function (newValue) {
-      this.prod_footer.sil_soundcloud = newValue;
+      if (this.prod_footer) this.prod_footer.sil_soundcloud = newValue;
     },
 
     footer_yelp_url: function (newValue) {
-      this.prod_footer.sil_yelp = newValue;
+      if (this.prod_footer) this.prod_footer.sil_yelp = newValue;
     },
 
     footer_tumblr_url: function (newValue) {
-      this.prod_footer.sil_tumblr = newValue;
+      if (this.prod_footer) this.prod_footer.sil_tumblr = newValue;
     },
 
     footer_slack_url: function (newValue) {
-      this.prod_footer.sil_slack = newValue;
+      if (this.prod_footer) this.prod_footer.sil_slack = newValue;
     },
+
     footer_flickr_url: function (newValue) {
-      this.prod_footer.sil_flickr = newValue;
+      if (this.prod_footer) this.prod_footer.sil_flickr = newValue;
     },
+
     footer_dribble_url: function (newValue) {
-      this.prod_footer.sil_dribbble = newValue;
+      if (this.prod_footer) this.prod_footer.sil_dribbble = newValue;
     },
+
     show_social_icons: function (newValue) {
-      this.prod_footer.show_social_icons = newValue;
+      if (this.prod_footer) this.prod_footer.show_social_icons = newValue;
     },
+
     header_show_announcement: function (newValue) {
-      this.prod_header.show_announcement = newValue;
+      if (this.prod_header) this.prod_header.show_announcement = newValue;
     },
 
     header_announcement_url: function (newValue) {
-      this.prod_header.announcement_url = newValue;
+      if (this.prod_header) this.prod_header.announcement_url = newValue;
     },
 
     header_announcement_textcolor: function (newValue) {
-      this.prod_header.announcement_text_color = newValue;
+      if (this.prod_header) this.prod_header.announcement_text_color = newValue;
     },
 
     header_announcement_color: function (newValue) {
-      this.prod_header.announcement_color = newValue;
+      if (this.prod_header) this.prod_header.announcement_color = newValue;
     },
 
     product_show_header: function (newValue) {
-      this.prod_header.show_header = newValue;
+      if (this.prod_header) this.prod_header.show_header = newValue;
     },
 
     header_announcement_text: function (newValue) {
-      this.prod_header.announcement_text = newValue;
+      if (this.prod_header) this.prod_header.announcement_text = newValue;
+    },
+
+    header_logo_type: function (newValue) {
+      if (this.prod_header) this.prod_header.logo_type = newValue;
     },
 
     announcement_new_window: function (newValue) {
-      this.prod_header.announcement_new_window = newValue;
-    }
+      if (this.prod_header) this.prod_header.announcement_new_window = newValue;
+    },
+
+    header_logo_image_url: function (newValue) {
+      this.$store.commit("SET_CUSTOMIZE_HEADER_LOGO", newValue);
+    },
+
+    header_logo_height: function (newValue) {
+      this.prod_header.custom_logo_height = newValue;
+    },
   },
 
   created() {
+    this.$store.commit("SET_CUSTOMIZE_HEADER_LOGO", "");
     this.initOfferCheckoutData();
     this.initProductCustomizeData();
   },
+
+  updated() {},
 
   methods: {
     /**
@@ -2616,6 +2656,9 @@ export default {
     // ---------------------------------- product sidebar working methods part- ------------------------
     initProductCustomizeData() {
       if (this.currentSidebar == "product-customize") {
+        this.$store.dispatch("productManage/getProductList").then(() => {
+          this.header_logo_image_url = this.current_product.header_logo_image;
+        });
         this.getProductCustomizeHeader();
         this.getProductCustomizeHero();
         this.getProductCustomizeWelcome();
@@ -2637,9 +2680,9 @@ export default {
           this.announcement_new_window = this.prod_header.announcement_new_window;
           this.header_show_menu = this.prod_header.show_menu;
           this.product_show_header = this.prod_header.show_header;
-          this.proudct_logo_text = this.prod_header.logo_text;
-          this.product_logo_type = this.prod_header.logo_type;
-          this.product_logo_height = this.prod_header.custom_logo_height;
+          this.header_logo_text = this.prod_header.logo_text;
+          this.header_logo_type = this.prod_header.logo_type;
+          this.header_logo_height = this.prod_header.custom_logo_height;
           this.header_menu_id = this.prod_header.menu_id;
         });
     },
@@ -2763,7 +2806,6 @@ export default {
               break;
           }
         });
-        
     },
 
     getProductCustomizeSettings() {
@@ -2784,7 +2826,6 @@ export default {
           this.settings_ga_vertical_align = this.prod_settings.ga_vertical_alignment;
           this.settings_ga_body_colwidth = this.prod_settings.ga_body_column_width;
         });
-         
     },
 
     saveProductCustomizeSettings() {
@@ -2810,7 +2851,6 @@ export default {
         default:
           break;
       }
-      
     },
 
     saveProductCustomizeHeader() {
@@ -2823,9 +2863,9 @@ export default {
         show_announcement: this.header_show_announcement,
         show_menu: this.header_show_menu,
         show_header: this.product_show_header,
-        logo_text: this.proudct_logo_text,
-        logo_type: this.product_logo_type,
-        custom_logo_height: this.product_logo_height,
+        logo_text: this.header_logo_text,
+        logo_type: this.header_logo_type,
+        custom_logo_height: this.header_logo_height,
         menu_id: this.header_menu_id,
       };
       this.$vs.loading({
@@ -2840,14 +2880,56 @@ export default {
           this.product_id,
         ])
         .then(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
-          });
-          this.$vs.loading.close(this.$refs.loading);
-          this.customization_processing = false;
+          if (this.status_got && this.header_logo_file !== null) {
+            this.$store
+              .dispatch("prodCustomizeManage/saveHeaderLogo", [
+                this.header_logo_file,
+                this.product_id,
+              ])
+              .then(() => {
+                if (this.status_got) {
+                  this.$vs.notify({
+                    color: this.notification_color,
+                    text: "Header successfully updated! ",
+                    icon: this.notification_icon,
+                  });
+                } else {
+                  this.$vs.notify({
+                    color: this.notification_color,
+                    text: this.notification_text,
+                    icon: this.notification_icon,
+                  });
+                }
+                this.$vs.loading.close(this.$refs.loading);
+                this.customization_processing = false;
+              })
+              .catch(() => {
+                this.$vs.notify({
+                  color: this.notification_color,
+                  text: this.notification_text,
+                  icon: this.notification_icon,
+                });
+                this.$vs.loading.close(this.$refs.loading);
+                this.customization_processing = false;
+              });
+          } else {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+            this.$vs.loading.close(this.$refs.loading);
+            this.customization_processing = false;
+          }
+          // this.$vs.notify({
+          //   color: this.notification_color,
+          //   text: this.notification_text,
+          //   icon: this.notification_icon,
+          // });
+          // this.$vs.loading.close(this.$refs.loading);
+          // this.customization_processing = false;
           this.getProductCustomizeHeader();
+          this.$store.dispatch("productManage/getProductList");
         })
         .catch(() => {
           this.$vs.notify({
@@ -3118,7 +3200,6 @@ export default {
           this.$vs.loading.close(this.$refs.loading);
           this.customization_processing = false;
         });
-      
     },
 
     linkBackInProductSidebar() {
@@ -3141,7 +3222,15 @@ export default {
     previewCustomizedProductPage() {
       // window.open("/products/preview/" + this.product_id, "_blank");
       let token = this.$store.state.auth.user.token;
-      window.open("http://localhost:8081/product/" + this.product_id +"?academy_token=" + token + "&id=" +this.product_id , "_blank");
+      window.open(
+        "http://localhost:8081/product/" +
+          this.product_id +
+          "?academy_token=" +
+          token +
+          "&id=" +
+          this.product_id,
+        "_blank"
+      );
     },
 
     selectCustomizeTab(select_tab) {
@@ -3157,9 +3246,8 @@ export default {
     onSelectProductLogoImage(e) {
       const file = e.target.files[0];
       if (file !== undefined) {
-        this.product_logo_file = file;
-        // this.banner_url = URL.createObjectURL(file);
-        this.product_logo_image_url = "url(" + URL.createObjectURL(file) + ")";
+        this.header_logo_file = file;
+        this.header_logo_image_url = URL.createObjectURL(file);
       }
     },
 
@@ -3199,6 +3287,10 @@ export default {
         // this.banner_url = URL.createObjectURL(file);
         this.product_favicon_url = "url(" + URL.createObjectURL(file) + ")";
       }
+    },
+
+    convertBackgroundImageUrl(image) {
+      return "url(" + image + ")";
     },
   },
 

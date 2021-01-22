@@ -2,6 +2,7 @@ import axios from "axios";
 import apiurl from "./base_api_url";
 import { authHeader } from "./authHeader";
 import { authHeaderXWWW } from "./authHeader_xwww";
+import store from '../store'
 const API_URL = apiurl.API_URL + "prod-customize/";
 class ProdCustomizeService {
   /**
@@ -38,7 +39,29 @@ class ProdCustomizeService {
         return err;
       });
   }
+   /**
+   * ---------get product customize header -----------------------
+   */
+  saveHeaderLogo(header_logo, product_id) {
+    var FormData = require('form-data');
+    var data = new FormData()
+    let header = {
+      'apikey': store.state.auth.user.token,
+      'Content-Type': 'multipart/form-data'
+    };
 
+    data.append('file', header_logo);
+    data.append('place_type', "header_logo_image");
+    return axios
+      .post(API_URL + product_id + '/images', data, {
+        headers: header
+      }).then(response => {
+        return response;
+      })
+      .catch(err => {
+        return err;
+      });
+  }
   /**
    * ---------save product Customize footer -------------------
    */

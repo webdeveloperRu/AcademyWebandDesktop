@@ -284,7 +284,7 @@
               type="filled"
               style="padding: 5px"
               class="rounded-button ml-3 mb-3"
-              v-on:click="logOut"
+              @click.native="logOut"
             >Logout</vs-button>
           </div>
         </vs-dropdown-menu>

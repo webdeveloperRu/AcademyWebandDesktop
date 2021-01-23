@@ -480,7 +480,7 @@
                   color="primary"
                   disabled
                   type="filled"
-                  @click.native="saveProductCustomizeSettings"
+                  @click.native="saveProductCustomizeChange"
                   >Saving...</vs-button
                 >
               </div>
@@ -488,7 +488,7 @@
                 <vs-button
                   color="primary"
                   type="filled"
-                  @click.native="saveProductCustomizeSettings"
+                  @click.native="saveProductCustomizeChange"
                   >Save</vs-button
                 >
               </div>
@@ -1655,6 +1655,28 @@
               <span class="ml-3">Background</span>
             </div>
           </div>
+
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Page Background Image</div>
+            <div
+              class="logo-image"
+              :style="{
+                'background-image': convertBackgroundCssImageUrl(
+                  page_background_image_url
+                ),
+              }"
+            ></div>
+            <label class="logoimage-select-button mt-3">
+              <input
+                type="file"
+                @change="onSelectPageBackgroundImage"
+                style="overflow: hidden"
+                class="bannerimage-input"
+                accept="image/png, image/jpeg"
+              />
+              Pick File
+            </label>
+          </div>
           <div class="product-sidebar-menucontent-section">
             <div class="mb-2">Alginment</div>
             <vs-radio
@@ -1864,6 +1886,10 @@ export default {
     settings_ga_vertical_align: "",
     settings_ga_body_colwidth: "",
     customization_processing: false,
+    page_background_image_url: "",
+    page_background_file: null,
+    heading_font_family: "",
+    base_font_family: "",
   }),
 
   computed: {
@@ -2286,9 +2312,13 @@ export default {
       this.$store.commit("SET_CUSTOMIZE_FOOTER_LOGO", newValue);
     },
 
-    settings_ga_background_color: function(newValue) {
-      this.prod_settings.ga_background = newValue
-    }
+    settings_ga_background_color: function (newValue) {
+      this.prod_settings.ga_background = newValue;
+    },
+
+    page_background_image_url: function (newValue) {
+      this.$store.commit("SET_PAGE_BACKGROUND_IMAGE", newValue);
+    },
   },
 
   created() {
@@ -2684,6 +2714,7 @@ export default {
           this.header_logo_image_url = this.current_product.header_logo_image;
           this.hero_background_image_url = this.current_product.hero_background_image;
           this.footer_logo_image_url = this.current_product.footer_logo_image;
+          this.page_background_image_url = this.current_product.page_background_image;
           this.$store.commit(
             "SET_CUSTOMIZE_HEADER_LOGO",
             this.header_logo_image_url
@@ -2695,6 +2726,10 @@ export default {
           this.$store.commit(
             "SET_CUSTOMIZE_HERO_BACKGROUND",
             this.hero_background_image_url
+          );
+          this.$store.commit(
+            "SET_PAGE_BACKGROUND_IMAGE",
+            this.page_background_image_url
           );
         });
         this.getProductCustomizeHeader();
@@ -2865,7 +2900,7 @@ export default {
         });
     },
 
-    saveProductCustomizeSettings() {
+    saveProductCustomizeChange() {
       switch (this.currentProductCustomizeMenu) {
         case "header":
           this.saveProductCustomizeHeader();
@@ -2885,9 +2920,103 @@ export default {
         case "footer":
           this.saveProductCustomizeFooter();
           break;
+        case "general-appearance":
+          this.saveProductCustomizeSettings("general-appearance");
+          break;
+        case "message-color":
+          this.saveProductCustomizeSettings("message-color");
+          break;
+        case "typography":
+          this.saveProductCustomizeSettings("typography");
+          break;
+        case "color-scheme":
+          this.saveProductCustomizeSettings("color-scheme");
+          break;
+        case "favicon":
+          this.saveProductCustomizeSettings("favicon");
+          break;
+
         default:
           break;
       }
+    },
+
+    saveProductCustomizeSettings(settings_menu) {
+      let settings = {
+        base_font_family: this.base_font_family,
+        cs_dark: this.settings_cs_dark,
+        cs_darker: this.settings_cs_darker,
+        cs_offset: this.settings_cs_offset,
+        cs_primary: this.settings_cs_primary,
+        dark_font_color: this.settings_darkfont_color,
+        ga_background: this.settings_ga_background_color,
+        ga_body_column_width: this.settings_ga_body_colwidth,
+        ga_vertical_alignment: this.settings_ga_vertical_align,
+        heading_font_family: this.heading_font_family,
+        light_font_color: this.settings_lightfont_color,
+        mc_danger: this.settings_mc_danger,
+        mc_info: this.settings_mc_info,
+        mc_success: this.settings_mc_success,
+        mc_warning: this.settings_mc_warning,
+      };
+      this.$vs.loading({
+        container: "#loading",
+        scale: 0.7,
+        type: "material",
+      });
+      this.customization_processing = true;
+      this.$store
+        .dispatch("prodCustomizeManage/saveProdSettings", [
+          settings,
+          this.product_id,
+        ])
+        .then(async () => {
+          if (
+            this.status_got &&
+            this.page_background_file !== null &&
+            settings_menu == "general-appearance"
+          ) {
+            await this.saveProductImage(
+              this.page_background_file,
+              "page_background_image"
+            );
+          } else if (
+            this.status_got &&
+            this.product_favicon_file !== null &&
+            settings_menu == "favicon"
+          ) {
+             await this.saveProductImage(
+              this.product_favicon_file,
+              "favicon_image"
+            );
+          } else {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+            this.$vs.loading.close(this.$refs.loading);
+            this.customization_processing = false;
+          }
+          // this.$vs.notify({
+          //   color: this.notification_color,
+          //   text: this.notification_text,
+          //   icon: this.notification_icon,
+          // });
+          // this.$vs.loading.close(this.$refs.loading);
+          // this.customization_processing = false;
+          this.getProductCustomizeSettings();
+          this.$store.dispatch("productManage/getProductList");
+        })
+        .catch(() => {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$vs.loading.close(this.$refs.loading);
+          this.customization_processing = false;
+        });
     },
 
     saveProductCustomizeHeader() {
@@ -3311,6 +3440,15 @@ export default {
         this.product_favicon_file = file;
         // this.banner_url = URL.createObjectURL(file);
         this.product_favicon_url = "url(" + URL.createObjectURL(file) + ")";
+      }
+    },
+
+    onSelectPageBackgroundImage(e) {
+      const file = e.target.files[0];
+      if (file !== undefined) {
+        this.page_background_file = file;
+        // this.banner_url = URL.createObjectURL(file);
+        this.page_background_image_url = URL.createObjectURL(file);
       }
     },
 

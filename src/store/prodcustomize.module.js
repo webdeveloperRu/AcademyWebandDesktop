@@ -179,7 +179,7 @@ export const prodCustomizeManage = {
      * ---------save product customize settings ----------------
      */
     saveProdSettings({ commit }, [settings, product_id]) {
-      return ProdCustomizeService.saveProdHero(settings, product_id).then(
+      return ProdCustomizeService.saveProdSettings(settings, product_id).then(
         (res) => {
           if (res.status === 200) {
             commit("saveProdSettingsSuccess", res);

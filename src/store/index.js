@@ -72,6 +72,7 @@ export default new Vuex.Store({
     header_logo_url: "",
     hero_background_image_url: "",
     footer_logo_url: "",
+    page_background_image_url: "",
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -130,6 +131,17 @@ export default new Vuex.Store({
     RESET_MODULE(state) {
       state.currentSidebar = "default";
       state.current_checkoutmenu = "home";
+      state.status = {};
+      state.custom_warning = "#ff3300";
+      state.current_productcustomize_menu = "home";
+      state.purchaser_email = "";
+      state.purchaser_offer_id = "";
+      state.student_email_code= "";
+      state.customize_product_id= "";
+      state.header_logo_url= "";
+      state.hero_background_image_url= "";
+      state.footer_logo_url= "";
+      state.page_background_image_url= "";
     },
 
     SET_CUSTOMIZE_PRODUCT_ID(state, product_id) {
@@ -146,6 +158,10 @@ export default new Vuex.Store({
 
     SET_CUSTOMIZE_FOOTER_LOGO(state, footer_logo_url) {
       state.footer_logo_url = footer_logo_url;
+    },
+
+    SET_PAGE_BACKGROUND_IMAGE(state, page_background_image_url) {
+      state.page_background_image_url = page_background_image_url
     }
   },
   actions: {
@@ -182,6 +198,7 @@ export default new Vuex.Store({
     customize_product_id: (state) => state.customize_product_id,
     header_logo_url: (state) => state.header_logo_url,
     hero_background_image_url: (state) => state.hero_background_image_url,
-    footer_logo_url: (state) => state.footer_logo_url
+    footer_logo_url: (state) => state.footer_logo_url,
+    page_background_image_url: (state) =>state.page_background_image_url,
   },
 });

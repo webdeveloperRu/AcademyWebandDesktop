@@ -1,8 +1,11 @@
 <template>
-  <div class="product-customize-page" style="margin-top: -24px"
-    v-bind:style="{
-      'background': prod_settings.ga_background
-        }"
+  <div
+    class="product-customize-page"
+    style="margin-top: -24px"
+    :style="{
+      'background-image': convertBackgroundCssImageUrl(this.page_background_image_url),
+      'background-color': prod_settings.ga_background
+    }"
   >
     <div
       class="outline-edit"
@@ -97,11 +100,7 @@
       <!-- This is the main body sections -->
       <div
         class="outline-edit"
-        style="
-          padding-bottom: 3px;
-          margin-left: -20px;
-          margin-right: -20px;
-        "
+        style="padding-bottom: 3px; margin-left: -20px; margin-right: -20px"
         title="Edit Hero Section"
         @click="selectProductCustomizeMenu('hero')"
         v-if="prod_hero.show_hero"
@@ -358,7 +357,7 @@
         <div class="container">
           <div class="footer__text-container">
             <span v-if="prod_footer.show_logo" class="footer__copyright mr-3"
-              ><img :src="footer_logo" alt="Dashboard" height="50"/>
+              ><img :src="footer_logo" alt="Dashboard" height="50" />
             </span>
             <span
               v-if="prod_footer.show_copyright"
@@ -856,6 +855,18 @@ export default {
         }
       },
     },
+
+    page_background_image_url: {
+      get() {
+        return this.$store.getters["page_background_image_url"];
+      },
+    },
+
+    page_box_shadow: {
+      get() {
+        // return "inset 0 0 0 2000px" + this.prod_settings.ga_background
+      }
+    }
   },
 
   created() {
@@ -888,6 +899,11 @@ export default {
   align-items: center;
   margin-left: -2px;
   margin-right: -2px;
+}
+.product-customize-page {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-blend-mode: multiply;
 }
 
 .producttitle-category {

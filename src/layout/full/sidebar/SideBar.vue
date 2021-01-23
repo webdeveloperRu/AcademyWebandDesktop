@@ -1517,7 +1517,9 @@
             <div
               class="logo-image"
               :style="{
-                'background-image': product_favicon_url,
+                'background-image': convertBackgroundCssImageUrl(
+                  product_favicon_url
+                ),
               }"
             ></div>
             <label class="logoimage-select-button mt-3">
@@ -2319,6 +2321,11 @@ export default {
     page_background_image_url: function (newValue) {
       this.$store.commit("SET_PAGE_BACKGROUND_IMAGE", newValue);
     },
+
+    product_favicon_url: function (newValue) {
+      // this.setFavIcon(newValue);
+      this.$store.commit("SET_PRODUCT_FAVICON", newValue);
+    },
   },
 
   created() {
@@ -2330,6 +2337,15 @@ export default {
   updated() {},
 
   methods: {
+    // setFavIcon(fav_icon) {
+    //   const favicon = document.getElementById("favicon");
+    //   if(fav_icon == "") {
+    //     favicon.href=process.env.BASE_URL + 'icon.png'
+    //   } 
+    //   else{
+    //     favicon.href = fav_icon;
+    //   }
+    // },
     /**
      * init offecr checkout data
      */
@@ -2715,6 +2731,7 @@ export default {
           this.hero_background_image_url = this.current_product.hero_background_image;
           this.footer_logo_image_url = this.current_product.footer_logo_image;
           this.page_background_image_url = this.current_product.page_background_image;
+          this.product_favicon_url = this.current_product.favicon_image;
           this.$store.commit(
             "SET_CUSTOMIZE_HEADER_LOGO",
             this.header_logo_image_url
@@ -2731,6 +2748,8 @@ export default {
             "SET_PAGE_BACKGROUND_IMAGE",
             this.page_background_image_url
           );
+
+          this.$store.commit("SET_PRODUCT_FAVICON", this.product_favicon_url);
         });
         this.getProductCustomizeHeader();
         this.getProductCustomizeHero();
@@ -2985,7 +3004,7 @@ export default {
             this.product_favicon_file !== null &&
             settings_menu == "favicon"
           ) {
-             await this.saveProductImage(
+            await this.saveProductImage(
               this.product_favicon_file,
               "favicon_image"
             );
@@ -3439,7 +3458,7 @@ export default {
       if (file !== undefined) {
         this.product_favicon_file = file;
         // this.banner_url = URL.createObjectURL(file);
-        this.product_favicon_url = "url(" + URL.createObjectURL(file) + ")";
+        this.product_favicon_url = URL.createObjectURL(file);
       }
     },
 

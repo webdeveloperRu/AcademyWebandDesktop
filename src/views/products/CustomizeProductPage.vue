@@ -1,11 +1,7 @@
 <template>
   <div
     class="product-customize-page"
-    style="margin-top: -24px"
-    :style="{
-      'background-image': convertBackgroundCssImageUrl(this.page_background_image_url),
-      'background-color': prod_settings.ga_background
-    }"
+    style="margin-top: -24px"   
   >
     <div
       class="outline-edit"
@@ -134,7 +130,7 @@
             >
               {{ current_product.description }}
             </p>
-            <vs-button class="start-course">Start Course</vs-button>
+            <vs-button class="start-course mt-2">Start Course</vs-button>
           </div>
         </div>
         <label class="edit-button" size="small">Edit</label>
@@ -900,11 +896,6 @@ export default {
   margin-left: -2px;
   margin-right: -2px;
 }
-.product-customize-page {
-  background-repeat: no-repeat !important;
-  background-size: cover !important;
-  background-blend-mode: multiply;
-}
 
 .producttitle-category {
   color: white;
@@ -916,6 +907,7 @@ export default {
 .product-description-category {
   font-size: 16px;
   font-weight: 500;
+  margin: 0 100px;
 }
 
 .product-welcome-title {
@@ -1079,7 +1071,7 @@ export default {
 
 .footer {
   padding: 15px 0;
-  margin: 0 -20px;
+  margin: 0 -22px;
   margin-bottom: -24px;
 }
 
@@ -1184,6 +1176,8 @@ export default {
   position: relative;
   border-radius: 5px;
   cursor: pointer;
+  border: 2px transparent dashed;
+  // width: calc(100% - 4px);
   user-select: none;
 }
 
@@ -1244,7 +1238,7 @@ export default {
   top: 58px;
   width: 100%;
   z-index: 101;
-  margin-left: -20px;
+  margin-left: -22px;
 }
 .hero-overlay {
   width: 100%;

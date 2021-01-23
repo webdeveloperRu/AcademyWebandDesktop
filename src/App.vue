@@ -45,7 +45,7 @@ export default {
     }
     else {
       this.$router.replace("/login").catch(()=>{});
-    }
+    }    
   },
   computed: {
     logged_user: {

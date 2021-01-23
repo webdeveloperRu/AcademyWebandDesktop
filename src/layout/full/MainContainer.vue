@@ -8,10 +8,22 @@
       :logged_user="logged_user"
     />
     <!---Sidebar-->
-      <SideBar parent=".main-wrapper" :sidebarLinks="sidebarLinks" :logged_user="logged_user"/>
-    
+    <SideBar
+      parent=".main-wrapper"
+      :sidebarLinks="sidebarLinks"
+      :logged_user="logged_user"
+    />
+
     <!---Page Container-->
-    <div class="main-container-fluid">
+    <div
+      class="main-container-fluid"
+      v-bind:style="{
+        'background-image': convertBackgroundCssImageUrl(
+          page_background_image_url
+        ),
+        'background-color': prod_settings.ga_background,
+      }"
+    >
       <!-- <Breadcrumb /> -->
       <transition
         name="router-anim"
@@ -48,32 +60,66 @@ export default {
     topbarColor: "white",
     logotitle: themeConfig.logotitle,
     sidebarLinks: sidebarLinks,
-    changeSidebar: false,    
+    changeSidebar: false,
   }),
 
   methods: {
+    convertBackgroundCssImageUrl(url) {
+      return "url(" + url + ")";
+    },
+
     updateTopbarColor(val) {
       this.topbarColor = val;
     },
+
+    setFavIcon() {
+      let sidebar = this.$store.state.currentSidebar;
+      const favicon = document.getElementById("favicon");
+      if (sidebar !== "product-customize")
+        favicon.href = favicon.href = process.env.BASE_URL + "icon.png";
+    },
   },
   updated() {
-    if(this.logged_user == null){
-        this.$router.replace('./login')
-      }
+    // this.setFavIcon();
+    if (this.logged_user == null) {
+      this.$router.replace("./login");
+    }
   },
   beforeUpdate() {
-    if(this.logged_user == null){
-        this.$router.replace('./login')
-      }
+    if (this.logged_user == null) {
+      this.$router.replace("./login");
+    }
   },
   created() {
-      if(this.logged_user == null){
-        this.$router.replace('./login')
-      }
+    if (this.logged_user == null) {
+      this.$router.replace("./login");
+    }
   },
-    
+
   computed: {
-   
+    page_background_image_url: {
+      get() {
+        let sidebar = this.$store.state.currentSidebar;
+        if (sidebar == "product-customize")
+          return this.$store.getters["page_background_image_url"];
+        else return "none";
+      },
+    },
+    current_product: {
+      get() {
+        return this.$store.getters["productManage/current_product"];
+      },
+    },
+
+    prod_settings: {
+      get() {
+        let sidebar = this.$store.state.currentSidebar;
+        if (sidebar == "product-customize")
+          return this.$store.getters["prodCustomizeManage/prod_settings"];
+        else return "none";
+      },
+    },
+
     sidebarWidth: function () {
       return this.$store.state.sidebarWidth;
     },
@@ -82,7 +128,7 @@ export default {
         return "main-wrapper-default";
       } else if (this.sidebarWidth == "mini") {
         return "main-wrapper-mini";
-      } else if (this.sidebarWidth == 'checkout') {
+      } else if (this.sidebarWidth == "checkout") {
         return "main-wrapper-checkout";
       } else if (this.sidebarWidth) {
         return "main-wrapper-full";
@@ -98,10 +144,18 @@ export default {
       return "default";
     },
     logged_user: {
-      get(){
-        return this.$store.getters["auth/logged_user"]
-      }
-    }
+      get() {
+        return this.$store.getters["auth/logged_user"];
+      },
+    },
   },
 };
 </script>
+<style lang="scss">
+.main-container-fluid {
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-blend-mode: multiply;
+  background-attachment: fixed;
+}
+</style>

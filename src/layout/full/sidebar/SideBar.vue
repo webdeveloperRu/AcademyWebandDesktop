@@ -1560,6 +1560,46 @@
               <span class="ml-3">Light Font Color</span>
             </div>
           </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Base Font Family</div>
+            <vs-select
+              class="w-100 mt-3"
+              v-model="base_font_family"
+              v-bind:style="{
+                'font-family': base_font_family,
+              }"
+            >
+              <vs-select-item
+                :key="index"
+                :value="item.value"
+                :text="item.text"
+                v-for="(item, index) in font_family"
+                v-bind:style="{
+                  'font-family': item.value,
+                }"
+              />
+            </vs-select>
+          </div>
+          <div class="product-sidebar-menucontent-section">
+            <div class="mb-2">Heading Font Family</div>
+            <vs-select
+              class="w-100 mt-3"
+              v-model="heading_font_family"
+              v-bind:style="{
+                'font-family': heading_font_family,
+              }"
+            >
+              <vs-select-item
+                :key="index"
+                :value="item.value"
+                :text="item.text"
+                v-for="(item, index) in font_family"
+                v-bind:style="{
+                  'font-family': item.value,
+                }"
+              />
+            </vs-select>
+          </div>
         </div>
         <!-- --------------------------------- color scheme body menu part -------------------------------- -->
         <div
@@ -1724,6 +1764,8 @@
 <script>
 // import { VueEditor } from "vue2-editor";
 import { VueEditor } from "vue2-editor";
+import font_settins from "../../../models/font_family";
+
 // import { ImageDrop } from "quill-clipboard-module";
 
 export default {
@@ -1892,6 +1934,7 @@ export default {
     page_background_file: null,
     heading_font_family: "",
     base_font_family: "",
+    font_family: font_settins.font_family,
   }),
 
   computed: {
@@ -2326,6 +2369,19 @@ export default {
       // this.setFavIcon(newValue);
       this.$store.commit("SET_PRODUCT_FAVICON", newValue);
     },
+
+    heading_font_family: function(newValue) {
+      this.prod_settings.heading_font_family = newValue
+    },
+
+    base_font_family: function(newValue) {
+      this.prod_settings.base_font_family = newValue;
+    },
+
+    product_show_syllabus: function(newValue) {
+      this.prod_syllabus.show_syllabus = newValue;
+    }
+    
   },
 
   created() {
@@ -2341,7 +2397,7 @@ export default {
     //   const favicon = document.getElementById("favicon");
     //   if(fav_icon == "") {
     //     favicon.href=process.env.BASE_URL + 'icon.png'
-    //   } 
+    //   }
     //   else{
     //     favicon.href = fav_icon;
     //   }

@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-
 export default {
   name: "app",
   components: {
@@ -61,3 +60,6 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import "./assets/scss/_font.scss";
+</style>

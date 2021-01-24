@@ -84,7 +84,10 @@ export default new Vuex.Store({
       state.status = {};
       state.notification_icon = "warning";
       state.notification_color = state.custom_warning;
-      state.notification_text = JSON.stringify(error.data.errors);
+      if(error.data.errors)
+        state.notification_text = JSON.stringify(error.data.errors);
+      else
+        state.notification_text = JSON.stringify(error.data.errors);
     },
     // Network Error
     NETWORK_ERROR(state) {

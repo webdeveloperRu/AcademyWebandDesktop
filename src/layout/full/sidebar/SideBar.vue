@@ -2381,7 +2381,7 @@ export default {
     product_show_syllabus: function(newValue) {
       this.prod_syllabus.show_syllabus = newValue;
     }
-    
+
   },
 
   created() {
@@ -2972,6 +2972,8 @@ export default {
           this.settings_ga_background_color = this.prod_settings.ga_background;
           this.settings_ga_vertical_align = this.prod_settings.ga_vertical_alignment;
           this.settings_ga_body_colwidth = this.prod_settings.ga_body_column_width;
+          this.heading_font_family = this.prod_settings.heading_font_family;
+          this.base_font_family = this.prod_settings.base_font_family;
         });
     },
 

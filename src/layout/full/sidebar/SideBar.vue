@@ -2380,6 +2380,10 @@ export default {
 
     product_show_syllabus: function(newValue) {
       this.prod_syllabus.show_syllabus = newValue;
+    },
+
+    settings_darkfont_color: function(newValue) {
+      this.prod_settings.dark_font_color = newValue;
     }
 
   },

@@ -196,15 +196,17 @@
                 >
                   <vs-card>
                     <div
-                      @click="selectProductCustomizeMenu('hero')"
+                      @click="selectProductCustomizeMenu('welcome')"
                       v-bind:style="{
                         'text-align': welcome_text_aligment,
+                        'color': prod_settings.dark_font_color
                       }"
                     >
                       <p
                         class="product-welcome-title"
                         v-bind:style="{
                           'font-family': prod_settings.heading_font_family,
+                          'color': prod_settings.dark_font_color
                         }"
                       >
                         {{ current_product.title }}
@@ -213,6 +215,7 @@
                         class="product-welcome-description"
                         v-bind:style="{
                           'font-family': prod_settings.base_font_family,
+                          'color': prod_settings.dark_font_color                          
                         }"
                       >
                         {{ current_product.description }}
@@ -235,6 +238,7 @@
                     style="cursor: pointer"
                     v-bind:style="{
                       'font-family': prod_settings.heading_font_family,
+                      'color': prod_settings.dark_font_color
                     }"
                   >
                     {{ category.name }}
@@ -280,6 +284,7 @@
                             class="mb-2"
                             v-bind:style="{
                               'font-family': prod_settings.base_font_family,
+                              'color': prod_settings.dark_font_color
                             }"
                           >
                             {{ lesson.title }}
@@ -288,6 +293,7 @@
                             class="category-description"
                             v-bind:style="{
                               'font-family': prod_settings.base_font_family,
+                              'color': prod_settings.dark_font_color
                             }"
                           >
                             <span v-html="lesson.body"></span>
@@ -301,7 +307,7 @@
                       color="danger"
                       style="cursor: pointer; color: dodgerblue"
                       v-bind:style="{
-                        'font-family': prod_settings.base_font_family,
+                        'font-family': prod_settings.base_font_family,                        
                       }"
                     >
                       {{ prod_syllabus.show_more_text }}
@@ -332,6 +338,7 @@
                       class="mt-3"
                       v-bind:style="{
                         'font-family': prod_settings.heading_font_family,
+                        'color': prod_settings.dark_font_color
                       }"
                     >
                       12 of 23 Lessons Completed
@@ -367,6 +374,7 @@
                   <div
                     v-bind:style="{
                       'font-family': prod_settings.heading_font_family,
+                      'color': prod_settings.dark_font_color
                     }"
                   >
                     Instructor
@@ -386,6 +394,7 @@
                       <div
                         v-bind:style="{
                           'font-family': prod_settings.base_font_family,
+                          'color': prod_settings.dark_font_color
                         }"
                       >
                         <strong>John Doe</strong>
@@ -409,6 +418,7 @@
                   <div
                     v-bind:style="{
                       'font-family': prod_settings.base_font_family,
+                      'color': prod_settings.dark_font_color
                     }"
                   >
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit.

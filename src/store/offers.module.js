@@ -768,6 +768,10 @@ export const offerManage = {
 
     setNewDesign(state, new_design) {
       state.checkout_new_design = new_design;
+    },
+
+    setTestimonialTitle(state, testimonial_title) {
+      state.testimonial_title = testimonial_title;
     }
 
   }

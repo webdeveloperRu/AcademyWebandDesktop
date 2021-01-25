@@ -67,13 +67,17 @@ export default new Vuex.Store({
     current_productcustomize_menu: "home",
     purchaser_email: "",
     purchaser_offer_id: "",
+    purchaser_password: "",
+    purchaser_fullname: "",
     student_email_code: "",
     customize_product_id: "",
     header_logo_url: "",
     hero_background_image_url: "",
     footer_logo_url: "",
     page_background_image_url: "",
-    fav_icon_url: ""
+    fav_icon_url: "",
+    student_email_exist: false,
+    student_register_required: true,
   },
   mutations: {
     LOADING_STATUS(state, loading_status) {
@@ -87,7 +91,7 @@ export default new Vuex.Store({
       if(error.data.errors)
         state.notification_text = JSON.stringify(error.data.errors);
       else
-        state.notification_text = JSON.stringify(error.data.errors);
+        state.notification_text = JSON.stringify(error.data.message);
     },
     // Network Error
     NETWORK_ERROR(state) {
@@ -132,6 +136,14 @@ export default new Vuex.Store({
       state.purchaser_offer_id = offer_id;
     },
 
+    SET_PURCHASER_PASSWORD(state, password) {
+      state.purchaser_password = password;
+    },
+
+    SET_PURCHASER_FULLNAME(state, fullname) {
+      state.purchaser_fullname = fullname;
+    },
+
     RESET_MODULE(state) {
       state.currentSidebar = "default";
       state.current_checkoutmenu = "home";
@@ -146,7 +158,11 @@ export default new Vuex.Store({
       state.hero_background_image_url= "";
       state.footer_logo_url= "";
       state.page_background_image_url= "";
-      state.fav_icon_url = ""
+      state.fav_icon_url = "";
+      state.student_email_exist = false;
+      state.student_register_required = true;
+      state.purchaser_fullname = "";
+      state.purchaser_password = "";
     },
 
     SET_CUSTOMIZE_PRODUCT_ID(state, product_id) {
@@ -171,6 +187,14 @@ export default new Vuex.Store({
 
     SET_PRODUCT_FAVICON(state, fav_icon_url) {
       state.fav_icon_url = fav_icon_url
+    },
+
+    SET_STUDENT_EMAIL_EXIST(state, flag) {
+      state.student_email_exist = flag;
+    },
+
+    SET_REGISTER_REQUIRE(state, flag) {
+      state.student_register_required = flag;
     }
   },
   actions: {
@@ -210,5 +234,9 @@ export default new Vuex.Store({
     footer_logo_url: (state) => state.footer_logo_url,
     page_background_image_url: (state) =>state.page_background_image_url,
     fav_icon_url: (state) => state.fav_icon_url,
+    student_email_exist: (state) => state.student_email_exist,
+    student_register_required: (state) => state.student_register_required,
+    purchaser_password: (state) => state.purchaser_password,
+    purchaser_fullname: (state) => state.purchaser_fullname,
   },
 });

@@ -53,7 +53,6 @@
       <div class="take-me-there">Take me there!</div>
       <i
         class="mdi mdi-open-in-new take-me-there ml-2"
-        @click="linkToStudentApp"
         style="cursor: pointer; font-size: 20px"
       ></i>
       <div class="d-flex mt-5">
@@ -152,7 +151,7 @@ export default {
                   ])
                   .then(() => {
                     if (this.status_got) {
-                      window.open("http://localhost:8081/", "_blank");
+                      window.open("http://localhost:8081/", "_self");
                     } else {
                       this.$vs.notify({
                         color: this.notification_color,

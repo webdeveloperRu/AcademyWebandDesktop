@@ -12,13 +12,13 @@
       ></div>
       <label class="edit-button" size="small">Edit</label>
     </div>
-    <vs-row vs-justify="center" class="mt-5">
+    <vs-row vs-justify="center" class="mt-5" style="width: 100% !important">
       <!-- <vs-col vs-lg="2"></vs-col> -->
       <vs-col vs-lg="5" class="px-5" vs-sm="7" vs-xs="12">
         <!-- 
           thumbnail section 
           -->
-        <div v-if="selected_public_offer.thumbnail" class="mt-5">
+        <div v-if="selected_public_offer.thumbnail" class="mb-5">
           <div
             class="checkout-image-div shadow"
             :style="{ 'background-image': cssthumbImageUrl }"
@@ -76,12 +76,15 @@
           </h2>
           <h2 v-else><strong>Free</strong></h2>
           <vs-divider></vs-divider>
-          <vs-input
-            v-if="extra_contact_information.collect_address"
-            class="inputx w-100 mt-3"
-            placeholder="Full Name"
-            v-model="fullname"
-          />
+          <div v-show="collect_name_password">
+            <vs-input
+              class="inputx w-100 mt-3"
+              placeholder="Full Name"
+              :danger="invalid_fullname"
+              danger-text="Full Name is required"
+              v-model="fullname"
+            />
+          </div>
           <vs-input
             class="inputx w-100 mt-3"
             placeholder="Email Address"
@@ -89,22 +92,26 @@
             danger-text="The mail is invalid"
             v-model="email"
           />
-          <div v-if="extra_contact_information.collect_name_password">
+          <div v-if="collect_name_password">
             <vs-input
               class="inputx w-100 mt-3"
               placeholder="Create Password"
               v-model="createPW"
+              :danger="invalid_createPW"
+              danger-text="Password is required"
               type="password"
             />
             <vs-input
               class="inputx w-100 mt-3"
               placeholder="Confirm Password"
               v-model="confirmPW"
+              :danger="invalid_confirmPW"
+              danger-text="Confirm Password is required or mismatching"
               type="password"
             />
           </div>
 
-          <div v-if="extra_contact_information.collect_address">
+          <div v-if="collect_address">
             <vs-input
               class="inputx w-100 mt-3"
               placeholder="Address Line 1"
@@ -151,7 +158,7 @@
             />
           </div>
 
-          <div v-if="extra_contact_information.collect_phone">
+          <div v-if="collect_phone">
             <vs-input
               class="inputx w-100 mt-3"
               placeholder="Phone Number"
@@ -222,7 +229,7 @@
             </div>
           </div>
 
-          <div class="mt-3">
+          <div class="mt-3" v-if="!student_email_exist">
             <vs-checkbox
               class="justify-content-start"
               size="small"
@@ -344,8 +351,17 @@ export default {
     css_banner_height: "",
     payment_type: "stripe",
     invalid_email: false,
+    invalid_fullname: false,
+    invalid_confirmPW: false,
+    invalid_createPW: false,
     signUpFreeText: "Sign up for free",
     active_headup_pop: false,
+    collect_name_password: false,
+    collect_address: false,
+    collect_phone: false,
+    start_search_email: 0,
+    already_purchased: false,
+    exist_student: null,
   }),
   computed: {
     user_logged: {
@@ -461,6 +477,12 @@ export default {
         return this.$store.getters["peopleManage/people_list"];
       },
     },
+
+    student_email_exist: {
+      get() {
+        return this.$store.getters["student_email_exist"];
+      },
+    },
   },
 
   watch: {
@@ -478,6 +500,20 @@ export default {
         }
       }
     },
+
+    email: function (newValue) {
+      if (this.start_search_email > 0) {
+        clearTimeout(this.start_search_email);
+      }
+      // this.start_search_email = setTimeout(
+      //   this.searchStudentEmail(newValue),
+      //   3000
+      // );
+
+      this.start_search_email = setTimeout(() => {
+        this.searchStudentEmail(newValue);
+      }, 1000);
+    },
   },
 
   created() {
@@ -487,11 +523,52 @@ export default {
   },
 
   methods: {
+    searchStudentEmail(email) {
+      let found = false;
+      this.already_purchased = false;
+      console.log("called search");
+      for (let i = 0; i < this.people_list.length; i++) {
+        if (this.people_list[i].email == email) {
+          found = true;
+          this.$store.commit("SET_STUDENT_EMAIL_EXIST", true);
+          console.log("found");
+          this.exist_student = this.people_list[i];
+          for (let j = 0; j < this.people_list[i].granted_access.length; j++) {
+            if (
+              this.people_list[i].granted_access[j].offer_id ==
+              this.selected_public_offer.id
+            ) {
+              this.already_purchased = true;
+            }
+          }
+          break;
+        } else {
+          found = false;
+          this.exist_student = null;
+          this.$store.commit("SET_STUDENT_EMAIL_EXIST", false);
+        }
+      }
+      if (found) {
+        this.collect_name_password = false;
+        this.collect_address = false;
+        this.collect_phone = false;
+      } else {
+        if (this.extra_contact_information !== null) {
+          this.collect_name_password = this.extra_contact_information.collect_name_password;
+          this.collect_phone = this.extra_contact_information.collect_phone;
+          this.collect_address = this.extra_contact_information.collect_address;
+          if(this.collect_name_password)
+            this.$store.commit("SET_REGISTER_REQUIRE", false);
+          else
+            this.$store.commit("SET_REGISTER_REQUIRE", true);
+        }
+      }
+    },
     createNewPayment() {
       let payment = {
         payment_type: "stripe",
         offer_id: this.payment_offer_id,
-        email: this.email,
+        email: "krakiun@gmail.com",
       };
       this.$store
         .dispatch("paymentManage/createPaymentStripe", payment)
@@ -511,57 +588,73 @@ export default {
         this.invalid_email = true;
         return;
       }
-      this.invalid_email = false;
-      this.signUpFreeText = "Submitting";
-      let email_exist = false;
-      for (let i = 0; i < this.people_list.length; i++) {
-        if (this.people_list[i].email == this.email) {
-          email_exist = true;
-          for (let j = 0; j < this.people_list[i].granted_access.length; j++) {
-            if (
-              this.people_list[i].granted_access[j].offer_id ==
-              this.selected_public_offer.id
-            ) {
-              this.active_headup_pop = true;
-              return;
-            }
-          }
-          if (this.active_headup_pop == false) {
-            // let offer = {
-            //   offer_id: this.selected_public_offer.id,
-            //   price: this.selected_public_offer.price,
-            //   title: this.selected_public_offer.name,
-            // };
-            let access = [];
-            for (
-              let j = 0;
-              j < this.people_list[i].granted_access.length;
-              j++
-            ) {
-              access[j] = this.people_list[i].granted_access[j].offer_id;
-            }
-            access[access.length] = this.selected_public_offer.id
-            this.people_list[i].granted_access = [];
-            this.people_list[i].granted_access = access;
-            this.addGrantedAccess(this.people_list[i]);
-          }
+      if (this.extra_contact_information.collect_name_password && !this.student_email_exist) {
+        if(this.fullname ==""){
+          this.invalid_fullname = true;
+          return;
+        }
+        if(this.confirmPW ==""){
+          this.invalid_confirmPW = true;
+          return;
+        }
+        if(this.createPW ==""){
+          this.invalid_createPW = true;
+          return;
+        }
+        if(this.createPW != this.confirmPW) {
+          this.invalid_confirmPW = true;
         }
       }
-      if (email_exist == false) {
-        this.$store.commit('SET_PURCHASER_EMAIL', this.email)
-        this.$store.commit('SET_PURCHASER_OFFER_ID', this.offer_id)
+      this.invalid_confirmPW = false;
+      this.invalid_confirmPW = false;
+      this.invalid_email = false;
+      this.invalid_fullname = false;
+      if (this.already_purchased) {
+        this.active_headup_pop = true;
+        return;
+      }
+      if (this.student_email_exist) {
+        this.signUpFreeText = "Submitting..."
+        let access = [];
+        for (let j = 0; j < this.exist_student.granted_access.length; j++) {
+          access[j] = this.exist_student.granted_access[j].offer_id;
+        }
+        access[access.length] = this.selected_public_offer.id;
+        this.exist_student.granted_access = [];
+        this.exist_student.granted_access = access;
+        this.addGrantedAccess(this.exist_student);
+      } 
+      else{
+        console.log(this.createPW)
+        this.$store.commit("SET_PURCHASER_EMAIL", this.email);
+        this.$store.commit("SET_PURCHASER_OFFER_ID", this.offer_id);
+        this.$store.commit("SET_PURCHASER_FULLNAME", this.fullname)
+        this.$store.commit("SET_PURCHASER_PASSWORD", this.createPW)
         this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
       }
+     
+      // if (email_exist == false) {
+      //   this.$store.commit("SET_STUDENT_EMAIL_EXIST", false);
+      //   this.$store.commit("SET_PURCHASER_EMAIL", this.email);
+      //   this.$store.commit("SET_PURCHASER_OFFER_ID", this.offer_id);
+      //   this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
+      // } else {
+      //   this.$store.commit("SET_STUDENT_EMAIL_EXIST", true);
+      //   this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
+      // }
     },
+
     addGrantedAccess(people) {
       this.$store
         .dispatch("peopleManage/updatePeopleByID", [people, people.id])
         .then(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
-          });
+          if(this.status_got)
+            this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
+          // this.$vs.notify({
+          //   color: this.notification_color,
+          //   text: this.notification_text,
+          //   icon: this.notification_icon,
+          // });
         })
         .catch(() => {
           this.$vs.notify({
@@ -581,20 +674,27 @@ export default {
       this.$store
         .dispatch("offerManage/getPublicOfferByID", this.offer_id)
         .then(() => {
-          this.csslogoImageUrl =
-            "url(" + this.selected_public_offer.logo_image + ")";
-          if (this.service_agreement.status == undefined) {
-            this.show_required = false;
-          } else {
-            if (this.service_agreement.status != "not_required") {
-              this.show_required = true;
+          if (this.status_got) {
+            if (this.selected_public_offer.extra_contact_information !== null) {
+              this.collect_name_password = this.selected_public_offer.extra_contact_information.collect_name_password;
+              this.collect_address = this.selected_public_offer.extra_contact_information.collect_address;
+              this.collect_phone = this.selected_public_offer.extra_contact_information.collect_phone;
             }
-            if (this.service_agreement.status == "required") {
-              this.agree_title =
-                "I have read read and agree to the terms and conditions of this page";
-            } else if (this.service_agreement.status == "custom_agreement") {
-              this.agree_title =
-                "I have read read and agree to the terms and conditions of this page as follows";
+            this.csslogoImageUrl =
+              "url(" + this.selected_public_offer.logo_image + ")";
+            if (this.service_agreement == null) {
+              this.show_required = false;
+            } else {
+              if (this.service_agreement.status != "not_required") {
+                this.show_required = true;
+              }
+              if (this.service_agreement.status == "required") {
+                this.agree_title =
+                  "I have read read and agree to the terms and conditions of this page";
+              } else if (this.service_agreement.status == "custom_agreement") {
+                this.agree_title =
+                  "I have read read and agree to the terms and conditions of this page as follows";
+              }
             }
           }
         });

@@ -2370,22 +2370,21 @@ export default {
       this.$store.commit("SET_PRODUCT_FAVICON", newValue);
     },
 
-    heading_font_family: function(newValue) {
-      this.prod_settings.heading_font_family = newValue
+    heading_font_family: function (newValue) {
+      this.prod_settings.heading_font_family = newValue;
     },
 
-    base_font_family: function(newValue) {
+    base_font_family: function (newValue) {
       this.prod_settings.base_font_family = newValue;
     },
 
-    product_show_syllabus: function(newValue) {
+    product_show_syllabus: function (newValue) {
       this.prod_syllabus.show_syllabus = newValue;
     },
 
-    settings_darkfont_color: function(newValue) {
+    settings_darkfont_color: function (newValue) {
       this.prod_settings.dark_font_color = newValue;
-    }
-
+    },
   },
 
   created() {
@@ -2447,9 +2446,16 @@ export default {
         this.$store
           .dispatch("offerManage/getExtraContactInformation", this.offer_id)
           .then(() => {
-            this.collect_address = this.extra_contact_info.collect_address;
-            this.collect_phone = this.extra_contact_info.collect_phone;
-            this.collect_name_password = this.extra_contact_info.collect_name_password;
+            if (this.extra_contact_info.collect_address == undefined)
+              this.collect_address = false;
+            else this.collect_address = this.extra_contact_info.collect_address;
+            if (this.extra_contact_info.collect_phone == undefined)
+              this.collect_phone = false;
+            else this.collect_phone = this.extra_contact_info.collect_phone;
+            if (this.extra_contact_info.collect_name_password == undefined)
+              this.collect_name_password = false;
+            else
+              this.collect_name_password = this.extra_contact_info.collect_name_password;
           })
           .catch(() => {
             // this.$vs.notify({
@@ -2466,7 +2472,7 @@ export default {
         this.banner_height = this.selected_offer.banner_height;
         this.banner_image_url = "url(" + this.selected_offer.banner_img + ")";
         this.thumbnail_image_url = "url(" + this.selected_offer.thumbnail + ")";
-        this.checkout_copy = this.selected_offer.description_html;
+        this.checkout_copy = this.selected_offer.description;
       }
     },
     handleWindowResize(event) {
@@ -2572,29 +2578,32 @@ export default {
       if (this.banner_enable == false) {
         this.banner_enable = "";
       }
-      let banner = {
-        banner_enable: this.banner_enable,
-        banner_height: this.banner_height,
-        banner: this.banner_file,
-      };
-      await this.$store
-        .dispatch("offerManage/saveBanner", [this.offer_id, banner])
-        .then(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
+      if (this.banner_file !== null) {
+        let banner = {
+          banner_enable: this.banner_enable,
+          banner_height: this.banner_height,
+          banner: this.banner_file,
+        };
+        await this.$store
+          .dispatch("offerManage/saveBanner", [this.offer_id, banner])
+          .then(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+            this.banner_height = this.selected_offer.banner_height;
+            this.banner_enable = this.selected_offer.banner_enable;
+            this.banner_file = null;
+          })
+          .catch(() => {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
           });
-          this.banner_height = this.selected_offer.banner_height;
-          this.banner_enable = this.selected_offer.banner_enable;
-        })
-        .catch(() => {
-          this.$vs.notify({
-            color: this.notification_color,
-            text: this.notification_text,
-            icon: this.notification_icon,
-          });
-        });
+      }
 
       // save htmlbody offer description
       this.selected_offer.title = this.offer_title;
@@ -2606,7 +2615,7 @@ export default {
           icon: "warning",
         });
       } else {
-        this.$store
+        await this.$store
           .dispatch("offerManage/updateOfferByID", this.selected_offer)
           .then(() => {
             this.$vs.notify({
@@ -2631,16 +2640,16 @@ export default {
 
       // save thumbnail part
       if (this.changedThumbNail) {
-        this.saveThumbNail(this.thumbnail_image_file);
+        await this.saveThumbNail(this.thumbnail_image_file);
       }
 
-      this.$store.dispatch("setCurrentCheckoutMenu", "home");
+      // this.$store.dispatch("setCurrentCheckoutMenu", "home");
     },
     /**
      * save ThumbNail
      **/
-    saveThumbNail(thumbFile) {
-      this.$store
+    async saveThumbNail(thumbFile) {
+      await this.$store
         .dispatch("offerManage/saveThumbNail", [this.offer_id, thumbFile])
         .then(() => {
           this.$vs.notify({
@@ -2727,6 +2736,7 @@ export default {
         collect_phone: this.collect_phone,
         collect_name_password: this.collect_name_password,
       };
+      console.log(extra_info);
       this.$store
         .dispatch("offerManage/saveExtraContactInformation", [
           extra_info,

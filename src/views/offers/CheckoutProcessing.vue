@@ -12,7 +12,7 @@
       <div
         class="success-checkmark"
         v-if="!processing_success"
-        style="visibility:hidden"
+        style="visibility: hidden"
       >
         <div class="check-icon">
           <span class="icon-line line-tip"></span>
@@ -24,9 +24,7 @@
       <div class="processing-title" v-if="!processing_success">
         Processing your purchase for Online Course Offer...
       </div>
-      <div class="processing-title" v-else>
-        Success!
-      </div>
+      <div class="processing-title" v-else>Success!</div>
       <div class="processing-content primary-font">
         Please sit tight and do not refresh or click away from this page.
       </div>
@@ -44,17 +42,124 @@ export default {
     processing_success: false,
   }),
   created() {
-
     setTimeout(() => this.processing(), 1500);
   },
   methods: {
     processing() {
       this.processing_success = true;
-      setTimeout(() => this.$router.push("/settings/member-setup"), 1000);
+      setTimeout(() => {
+        if (!this.student_email_exist){
+          if(this.student_register_required)
+            this.$router.push("/settings/member-setup");
+          else
+            this.registerStudent();
+        } 
+        else window.open("http://localhost:8081/", "_self");
+      }, 1000);
     },
+
+    registerStudent() {
+      
+      let granted_access = [];
+      granted_access[0] = this.purchaser_offer_id;
+      let user = {
+        email: this.purchaser_email,
+        name: this.purchaser_fullname,
+        password: this.purchaser_password,
+        otp: "",
+      };
+      let people = {
+        email: this.purchaser_email,
+        name: this.purchaser_fullname,
+        tags: [],
+        is_subscribe: false,
+        granted_access: granted_access,
+      };
+
+      this.$store.dispatch("peopleManage/addPeople", people).then(() => {
+        if (this.status_got) {
+          this.$store
+            .dispatch("auth/forgotStudentPassword", this.purchaser_email)
+            .then(() => {
+              if (this.status_got) {
+                this.$store
+                  .dispatch("auth/resetStudentPassword", [
+                    user,
+                    this.student_email_code,
+                  ])
+                  .then(() => {
+                    if (this.status_got) {
+                      window.open("http://localhost:8081/", "_self");
+                    } else {
+                      this.$vs.notify({
+                        color: this.notification_color,
+                        text: this.notification_text,
+                        icon: this.notification_icon,
+                      });
+                      this.$router.push("/offers/" + this.purchaser_offer_id + "/checkout");
+                    }
+                  });
+              } else {
+                this.$vs.notify({
+                  color: this.notification_color,
+                  text: this.notification_text,
+                  icon: this.notification_icon,
+                });
+                this.$router.push("/offers/" + this.purchaser_offer_id + "/checkout");
+              }
+            });
+        } else {
+          this.$vs.notify({
+            color: this.notification_color,
+            text: this.notification_text,
+            icon: this.notification_icon,
+          });
+          this.$router.push("/offers/" + this.purchaser_offer_id + "/checkout");
+        }
+      });
+    }
   },
 
   computed: {
+    purchaser_offer_id: {
+      get() {
+        return this.$store.getters["purchaser_offer_id"];
+      },
+    },
+    student_email_code: {
+      get() {
+        return this.$store.getters["student_email_code"];
+      },
+    },
+    student_register_required: {
+      get() {
+        return this.$store.getters["student_register_required"];
+      }
+    },
+
+    purchaser_email: {
+      get() {
+        return this.$store.getters["purchaser_email"];
+      },
+    },
+
+    purchaser_password:{
+      get() {
+        return this.$store.getters["purchaser_password"]
+      }
+    },
+
+    purchaser_fullname:{
+      get() {
+        return this.$store.getters["purchaser_fullname"]
+      }
+    },
+
+    student_email_exist:{
+      get() {
+        return this.$store.getters["student_email_exist"]
+      }
+    },
     user_logged: {
       get() {
         return this.$store.getters["auth/user_logged"];
@@ -85,12 +190,10 @@ export default {
       },
     },
 
-    offer_id: function() {
+    offer_id: function () {
       var id = this.$route.params.offer_id;
-      if (id==undefined) 
-        return '';
-      else
-        return id.slice(0, id.length);
+      if (id == undefined) return "";
+      else return id.slice(0, id.length);
     },
   },
 };

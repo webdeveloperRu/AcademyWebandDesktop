@@ -67,7 +67,7 @@
         </h2>
         <h2 v-else>Free</h2>
         <vs-divider></vs-divider>
-        <vs-input v-if="extra_contact_information.collect_address" class="inputx w-100 mt-3" placeholder="Full Name" v-model="fullname" />
+        <vs-input v-if="extra_contact_information.collect_name_password" class="inputx w-100 mt-3" placeholder="Full Name" v-model="fullname" />
         <vs-input class="inputx w-100 mt-3" placeholder="Email Address" v-model="email" />
         <div v-if="extra_contact_information.collect_name_password">
           <vs-input class="inputx w-100 mt-3" placeholder="Create Password" v-model="createPW" type="password" />

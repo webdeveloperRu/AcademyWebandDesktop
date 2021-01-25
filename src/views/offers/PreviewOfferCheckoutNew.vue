@@ -588,7 +588,7 @@ export default {
         this.invalid_email = true;
         return;
       }
-      if (this.extra_contact_information.collect_name_password && !this.student_email_exist) {
+      if (this.extra_contact_information.collect_name_password && this.student_email_exist) {
         if(this.fullname ==""){
           this.invalid_fullname = true;
           return;

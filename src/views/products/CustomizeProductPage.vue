@@ -15,9 +15,13 @@
       >
         <div
           class="product-announcement-text"
-          v-bind:style="{
-            'font-family': prod_settings.base_font_family,
-          }"
+          v-bind:style="[
+            prod_settings
+              ? {
+                  'font-family': prod_settings.base_font_family,
+                }
+              : '',
+          ]"
         >
           {{ prod_header.announcement_text }}
         </div>
@@ -70,9 +74,13 @@
             <div class="vs-spacer"></div>
             <div
               class="cursor-pointer pr-2 pl-2 ml-1 mr-1"
-              v-bind:style="{
-                'font-family': prod_settings.heading_font_family,
-              }"
+              v-bind:style="[
+                prod_settings
+                  ? {
+                      'font-family': prod_settings.heading_font_family,
+                    }
+                  : '',
+              ]"
             >
               My Library
             </div>
@@ -85,9 +93,13 @@
                 href="#"
                 href.prevent=""
                 class="text-white-dark"
-                v-bind:style="{
-                  'font-family': prod_settings.heading_font_family,
-                }"
+                v-bind:style="[
+                  prod_settings
+                    ? {
+                        'font-family': prod_settings.heading_font_family,
+                      }
+                    : '',
+                ]"
               >
                 Search
               </a>
@@ -138,27 +150,42 @@
           >
             <p
               class="producttitle-category"
-              v-bind:style="{
-                color: hero_text_color,
-                'font-family': prod_settings.heading_font_family,
-              }"
+              v-bind:style="[
+                prod_settings
+                  ? {
+                      color: hero_text_color,
+                      'font-family': prod_settings.heading_font_family,
+                    }
+                  : {
+                      color: hero_text_color,
+                    },
+              ]"
             >
               {{ current_product.title }}
             </p>
             <p
               class="product-description-category"
-              v-bind:style="{
-                color: hero_overlay_color,
-                'font-family': prod_settings.base_font_family,
-              }"
+              v-bind:style="[
+                prod_settings
+                  ? {
+                      color: hero_overlay_color,
+                      'font-family': prod_settings.base_font_family,
+                    }
+                  : { color: hero_overlay_color },
+              ]"
             >
               {{ current_product.description }}
             </p>
             <vs-button
               class="start-course mt-2"
-              v-bind:style="{
-                'font-family': prod_settings.heading_font_family,
-              }"
+              v-bind:style="[
+                prod_settings
+                  ? {
+                      color: hero_text_color,
+                      'font-family': prod_settings.heading_font_family,
+                    }
+                  : '',
+              ]"
               >Start Course</vs-button
             >
           </div>
@@ -204,19 +231,28 @@
                     >
                       <p
                         class="product-welcome-title"
-                        v-bind:style="{
-                          'font-family': prod_settings.heading_font_family,
-                          color: prod_settings.dark_font_color,
-                        }"
+                        v-bind:style="[
+                          prod_settings
+                            ? {
+                                'font-family':
+                                  prod_settings.heading_font_family,
+                                color: prod_settings.dark_font_color,
+                              }
+                            : { color: prod_settings.dark_font_color },
+                        ]"
                       >
                         {{ current_product.title }}
                       </p>
                       <p
                         class="product-welcome-description"
-                        v-bind:style="{
-                          'font-family': prod_settings.base_font_family,
-                          color: prod_settings.dark_font_color,
-                        }"
+                        v-bind:style="[
+                          pord_settings
+                            ? {
+                                'font-family': prod_settings.base_font_family,
+                                color: prod_settings.dark_font_color,
+                              }
+                            : '',
+                        ]"
                       >
                         {{ current_product.description }}
                       </p>
@@ -225,96 +261,201 @@
                   <label class="edit-button" size="small">Edit</label>
                 </div>
               </div>
-              <div
-                class="outline-edit mb-4"
-                title="Edit Category Item"
-                @click="selectProductCustomizeMenu('product-syllabus')"
-                v-for="(category, index_card) in category_list"
-                v-bind:key="index_card"
-              >
-                <vs-card v-if="prod_syllabus.show_syllabus">
-                  <h3
-                    class="mb-3"
-                    style="cursor: pointer"
-                    v-bind:style="{
-                      'font-family': prod_settings.heading_font_family,
-                      color: prod_settings.dark_font_color,
-                    }"
-                  >
-                    {{ category.name }}
-                  </h3>
-                  <div
-                    style="cursor: pointer"
-                    v-for="(lesson, index) in lesson_list[category.id]"
-                    v-bind:key="index"
-                  >
-                    <vs-row
-                      vs-justify="center"
-                      vs-align="center"
-                      class="category-item mb-4 p-2"
+              <div v-if="syllabus_type == 'Posts'">
+                <div
+                  class="outline-edit mb-4"
+                  title="Edit Category Item"
+                  @click="selectProductCustomizeMenu('product-syllabus')"
+                  v-for="(category, index_card) in category_list"
+                  v-bind:key="index_card"
+                >
+                  <vs-card v-if="show_syllabus">
+                    <h3
+                      class="mb-3"
+                      style="cursor: pointer"
+                      v-bind:style="[
+                        prod_settings
+                          ? {
+                              'font-family': prod_settings.heading_font_family,
+                              color: prod_settings.dark_font_color,
+                            }
+                          : '',
+                      ]"
                     >
-                      <vs-col
-                        type="flex"
-                        vs-justify="center"
-                        vs-align="center"
-                        vs-lg="3"
-                        vs-sm="12"
-                        vs-xs="12"
-                        code-toggler
-                      >
-                        <div
-                          class="category-image"
-                          style="cursor: pointer"
-                          v-bind:style="{
-                            'background-image': getLessonThumbnail(lesson),
-                          }"
-                        ></div>
-                      </vs-col>
-                      <vs-col
-                        type="flex"
-                        vs-justify="center"
-                        vs-align="center"
-                        vs-lg="8"
-                        vs-sm="12"
-                        vs-xs="12"
-                        code-toggler
-                      >
-                        <div style="cursor: pointer">
-                          <h4
-                            class="mb-2"
-                            v-bind:style="{
-                              'font-family': prod_settings.base_font_family,
-                              color: prod_settings.dark_font_color,
-                            }"
-                          >
-                            {{ lesson.title }}
-                          </h4>
-                          <div
-                            class="category-description"
-                            v-bind:style="{
-                              'font-family': prod_settings.base_font_family,
-                              color: prod_settings.dark_font_color,
-                            }"
-                          >
-                            <span v-html="lesson.body"></span>
-                          </div>
-                        </div>
-                      </vs-col>
-                    </vs-row>
-                  </div>
-                  <div>
+                      {{ category.name }}
+                    </h3>
                     <div
-                      color="danger"
-                      style="cursor: pointer; color: dodgerblue"
-                      v-bind:style="{
-                        'font-family': prod_settings.base_font_family,
-                      }"
+                      style="cursor: pointer"
+                      v-for="(lesson, index) in lesson_list[category.id]"
+                      v-bind:key="index"
                     >
-                      {{ prod_syllabus.show_more_text }}
+                      <vs-row
+                        vs-justify="center"
+                        vs-align="center"
+                        class="category-item mb-4 p-2"
+                      >
+                        <vs-col
+                          type="flex"
+                          vs-justify="center"
+                          vs-align="center"
+                          vs-lg="3"
+                          vs-sm="12"
+                          vs-xs="12"
+                          code-toggler
+                        >
+                          <div
+                            class="category-image"
+                            style="cursor: pointer"
+                            v-bind:style="{
+                              'background-image':
+                                'url(' +
+                                getLessonThumbnail(lesson.thumbnail) +
+                                ')',
+                            }"
+                          ></div>
+                        </vs-col>
+                        <vs-col
+                          type="flex"
+                          vs-justify="center"
+                          vs-align="center"
+                          vs-lg="8"
+                          vs-sm="12"
+                          vs-xs="12"
+                          code-toggler
+                        >
+                          <div style="cursor: pointer">
+                            <h4
+                              class="mb-2"
+                              v-bind:style="[
+                                prod_settings
+                                  ? {
+                                      'font-family':
+                                        prod_settings.base_font_family,
+                                      color: prod_settings.dark_font_color,
+                                    }
+                                  : '',
+                              ]"
+                            >
+                              {{ lesson.title }}
+                            </h4>
+                            <div
+                              class="category-description"
+                              v-bind:style="[
+                                prod_settings
+                                  ? {
+                                      'font-family':
+                                        prod_settings.base_font_family,
+                                      color: prod_settings.dark_font_color,
+                                    }
+                                  : '',
+                              ]"
+                            >
+                              <span v-html="lesson.body"></span>
+                            </div>
+                          </div>
+                        </vs-col>
+                      </vs-row>
                     </div>
-                  </div>
-                </vs-card>
-                <label class="edit-button" size="small">Edit</label>
+                    <div>
+                      <div
+                        color="danger"
+                        style="cursor: pointer; color: dodgerblue"
+                        v-bind:style="[
+                          prod_settings
+                            ? {
+                                'font-family': prod_settings.base_font_family,
+                              }
+                            : '',
+                        ]"
+                      >
+                        {{ show_more_text}}
+                      </div>
+                    </div>
+                  </vs-card>
+                  <label class="edit-button" size="small">Edit</label>
+                </div>
+              </div>
+              <div v-else>
+                <div
+                  class="outline-edit mb-4"
+                  title="Edit Category Item"
+                  @click="selectProductCustomizeMenu('product-syllabus')"
+                >
+                  <vs-card v-if="prod_syllabus.show_syllabus">
+                    <h3
+                      class="mb-3"
+                      style="cursor: pointer"
+                      v-bind:style="[
+                        prod_settings
+                          ? {
+                              'font-family': prod_settings.heading_font_family,
+                              color: prod_settings.dark_font_color,
+                            }
+                          : '',
+                      ]"
+                    >
+                      {{ prod_syllabus.categories_text }}
+                    </h3>
+                    <div
+                      v-for="(category, index) in category_list"
+                      v-bind:key="index"
+                      @click="viewCategory(category.id)"
+                      style="cursor: pointer"
+                    >
+                      <vs-row
+                        vs-justify="center"
+                        vs-align="center"
+                        class="category-item mb-4 p-2"
+                      >
+                        <vs-col
+                          type="flex"
+                          vs-justify="center"
+                          vs-align="center"
+                          vs-lg="3"
+                          vs-sm="12"
+                          vs-xs="12"
+                          code-toggler
+                        >
+                          <div
+                            class="category-image"
+                            v-bind:style="{
+                              'background-image':
+                                'url(' +
+                                getCategoryThumbnail(category.thumbnail) +
+                                ')',
+                            }"
+                          ></div>
+                        </vs-col>
+                        <vs-col
+                          type="flex"
+                          vs-justify="center"
+                          vs-align="center"
+                          vs-lg="8"
+                          vs-sm="12"
+                          vs-xs="12"
+                          code-toggler
+                        >
+                          <h4 class="mb-2">{{ category.name }}</h4>
+                          <div class="category-description">
+                            <span
+                              v-html="category.description"
+                              v-bind:style="[
+                                prod_settings
+                                  ? {
+                                      'font-family':
+                                        prod_settings.base_font_family,
+                                      color: prod_settings.dark_font_color,
+                                    }
+                                  : '',
+                              ]"
+                            ></span>
+                          </div>
+                        </vs-col>
+                      </vs-row>
+                    </div>
+                  </vs-card>
+                  <label class="edit-button" size="small">Edit</label>
+                </div>
               </div>
               <div v-if="category_list.length == 0">
                 <vs-card>
@@ -349,10 +490,14 @@
                   <div title="Edit Progress Text">
                     <h4
                       class="mt-3"
-                      v-bind:style="{
-                        'font-family': prod_settings.heading_font_family,
-                        color: prod_settings.dark_font_color,
-                      }"
+                      v-bind:style="[
+                        prod_settings
+                          ? {
+                              'font-family': prod_settings.heading_font_family,
+                              color: prod_settings.dark_font_color,
+                            }
+                          : '',
+                      ]"
                     >
                       12 of 23 Lessons Completed
                     </h4>
@@ -385,10 +530,14 @@
               <vs-card>
                 <h4 class="mb-3">
                   <div
-                    v-bind:style="{
-                      'font-family': prod_settings.heading_font_family,
-                      color: prod_settings.dark_font_color,
-                    }"
+                    v-bind:style="[
+                      prod_settings
+                        ? {
+                            'font-family': prod_settings.heading_font_family,
+                            color: prod_settings.dark_font_color,
+                          }
+                        : '',
+                    ]"
                   >
                     Instructor
                     <label class="edit-button" size="small">Edit</label>
@@ -408,10 +557,14 @@
                   <div class="ml-3">
                     <div class="mb-1">
                       <div
-                        v-bind:style="{
-                          'font-family': prod_settings.base_font_family,
-                          color: prod_settings.dark_font_color,
-                        }"
+                        v-bind:style="[
+                          prod_settings
+                            ? {
+                                'font-family': prod_settings.base_font_family,
+                                color: prod_settings.dark_font_color,
+                              }
+                            : '',
+                        ]"
                       >
                         <strong>{{ instructor_name }}</strong>
                         <label class="edit-button" size="small">Edit</label>
@@ -420,9 +573,13 @@
                     <div>
                       <div
                         style="color: dodgerblue"
-                        v-bind:style="{
-                          'font-family': prod_settings.base_font_family,
-                        }"
+                        v-bind:style="[
+                          prod_settings
+                            ? {
+                                'font-family': prod_settings.base_font_family,
+                              }
+                            : '',
+                        ]"
                       >
                         Instructor
                       </div>
@@ -432,10 +589,14 @@
                 </div>
                 <div class="mt-3">
                   <div
-                    v-bind:style="{
-                      'font-family': prod_settings.base_font_family,
-                      color: prod_settings.dark_font_color,
-                    }"
+                    v-bind:style="[
+                      prod_settings
+                        ? {
+                            'font-family': prod_settings.base_font_family,
+                            color: prod_settings.dark_font_color,
+                          }
+                        : '',
+                    ]"
                   >
                     {{ instructor_title }}
                     <label class="edit-button" size="small">Edit</label>
@@ -469,10 +630,14 @@
             <span
               v-if="prod_footer.show_copyright"
               class="footer__copyright"
-              v-bind:style="{
-                color: prod_footer.text_color,
-                'font-family': prod_settings.heading_font_family,
-              }"
+              v-bind:style="[
+                prod_settings
+                  ? {
+                      color: prod_footer.text_color,
+                      'font-family': prod_settings.heading_font_family,
+                    }
+                  : { color: prod_footer.text_color },
+              ]"
               >{{ prod_footer.copyright_text }}</span
             >
           </div>
@@ -957,6 +1122,7 @@ export default {
 
     header_logo_height: {
       get() {
+        if (this.prod_header == null) return "50";
         let height = parseInt(this.prod_header.custom_logo_height);
         if (isNaN(height)) {
           return "50";
@@ -1030,13 +1196,45 @@ export default {
         else return this.site_details.instructor.title;
       },
     },
+
+    syllabus_type: {
+      get() {
+        if (this.prod_syllabus == null) return "Posts";
+        else return this.prod_syllabus.syllabus_type;
+      },
+    },
+    show_syllabus: {
+      get() {
+        if (this.prod_syllabus == null) return true;
+        else this.prod_syllabus.show_syllabus
+
+      }
+    },
+    show_more_text: {
+      get() {
+        if (this.prod_syllabus == null)
+          return "show more"
+        else
+          this.prod_syllabus.show_more_text
+
+      }
+    }
+
+    
   },
 
   created() {
     this.$store.dispatch("changeSideBar", "product-customize");
     this.$store.dispatch("updateSidebarWidth", "checkout");
+    this.initSiteDetails();
   },
   methods: {
+    initSiteDetails() {
+      this.$store
+        .dispatch("siteDetailsManage/getSiteDetails")
+        .then(() => {})
+        .catch(() => {});
+    },
     selectProductCustomizeMenu(menu_option) {
       this.$store.dispatch("setCurrentProductCustomizeMenu", menu_option);
     },
@@ -1050,10 +1248,20 @@ export default {
       return "url(" + url + ")";
     },
 
-    getLessonThumbnail(lesson) {
-      if (lesson.thumbnail == null || lesson.thumbnail == "") {
-        return "url(" + this.default_product_thumbnail + ")";
-      } else return "url(" + lesson.thumbnail + ")";
+    getCategoryThumbnail(url) {
+      if (url == "" || url == null) {
+        return require("@/assets/images/default-product.png");
+      } else {
+        return url;
+      }
+    },
+
+    getLessonThumbnail(url) {
+      if (url == "" || url == null) {
+        return require("@/assets/images/default-product.png");
+      } else {
+        return url;
+      }
     },
   },
 };

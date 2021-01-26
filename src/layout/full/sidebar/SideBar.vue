@@ -2385,6 +2385,14 @@ export default {
     settings_darkfont_color: function (newValue) {
       this.prod_settings.dark_font_color = newValue;
     },
+
+    product_syllabus_type: function (newValue) {
+      this.prod_syllabus.syllabus_type = newValue;
+    },
+
+    product_syllabus_categoriestext: function (newValue) {
+      this.prod_syllabus.categories_text = newValue;
+    }
   },
 
   created() {

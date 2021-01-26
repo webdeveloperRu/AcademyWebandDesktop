@@ -150,6 +150,8 @@ export default {
     },
     ga_background: {
       get() {
+        if (this.prod_settings == null)
+          return "#ffffff00";
         if (this.prod_settings.ga_background == null)
           return "#ffffff00"
         else

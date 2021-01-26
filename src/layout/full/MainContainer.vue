@@ -153,7 +153,7 @@ export default {
         if (this.prod_settings.ga_background == null)
           return "#ffffff00"
         else
-          return this.sprod_settings.ga_background
+          return this.prod_settings.ga_background
       }
     }
   },

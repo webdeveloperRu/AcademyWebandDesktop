@@ -57,8 +57,9 @@ export const auth = {
     },
 
     logout({ commit }) {
-      return AuthService.logout().then(
-        (res) => {
+      // return AuthService.logout().then(
+      //   (res) => {
+          localStorage.removeItem('user');
           commit("integrationManage/RESET_MODULE", null, {
             root: true,
           });
@@ -108,12 +109,12 @@ export const auth = {
             root: true,
           });
           commit("RESET_MODULE");
-          commit("logoutSuccess", res.response);
-        },
-        (error) => {
-          commit("logoutFailed", error.response);
-        }
-      );
+          // commit("logoutSuccess", res.response);
+      //   },
+      //   (error) => {
+      //     commit("logoutFailed", error.response);
+      //   }
+      // );
     },
 
     register({ commit }, user) {

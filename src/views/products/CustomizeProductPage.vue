@@ -168,20 +168,20 @@
               v-bind:style="[
                 prod_settings
                   ? {
-                      color: hero_overlay_color,
+                      color: hero_text_color,
                       'font-family': prod_settings.base_font_family,
                     }
-                  : { color: hero_overlay_color },
+                  : { color: hero_text_color },
               ]"
             >
               {{ current_product.description }}
             </p>
             <vs-button
               class="start-course mt-2"
+              style="color:white"
               v-bind:style="[
                 prod_settings
                   ? {
-                      color: hero_text_color,
                       'font-family': prod_settings.heading_font_family,
                     }
                   : '',
@@ -216,7 +216,7 @@
             >
               <div v-if="prod_welcome">
                 <div
-                  class="outline-edit"
+                  class="outline-edit mb-4"
                   title="Edit Category Item"
                   @click="selectProductCustomizeMenu('welcome')"
                   v-if="prod_welcome.show_welcome"

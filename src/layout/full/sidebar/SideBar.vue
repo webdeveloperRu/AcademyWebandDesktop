@@ -3666,6 +3666,11 @@ export default {
     },
 
     deleteHeroBannerImage() {
+      if (this.current_product.hero_background_image == "") {
+        this.hero_background_image_url = "";
+        this.hero_background_image_file = null;
+        return;
+      }
       this.$store
         .dispatch("prodCustomizeManage/removeProductImages", [
           this.product_id,
@@ -3686,6 +3691,11 @@ export default {
     },
 
     deleteFavIcon() {
+      if (this.current_product.favicon_image == "") {
+        this.product_favicon_url = "";
+        this.product_favicon_file = null;
+        return;
+      }
       this.$store
         .dispatch("prodCustomizeManage/removeProductImages", [
           this.product_id,
@@ -3706,6 +3716,11 @@ export default {
     },
 
     deletePageBackgroundImage() {
+      if (this.current_product.page_background_image == "") {
+        this.page_background_image_url = "";
+        this.page_background_file = null;
+        return;
+      }
       this.$store
         .dispatch("prodCustomizeManage/removeProductImages", [
           this.product_id,
@@ -3726,6 +3741,11 @@ export default {
     },
 
     deleteHeaderLogoImage() {
+      if (this.current_product.header_logo_image == "") {
+        this.header_logo_image_url = "";
+        this.header_logo_file = null;
+        return;
+      }
       this.$store
         .dispatch("prodCustomizeManage/removeProductImages", [
           this.product_id,
@@ -3746,7 +3766,12 @@ export default {
     },
 
     deleteFooterLogoImage() {
-       this.$store
+      if (this.current_product.footer_logo_image == "") {
+        this.footer_logo_image_url = "";
+        this.footer_logo_file = null;
+        return;
+      }
+      this.$store
         .dispatch("prodCustomizeManage/removeProductImages", [
           this.product_id,
           "footer_logo_image",
@@ -3763,7 +3788,6 @@ export default {
             this.footer_logo_file = null;
           }
         });
-      
     },
   },
 

@@ -703,7 +703,18 @@
             />
           </div>
           <div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Logo Image</div>
+            <div class="mb-2 align-items-center justify-content-between d-flex">
+              Logo Image
+              <vs-button
+                v-if="header_logo_image_url != ''"
+                class="image-delete-button"
+                radius
+                color="danger"
+                type="gradient"
+                icon="delete"
+                @click.native="deleteHeaderLogoImage"
+              ></vs-button>
+            </div>
             <div
               class="logo-image"
               :style="{
@@ -715,6 +726,7 @@
             <label class="logoimage-select-button mt-3">
               <input
                 type="file"
+                ref="headerLogoImageUpload"
                 @change="onSelectProductLogoImage"
                 style="overflow: hidden"
                 class="bannerimage-input"
@@ -845,7 +857,19 @@
             <span>Section Appearance</span>
           </div>
           <div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Background Image</div>
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              <span>Background Image</span>
+              <vs-button
+                v-if="hero_background_image_url != ''"
+                class="image-delete-button"
+                radius
+                color="danger"
+                type="gradient"
+                icon="delete"
+                @click.native="deleteHeroBannerImage"
+              ></vs-button>
+            </div>
+
             <div
               class="logo-image"
               :style="{
@@ -856,6 +880,7 @@
             ></div>
             <label class="logoimage-select-button mt-3">
               <input
+                ref="heroImageUpload"
                 type="file"
                 @change="onSelectProductAppearanceImage"
                 style="overflow: hidden"
@@ -1150,6 +1175,7 @@
             <label class="logoimage-select-button mt-3">
               <input
                 type="file"
+                ref="instructorImageUpload"
                 @change="onSelectInstructorHeadshotImage"
                 style="overflow: hidden"
                 class="bannerimage-input"
@@ -1264,7 +1290,18 @@
             >
           </div>
           <div class="product-sidebar-menucontent-section">
-            <label class="primary-font mt-4">Logo Image</label>
+            <div class="mb-2 align-items-center justify-content-between d-flex">
+              Logo Image
+              <vs-button
+                v-if="footer_logo_image_url != ''"
+                class="image-delete-button"
+                radius
+                color="danger"
+                type="gradient"
+                icon="delete"
+                @click.native="deleteFooterLogoImage"
+              ></vs-button>
+            </div>
             <div
               class="banner-image"
               :style="{
@@ -1276,6 +1313,7 @@
             <label class="bannerimage-select-button mt-3">
               <input
                 type="file"
+                ref="footerLogoImageUpload"
                 @change="onSelectFooterLogo"
                 style="overflow: hidden"
                 class="bannerimage-input"
@@ -1513,7 +1551,18 @@
             ></i>
           </div>
           <div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Favicon Image</div>
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              Favicon Image
+              <vs-button
+                v-if="product_favicon_url != ''"
+                class="image-delete-button"
+                radius
+                color="danger"
+                type="gradient"
+                icon="delete"
+                @click.native="deleteFavIcon"
+              ></vs-button>
+            </div>
             <div
               class="logo-image"
               :style="{
@@ -1525,6 +1574,7 @@
             <label class="logoimage-select-button mt-3">
               <input
                 type="file"
+                ref="favIconImageUpload"
                 @change="onSelectProductFaviconImage"
                 style="overflow: hidden"
                 class="bannerimage-input"
@@ -1699,7 +1749,18 @@
           </div>
 
           <div class="product-sidebar-menucontent-section">
-            <div class="mb-2">Page Background Image</div>
+            <div class="mb-2 d-flex justify-content-between align-items-center">
+              Page Background Image
+              <vs-button
+                v-if="page_background_image_url != ''"
+                class="image-delete-button"
+                radius
+                color="danger"
+                type="gradient"
+                icon="delete"
+                @click.native="deletePageBackgroundImage"
+              ></vs-button>
+            </div>
             <div
               class="logo-image"
               :style="{
@@ -1711,6 +1772,7 @@
             <label class="logoimage-select-button mt-3">
               <input
                 type="file"
+                ref="pageBackgroundImageUpload"
                 @change="onSelectPageBackgroundImage"
                 style="overflow: hidden"
                 class="bannerimage-input"
@@ -2392,7 +2454,7 @@ export default {
 
     product_syllabus_categoriestext: function (newValue) {
       this.prod_syllabus.categories_text = newValue;
-    }
+    },
   },
 
   created() {
@@ -2862,8 +2924,8 @@ export default {
       this.$store
         .dispatch("prodCustomizeManage/getProdHero", this.product_id)
         .then(() => {
-          this.hero_appearance_textalign = this.prod_hero.alignment;   
-          if (this.prod_hero.overlay_color !==null) {
+          this.hero_appearance_textalign = this.prod_hero.alignment;
+          if (this.prod_hero.overlay_color !== null) {
             this.product_hero_overlaycolor = this.prod_hero.overlay_color;
           }
           if (this.prod_hero.text_color !== null) {
@@ -2998,7 +3060,8 @@ export default {
           this.settings_mc_info = this.prod_settings.mc_info;
           this.settings_mc_warning = this.prod_settings.mc_warning;
           this.settings_mc_danger = this.prod_settings.mc_danger;
-          this.settings_ga_background_color = this.prod_settings.ga_background;
+          if (this.prod_settings.ga_background !== null)
+            this.settings_ga_background_color = this.prod_settings.ga_background;
           this.settings_ga_vertical_align = this.prod_settings.ga_vertical_alignment;
           this.settings_ga_body_colwidth = this.prod_settings.ga_body_column_width;
           this.heading_font_family = this.prod_settings.heading_font_family;
@@ -3509,6 +3572,7 @@ export default {
       if (file !== undefined) {
         this.header_logo_file = file;
         this.header_logo_image_url = URL.createObjectURL(file);
+        this.$refs.headerLogoImageUpload.value = null;
       }
     },
 
@@ -3518,6 +3582,7 @@ export default {
         this.hero_background_image_file = file;
         // this.banner_url = URL.createObjectURL(file);
         this.hero_background_image_url = URL.createObjectURL(file);
+        this.$refs.heroImageUpload.value = null;
       }
     },
 
@@ -3525,9 +3590,9 @@ export default {
       const file = e.target.files[0];
       if (file !== undefined) {
         this.instructor_headshot_file = file;
-        // this.banner_url = URL.createObjectURL(file);
         this.instructor_headshot_image_url =
           "url(" + URL.createObjectURL(file) + ")";
+        this.$refs.instructorImageUpload.value = null;
       }
     },
 
@@ -3537,6 +3602,7 @@ export default {
         this.footer_logo_file = file;
         // this.banner_url = URL.createObjectURL(file);
         this.footer_logo_image_url = URL.createObjectURL(file);
+        this.$refs.footerLogoImageUpload.value = null;
       }
     },
 
@@ -3544,6 +3610,7 @@ export default {
       const file = e.target.files[0];
       if (file !== undefined) {
         this.product_favicon_file = file;
+        this.$refs.favIconImageUpload.value = null;
         // this.banner_url = URL.createObjectURL(file);
         this.product_favicon_url = URL.createObjectURL(file);
       }
@@ -3555,6 +3622,7 @@ export default {
         this.page_background_file = file;
         // this.banner_url = URL.createObjectURL(file);
         this.page_background_image_url = URL.createObjectURL(file);
+        this.$refs.pageBackgroundImageUpload.value = null;
       }
     },
 
@@ -3595,6 +3663,107 @@ export default {
           this.$vs.loading.close(this.$refs.loading);
           this.customization_processing = false;
         });
+    },
+
+    deleteHeroBannerImage() {
+      this.$store
+        .dispatch("prodCustomizeManage/removeProductImages", [
+          this.product_id,
+          "hero_background_image",
+        ])
+        .then(() => {
+          if (!this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          } else {
+            this.hero_background_image_url = "";
+            this.hero_background_image_file = null;
+          }
+        });
+    },
+
+    deleteFavIcon() {
+      this.$store
+        .dispatch("prodCustomizeManage/removeProductImages", [
+          this.product_id,
+          "favicon_image",
+        ])
+        .then(() => {
+          if (!this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          } else {
+            this.product_favicon_url = "";
+            this.product_favicon_file = null;
+          }
+        });
+    },
+
+    deletePageBackgroundImage() {
+      this.$store
+        .dispatch("prodCustomizeManage/removeProductImages", [
+          this.product_id,
+          "page_background_image",
+        ])
+        .then(() => {
+          if (!this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          } else {
+            this.page_background_image_url = "";
+            this.page_background_file = null;
+          }
+        });
+    },
+
+    deleteHeaderLogoImage() {
+      this.$store
+        .dispatch("prodCustomizeManage/removeProductImages", [
+          this.product_id,
+          "header_logo_image",
+        ])
+        .then(() => {
+          if (!this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          } else {
+            this.header_logo_image_url = "";
+            this.header_logo_file = null;
+          }
+        });
+    },
+
+    deleteFooterLogoImage() {
+       this.$store
+        .dispatch("prodCustomizeManage/removeProductImages", [
+          this.product_id,
+          "footer_logo_image",
+        ])
+        .then(() => {
+          if (!this.status_got) {
+            this.$vs.notify({
+              color: this.notification_color,
+              text: this.notification_text,
+              icon: this.notification_icon,
+            });
+          } else {
+            this.footer_logo_image_url = "";
+            this.footer_logo_file = null;
+          }
+        });
+      
     },
   },
 
@@ -3822,5 +3991,12 @@ input[type="file"] {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.image-delete-button {
+  &.includeIconOnly {
+    width: 27px !important;
+    height: 27px !important;
+  }
 }
 </style>

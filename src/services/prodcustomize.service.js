@@ -42,7 +42,7 @@ class ProdCustomizeService {
    /**
    * ---------get product customize header -----------------------
    */
-  saveProductImages(header_logo, product_id, place_type) {
+  saveProductImages(image, product_id, place_type) {
     var FormData = require('form-data');
     var data = new FormData()
     let header = {
@@ -50,11 +50,26 @@ class ProdCustomizeService {
       'Content-Type': 'multipart/form-data'
     };
 
-    data.append('file', header_logo);
+    data.append('file', image);
     data.append('place_type', place_type);
     return axios
       .post(API_URL + product_id + '/images', data, {
         headers: header
+      }).then(response => {
+        return response;
+      })
+      .catch(err => {
+        return err;
+      });
+  }
+
+  /**
+   * ---------remvoe product customize header -----------------------
+   */
+  removeProductImages(product_id, place_type) {    
+    return axios
+      .delete(API_URL + product_id + '/images?'+ place_type, {
+        headers: authHeader(),
       }).then(response => {
         return response;
       })

@@ -395,11 +395,39 @@ export const prodCustomizeManage = {
      * ------------------------------ save prod header logo  --------------------
      * */
 
-    saveProductImages({commit}, [header_logo, product_id, place_type]) {
-      return ProdCustomizeService.saveProductImages(header_logo, product_id, place_type).then(
+    saveProductImages({commit}, [image, product_id, place_type]) {
+      return ProdCustomizeService.saveProductImages(image, product_id, place_type).then(
         (res) => {
           if (res.status === 200) {
-            commit("saveProductImagesSuccess", res);
+            commit("saveProductImagesSuccess");
+          } else {
+            if (res.response == undefined)
+              commit("NETWORK_ERROR", null, {
+                root: true,
+              });
+            else
+              commit("REQUEST_FAILED", res.response, {
+                root: true,
+              });
+          }
+        },
+        (error) => {
+          commit("REQUEST_FAILED", error.response, {
+            root: true,
+          });
+        }
+      );
+    },
+
+    /** 
+     * ------------------------------ remove porudct Images  --------------------
+     * */
+
+    removeProductImages({commit}, [product_id, place_type]) {
+      return ProdCustomizeService.removeProductImages(product_id, place_type).then(
+        (res) => {
+          if (res.status === 200) {
+            commit("removeProductImagesSuccess");
           } else {
             if (res.response == undefined)
               commit("NETWORK_ERROR", null, {
@@ -612,15 +640,27 @@ export const prodCustomizeManage = {
     },
 
     /**
-     *  @save saveProductImagesSuccess ----------
+     *  @saveProductImagesSuccess ----------
      */
 
-    saveProductImagesSuccess(state, res) {
+    saveProductImagesSuccess() {
       store.state.status = {
         got: true,
       };
-      state.prod_syllabus = res.data;
-      store.state.notification_text = "Header Logo successfully updated!";
+      store.state.notification_text = "Image successfully updated!";
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+    },
+
+     /**
+     *  @removeProductImagesSuccess ----------
+     */
+
+    removeroductImagesSuccess() {
+      store.state.status = {
+        got: true,
+      };
+      store.state.notification_text = "Image removed!";
       store.state.notification_icon = "info";
       store.state.notification_color = "primary";
     },

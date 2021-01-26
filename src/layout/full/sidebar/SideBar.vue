@@ -1872,7 +1872,7 @@ export default {
     header_menu_logouttext: "Logout",
     header_menu_settingstext: "Settings",
     header_menu_librarytext: "My Library",
-    product_hero_overlaycolor: "#ffffff1f",
+    product_hero_overlaycolor: "#005fcc87",
     product_hero_textcolor: "#ffffff",
     product_show_footer: true,
     product_show_footercopyright: true,

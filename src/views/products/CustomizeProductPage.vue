@@ -1128,7 +1128,8 @@ export default {
     hero_background_image_url: {
       get() {
         if (this.$store.getters["hero_background_image_url"] == "")
-          return require("@/assets/images/hero-default-banner.png");
+          // return require("@/assets/images/hero-default-banner.png");
+          return "";
         else return this.$store.getters["hero_background_image_url"];
       },
     },
@@ -1159,7 +1160,7 @@ export default {
 
     hero_overlay_color: {
       get() {
-        if (this.prod_hero.overlay_color == null) return "#ffffff1f";
+        if (this.prod_hero.overlay_color == null) return "#005fcc87";
         else return this.prod_hero.overlay_color;
       },
     },

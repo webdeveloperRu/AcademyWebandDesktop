@@ -534,7 +534,7 @@ export default {
     site_subdomain: "",
     support_email: "",
     support_phone: "",
-    language: "",
+    language: "EN",
     homepage: "",
     instructor_name: "",
     instructor_title: "",
@@ -582,7 +582,7 @@ export default {
 
   watch: {
     site_title: function(newValue) {
-      if (this.site_details !== null) {
+      if (this.site_details.title !== undefined) {
         if (this.site_details.title !== newValue) {
           this.info_changed = true;
         } else {
@@ -595,7 +595,7 @@ export default {
     },
 
     site_subdomain: function(newValue) {
-      if (this.site_details !== null) {
+      if (this.site_details.subdomain !== undefined) {
         if (this.site_details.subdomain !== newValue) {
           this.info_changed = true;
         } else {
@@ -608,7 +608,7 @@ export default {
     },
 
     support_email: function(newValue) {
-      if (this.site_details !== null) {
+      if (this.site_details.support_email !== undefined) {
         if (this.site_details.support_email !== newValue) {
           this.info_changed = true;
         } else {
@@ -621,7 +621,7 @@ export default {
     },
 
     support_phone: function(newValue) {
-      if (this.site_details !== null) {
+      if (this.site_details.phone_number !== undefined) {
         if (this.site_details.phone_number !== newValue) {
           this.info_changed = true;
         } else {
@@ -634,7 +634,7 @@ export default {
     },
 
     language: function(newValue) {
-      if (this.site_details !== null) {
+      if (this.site_details.language !== undefined) {
         if (this.site_details.language !== newValue) {
           this.info_changed = true;
         } else {
@@ -647,7 +647,7 @@ export default {
     },
 
     default_currency: function(newValue) {
-      if (this.site_details !== null) {
+      if (this.site_details.default_currency !== undefined) {
         if (this.site_details.default_currency !== newValue) {
           this.info_changed = true;
         } else {
@@ -660,7 +660,7 @@ export default {
     },
 
     instructor_title: function(newValue) {
-      if (this.site_details !== null && this.site_details.instructor !== null) {
+      if (this.site_details !== null && this.site_details.instructor !== undefined) {
         if (this.site_details.instructor.title !== newValue) {
           this.instructor_changed = true;
         } else {
@@ -673,7 +673,7 @@ export default {
     },
 
     instructor_name: function(newValue) {
-      if (this.site_details !== null && this.site_details.instructor !== null) {
+      if (this.site_details !== null && this.site_details.instructor !== undefined) {
         if (this.site_details.instructor.name !== newValue) {
           this.instructor_changed = true;
         } else {
@@ -688,7 +688,7 @@ export default {
     page_title: function(newValue) {
       if (
         this.site_details !== null &&
-        this.site_details.seo_and_sharing !== null
+        this.site_details.seo_and_sharing !== undefined
       ) {
         if (this.site_details.seo_and_sharing.page_title !== newValue) {
           this.sharing_changed = true;
@@ -704,7 +704,7 @@ export default {
     page_description: function(newValue) {
       if (
         this.site_details !== null &&
-        this.site_details.seo_and_sharing !== null
+        this.site_details.seo_and_sharing !== undefined
       ) {
         if (this.site_details.seo_and_sharing.page_description !== newValue) {
           this.sharing_changed = true;
@@ -720,7 +720,7 @@ export default {
     page_scripts: function(newValue) {
       if (
         this.site_details !== null &&
-        this.site_details.page_scripts !== null
+        this.site_details.page_scripts !== undefined
       ) {
         if (this.site_details.page_scripts.script !== newValue) {
           this.page_script_changed = true;
@@ -814,21 +814,26 @@ export default {
    */
   methods: {
     updateSiteDetailsData() {
-      this.site_title = this.site_details.title;
-      this.site_subdomain = this.site_details.subdomain;
-      this.support_phone = this.site_details.phone_number;
-      this.support_email = this.site_details.support_email;
-      this.language = this.site_details.language;
+      if(this.site_details.title !== undefined)
+        this.site_title = this.site_details.title;
+      if(this.site_details.subdomain !== undefined)
+        this.site_subdomain = this.site_details.subdomain;
+      if(this.site_details.phone_number !== undefined)
+        this.support_phone = this.site_details.phone_number;
+      if(this.site_details.support_email !== undefined)
+        this.support_email = this.site_details.support_email;
+      if(this.site_details.language !== undefined)
+        this.language = this.site_details.language;
       this.default_currency = this.site_details.default_currency;
-      if (this.site_details.instructor !== null) {
+      if (this.site_details.instructor !== undefined) {
         this.instructor_name = this.site_details.instructor.name;
         this.instructor_title = this.site_details.instructor.title;
       }
-      if (this.site_details.seo_and_sharing !== null) {
+      if (this.site_details.seo_and_sharing !== undefined) {
         this.page_title = this.site_details.seo_and_sharing.page_title;
         this.page_description = this.site_details.seo_and_sharing.page_description;
       }
-      if (this.site_details.page_scripts !== null) {
+      if (this.site_details.page_scripts !== undefined) {
         this.page_scripts = this.site_details.page_scripts.script;
       }
       this.cssInstructorUrl = this.instructorImageUrl;
@@ -843,7 +848,6 @@ export default {
       this.$store
         .dispatch("siteDetailsManage/getSiteDetails")
         .then(() => {
-          console.log(this.site_details.instructor)
           this.updateSiteDetailsData();
         })
         .catch(() => {

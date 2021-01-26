@@ -21,7 +21,7 @@
         'background-image': convertBackgroundCssImageUrl(
           page_background_image_url
         ),
-        'background-color': prod_settings.ga_background,
+        'background-color': ga_background,
       }"
     >
       <!-- <Breadcrumb /> -->
@@ -148,6 +148,14 @@ export default {
         return this.$store.getters["auth/logged_user"];
       },
     },
+    ga_background: {
+      get() {
+        if (this.prod_settings.ga_background == null)
+          return "#ffffff00"
+        else
+          return this.sprod_settings.ga_background
+      }
+    }
   },
 };
 </script>

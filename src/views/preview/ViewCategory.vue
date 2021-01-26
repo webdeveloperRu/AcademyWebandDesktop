@@ -316,7 +316,6 @@ export default {
   margin: 0 -20px;
   margin-top: -24px;
   background-position: center;
-  background-image: url("../../assets/images/big/img1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 300px;
@@ -328,7 +327,6 @@ export default {
 .product-image {
   width: 30%;
   background-position: center;
-  background-image: url("../../assets/images/big/img3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 170px;
@@ -416,7 +414,6 @@ export default {
   .product-image {
     width: 100%;
     background-position: center;
-    background-image: url("../../assets/images/big/img3.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 200px;

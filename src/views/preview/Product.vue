@@ -549,7 +549,6 @@ export default {
 .product-image {
   width: 30%;
   background-position: center;
-  background-image: url("../../assets/images/big/img3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 170px;
@@ -654,7 +653,6 @@ export default {
   .product-image {
     width: 100%;
     background-position: center;
-    background-image: url("../../assets/images/big/img3.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 200px;

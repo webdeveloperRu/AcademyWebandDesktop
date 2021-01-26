@@ -442,29 +442,6 @@ export default {
     //   url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     //   label: 'samplePDF',
     // },
-    filesrcs: [
-      {
-        title: "AadharCard.png",
-        src: require("@/assets/images/big/img1.jpg"),
-      },
-      {
-        title: "PANCard.png",
-        src: require("@/assets/images/big/img2.jpg"),
-      },
-      {
-        title: "Licence.png",
-        src: require("@/assets/images/big/img3.jpg"),
-      },
-      {
-        title: "Photo.png",
-        src: require("@/assets/images/big/img4.jpg"),
-      },
-      {
-        title: "Photo.pdf",
-        src:
-          "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
-      },
-    ],
   }),
 
   computed: {

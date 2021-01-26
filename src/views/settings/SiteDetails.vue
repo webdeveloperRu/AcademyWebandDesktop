@@ -843,6 +843,7 @@ export default {
       this.$store
         .dispatch("siteDetailsManage/getSiteDetails")
         .then(() => {
+          console.log(this.site_details.instructor)
           this.updateSiteDetailsData();
         })
         .catch(() => {

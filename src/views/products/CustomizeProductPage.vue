@@ -133,13 +133,13 @@
             v-bind:style="{
               'padding-top': hero_spacing,
               'padding-bottom': hero_spacing,
-              background: prod_hero.overlay_color,
+              background: hero_overlay_color,
             }"
           >
             <p
               class="producttitle-category"
               v-bind:style="{
-                color: prod_hero.text_color,
+                color: hero_text_color,
                 'font-family': prod_settings.heading_font_family,
               }"
             >
@@ -148,7 +148,7 @@
             <p
               class="product-description-category"
               v-bind:style="{
-                color: prod_hero.text_color,
+                color: hero_overlay_color,
                 'font-family': prod_settings.base_font_family,
               }"
             >
@@ -167,7 +167,7 @@
       </div>
       <br />
       <br />
-      <vs-row vs-justify="center" >
+      <vs-row vs-justify="center">
         <vs-col
           type="flex"
           vs-justify="center"
@@ -199,14 +199,14 @@
                       @click="selectProductCustomizeMenu('welcome')"
                       v-bind:style="{
                         'text-align': welcome_text_aligment,
-                        'color': prod_settings.dark_font_color
+                        color: prod_settings.dark_font_color,
                       }"
                     >
                       <p
                         class="product-welcome-title"
                         v-bind:style="{
                           'font-family': prod_settings.heading_font_family,
-                          'color': prod_settings.dark_font_color
+                          color: prod_settings.dark_font_color,
                         }"
                       >
                         {{ current_product.title }}
@@ -215,7 +215,7 @@
                         class="product-welcome-description"
                         v-bind:style="{
                           'font-family': prod_settings.base_font_family,
-                          'color': prod_settings.dark_font_color                          
+                          color: prod_settings.dark_font_color,
                         }"
                       >
                         {{ current_product.description }}
@@ -226,7 +226,7 @@
                 </div>
               </div>
               <div
-                class="outline-edit"
+                class="outline-edit mb-4"
                 title="Edit Category Item"
                 @click="selectProductCustomizeMenu('product-syllabus')"
                 v-for="(category, index_card) in category_list"
@@ -238,7 +238,7 @@
                     style="cursor: pointer"
                     v-bind:style="{
                       'font-family': prod_settings.heading_font_family,
-                      'color': prod_settings.dark_font_color
+                      color: prod_settings.dark_font_color,
                     }"
                   >
                     {{ category.name }}
@@ -266,7 +266,7 @@
                           class="category-image"
                           style="cursor: pointer"
                           v-bind:style="{
-                            'background-image': 'url(' + lesson.thumbnail + ')',
+                            'background-image': getLessonThumbnail(lesson),
                           }"
                         ></div>
                       </vs-col>
@@ -284,7 +284,7 @@
                             class="mb-2"
                             v-bind:style="{
                               'font-family': prod_settings.base_font_family,
-                              'color': prod_settings.dark_font_color
+                              color: prod_settings.dark_font_color,
                             }"
                           >
                             {{ lesson.title }}
@@ -293,7 +293,7 @@
                             class="category-description"
                             v-bind:style="{
                               'font-family': prod_settings.base_font_family,
-                              'color': prod_settings.dark_font_color
+                              color: prod_settings.dark_font_color,
                             }"
                           >
                             <span v-html="lesson.body"></span>
@@ -307,7 +307,7 @@
                       color="danger"
                       style="cursor: pointer; color: dodgerblue"
                       v-bind:style="{
-                        'font-family': prod_settings.base_font_family,                        
+                        'font-family': prod_settings.base_font_family,
                       }"
                     >
                       {{ prod_syllabus.show_more_text }}
@@ -315,6 +315,13 @@
                   </div>
                 </vs-card>
                 <label class="edit-button" size="small">Edit</label>
+              </div>
+              <div v-if="category_list.length == 0">
+                <vs-card>
+                  <div class="mt-5 mb-5">
+                    <h3>There is no course data in this product...</h3>
+                  </div>
+                </vs-card>
               </div>
             </vs-col>
             <vs-col
@@ -329,7 +336,13 @@
             >
               <vs-card class="progress-product_thumbnail">
                 <div title="Edit Product Image">
-                  <div class="instructor-image"></div>
+                  <div
+                    class="instructor-image"
+                    v-bind:style="{
+                      'background-image':
+                        'url(' + current_product.thumbnail + ')',
+                    }"
+                  ></div>
                   <label class="edit-button" size="small">Edit</label>
                 </div>
                 <div class="mx-4 mt-3">
@@ -338,7 +351,7 @@
                       class="mt-3"
                       v-bind:style="{
                         'font-family': prod_settings.heading_font_family,
-                        'color': prod_settings.dark_font_color
+                        color: prod_settings.dark_font_color,
                       }"
                     >
                       12 of 23 Lessons Completed
@@ -374,7 +387,7 @@
                   <div
                     v-bind:style="{
                       'font-family': prod_settings.heading_font_family,
-                      'color': prod_settings.dark_font_color
+                      color: prod_settings.dark_font_color,
                     }"
                   >
                     Instructor
@@ -386,7 +399,10 @@
                   style="align-items: center; justify-content: flex-start"
                 >
                   <div>
-                    <vs-avatar size="70px"></vs-avatar>
+                    <vs-avatar
+                      size="70px"
+                      :src="instructor_headshot"
+                    ></vs-avatar>
                     <label class="edit-button" size="small">Edit</label>
                   </div>
                   <div class="ml-3">
@@ -394,10 +410,10 @@
                       <div
                         v-bind:style="{
                           'font-family': prod_settings.base_font_family,
-                          'color': prod_settings.dark_font_color
+                          color: prod_settings.dark_font_color,
                         }"
                       >
-                        <strong>John Doe</strong>
+                        <strong>{{ instructor_name }}</strong>
                         <label class="edit-button" size="small">Edit</label>
                       </div>
                     </div>
@@ -418,12 +434,10 @@
                   <div
                     v-bind:style="{
                       'font-family': prod_settings.base_font_family,
-                      'color': prod_settings.dark_font_color
+                      color: prod_settings.dark_font_color,
                     }"
                   >
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Cras sed sapien quam. Sed dapibus est id enim facilisis, at
-                    posuere turpis adipiscing. Quisque sit amet dui dui.
+                    {{ instructor_title }}
                     <label class="edit-button" size="small">Edit</label>
                   </div>
                 </div>
@@ -629,6 +643,7 @@ export default {
   components: {},
   data: () => ({
     default_logo: require("@/assets/logo.png"),
+    default_product_thumbnail: require("@/assets/images/default-product.png"),
   }),
   computed: {
     user_logged: {
@@ -671,7 +686,6 @@ export default {
     product_id: function () {
       return this.$store.getters["customize_product_id"];
       // let id = this.$route.params.product_id;
-      // console.log("called product id in customize product page", id)
       // if (id !== undefined) {
       //   return id.slice(0, id.length);
       // } else
@@ -935,7 +949,9 @@ export default {
 
     hero_background_image_url: {
       get() {
-        return this.$store.getters["hero_background_image_url"];
+        if (this.$store.getters["hero_background_image_url"] == "")
+          return require("@/assets/images/hero-default-banner.png");
+        else return this.$store.getters["hero_background_image_url"];
       },
     },
 
@@ -961,6 +977,59 @@ export default {
         // return "inset 0 0 0 2000px" + this.prod_settings.ga_background
       },
     },
+
+    hero_overlay_color: {
+      get() {
+        if (this.prod_hero.overlay_color == null) return "#ffffff1f";
+        else return this.prod_hero.overlay_color;
+      },
+    },
+
+    hero_text_color: {
+      get() {
+        if (this.prod_hero.text_color == null) return "#ffffff";
+        else return this.prod_hero.text_color;
+      },
+    },
+
+    site_details: {
+      get() {
+        return this.$store.getters["siteDetailsManage/site_details"];
+      },
+    },
+
+    instructor_headshot: {
+      get() {
+        if (
+          this.site_details.instructor == undefined ||
+          this.site_details.instructor == null
+        )
+          return "";
+        else return this.site_details.instructor.headshot;
+      },
+    },
+
+    instructor_name: {
+      get() {
+        if (
+          this.site_details.instructor == undefined ||
+          this.site_details.instructor == null
+        )
+          return "";
+        else return this.site_details.instructor.name;
+      },
+    },
+
+    instructor_title: {
+      get() {
+        if (
+          this.site_details.instructor == undefined ||
+          this.site_details.instructor == null
+        )
+          return "";
+        else return this.site_details.instructor.title;
+      },
+    },
   },
 
   created() {
@@ -979,6 +1048,12 @@ export default {
     },
     convertBackgroundCssImageUrl(url) {
       return "url(" + url + ")";
+    },
+
+    getLessonThumbnail(lesson) {
+      if (lesson.thumbnail == null || lesson.thumbnail == "") {
+        return "url(" + this.default_product_thumbnail + ")";
+      } else return "url(" + lesson.thumbnail + ")";
     },
   },
 };
@@ -1020,7 +1095,6 @@ export default {
 .product-image {
   width: 30%;
   background-position: center;
-  background-image: url("../../assets/images/big/img3.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 170px;
@@ -1046,7 +1120,6 @@ export default {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url("../../assets/images/users/2.jpg");
 }
 .category-item .category-description {
   display: -webkit-box;
@@ -1135,7 +1208,6 @@ export default {
   .product-image {
     width: 100%;
     background-position: center;
-    background-image: url("../../assets/images/big/img3.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     height: 200px;
@@ -1352,11 +1424,14 @@ export default {
   font-size: 1rem;
   font-weight: bold;
 }
-.hero-overlay {
-  height: 100%;
-}
 .logo-text {
   font-size: 20px;
   font-weight: 700;
+}
+.outline-edit .vs-card--content {
+  margin-bottom: 0px !important;
+}
+.outline-edit .con-vs-card {
+  margin-bottom: 0px !important;
 }
 </style>

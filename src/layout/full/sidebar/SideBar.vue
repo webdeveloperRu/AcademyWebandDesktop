@@ -1864,16 +1864,16 @@ export default {
     header_announcement_text: "Announcement",
     header_show_announcement: false,
     header_announcement_url: "",
-    header_announcement_textcolor: "",
-    header_announcement_color: "",
+    header_announcement_textcolor: "#ffffff",
+    header_announcement_color: "#1ABC9C",
     announcement_new_window: false,
     header_show_menu: true,
     header_menu_id: null,
     header_menu_logouttext: "Logout",
     header_menu_settingstext: "Settings",
     header_menu_librarytext: "My Library",
-    product_hero_overlaycolor: "",
-    product_hero_textcolor: "",
+    product_hero_overlaycolor: "#ffffff1f",
+    product_hero_textcolor: "#ffffff",
     product_show_footer: true,
     product_show_footercopyright: true,
     footer_copyright_text: "",
@@ -1916,7 +1916,7 @@ export default {
     footer_appearance_alignment: "Inline",
     product_favicon_url: "",
     product_favicon_file: null,
-    settings_darkfont_color: "",
+    settings_darkfont_color: "#000000",
     settings_lightfont_color: "",
     settings_cs_primary: "",
     settings_cs_offset: "",
@@ -1926,7 +1926,7 @@ export default {
     settings_mc_info: "",
     settings_mc_warning: "",
     settings_mc_danger: "",
-    settings_ga_background_color: "",
+    settings_ga_background_color: "#ffffff00",
     settings_ga_vertical_align: "",
     settings_ga_body_colwidth: "",
     customization_processing: false,
@@ -2736,7 +2736,6 @@ export default {
         collect_phone: this.collect_phone,
         collect_name_password: this.collect_name_password,
       };
-      console.log(extra_info);
       this.$store
         .dispatch("offerManage/saveExtraContactInformation", [
           extra_info,
@@ -2836,8 +2835,10 @@ export default {
         .then(() => {
           this.header_announcement_text = this.prod_header.announcement_text;
           this.header_announcement_url = this.prod_header.announcement_url;
-          this.header_announcement_textcolor = this.prod_header.announcement_text_color;
-          this.header_announcement_color = this.prod_header.announcement_color;
+          if (this.prod_header.announcement_text_color !== null)
+            this.header_announcement_textcolor = this.prod_header.announcement_text_color;
+          if (this.prod_header.announcement_color !== null)
+            this.header_announcement_color = this.prod_header.announcement_color;
           this.header_show_announcement = this.prod_header.show_announcement;
           this.announcement_new_window = this.prod_header.announcement_new_window;
           this.header_show_menu = this.prod_header.show_menu;
@@ -2853,10 +2854,14 @@ export default {
       this.$store
         .dispatch("prodCustomizeManage/getProdHero", this.product_id)
         .then(() => {
-          this.hero_appearance_textalign = this.prod_hero.alignment;
-          this.product_hero_overlaycolor = this.prod_hero.overlay_color;
+          this.hero_appearance_textalign = this.prod_hero.alignment;   
+          if (this.prod_hero.overlay_color !==null) {
+            this.product_hero_overlaycolor = this.prod_hero.overlay_color;
+          }
+          if (this.prod_hero.text_color !== null) {
+            this.product_hero_textcolor = this.prod_hero.text_color;
+          }
           this.product_show_hero = this.prod_hero.show_hero;
-          this.product_hero_textcolor = this.prod_hero.text_color;
           switch (this.prod_hero.spacing) {
             case "Small":
               this.hero_appearance_spacing = 1;
@@ -2973,8 +2978,10 @@ export default {
       this.$store
         .dispatch("prodCustomizeManage/getProdSettings", this.product_id)
         .then(() => {
-          this.settings_darkfont_color = this.prod_settings.dark_font_color;
-          this.settings_lightfont_color = this.prod_settings.light_font_color;
+          if (this.prod_settings.dark_font_color !== null)
+            this.settings_darkfont_color = this.prod_settings.dark_font_color;
+          if (this.prod_settings.light_font_color !== null)
+            this.settings_lightfont_color = this.prod_settings.light_font_color;
           this.settings_cs_dark = this.prod_settings.cs_dark;
           this.settings_cs_darker = this.prod_settings.cs_darker;
           this.settings_cs_offset = this.prod_settings.cs_offset;

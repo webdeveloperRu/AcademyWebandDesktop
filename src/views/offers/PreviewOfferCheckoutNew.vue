@@ -329,7 +329,7 @@ export default {
   data: () => ({
     sessionId: "",
     publishableKey:
-      "pk_test_51HSAi7GPPRAMdTbIlyGMnbQwz7LsHu6CljHZfYaTW36smLIxJEQ486LirXnrTqI0uQLCcd9K64eySJCOVKcroeuy00MDTuAF05",
+      "pk_test_51HryTSGco8NY0Qf81QPnsRXL9y2OCTsbf0mwo63gQVZLPUN8TAcH0GtvYoaUjqK0y9aMOo6auH7ljPKg15Kvh8cR00UZ2HXRAf",
     email: "",
     payment_offer_id: "eNQCxMio",
     address1: "",
@@ -526,12 +526,10 @@ export default {
     searchStudentEmail(email) {
       let found = false;
       this.already_purchased = false;
-      console.log("called search");
       for (let i = 0; i < this.people_list.length; i++) {
         if (this.people_list[i].email == email) {
           found = true;
           this.$store.commit("SET_STUDENT_EMAIL_EXIST", true);
-          console.log("found");
           this.exist_student = this.people_list[i];
           for (let j = 0; j < this.people_list[i].granted_access.length; j++) {
             if (
@@ -567,8 +565,8 @@ export default {
     createNewPayment() {
       let payment = {
         payment_type: "stripe",
-        offer_id: this.payment_offer_id,
-        email: "krakiun@gmail.com",
+        offer_id: 'VTVqDfDO',
+        email: "Vlad@gmail.com",
       };
       this.$store
         .dispatch("paymentManage/createPaymentStripe", payment)
@@ -625,7 +623,6 @@ export default {
         this.addGrantedAccess(this.exist_student);
       } 
       else{
-        console.log(this.createPW)
         this.$store.commit("SET_PURCHASER_EMAIL", this.email);
         this.$store.commit("SET_PURCHASER_OFFER_ID", this.offer_id);
         this.$store.commit("SET_PURCHASER_FULLNAME", this.fullname)

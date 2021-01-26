@@ -368,7 +368,7 @@
                             : '',
                         ]"
                       >
-                        {{ show_more_text}}
+                        {{ show_more_text }}
                       </div>
                     </div>
                   </vs-card>
@@ -381,7 +381,7 @@
                   title="Edit Category Item"
                   @click="selectProductCustomizeMenu('product-syllabus')"
                 >
-                  <vs-card v-if="prod_syllabus.show_syllabus">
+                  <vs-card v-if="show_syllabus">
                     <h3
                       class="mb-3"
                       style="cursor: pointer"
@@ -435,7 +435,20 @@
                           vs-xs="12"
                           code-toggler
                         >
-                          <h4 class="mb-2">{{ category.name }}</h4>
+                          <h4
+                            class="mb-2"
+                            v-bind:style="[
+                              prod_settings
+                                ? {
+                                    'font-family':
+                                      prod_settings.base_font_family,
+                                    color: prod_settings.dark_font_color,
+                                  }
+                                : '',
+                            ]"
+                          >
+                            {{ category.name }}
+                          </h4>
                           <div class="category-description">
                             <span
                               v-html="category.description"
@@ -1206,21 +1219,15 @@ export default {
     show_syllabus: {
       get() {
         if (this.prod_syllabus == null) return true;
-        else this.prod_syllabus.show_syllabus
-
-      }
+        else return this.prod_syllabus.show_syllabus;
+      },
     },
     show_more_text: {
       get() {
-        if (this.prod_syllabus == null)
-          return "show more"
-        else
-          this.prod_syllabus.show_more_text
-
-      }
-    }
-
-    
+        if (this.prod_syllabus == null) return "show more";
+        else this.prod_syllabus.show_more_text;
+      },
+    },
   },
 
   created() {

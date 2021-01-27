@@ -1128,7 +1128,7 @@ export default {
               is_exist = true;
             }
           }
-          if (!is_exist) tags.push(this.selected_tag);
+          if (!is_exist) tags.push({ title: this.selected_tag.name });
           this.selected_peoples[i].tags = tags;
           await this.$store
             .dispatch("peopleManage/updatePeopleByID", [

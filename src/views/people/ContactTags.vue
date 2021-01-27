@@ -8,8 +8,8 @@
         <span
           class="ml-2 mt-2 primary-font"
           @click="backToPeoples"
-          style="cursor: pointer;"
-          ><i class="ti-angle-left" style="font-size: 14px;"></i> Students</span
+          style="cursor: pointer"
+          ><i class="ti-angle-left" style="font-size: 14px"></i> Students</span
         >
         <div class="d-flex mt-3">
           <h2>Contact Tags</h2>
@@ -57,7 +57,7 @@
               <vs-td class="contact-tag-th">
                 <vs-icon
                   icon="edit"
-                  style="cursor: pointer; font-size:16px"
+                  style="cursor: pointer; font-size: 16px"
                   @click="confirmEditTag(data[indextr], indextr)"
                 ></vs-icon>
                 <vs-icon
@@ -80,23 +80,38 @@
      -->
 
     <vs-popup
-      class="holamundo"
+      class="saving-tag-popup"
       title="Edit Contact Tag"
       :active.sync="editTagConfirm"
     >
+      <!-- <div
+        class="vs-con-loading__container loading"
+        ref="savingTag"
+        id="savingTag"
+        style="width: 30px; height: 30px; background: red"
+      ></div> -->
       <div class="mt-3">
         <vs-input
           v-model="edit_tag_name"
           class="mt-5 mb-5"
-          style="width:100%"
+          style="width: 100%"
         ></vs-input>
-        <div class="btn-alignment text-right">
-          <vs-button color="primary" type="flat" @click.native="editTagConfirm = false"
+        <div class="d-flex justify-content-end">
+          <vs-button
+            color="primary"
+            type="flat"
+            @click.native="editTagConfirm = false"
             >Cancel</vs-button
           >
-          <vs-button color="primary" type="filled" @click.native="saveEditTag"
-            >Save</vs-button
+          <div
+            class="vs-con-loading__container loading save-tag-button ml-3"
+            ref="savingTag"
+            id="savingTag"
+            style="width: 50px"
+            @click="saveEditTag"
           >
+            Save
+          </div>
         </div>
       </div>
     </vs-popup>
@@ -122,10 +137,16 @@
         </p>
       </div>
       <div class="btn-alignment text-right">
-        <vs-button color="primary" type="flat" @click.native="deleteTagConfirm = false"
+        <vs-button
+          color="primary"
+          type="flat"
+          @click.native="deleteTagConfirm = false"
           >Cancel</vs-button
         >
-        <vs-button color="danger" type="filled" @click.native="deleteSelectedTag"
+        <vs-button
+          color="danger"
+          type="filled"
+          @click.native="deleteSelectedTag"
           >Delete</vs-button
         >
       </div>
@@ -255,20 +276,31 @@ export default {
             this.people_list[i].tags[j].title = this.edit_tag_name;
           }
         }
+        this.$vs.loading({
+          container: "#savingTag",
+          scale: 0.7,
+          type: "material",
+        });
+
         await this.$store
           .dispatch("peopleManage/updatePeopleByID", [
             this.people_list[i],
             this.people_list[i].id,
           ])
-          .then(() => {})
+          .then(() => {
+            this.editTagConfirm = false;
+            this.$vs.loading.close(this.$refs.savingTag);
+          })
           .catch(() => {
             this.$vs.notify({
               color: this.notification_color,
               text: this.notification_text,
               icon: this.notification_icon,
             });
+            this.$vs.loading.close(this.$refs.savingTag);
           });
       }
+      this.$vs.loading.close(this.$refs.savingTag);
       this.$store.dispatch("peopleManage/getTagList");
       this.editTagConfirm = false;
     },
@@ -335,5 +367,20 @@ vs-row td {
 .contact-tag-row td {
   font-weight: 600;
   text-align: center;
+}
+.save-tag-button {
+  width: 50px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background: #2559e8;
+  border-radius: 5px;
+  height: 38px;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    background: #2a5ff3f1;
+  }
 }
 </style>

@@ -1,190 +1,216 @@
 <template>
-<div>
-  <vs-row vs-justify="center" class="primary-font">
-    <vs-col type="flex" vs-justify="center" vs-align="center" vs-lg="10" vs-xs="12" class="mb-3">
-      <span class="ml-2 mt-2 primary-font" @click="backToPeoples" style="cursor: pointer;"><i class="ti-angle-left" style="font-size: 14px;"></i> Students</span>
-      <h2 class="mt-3">{{ selected_people.name }}</h2>
-    </vs-col>
-    <vs-col type="flex" vs-justify="center" vs-align="center" vs-lg="7" vs-xs="12" code-toggler>
-      <vs-card>
-        <div class="d-flex" style="align-items: center">
-          <div>
-            <vs-avatar size="70px"></vs-avatar>
-          </div>
-          <div class="ml-3">
-            <div>{{ selected_people.name }}</div>
-            <div>{{ selected_people.email }}</div>
+  <div>
+    <vs-row vs-justify="center" class="primary-font">
+      <vs-col
+        type="flex"
+        vs-justify="center"
+        vs-align="center"
+        vs-lg="10"
+        vs-xs="12"
+        class="mb-3"
+      >
+        <span
+          class="ml-2 mt-2 primary-font"
+          @click="backToPeoples"
+          style="cursor: pointer"
+          ><i class="ti-angle-left" style="font-size: 14px"></i> Students</span
+        >
+        <h2 class="mt-3">{{ selected_people.name }}</h2>
+      </vs-col>
+      <vs-col
+        type="flex"
+        vs-justify="center"
+        vs-align="center"
+        vs-lg="7"
+        vs-xs="12"
+        code-toggler
+      >
+        <vs-card>
+          <div class="d-flex" style="align-items: center">
             <div>
-              Added on: <strong>{{ selected_people.last_activity }}</strong>
+              <vs-avatar size="70px"></vs-avatar>
             </div>
-            <div>
-              Member since: <strong>{{ selected_people.created_on }}</strong>
+            <div class="ml-3">
+              <div>{{ selected_people.name }}</div>
+              <div>{{ selected_people.email }}</div>
+              <div>
+                Added on: <strong>{{ selected_people.created_on }}</strong>
+              </div>
+              <div>
+                Member since: <strong>{{ selected_people.created_on }}</strong>
+              </div>
             </div>
           </div>
-        </div>
-      </vs-card>
-      <vs-card>
-        <vs-tabs>
-          <vs-tab label="Lifecylce">
-            <div class="con-tab-ejemplo">
-              <div class="contact-lifecycle">
-                <div class="contact-lifecycle-stats">
-                  <div class="contact-lifecycle-stat">
-                    <h2>13 days</h2>
-                    <p>Lifespan</p>
+        </vs-card>
+        <vs-card>
+          <vs-tabs>
+            <vs-tab label="Lifecylce">
+              <div class="con-tab-ejemplo">
+                <div class="contact-lifecycle">
+                  <div class="contact-lifecycle-stats">
+                    <div class="contact-lifecycle-stat">
+                      <h2>
+                        {{
+                          timeDifference(Date.now(), selected_people.created_on)
+                        }}
+                      </h2>
+                      <p>Lifespan</p>
+                    </div>
+                    <div class="contact-lifecycle-stat">
+                      <h2 v-if="selected_people.granted_access">{{ selected_people.granted_access.length }}</h2>
+                      <p>Purchases</p>
+                    </div>
+                    <div class="contact-lifecycle-stat">
+                      <h2>$0.00 USD</h2>
+                      <h5 class="mb-1 mt-1" style="color: red">
+                        (student property doesn't contatin this info)
+                      </h5>
+                      <p>Net Revenue</p>
+                    </div>
                   </div>
-                  <div class="contact-lifecycle-stat">
-                    <h2>2</h2>
-                    <p>Purchases</p>
-                  </div>
-                  <div class="contact-lifecycle-stat">
-                    <h2>$0.00 USD</h2>
-                    <p>Net Revenue</p>
-                  </div>
-                </div>
-                <div class="contact-lifecycle-item">
-                  <div class="media">
-                    <div class="media-left">
-                      <div class="contact-lifecycle-icon">
-                        <i class="ti-credit-card" style="font-size: 20px;"></i>
+                  <div
+                    class="contact-lifecycle-item"
+                    v-for="offer in selected_people.granted_access"
+                    v-bind:key="offer.offer_id"
+                  >
+                    <div class="media">
+                      <div class="media-left">
+                        <div class="contact-lifecycle-icon">
+                          <i class="ti-credit-card" style="font-size: 20px"></i>
+                        </div>
+                      </div>
+                      <div class="media-body">
+                        <p>
+                          Purchased <strong>{{ offer.title }}</strong> for
+                          <strong>{{ getPrice(offer.price) }}</strong>
+                        </p>
+                        <p style="color: red">
+                          can not get purchased date (no data)
+                        </p>
+                        <div
+                          class="view-offer"
+                          @click="viewOffer(offer.offer_id)"
+                        >
+                          View Offer
+                        </div>
                       </div>
                     </div>
-                    <div class="media-body">
-                      <p>Purchased <strong>offer1</strong> for <strong>free</strong></p>
-                      <p>Jan 9, 2021 5:56AM</p>
-                      <a href="#">View Offer</a>
+                  </div>
+                </div>
+              </div>
+            </vs-tab>
+            <vs-tab label="Info">
+              <div class="con-tab-ejemplo">
+                <div class="well">
+                  <div class="row">
+                    <div class="col-md-6 px-3">
+                      <dl class="dl-spaced">
+                        <dt>Added on</dt>
+                        <dd>{{ selected_people.created_on }}</dd>
+
+                        <dt>Net Revenue</dt>
+                        <dd style="color: red">$0.00 USD (no data)</dd>
+
+                        <dt>Email Marketing</dt>
+                        <dd
+                          class="contact-subscribed"
+                          v-if="selected_people.is_subscribe == false"
+                        >
+                          Never Subscribed
+                        </dd>
+                        <dd class="contact-subscribed" v-else>Subscribed</dd>
+                      </dl>
+                    </div>
+                    <div class="col-md-6 px-3">
+                      <dl class="dl-spaced">
+                        <dt>Became a member on</dt>
+                        <dd>{{ selected_people.created_on }}</dd>
+
+                        <dt>Sign in count</dt>
+                        <dd style="color: red">no data in student</dd>
+                        <dt>Last activity at</dt>
+                        <dd>{{ selected_people.last_activity }}</dd>
+                      </dl>
                     </div>
                   </div>
                 </div>
-
-                <div class="contact-lifecycle-item">
-                  <div class="media">
-                    <div class="media-left">
-                      <div class="contact-lifecycle-icon">
-                        <i class="ti-credit-card" style="font-size: 20px;"></i>
+              </div>
+            </vs-tab>
+            <vs-tab label="Purchases">
+              <div class="con-tab-ejemplo">
+                <div class="list-group">
+                  <div
+                    class="list-group-item"
+                    v-for="offer in selected_people.granted_access"
+                    v-bind:key="offer.offer_id"
+                  >
+                    <div class="media">
+                      <div class="media-body media-middle">
+                        Purchased
+                        <strong
+                          ><a class="title" href="/admin/purchases/22739397">{{
+                            offer.title
+                          }}</a></strong
+                        >
+                        for
+                        <strong>{{ getPrice(offer.price) }}</strong>
+                        on
+                        <i>can't know date of purchased</i>
+                      </div>
+                      <div class="media-right media-middle">
+                        <div
+                          class="view-offer"
+                          @click="viewOffer(offer.offer_id)"
+                        >
+                          View
+                        </div>
                       </div>
                     </div>
-                    <div class="media-body">
-                      <p>Purchased <strong>offer2</strong> for <strong>free</strong></p>
-                      <p>Jan 6, 2021 11:39AM</p>
-                      <a href="#">View Offer</a>
-                    </div>
                   </div>
                 </div>
-
               </div>
-            </div>
-          </vs-tab>
-          <vs-tab label="Info">
-            <div class="con-tab-ejemplo">
-              <div class="well">
-                <div class="row">
-                  <div class="col-md-6 px-3">
-                    <dl class="dl-spaced">
-                      <dt>Added on</dt>
-                      <dd>January 06, 2021 11:39AM</dd>
-
-                      <dt>Net Revenue</dt>
-                      <dd>$0.00 USD</dd>
-
-                      <dt>Email Marketing</dt>
-                      <dd class="contact-subscribed">
-                        Never Subscribed
-
-                      </dd>
-                    </dl>
-                  </div>
-                  <div class="col-md-6 px-3">
-                    <dl class="dl-spaced">
-
-                      <dt>Became a member on</dt>
-                      <dd>January 06, 2021 11:39AM</dd>
-
-                      <dt>Sign in count</dt>
-                      <dd>5</dd>
-                      <dt>Last activity at</dt>
-                      <dd>January 17, 2021 03:05PM</dd>
-
-                    </dl>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </vs-tab>
-          <vs-tab label="Purchases">
-            <div class="con-tab-ejemplo">
-              <div class="list-group">
-                <div class="list-group-item">
-                  <div class="media">
-                    <div class="media-body media-middle">
-                      Purchased
-                      <strong><a class="title" href="/admin/purchases/22739397">offer1</a></strong>
-                      for
-                      <strong>free</strong>
-                      on
-                      <i>Jan 9, 2021</i>
-                    </div>
-                    <div class="media-right media-middle">
-                      <a class="btn btn-sm btn-link" href="/admin/purchases/22739397">View</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="list-group-item">
-                  <div class="media">
-                    <div class="media-body media-middle">
-                      Purchased
-                      <strong><a class="title" href="#">offer2</a></strong>
-                      for
-                      <strong>free</strong>
-                      on
-                      <i>Jan 6, 2021</i>
-                    </div>
-                    <div class="media-right media-middle">
-                      <a class="btn btn-sm btn-link" href="#">View</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="list-group-item">
-                  <div class="media">
-                    <div class="media-body media-middle">
-                      Purchased
-                      <strong><a class="title" href="#">offer2</a></strong>
-                      for
-                      <strong>free</strong>
-                      on
-                      <i>Jan 6, 2021</i>
-                    </div>
-                    <div class="media-right media-middle">
-                      <a class="btn btn-sm btn-link" href="#">View</a>
+            </vs-tab>
+            <vs-tab label="Products">
+              <div class="con-tab-ejemplo">
+                <div class="list-group">
+                  <div class="list-group-item">
+                    <div
+                      class="media mb-3"
+                      v-for="product in purchased_products"
+                      v-bind:key="product.id"
+                    >
+                      <div class="media-left media-middle mr-3">
+                        <img
+                          height="45"
+                          class="image"
+                          :src="product.thumbnail"
+                          alt="Goujv5oroc4dus9givmq img 8"
+                        />
+                      </div>
+                      <div class="media-body media-middle">
+                        <div style="font-size: 16px" class="mb-2">
+                          <strong>{{ product.title }}</strong>
+                        </div>
+                        <div style="font-size: 14px">
+                          <i>{{ product.created_on }}</i>
+                        </div>
+                      </div>
+                      <div class="media-right media-middle">
+                        <a
+                          class="btn btn-sm btn-link"
+                          title="Progress"
+                          data-toggle="tooltip"
+                          href="#"
+                        >
+                          Progress
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </vs-tab>
-          <vs-tab label="Products">
-            <div class="con-tab-ejemplo">
-              <div class="list-group">
-                <div class="list-group-item">
-                  <div class="media">
-                    <div class="media-left media-middle">
-                      <img height="45" class="image" src="https://kajabi-storefronts-production.global.ssl.fastly.net/kajabi-storefronts-production/site/163062/products/GoUjV5oROC4DuS9GivmQ_img-8.jpg" alt="Goujv5oroc4dus9givmq img 8">
-                    </div>
-                    <div class="media-body media-middle">
-                      <strong>Vue.js Tutorial</strong>
-                      on <i>January 09, 2021</i>
-                    </div>
-                    <div class="media-right media-middle">
-                      <a class="btn btn-sm btn-link" title="Progress" data-toggle="tooltip" href="#">
-                        Progress
-                      </a> </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </vs-tab>
-          <vs-tab label="Notes">
+            </vs-tab>
+            <!-- <vs-tab label="Notes">
             <div class="con-tab-ejemplo">
               <vs-textarea v-model="student_note" placeholder="Write your note here"></vs-textarea>
               <vs-button class="mt-2 mb-3 text-left"> Add Note </vs-button>
@@ -197,37 +223,70 @@
                 <vs-button color="danger">Delete</vs-button>
               </div>
             </div>
-          </vs-tab>
-        </vs-tabs>
-      </vs-card>
-    </vs-col>
-    <vs-col type="flex" vs-justify="center" vs-align="center" vs-lg="3" vs-xs="12" code-toggler>
-      <vs-card>
-        <div class="d-flex" style="align-items: center; justify-content: space-between">
-          <h4>Tags</h4>
-          <vs-button color="primary" type="flat" @click.native="linkToContactTag">View All Tags</vs-button>
-        </div>
-        <multiselect v-model="selected_tag" tag-placeholder="Add Tag" placeholder="Type to add a new tag..." label="name" taggable hideSelected @tag="addTag" track-by="code" :options="tags" :multiple="true"></multiselect>
-        <div class="d-flex mt-3" style="flex-wrap: wrap">
-          <vs-chip @click="remove(chip)" :key="chip" v-for="chip in added_tagChips" closable>{{ chip }}</vs-chip>
-        </div>
-      </vs-card>
-    </vs-col>
-  </vs-row>
-</div>
+          </vs-tab> -->
+          </vs-tabs>
+        </vs-card>
+      </vs-col>
+      <vs-col
+        type="flex"
+        vs-justify="center"
+        vs-align="center"
+        vs-lg="3"
+        vs-xs="12"
+        code-toggler
+      >
+        <vs-card>
+          <div
+            class="d-flex"
+            style="align-items: center; justify-content: space-between"
+          >
+            <h4>Tags</h4>
+            <vs-button
+              color="primary"
+              type="flat"
+              @click.native="linkToContactTag"
+              >View All Tags</vs-button
+            >
+          </div>
+          <multiselect
+            v-model="selected_tag"
+            tag-placeholder="Add Tag"
+            placeholder="Type to add a new tag..."
+            label="name"
+            taggable
+            hideSelected
+            @tag="addTag"
+            track-by="code"
+            :options="tags"
+            :multiple="true"
+          ></multiselect>
+          <div class="d-flex mt-3" style="flex-wrap: wrap">
+            <vs-chip
+              @click="remove(chip)"
+              :key="chip"
+              v-for="chip in added_tagChips"
+              closable
+              >{{ chip }}</vs-chip
+            >
+          </div>
+        </vs-card>
+      </vs-col>
+    </vs-row>
+  </div>
 </template>
 
 <script>
 import Multiselect from "vue-multiselect";
 export default {
-  name: "AddTags",
+  name: "EditPeople",
   components: {
-    Multiselect
+    Multiselect,
   },
 
   data: () => ({
     selected_tag: [],
     student_note: "",
+    purchased_products: [],
   }),
 
   watch: {
@@ -239,8 +298,10 @@ export default {
     added_tagChips: {
       get() {
         let value = [];
-        for (let i = 0; i < this.tags.length; i++) {
-          value.push(this.tags[i].name);
+        if (this.tags != undefined) {
+          for (let i = 0; i < this.tags.length; i++) {
+            value.push(this.tags[i].name);
+          }
         }
         return value;
       },
@@ -249,11 +310,13 @@ export default {
     tags: {
       get() {
         let tags = [];
-        for (let i = 0; i < this.selected_people.tags.length; i++) {
-          tags[i] = {
-            code: i,
-            name: this.selected_people.tags[i].title
-          };
+        if (this.selected_people.tags != undefined) {
+          for (let i = 0; i < this.selected_people.tags.length; i++) {
+            tags[i] = {
+              code: i,
+              name: this.selected_people.tags[i].title,
+            };
+          }
         }
         return tags;
       },
@@ -262,7 +325,8 @@ export default {
     people_id: {
       get() {
         var id = this.$route.params.people_id;
-        return id.slice(0, id.length);
+        if (id != undefined) return id.slice(0, id.length);
+        else return "";
       },
     },
 
@@ -307,10 +371,22 @@ export default {
         return this.$store.getters["status_got"];
       },
     },
+
+    product_list: {
+      get() {
+        return this.$store.getters["productManage/product_list"];
+      },
+    },
+
+    offer_list: {
+      get() {
+        return this.$store.getters["offerManage/offer_list"];
+      },
+    },
   },
 
   created() {
-    this.$store.dispatch("changeSideBar", 'default');
+    this.$store.dispatch("changeSideBar", "default");
     this.getCurrentPeople();
   },
 
@@ -318,7 +394,7 @@ export default {
     addTag(newTag) {
       this.added_tagChips.push(newTag);
       let tag = {
-        title: newTag
+        title: newTag,
       };
       this.selected_people.tags.push(tag);
       this.updatePeople(true);
@@ -326,7 +402,11 @@ export default {
     getCurrentPeople() {
       this.$store
         .dispatch("peopleManage/getPeopleByID", this.people_id)
-        .then(() => {});
+        .then(() => {
+          if (this.status_got) {
+            this.getPurchasedProducts();
+          }
+        });
     },
 
     updatePeople(flag) {
@@ -366,10 +446,12 @@ export default {
 
     remove(item) {
       this.added_tagChips.splice(this.added_tagChips.indexOf(item), 1);
-      for (let i = 0; i < this.selected_people.tags.length; i++) {
-        if (this.selected_people.tags[i].title == item) {
-          this.selected_people.tags.splice(i, 1);
-          this.updatePeople(false);
+      if (this.selected_people.tags != undefined) {
+        for (let i = 0; i < this.selected_people.tags.length; i++) {
+          if (this.selected_people.tags[i].title == item) {
+            this.selected_people.tags.splice(i, 1);
+            this.updatePeople(false);
+          }
         }
       }
     },
@@ -380,11 +462,86 @@ export default {
     backToPeoples() {
       this.$router.push("/people");
     },
+
+    timeDifference(current, previous) {
+      previous = new Date(previous);
+
+      var msPerMinute = 60 * 1000;
+      var msPerHour = msPerMinute * 60;
+      var msPerDay = msPerHour * 24;
+      var msPerMonth = msPerDay * 30;
+      var msPerYear = msPerDay * 365;
+
+      var elapsed = current - previous;
+
+      if (elapsed < msPerMinute) {
+        return Math.round(elapsed / 1000) + " seconds ago";
+      } else if (elapsed < msPerHour) {
+        return Math.round(elapsed / msPerMinute) + " minutes ago";
+      } else if (elapsed < msPerDay) {
+        return Math.round(elapsed / msPerHour) + " hours ago";
+      } else if (elapsed < msPerMonth) {
+        return Math.round(elapsed / msPerDay) + " days ago";
+      } else if (elapsed < msPerYear) {
+        return Math.round(elapsed / msPerMonth) + " months ago";
+      } else {
+        return Math.round(elapsed / msPerYear) + " years ago";
+      }
+    },
+
+    getPrice(price) {
+      if (price == 0) return "free";
+      else return "$" + price + USD;
+    },
+
+    viewOffer(offer_id) {
+      this.$router.push("/offers/edit-offer/" + offer_id);
+    },
+
+    getPurchasedProducts() {
+      let offer_data = null;
+      let product_data = [];
+      let purchased_products = [];
+      let count = 0;
+      let already_exist = false;
+      if (this.selected_people.granted_access == undefined) return;
+      for (let i = 0; i < this.selected_people.granted_access.length; i++) {
+        offer_data = null;
+        for (let j = 0; j < this.offer_list.length; j++) {
+          if (
+            this.offer_list[j].id ==
+            this.selected_people.granted_access[i].offer_id
+          ) {
+            offer_data = this.offer_list[j];
+          }
+        }
+        if (offer_data != null) {
+          for (let j = 0; j < offer_data.products_count; j++) {
+            for (let k = 0; k < this.product_list.length; k++) {
+              if (offer_data.products[j] == this.product_list[k].id) {
+                already_exist = false;
+                for (let m = 0; m < purchased_products.length; m++) {
+                  if (purchased_products[m].id == this.product_list[k].id) {
+                    already_exist = true;
+                  }
+                }
+                if (already_exist == false) {
+                  purchased_products[count] = this.product_list[k];
+                  count++;
+                }
+              }
+            }
+          }
+        }
+      }
+      this.purchased_products = purchased_products;
+    },
   },
 };
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style><style>
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<style lang="scss">
 .contact-lifecycle .contact-lifecycle-stats {
   margin-bottom: 30px;
   border: 1px solid #e5e9ed;
@@ -408,7 +565,7 @@ export default {
   margin-bottom: 45px;
 }
 .contact-lifecycle-stat p {
-  margin:0;
+  margin: 0;
 }
 .media:first-child {
   margin-top: 0;
@@ -422,7 +579,7 @@ export default {
 }
 
 .media-left,
-.media>.pull-left {
+.media > .pull-left {
   padding-right: 10px;
 }
 
@@ -500,6 +657,14 @@ export default {
 
 .list-group .media-body {
   line-height: 1.3;
+}
+
+.view-offer {
+  color: #1551c0;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 @media (max-width: 991px) {

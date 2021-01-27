@@ -246,7 +246,7 @@
                       <p
                         class="product-welcome-description"
                         v-bind:style="[
-                          pord_settings
+                          prod_settings
                             ? {
                                 'font-family': prod_settings.base_font_family,
                                 color: prod_settings.dark_font_color,

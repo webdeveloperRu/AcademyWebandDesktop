@@ -25,8 +25,7 @@
         <span class="primary-font" @click="editProductDetails">
           <i class="mdi mdi-pencil mr-2 primary-font"></i> Edit details
         </span>
-        <span class="primary-font"
-        @click="previewProductPage"
+        <span class="primary-font" @click="previewProductPage"
           ><i class="mdi mdi-eye mr-2 ml-3 primary-font"></i> Preview
         </span>
         <span class="primary-font" @click="customizeCoursePage">
@@ -136,7 +135,9 @@
               @click.native="activeAddCategory = false"
               >Cancel</vs-button
             >
-            <vs-button class="ml-3 mr-3 save-cancel-button" @click.native="addCategory"
+            <vs-button
+              class="ml-3 mr-3 save-cancel-button"
+              @click.native="addCategory"
               >Save</vs-button
             >
           </div>
@@ -223,10 +224,8 @@ export default {
   computed: {
     product_id: function () {
       var id = this.$route.params.id;
-      if (id !== undefined)
-        return id.slice(0, id.length);
-      else
-        return '';
+      if (id !== undefined) return id.slice(0, id.length);
+      else return "";
     },
 
     product_list: {
@@ -243,7 +242,7 @@ export default {
             product = this.product_list[i];
           }
         }
-        this.$store.dispatch('productManage/setCurrentProduct', product)
+        this.$store.dispatch("productManage/setCurrentProduct", product);
         return product;
       },
     },
@@ -527,7 +526,7 @@ export default {
     customizeCoursePage() {
       this.$store.dispatch("changeSideBar", "product-customize");
       this.$store.dispatch("updateSidebarWidth", "checkout");
-      this.$store.commit('SET_CUSTOMIZE_PRODUCT_ID', this.current_product.id)
+      this.$store.commit("SET_CUSTOMIZE_PRODUCT_ID", this.current_product.id);
       this.$router.push("/products/" + this.current_product.id + "/customize");
     },
 
@@ -538,8 +537,16 @@ export default {
     previewProductPage() {
       // window.open("/products/preview/" + this.current_product.id, '_blank');
       let token = this.$store.state.auth.user.token;
-      window.open("http://localhost:8081/product/" + this.current_product.id +"?academy_token=" + token + "&id=" +this.current_product.id , "_blank");
-    }
+      window.open(
+        "https://store.krakiun.com/product/" +
+          this.current_product.id +
+          "?academy_token=" +
+          token +
+          "&id=" +
+          this.current_product.id,
+        "_blank"
+      );
+    },
   },
 };
 </script>

@@ -48,18 +48,15 @@ export default {
     processing() {
       this.processing_success = true;
       setTimeout(() => {
-        if (!this.student_email_exist){
-          if(this.student_register_required)
+        if (!this.student_email_exist) {
+          if (this.student_register_required)
             this.$router.push("/settings/member-setup");
-          else
-            this.registerStudent();
-        } 
-        else window.open("http://localhost:8081/", "_self");
+          else this.registerStudent();
+        } else window.open("https://store.krakiun.com/", "_self");
       }, 1000);
     },
 
     registerStudent() {
-      
       let granted_access = [];
       granted_access[0] = this.purchaser_offer_id;
       let user = {
@@ -89,14 +86,16 @@ export default {
                   ])
                   .then(() => {
                     if (this.status_got) {
-                      window.open("http://localhost:8081/", "_self");
+                      window.open("https://store.krakiun.com/", "_self");
                     } else {
                       this.$vs.notify({
                         color: this.notification_color,
                         text: this.notification_text,
                         icon: this.notification_icon,
                       });
-                      this.$router.push("/offers/" + this.purchaser_offer_id + "/checkout");
+                      this.$router.push(
+                        "/offers/" + this.purchaser_offer_id + "/checkout"
+                      );
                     }
                   });
               } else {
@@ -105,7 +104,9 @@ export default {
                   text: this.notification_text,
                   icon: this.notification_icon,
                 });
-                this.$router.push("/offers/" + this.purchaser_offer_id + "/checkout");
+                this.$router.push(
+                  "/offers/" + this.purchaser_offer_id + "/checkout"
+                );
               }
             });
         } else {
@@ -117,7 +118,7 @@ export default {
           this.$router.push("/offers/" + this.purchaser_offer_id + "/checkout");
         }
       });
-    }
+    },
   },
 
   computed: {
@@ -134,7 +135,7 @@ export default {
     student_register_required: {
       get() {
         return this.$store.getters["student_register_required"];
-      }
+      },
     },
 
     purchaser_email: {
@@ -143,22 +144,22 @@ export default {
       },
     },
 
-    purchaser_password:{
+    purchaser_password: {
       get() {
-        return this.$store.getters["purchaser_password"]
-      }
+        return this.$store.getters["purchaser_password"];
+      },
     },
 
-    purchaser_fullname:{
+    purchaser_fullname: {
       get() {
-        return this.$store.getters["purchaser_fullname"]
-      }
+        return this.$store.getters["purchaser_fullname"];
+      },
     },
 
-    student_email_exist:{
+    student_email_exist: {
       get() {
-        return this.$store.getters["student_email_exist"]
-      }
+        return this.$store.getters["student_email_exist"];
+      },
     },
     user_logged: {
       get() {

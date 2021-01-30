@@ -100,7 +100,6 @@ export default {
   },
 
   methods: {
-    
     createAccount() {
       if (this.full_name == "") {
         this.name_danger_text = "name required";
@@ -151,7 +150,7 @@ export default {
                   ])
                   .then(() => {
                     if (this.status_got) {
-                      window.open("http://localhost:8081/", "_self");
+                      window.open("https://store.krakiun.com/", "_self");
                     } else {
                       this.$vs.notify({
                         color: this.notification_color,

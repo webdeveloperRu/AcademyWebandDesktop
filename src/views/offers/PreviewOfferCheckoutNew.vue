@@ -555,17 +555,16 @@ export default {
           this.collect_name_password = this.extra_contact_information.collect_name_password;
           this.collect_phone = this.extra_contact_information.collect_phone;
           this.collect_address = this.extra_contact_information.collect_address;
-          if(this.collect_name_password)
+          if (this.collect_name_password)
             this.$store.commit("SET_REGISTER_REQUIRE", false);
-          else
-            this.$store.commit("SET_REGISTER_REQUIRE", true);
+          else this.$store.commit("SET_REGISTER_REQUIRE", true);
         }
       }
     },
     createNewPayment() {
       let payment = {
         payment_type: "stripe",
-        offer_id: 'VTVqDfDO',
+        offer_id: "VTVqDfDO",
         email: "Vlad@gmail.com",
       };
       this.$store
@@ -586,20 +585,23 @@ export default {
         this.invalid_email = true;
         return;
       }
-      if (this.extra_contact_information.collect_name_password && this.student_email_exist) {
-        if(this.fullname ==""){
+      if (
+        this.extra_contact_information.collect_name_password &&
+        this.student_email_exist
+      ) {
+        if (this.fullname == "") {
           this.invalid_fullname = true;
           return;
         }
-        if(this.confirmPW ==""){
+        if (this.confirmPW == "") {
           this.invalid_confirmPW = true;
           return;
         }
-        if(this.createPW ==""){
+        if (this.createPW == "") {
           this.invalid_createPW = true;
           return;
         }
-        if(this.createPW != this.confirmPW) {
+        if (this.createPW != this.confirmPW) {
           this.invalid_confirmPW = true;
         }
       }
@@ -612,7 +614,7 @@ export default {
         return;
       }
       if (this.student_email_exist) {
-        this.signUpFreeText = "Submitting..."
+        this.signUpFreeText = "Submitting...";
         let access = [];
         for (let j = 0; j < this.exist_student.granted_access.length; j++) {
           access[j] = this.exist_student.granted_access[j].offer_id;
@@ -621,15 +623,14 @@ export default {
         this.exist_student.granted_access = [];
         this.exist_student.granted_access = access;
         this.addGrantedAccess(this.exist_student);
-      } 
-      else{
+      } else {
         this.$store.commit("SET_PURCHASER_EMAIL", this.email);
         this.$store.commit("SET_PURCHASER_OFFER_ID", this.offer_id);
-        this.$store.commit("SET_PURCHASER_FULLNAME", this.fullname)
-        this.$store.commit("SET_PURCHASER_PASSWORD", this.createPW)
+        this.$store.commit("SET_PURCHASER_FULLNAME", this.fullname);
+        this.$store.commit("SET_PURCHASER_PASSWORD", this.createPW);
         this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
       }
-     
+
       // if (email_exist == false) {
       //   this.$store.commit("SET_STUDENT_EMAIL_EXIST", false);
       //   this.$store.commit("SET_PURCHASER_EMAIL", this.email);
@@ -645,8 +646,10 @@ export default {
       this.$store
         .dispatch("peopleManage/updatePeopleByID", [people, people.id])
         .then(() => {
-          if(this.status_got)
-            this.$router.push("/offers/" + this.offer_id + "/checkout/processing");
+          if (this.status_got)
+            this.$router.push(
+              "/offers/" + this.offer_id + "/checkout/processing"
+            );
           // this.$vs.notify({
           //   color: this.notification_color,
           //   text: this.notification_text,
@@ -697,7 +700,7 @@ export default {
         });
     },
     linkToStudentApp() {
-      window.open("http://localhost:8081/", "_blank");
+      window.open("https://store.krakiun.com/", "_blank");
     },
     closeHeadUp() {
       this.active_headup_pop = false;

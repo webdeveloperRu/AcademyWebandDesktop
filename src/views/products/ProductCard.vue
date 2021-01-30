@@ -101,7 +101,7 @@
           >
             <div
               style="font-size: 25px; color: white"
-              class="px-5 bg-danger m-0 "
+              class="px-5 bg-danger m-0"
             >
               <i class="mdi mdi-alert"></i> Are you sure you want to delete
               <strong>"{{ product.title }}"</strong> ?
@@ -187,22 +187,22 @@ export default {
       },
     },
 
-    product_title: function() {
+    product_title: function () {
       return this.product.title;
     },
 
-    product_preview_link: function() {
+    product_preview_link: function () {
       return this.product.preview_link;
     },
-    product_members: function() {
+    product_members: function () {
       return this.product.members;
     },
 
     logged_user: {
       get() {
         return this.$store.getters["auth/logged_user"];
-      }
-    }
+      },
+    },
   },
 
   methods: {
@@ -213,10 +213,18 @@ export default {
       this.$router.push("/products/product-details/" + this.product.id);
     },
     linkToPreview() {
-      this.$store.dispatch('productManage/setCurrentProduct', this.product)
+      this.$store.dispatch("productManage/setCurrentProduct", this.product);
       // window.open("/products/preview/" + this.product.id, "_blank");
       let token = this.logged_user.token;
-      window.open("http://localhost:8081/product/" + this.product.id +"?academy_token=" + token + "&id=" +this.product.id , "_blank");
+      window.open(
+        "https://store.krakiun.com/product/" +
+          this.product.id +
+          "?academy_token=" +
+          token +
+          "&id=" +
+          this.product.id,
+        "_blank"
+      );
     },
 
     linkToManageComments() {

@@ -178,7 +178,7 @@
             </p>
             <vs-button
               class="start-course mt-2"
-              style="color:white"
+              style="color: white"
               v-bind:style="[
                 prod_settings
                   ? {
@@ -224,10 +224,14 @@
                   <vs-card>
                     <div
                       @click="selectProductCustomizeMenu('welcome')"
-                      v-bind:style="{
-                        'text-align': welcome_text_aligment,
-                        color: prod_settings.dark_font_color,
-                      }"
+                      v-bind:style="[
+                        prod_settings
+                          ? {
+                              'text-align': welcome_text_aligment,
+                              color: prod_settings.dark_font_color,
+                            }
+                          : { 'text-align': welcome_text_aligment },
+                      ]"
                     >
                       <p
                         class="product-welcome-title"
@@ -238,7 +242,7 @@
                                   prod_settings.heading_font_family,
                                 color: prod_settings.dark_font_color,
                               }
-                            : { color: prod_settings.dark_font_color },
+                            : '',
                         ]"
                       >
                         {{ current_product.title }}

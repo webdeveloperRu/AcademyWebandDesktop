@@ -3547,7 +3547,7 @@ export default {
       // window.open("/products/preview/" + this.product_id, "_blank");
       let token = this.$store.state.auth.user.token;
       window.open(
-        "http://localhost:8081/product/" +
+        "https://store.krakiun.com/product/" +
           this.product_id +
           "?academy_token=" +
           token +

@@ -1,8 +1,8 @@
-import SettingsService from '../services/settings.service';
-import store from './index'
+import SettingsService from "../services/settings.service";
+import store from "./index";
 const initialState = {
   notification: [],
-  custom_domain: [],
+  custom_domain: { custom_domain: "preview.videocourse.app" },
   billing_address: [],
   account_details: [],
 };
@@ -13,91 +13,82 @@ export const settingManage = {
     /**
      * ---------get notification-------------------
      */
-    getNotification({
-      commit
-    }) {
+    getNotification({ commit }) {
       return SettingsService.getNotification().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('getNotificationSuccess', res);
+            commit("getNotificationSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
     },
-
-
 
     /**
      * ---------set notification -----------------
      */
-    setNotification({
-      commit
-    }, notfication) {
+    setNotification({ commit }, notfication) {
       return SettingsService.setNotification(notfication).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('setNotificationSuccess', res);
+            commit("setNotificationSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
     },
 
-
     /**
      * ---------get custom domain -----------------
      */
-    getCustomDomain({
-      commit
-    }) {
+    getCustomDomain({ commit }) {
       return SettingsService.getCustomDomain().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('getCustomDomainSuccess', res);
+            commit("getCustomDomainSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -106,28 +97,26 @@ export const settingManage = {
     /**
      * ---------set custom domain -----------------
      */
-    setCustomDomain({
-      commit
-    }, custom_domain) {
+    setCustomDomain({ commit }, custom_domain) {
       return SettingsService.setCustomDomain(custom_domain).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('setCustomDomainSuccess', res);
+            commit("setCustomDomainSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -136,28 +125,26 @@ export const settingManage = {
     /**
      * ---------delete custom domain -----------------
      */
-    deleteCustomDomain({
-      commit
-    }) {
+    deleteCustomDomain({ commit }) {
       return SettingsService.setCustomDomain().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('deleteCustomDomainSuccess');
+            commit("deleteCustomDomainSuccess");
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -166,28 +153,26 @@ export const settingManage = {
     /**
      * ---------get billing address -----------------
      */
-    getBillingAddress({
-      commit
-    }) {
+    getBillingAddress({ commit }) {
       return SettingsService.getBillingAddress().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('getBillingAddressSuccess', res);
+            commit("getBillingAddressSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -196,28 +181,26 @@ export const settingManage = {
     /**
      * ---------set billing address -----------------
      */
-    setBillingAddress({
-      commit
-    }, custom_domain) {
+    setBillingAddress({ commit }, custom_domain) {
       return SettingsService.setBillingAddress(custom_domain).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('setBillingAddressSuccess', res);
+            commit("setBillingAddressSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -227,28 +210,26 @@ export const settingManage = {
      * ---------get account details -----------------
      */
 
-    getAccountDetails({
-      commit
-    }) {
+    getAccountDetails({ commit }) {
       return SettingsService.getAccountDetails().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('getAccountDetailsSuccess', res);
+            commit("getAccountDetailsSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -258,19 +239,17 @@ export const settingManage = {
      * ---------set account details -----------------
      */
 
-    setAccountDetails({
-      commit
-    }, account_details) {
+    setAccountDetails({ commit }, account_details) {
       return SettingsService.setAccountDetails(account_details).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('setAccountDetailsSuccess', res);
+            commit("setAccountDetailsSuccess", res);
           } else {
-            commit('setAccountDetailsFailed', res.response);
+            commit("setAccountDetailsFailed", res.response);
           }
         },
-        error => {
-          commit('setAccountDetailsFailed', error.response);
+        (error) => {
+          commit("setAccountDetailsFailed", error.response);
         }
       );
     },
@@ -279,60 +258,55 @@ export const settingManage = {
      * ---------delete account details -----------------
      */
 
-    deleteAccountDetails({
-      commit
-    }) {
+    deleteAccountDetails({ commit }) {
       return SettingsService.deleteAccountDetails().then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('deleteAccountDetailsSuccess');
+            commit("deleteAccountDetailsSuccess");
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
     },
 
-
     /**
      * ---------set account avatar -----------------
      */
 
-    setAccountAvatar({
-      commit
-    }, avatar) {
+    setAccountAvatar({ commit }, avatar) {
       return SettingsService.setAccountAvatar(avatar).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('setAccountAvatarSuccess', res);
+            commit("setAccountAvatarSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
@@ -342,41 +316,37 @@ export const settingManage = {
      * ---------delete account avatar -----------------
      */
 
-    deleteAccountAvatar({
-      commit
-    }, avatar) {
+    deleteAccountAvatar({ commit }, avatar) {
       return SettingsService.deleteAccountAvatar(avatar).then(
-        res => {
+        (res) => {
           if (res.status === 200) {
-            commit('deleteAccountAvatarSuccess', res);
+            commit("deleteAccountAvatarSuccess", res);
           } else {
             if (res.response == undefined)
-              commit('NETWORK_ERROR', null, {
-                root: true
+              commit("NETWORK_ERROR", null, {
+                root: true,
               });
             else {
               commit("REQUEST_FAILED", res.response, {
-                root: true
+                root: true,
               });
             }
           }
         },
-        error => {
+        (error) => {
           commit("REQUEST_FAILED", error.response, {
-            root: true
+            root: true,
           });
         }
       );
     },
-
-
   },
 
   getters: {
-    notification: state => state.notification,
-    custom_domain: state => state.custom_domain,
-    billing_address: state => state.billing_address,
-    account_details: state => state.account_details
+    notification: (state) => state.notification,
+    custom_domain: (state) => state.custom_domain,
+    billing_address: (state) => state.billing_address,
+    account_details: (state) => state.account_details,
   },
 
   mutations: {
@@ -385,12 +355,12 @@ export const settingManage = {
      */
     getNotificationSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_text = 'notification successfully got';
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      state.notification = res.data
+      store.state.notification_text = "notification successfully got";
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      state.notification = res.data;
     },
 
     /**
@@ -398,54 +368,61 @@ export const settingManage = {
      */
     getCustomDomainSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'custom domain succsfully got!';
-      state.custom_domain = res.data;
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "custom domain succsfully got!";
+      if (res.data.custom_domain == null) {
+        state.custom_domain = res.data;
+        state.custom_domain.custom_domain = "preview.videocourse.app";
+      } else if (res.data.custom_domain == "") {
+        state.custom_domain = res.data;
+        state.custom_domain.custom_domain = "preview.videocourse.app";
+      }
     },
-
 
     /**
      * ---------delete custom domain----------------
      */
     deleteCustomDomainSuccess() {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'custom domain deleted';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "custom domain deleted";
     },
-
-
 
     /**
      * ---------set custom domain----------------
      */
     setCustomDomainSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'custom domain succsfully updated';
-      state.custom_domain = res.data;
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "custom domain succsfully updated";
+      if (res.data.custom_domain == "") {
+        state.custom_domain = res.data;
+        state.custom_domain.custom_domain = "preview.videocourse.app";
+      } else if (res.data.custom_domain == null) {
+        state.custom_domain = res.data;
+        state.custom_domain.custom_domain = "preview.videocourse.app";
+      }
     },
-
-
 
     /**
      * ---------set notificaton  ----------------
      */
     setNotificationSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_text = 'notification successfully updated!';
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
+      store.state.notification_text = "notification successfully updated!";
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
       state.notification = res.data;
     },
 
@@ -454,18 +431,18 @@ export const settingManage = {
      */
     getBillingAddressSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'custom domain succsfully updated';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "custom domain succsfully updated";
       state.billing_address = res.data;
     },
 
     getBillingAddressFailed(state, error) {
       store.state.status = {};
-      store.state.notification_icon = "warning"
-      store.state.notification_color = "#ff3300"
+      store.state.notification_icon = "warning";
+      store.state.notification_color = "#ff3300";
       store.state.notification_text = error.data.message;
     },
 
@@ -474,48 +451,46 @@ export const settingManage = {
      */
     setBillingAddressSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'Billing address succsfully updated';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "Billing address succsfully updated";
       state.billing_address = res.data;
     },
-
 
     /**
      * ---------get account details ----------------
      */
     getAccountDetailsSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'account details successfully got';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "account details successfully got";
       state.account_details = res.data;
       store.state.auth.user.data = state.account_details;
     },
-
 
     /**
      * ---------set account details ----------------
      */
     setAccountDetailsSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'account details successfully updated';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "account details successfully updated";
       state.account_details = res.data;
       store.state.auth.user.data = state.account_details;
     },
 
     setAccountDetailsFailed(state, error) {
       store.state.status = {};
-      store.state.notification_icon = "warning"
-      store.state.notification_color = "#ff3300"
+      store.state.notification_icon = "warning";
+      store.state.notification_color = "#ff3300";
       store.state.notification_text = error.data.message;
     },
 
@@ -524,13 +499,12 @@ export const settingManage = {
      */
     deleteAccountDetailsSuccess(state) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'account details deleted';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "account details deleted";
       state.account_details = [];
-
     },
 
     /**
@@ -538,11 +512,11 @@ export const settingManage = {
      */
     setAccountAvatarSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'account avatar successfully updated';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "account avatar successfully updated";
       state.account_details = res.data;
       store.state.auth.user.data = state.account_details;
     },
@@ -552,20 +526,17 @@ export const settingManage = {
      */
     deleteAccountAvatarSuccess(state, res) {
       store.state.status = {
-        got: true
+        got: true,
       };
-      store.state.notification_icon = 'info';
-      store.state.notification_color = 'primary';
-      store.state.notification_text = 'account avatar deleted';
+      store.state.notification_icon = "info";
+      store.state.notification_color = "primary";
+      store.state.notification_text = "account avatar deleted";
       state.account_details.avatar = res.data.avatar;
       store.state.auth.user.data.avatar = res.data.avatar;
     },
 
     RESET_MODULE(state) {
-
-      Object.assign(state, initialState)
-    }
-
-
-  }
+      Object.assign(state, initialState);
+    },
+  },
 };

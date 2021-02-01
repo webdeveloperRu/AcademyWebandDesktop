@@ -163,6 +163,7 @@ export default {
             text: this.notification_text,
             icon: this.notification_icon,
           });
+          this.getCustomDomain();
         })
         .catch(() => {
           this.$vs.notify({

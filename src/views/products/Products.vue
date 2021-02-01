@@ -6,14 +6,12 @@
     <vs-row vs-justify="center" class="font-weight-normal">
       <vs-col vs-lg="10" vs-sm="12">
         <vs-row>
-          <div class="ml-2 mb-3 ">
+          <div class="ml-2 mb-3">
             <div class="d-flex">
-              <h2>
-                Products
-              </h2>
+              <h2>Products</h2>
               <i
-                class="mdi mdi-help-circle-outline "
-                style="color: #3b66ff; font-size: 22px;"
+                class="mdi mdi-help-circle-outline"
+                style="color: #3b66ff; font-size: 22px"
               ></i>
             </div>
             <div>
@@ -64,11 +62,13 @@
                   color="dark"
                   type="border"
                   class="save-cancel-button"
-                  style="margin-left:auto;"
+                  style="margin-left: auto"
                   @click.native="activeAddProduct = false"
                   >Cancel</vs-button
                 >
-                <vs-button class="ml-3 save-cancel-button" @click.native="addProduct"
+                <vs-button
+                  class="ml-3 save-cancel-button"
+                  @click.native="addProduct"
                   >Save</vs-button
                 >
               </div>
@@ -145,8 +145,9 @@ export default {
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch("changeSideBar", 'default');
+    this.$store.dispatch("changeSideBar", "default");
     this.getProductList();
+    this.getCustomDomain();
   },
   /**
    * --------------method part-------------
@@ -214,8 +215,18 @@ export default {
      * --------------link to comment-------------
      */
 
-    linkToComment: function() {
+    linkToComment: function () {
       this.$router.push("/products/comments/1");
+    },
+
+    /**
+     * --------------get custom domain-------------
+     */
+    getCustomDomain() {
+      this.$store
+        .dispatch("settingManage/getCustomDomain")
+        .then(() => {})
+        .catch(() => {});
     },
   },
 };

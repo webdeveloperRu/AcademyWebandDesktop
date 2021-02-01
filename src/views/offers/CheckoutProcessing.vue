@@ -52,7 +52,7 @@ export default {
           if (this.student_register_required)
             this.$router.push("/settings/member-setup");
           else this.registerStudent();
-        } else window.open("https://store.krakiun.com/", "_self");
+        } else window.open(this.custom_domain, "_self");
       }, 1000);
     },
 
@@ -86,7 +86,7 @@ export default {
                   ])
                   .then(() => {
                     if (this.status_got) {
-                      window.open("https://store.krakiun.com/", "_self");
+                      window.open(this.custom_domain, "_self");
                     } else {
                       this.$vs.notify({
                         color: this.notification_color,
@@ -195,6 +195,17 @@ export default {
       var id = this.$route.params.offer_id;
       if (id == undefined) return "";
       else return id.slice(0, id.length);
+    },
+
+    custom_domain: {
+      get() {
+        let custom_domain = this.$store.getters["settingManage/custom_domain"]
+          .custom_domain;
+        let lastChar = custom_domain[custom_domain.length - 1];
+        if (lastChar == "/")
+          return custom_domain.substr(0, custom_domain.length - 1);
+        else return custom_domain;
+      },
     },
   },
 };

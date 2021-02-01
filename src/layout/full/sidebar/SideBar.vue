@@ -2196,6 +2196,17 @@ export default {
         return this.$store.getters["prodCustomizeManage/prod_syllabus"];
       },
     },
+
+    custom_domain: {
+      get() {
+        let custom_domain = this.$store.getters["settingManage/custom_domain"]
+          .custom_domain;
+        let lastChar = custom_domain[custom_domain.length - 1];
+        if (lastChar == "/")
+          return custom_domain.substr(0, custom_domain.length - 1);
+        else return custom_domain;
+      },
+    },
   },
 
   watch: {
@@ -3547,7 +3558,8 @@ export default {
       // window.open("/products/preview/" + this.product_id, "_blank");
       let token = this.$store.state.auth.user.token;
       window.open(
-        "https://store.krakiun.com/product/" +
+        this.custom_domain +
+          "/product/" +
           this.product_id +
           "?academy_token=" +
           token +

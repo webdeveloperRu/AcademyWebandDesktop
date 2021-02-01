@@ -483,6 +483,17 @@ export default {
         return this.$store.getters["student_email_exist"];
       },
     },
+
+    custom_domain: {
+      get() {
+        let custom_domain = this.$store.getters["settingManage/custom_domain"]
+          .custom_domain;
+        let lastChar = custom_domain[custom_domain.length - 1];
+        if (lastChar == "/")
+          return custom_domain.substr(0, custom_domain.length - 1);
+        else return custom_domain;
+      },
+    },
   },
 
   watch: {
@@ -700,7 +711,7 @@ export default {
         });
     },
     linkToStudentApp() {
-      window.open("https://store.krakiun.com/", "_blank");
+      window.open(this.custom_domain, "_blank");
     },
     closeHeadUp() {
       this.active_headup_pop = false;

@@ -150,7 +150,7 @@ export default {
                   ])
                   .then(() => {
                     if (this.status_got) {
-                      window.open("https://store.krakiun.com/", "_self");
+                      window.open(this.custom_domain, "_self");
                     } else {
                       this.$vs.notify({
                         color: this.notification_color,
@@ -221,6 +221,17 @@ export default {
     status_got: {
       get() {
         return this.$store.getters["status_got"];
+      },
+    },
+
+    custom_domain: {
+      get() {
+        let custom_domain = this.$store.getters["settingManage/custom_domain"]
+          .custom_domain;
+        let lastChar = custom_domain[custom_domain.length - 1];
+        if (lastChar == "/")
+          return custom_domain.substr(0, custom_domain.length - 1);
+        else return custom_domain;
       },
     },
   },

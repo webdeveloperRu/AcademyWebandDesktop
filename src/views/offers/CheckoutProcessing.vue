@@ -203,8 +203,8 @@ export default {
           .custom_domain;
         let lastChar = custom_domain[custom_domain.length - 1];
         if (lastChar == "/")
-          return custom_domain.substr(0, custom_domain.length - 1);
-        else return custom_domain;
+          return "https://" + custom_domain.substr(0, custom_domain.length - 1);
+        else return "https://" + custom_domain;
       },
     },
   },

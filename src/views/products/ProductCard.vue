@@ -210,8 +210,8 @@ export default {
           .custom_domain;
         let lastChar = custom_domain[custom_domain.length - 1];
         if (lastChar == "/")
-          return custom_domain.substr(0, custom_domain.length - 1);
-        else return custom_domain;
+          return "https://" + custom_domain.substr(0, custom_domain.length - 1);
+        else return "https://" + custom_domain;
       },
     },
   },
@@ -228,8 +228,7 @@ export default {
       // window.open("/products/preview/" + this.product.id, "_blank");
       let token = this.logged_user.token;
       window.open(
-        this.custom_domain +
-          "/product/" +
+        "http://localhost:8081/product/" +
           this.product.id +
           "?academy_token=" +
           token +

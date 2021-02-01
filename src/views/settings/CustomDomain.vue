@@ -8,8 +8,8 @@
         <span
           class="ml-2 mb-2 mt-2 primary-font"
           @click="backToSettings"
-          style="cursor: pointer;"
-          ><i class="ti-angle-left" style="font-size: 14px;"></i> Settings</span
+          style="cursor: pointer"
+          ><i class="ti-angle-left" style="font-size: 14px"></i> Settings</span
         >
         <div class="d-flex mt-3">
           <h2>Custom Domain</h2>
@@ -37,9 +37,7 @@
           code-toggler
         >
           <h3>Custom Domain</h3>
-          <div class="mt-2">
-            Please input your custom domain name.
-          </div>
+          <div class="mt-2">Please input your custom domain name.</div>
         </vs-col>
         <vs-col
           type="flex"
@@ -122,7 +120,7 @@ export default {
    * --------------created part-------------
    */
   created() {
-    this.$store.dispatch("changeSideBar", 'default');
+    this.$store.dispatch("changeSideBar", "default");
     this.getCustomDomain();
   },
 
@@ -135,6 +133,12 @@ export default {
         .dispatch("settingManage/getCustomDomain")
         .then(() => {
           this.selected_custom_domain = this.custom_domain.custom_domain;
+          if (this.selected_custom_domain == null)
+            this.selected_custom_domain = "preview.videocourse.app";
+          if (this.selected_custom_domain == "")
+            this.selected_custom_domain = "preview.videocourse.app";
+          if (this.selected_custom_domain == undefined)
+            this.selected_custom_domain = "preview.videocourse.app";
         })
         .catch(() => {
           this.$vs.notify({

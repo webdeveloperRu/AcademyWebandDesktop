@@ -227,9 +227,18 @@ export default {
       this.$store.dispatch("productManage/setCurrentProduct", this.product);
       // window.open("/products/preview/" + this.product.id, "_blank");
       let token = this.logged_user.token;
+      // window.open(
+      //   this.custom_domain +
+      //     "/product/" +
+      //     this.product.id +
+      //     "?academy_token=" +
+      //     token +
+      //     "&id=" +
+      //     this.product.id,
+      //   "_blank"
+      // );
       window.open(
-        this.custom_domain +
-          "/product/" +
+        "http://localhost:8081/product/" +
           this.product.id +
           "?academy_token=" +
           token +

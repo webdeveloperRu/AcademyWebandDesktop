@@ -57,57 +57,57 @@ export const auth = {
     },
 
     logout({ commit }) {
+      commit("integrationManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("twofaManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("productManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("categoryManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("offerManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("lessonManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("peopleManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("couponManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("commentManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("templateManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("settingManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("subuserManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("siteDetailsManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("paymentManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("prodCustomizeManage/RESET_MODULE", null, {
+        root: true,
+      });
+      commit("RESET_MODULE", null, {
+        root: true,
+      });
+      commit("RESET_MODULE");
       return AuthService.logout().then(
         (res) => {
-          commit("integrationManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("twofaManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("productManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("categoryManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("offerManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("lessonManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("peopleManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("couponManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("commentManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("templateManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("settingManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("subuserManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("siteDetailsManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("paymentManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("prodCustomizeManage/RESET_MODULE", null, {
-            root: true,
-          });
-          commit("RESET_MODULE", null, {
-            root: true,
-          });
-          commit("RESET_MODULE");
           commit("logoutSuccess", res.response);
         },
         (error) => {
@@ -409,7 +409,7 @@ export const auth = {
       store.state.notification_color = "primary";
       store.state.notification_text = "";
     },
-    resetStudentPasswordSuccess()  {
+    resetStudentPasswordSuccess() {
       store.state.status = {
         got: true,
       };
@@ -417,7 +417,6 @@ export const auth = {
       store.state.notification_color = "primary";
       store.state.notification_text = "Success to register!";
     },
-
 
     RESET_MODULE(state) {
       Object.assign(state, initialState);

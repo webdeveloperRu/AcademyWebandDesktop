@@ -163,6 +163,9 @@ export default new Vuex.Store({
       state.student_register_required = true;
       state.purchaser_fullname = "";
       state.purchaser_password = "";
+      state.notification_color = "";
+      state.notification_icon = "";
+      state.notification_text = "";
     },
 
     SET_CUSTOMIZE_PRODUCT_ID(state, product_id) {
